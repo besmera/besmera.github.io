@@ -1,0 +1,55 @@
+/**
+dl {
+ width:100%;
+ overflow:hidden;
+}
+
+dt {
+ float:left;
+ width:15%; 
+}
+
+dd {
+ float:left;
+ width:85%; 
+}
+
+*/
+dl {
+	border: 4px solid !important;
+	border-radius: 10px;
+	background-color: #EEEEEE;
+	margin-bottom: 20px !important;
+}
+
+dt, dd {
+	display: inline;
+}
+
+dt {
+	font-weight: 900 !important;
+	text-decoration: underline;
+}
+
+dt:after {
+	content: ':';
+}
+
+.level2 h1 {
+	font-size: 1.5em;
+}
+
+section > h3.warning {
+	font-size: 1em;
+}
+
+section > h3.warning > a {
+	color: red !important;
+}
+
+code {
+	border: 4px solid;
+	border-radius: 10px;
+	background-color: #DCDCDC;
+	padding: 5px 5px;
+}
