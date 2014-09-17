@@ -698,20 +698,18 @@ $lastName = $_POST[&quot;lastName&quot;];
 ?&gt;
 &lt;html&gt; 
     &lt;head&gt;
-        &lt;title&gt;Hello &lt;?php echo $firstName . $lastName . &quot;!&quot;; ?&gt;&lt;/title&gt;
+        &lt;title&gt;Hello &lt;?php echo $firstName . &quot; &quot; . $lastName . &quot;!&quot;; ?&gt;&lt;/title&gt;
     &lt;/head&gt;
     &lt;body&gt; 
-
-
         &lt;form method=&quot;POST&quot; action=&quot;&lt;?php echo $PHP_SELF; ?&gt;&quot;&gt; 
-            First Name: &lt;input type=&quot;text&quot; name=&quot;firstName&quot;&gt;&lt;br /&gt; 
-            Last Name: &lt;input type=&quot;text&quot; name=&quot;lastName&quot;&gt;
+            First Name: &lt;input type=&quot;text&quot; name=&quot;firstName&quot;&gt;&lt;/input&gt;&lt;br /&gt; 
+            Last Name: &lt;input type=&quot;text&quot; name=&quot;lastName&quot;&gt;&lt;/input&gt;
             &lt;input type=&quot;submit&quot; value=&quot;submit&quot; name=&quot;submit&quot;&gt;
         &lt;/form&gt;
     &lt;/body&gt;
 &lt;/html&gt;</code></pre>
 <aside class="notes">
-
+This is some notes
 </aside>
 </section></section>
 <section class="footnotes">
