@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>Intro To PHP Cont.</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Intro To PHP Cont.</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/before-class">Before Class</a></li>
+<li><a href="#/looping">Looping</a></li>
+<li><a href="#/more-conditionals">More Conditionals</a></li>
+</ul>
+</section>
+
+<section><section id="before-class" class="titleslide slide level1"><h1><a href="#/before-class">Before Class</a></h1></section><section id="logic-challenge" class="slide level2">
+<h1><a href="#/logic-challenge">Logic Challenge</a></h1>
+<pre class="php"><code>$u = 0;
+$v = &quot;Andrew&quot;;
+$w = true;
+$x = 5;
+$y = 22;
+$z = false;
+
+if($u || $v) 
+{ //true or false? }
+
+if(!$w == false &amp;&amp; $y &gt; 22) 
+{ //true or false? }
+
+if(!$z || ($z == true &amp;&amp; $x)) 
+{ //true or false? }
+
+if(!$u &amp;&amp; $v &amp;&amp; ($w &amp;&amp; $x) &lt; $y &amp;&amp; ($z || $y)) 
+{ //true or false? }</code></pre>
+</section><section id="approaching-problems" class="slide level2">
+<h1><a href="#/approaching-problems">Approaching Problems</a></h1>
+<ul>
+<li>No survey I have seen has programmers spending all (or even the majority) of their time coding</li>
+<li>Before writing a single line of code:
+<ul>
+<li>Fully understand the problem</li>
+<li>Outline the steps required to accomplish your goal</li>
+<li>Then once you understand what you will code start programming</li>
+</ul></li>
+</ul>
+</section><section id="communicating" class="slide level2">
+<h1><a href="#/communicating">Communicating</a></h1>
+<ul>
+<li>Needs
+<ul>
+<li>Use my <a href="http://faculty.winthrop.edu/besmera/">faculty webpage</a></li>
+</ul></li>
+<li>Errors
+<ul>
+<li>Email: besmera@winthrop.edu</li>
+<li>Better yet do a pull request against the Class-Slides :)</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="looping" class="titleslide slide level1"><h1><a href="#/looping">Looping</a></h1></section><section id="while-loop" class="slide level2">
+<h1><a href="#/while-loop">while Loop</a></h1>
+<ul>
+<li>Executes code block only if expression evaluates to true</li>
+<li>This is a pre-test loop</li>
+<li>Two parts
+<ul>
+<li>Code block</li>
+<li>Expression</li>
+</ul></li>
+<li>Each run of the code block is called an iteration</li>
+</ul>
+<pre class="php"><code>while(conditional expression)
+{
+    //statements
+}</code></pre>
+</section><section id="while-loop-1" class="slide level2">
+<h1><a href="#/while-loop-1">while Loop</a></h1>
+<ul>
+<li>1 check the condition
+<ul>
+<li>If true
+<ul>
+<li>Execute 2</li>
+<li>Go back to 1</li>
+</ul></li>
+<li>If false
+<ul>
+<li>Skip code block</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="php"><code>while(1)
+{
+    2
+}</code></pre>
+</section><section id="while-loop-2" class="slide level2">
+<h1><a href="#/while-loop-2">while Loop</a></h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$takeoff = 3;
+
+while($takeoff &gt;= 0)
+{
+    echo $takeoff-- . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+</section><section id="while-loop-3" class="slide level2">
+<h1><a href="#/while-loop-3">while Loop</a></h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$takeoff = -3;
+
+while($takeoff &gt;= 0)
+{
+    echo $takeoff-- . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+</section><section id="while-loop-4" class="slide level2">
+<h1><a href="#/while-loop-4">while Loop</a></h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$takeoff = 3;
+
+while($takeoff &lt;= 3)
+{
+    echo $takeoff-- . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+<div class="fragment">
+<ul>
+<li>Be careful of infinite loops
+<ul>
+<li>Ensure you will eventually reach an exit condition</li>
+</ul></li>
+</ul>
+</div>
+</section><section id="break" class="slide level2">
+<h1><a href="#/break">break</a></h1>
+<ul>
+<li><code>break</code> can be used to exit the nearest looping structure it is contained in</li>
+<li>This allows us to create intentional infinite loops or to exit a loop given a condition</li>
+</ul>
+<pre class="php"><code>while(true)
+{
+    //Get controller commands
+    if(quit command received)
+        break;
+    //Process character movements
+    //Update UI
+}</code></pre>
+</section><section id="while-loop-5" class="slide level2">
+<h1><a href="#/while-loop-5">while Loop</a></h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$takeoff = 3;
+
+while(true)
+{
+    echo $takeoff . &quot;&lt;br&gt;&quot;;
+    if(--$takeoff &lt;= 0)
+        break; 
+}</code></pre>
+<ul>
+<li class="fragment">What about <code>if($takeoff-- &lt;= 0)</code></li>
+</ul>
+</section><section id="do-while-loop" class="slide level2">
+<h1><a href="#/do-while-loop">do while Loop</a></h1>
+<ul>
+<li>Executes code block once</li>
+<li>Executes it again only if expression evaluates to true</li>
+<li>This is a post-test loop</li>
+<li>Notice a <code>;</code> is used here</li>
+</ul>
+<pre class="php"><code>do
+{
+    //statements
+} while(conditional expression);</code></pre>
+</section><section id="do-while-loop-1" class="slide level2">
+<h1><a href="#/do-while-loop-1">do while Loop</a></h1>
+<ul>
+<li>Execute 1 then</li>
+<li>Check condition 2
+<ul>
+<li>If true
+<ul>
+<li>Execute 1</li>
+<li>Go back to check condition 2</li>
+</ul></li>
+<li>If false
+<ul>
+<li>Skip code block</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="php"><code>do
+{
+    1
+} while(2);</code></pre>
+</section><section id="do-while-loop-2" class="slide level2">
+<h1><a href="#/do-while-loop-2">do while Loop</a></h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$takeoff = 3;
+
+do
+{
+    echo --$takeoff . &quot;&lt;br&gt;&quot;;
+}
+while ($takeoff &gt;= 0);</code></pre>
+</section><section id="do-while-loop-3" class="slide level2">
+<h1><a href="#/do-while-loop-3">do while Loop</a></h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$takeoff = 3;
+
+do
+{
+    echo $takeoff-- . &quot;&lt;br&gt;&quot;;
+}
+while ($takeoff = 3);</code></pre>
+<ul>
+<li class="fragment">Trick Question! Infinite 3’s!</li>
+</ul>
+</section><section id="do-while-loop-4" class="slide level2">
+<h1><a href="#/do-while-loop-4">do while Loop</a></h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$takeoff = 3;
+
+do
+{
+    echo $takeoff-- . &quot;&lt;br&gt;&quot;;
+}
+while ($takeoff &lt;= 3);</code></pre>
+</section><section id="for-loop" class="slide level2">
+<h1><a href="#/for-loop">for Loop</a></h1>
+<ul>
+<li>For loop is typically used when number of iterations is known
+<ul>
+<li>Known can be based on runtime variables like number of items entered by user</li>
+</ul></li>
+<li>For loops require three statements
+<ul>
+<li>initialization</li>
+<li>conditional expression</li>
+<li>incrementor</li>
+</ul></li>
+</ul>
+<pre class="php"><code>for(initialization; conditional expression; incrementor)
+{
+    //statements
+}</code></pre>
+</section><section id="for-loop-1" class="slide level2">
+<h1><a href="#/for-loop-1">for Loop</a></h1>
+<ul>
+<li>1 Initialize code</li>
+<li>2 Check conditional expression
+<ul>
+<li>If true
+<ul>
+<li>Execute 3</li>
+<li>Execute incrementor 4</li>
+<li>Go back to check 2</li>
+</ul></li>
+<li>If false
+<ul>
+<li>Stop and skip code block</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="php"><code>for(1; 2; 4)
+{
+    3
+}</code></pre>
+</section><section id="for-loop-2" class="slide level2">
+<h1><a href="#/for-loop-2">for Loop</a></h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+for($ct = 0; $ct &lt; 5; $ct++)
+{
+    echo $ct . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+</section><section id="for-loop-3" class="slide level2">
+<h1><a href="#/for-loop-3">for Loop</a></h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+for($ct = 0; $ct &lt; 5; ++$ct)
+{
+    echo $ct . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+</section><section id="for-loop-4" class="slide level2">
+<h1><a href="#/for-loop-4">for Loop</a></h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+for($ct = 0; $ct &lt; 5; $ct+=2)
+{
+    echo $ct . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+</section><section id="for-loop-5" class="slide level2">
+<h1><a href="#/for-loop-5">for Loop</a></h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$ct = 0;
+for(; $ct &lt; 4; )
+{
+    echo $ct++ . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+</section><section id="continue" class="slide level2">
+<h1><a href="#/continue">continue</a></h1>
+<ul>
+<li><code>continue</code> can be used to exit the <strong><em>current</em></strong> iteration of the nearest looping structure it is contained in</li>
+<li>This means that the loop will go to whatever it’s next step normally would be</li>
+</ul>
+</section><section id="for-loop-6" class="slide level2">
+<h1><a href="#/for-loop-6">for Loop</a></h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+for($ct = 0; $ct &lt; 5; $ct++)
+{
+    if($ct == 3)
+        continue;
+    echo $ct . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+</section><section id="nested-loops" class="slide level2">
+<h1><a href="#/nested-loops">Nested Loops</a></h1>
+<ul>
+<li>Looping structures like conditionals can be nested within one another</li>
+<li><code>for</code> loop is one commonly nested loop</li>
+</ul>
+<pre class="php"><code>&lt;?php
+for($i = 1; $i &lt;= 3; $i++)
+{
+    for($j = 1; $j &lt;= 3; $j++)
+    {
+    }
+}</code></pre>
+</section><section id="for-loop-7" class="slide level2">
+<h1><a href="#/for-loop-7">for Loop</a></h1>
+<ul>
+<li>What is the output of the following script?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+echo &quot;Before loops: \$i=$i &amp; \$j=$j\n&quot;;
+for($i = 1; $i &lt;= 3; $i++)
+{
+    echo &quot;Before nested: \$i=$i &amp; \$j=$j\n&quot;;
+    for($j = 1; $j &lt;= 3; $j++)
+    {
+        echo &quot;In nested: \$i=$i &amp; \$j=$j\n&quot;;
+    }
+    echo &quot;After nested: \$i=$i &amp; \$j=$j\n&quot;;
+}
+echo &quot;After Loops: \$i=$i &amp; \$j=$j\n&quot;;</code></pre>
+</section><section id="for-loop-8" class="slide level2">
+<h1><a href="#/for-loop-8">for Loop</a></h1>
+<ul>
+<li>Lets make stars using nested loops</li>
+</ul>
+<figure>
+<img src="nestedForLoopPart1.png" alt="Nested For Loops Part 1 Example" /><figcaption>Nested For Loops Part 1 Example</figcaption>
+</figure>
+</section><section id="for-loop-9" class="slide level2">
+<h1><a href="#/for-loop-9">for Loop</a></h1>
+<ul>
+<li>Lets make stars using nested loops</li>
+</ul>
+<figure>
+<img src="nestedForLoopPart2.png" alt="Nested For Loops Part 2 Example" /><figcaption>Nested For Loops Part 2 Example</figcaption>
+</figure>
+</section></section>
+<section><section id="more-conditionals" class="titleslide slide level1"><h1><a href="#/more-conditionals">More Conditionals</a></h1></section><section id="switch" class="slide level2">
+<h1><a href="#/switch">Switch</a></h1>
+<ul>
+<li>A switch statement can be used to simplify code such as multiple <code>if else</code> statements or complicated nested logic</li>
+<li>More importantly it supports falling through the structure
+<ul>
+<li>Once matched it will execute the case and all cases below it</li>
+</ul></li>
+</ul>
+<pre class="php"><code>switch ($var) {
+    case val1:
+        //runs if $var == val1
+        break;
+    case val2:
+        //runs if $var == val2
+        break;
+    case val3:
+        //runs if $var == val3
+        break;
+    default:
+        //runs if nothing matched
+}</code></pre>
+</section><section id="switch-1" class="slide level2">
+<h1><a href="#/switch-1">Switch</a></h1>
+<ul>
+<li>Note the lack of <code>break</code></li>
+</ul>
+<pre class="php"><code>switch ($var) {
+    case val1:
+        //runs if $var == val1
+    case val2:
+        //runs if $var == val2 || $var == val1 
+    case val3:
+        //runs if $var == val3 || $var == val2 || $var == val1
+    default:
+        //runs always
+}</code></pre>
+</section><section id="switch-2" class="slide level2">
+<h1><a href="#/switch-2">Switch</a></h1>
+<ul>
+<li class="fragment">What will the output of this script be?
+<ul>
+<li class="fragment"><code>$grade = 89;</code></li>
+<li class="fragment"><code>$grade = 70;</code></li>
+<li class="fragment"><code>$grade = 64;</code></li>
+<li class="fragment"><code>$grade = -5;</code></li>
+</ul></li>
+</ul>
+<pre class="php"><code>&lt;?php
+switch ($grade) {
+    case ($grade &gt;= 90):
+        echo &quot;A&quot;;
+    break;
+    case ($grade &gt;= 80):
+        echo &quot;B&quot;;
+    break;
+    case ($grade &gt;= 70):
+        echo &quot;C&quot;;
+    break;
+    case ($grade &gt;= 60):
+        echo &quot;D&quot;;
+    break;
+    case ($grade &gt;= 0):
+        echo &quot;F&quot;;
+    break;
+    default:
+        echo &quot;Really?&quot;;
+}</code></pre>
+</section><section id="switch-3" class="slide level2">
+<h1><a href="#/switch-3">Switch</a></h1>
+<ul>
+<li class="fragment">What will the output of this script be?
+<ul>
+<li class="fragment"><code>$grade = 89;</code></li>
+<li class="fragment"><code>$grade = 70;</code></li>
+<li class="fragment"><code>$grade = 64;</code></li>
+<li class="fragment"><code>$grade = -5;</code></li>
+</ul></li>
+</ul>
+<pre class="php"><code>&lt;?php
+switch ($grade) {
+    case ($grade &gt;= 90):
+        echo &quot;A&quot;;
+    case ($grade &gt;= 80):
+        echo &quot;B&quot;;
+    case ($grade &gt;= 70):
+        echo &quot;C&quot;;
+    case ($grade &gt;= 60):
+        echo &quot;D&quot;;
+    case ($grade &gt;= 0):
+        echo &quot;F&quot;;
+    default:
+        echo &quot;Really?&quot;;
+}</code></pre>
+</section><section id="switch-4" class="slide level2">
+<h1><a href="#/switch-4">Switch</a></h1>
+<ul>
+<li class="fragment">What will the output of this script be?
+<ul>
+<li class="fragment"><code>$state = &quot;NC&quot;;</code></li>
+<li class="fragment"><code>$state = &quot;SC&quot;;</code></li>
+<li class="fragment"><code>$state = &quot;FL&quot;;</code></li>
+</ul></li>
+</ul>
+<pre class="php"><code>&lt;?php
+switch ($state) {
+    case &quot;NC&quot;:
+        echo &quot;North Carolina&quot;;
+    break;
+    case &quot;SC&quot;:
+        echo &quot;South Carolina&quot;;
+    break;    
+default:
+        echo &quot;Twilight Zone&quot;;
+}</code></pre>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="../reveal.js/lib/js/head.min.js"></script>
+  <script src="../reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
