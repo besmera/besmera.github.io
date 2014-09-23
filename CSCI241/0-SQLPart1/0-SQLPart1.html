@@ -45,6 +45,7 @@
 <li><a href="#/data-types">Data Types</a></li>
 <li><a href="#/constraints">Constraints</a></li>
 <li><a href="#/creation">Creation</a></li>
+<li><a href="#/insertion">Insertion</a></li>
 <li><a href="#/retrieval">Retrieval</a></li>
 </ul>
 </section>
@@ -278,10 +279,10 @@ CREATE TABLE Product (
 </section><section id="floats" class="slide level2">
 <h1><a href="#/floats">Floats</a></h1>
 <ul>
-<li>Floating point (real) numbers: <code>FLOAT</code>, <code>DOUBLE</code>, <code>DOUBLE PRECISION</code>
+<li>Floating point (real) numbers: <code>FLOAT</code>, <code>DOUBLE</code>
 <ul>
-<li><code>FLOAT</code> uses 4 bytes, <code>DOUBLE [PRECISION]</code> uses 8 bytes</li>
-<li><strong><em>WARNING</em></strong>: These are approximations!</li>
+<li><code>FLOAT</code> uses 4 bytes, <code>DOUBLE</code> uses 8 bytes</li>
+<li><strong><em>WARNING</em></strong>: These data types are approximations!</li>
 <li>Try testing <code>DOUBLE</code> against <code>DECIMAL</code></li>
 </ul></li>
 </ul>
@@ -316,12 +317,18 @@ CREATE TABLE DBLTest ( val DOUBLE ); Insert into DBLTest VALUES (.1),(.7); Selec
 </section><section id="text" class="slide level2">
 <h1><a href="#/text">Text</a></h1>
 <ul>
-<li><code>CHAR(M)</code></li>
-<li><code>VARCHAR(M)</code></li>
+<li><code>CHAR(M)</code>
+<ul>
 <li><span class="math">\(M\)</span> is number of characters
 <ul>
-<li>For ASCII <span class="math">\(M \in \{0,1,2,...,65535\}\)</span></li>
-<li>For UTF-8 <span class="math">\(M \in \{0,1,2,...,21844\}\)</span></li>
+<li><span class="math">\(M \in \{0,1,2,...,255\}\)</span></li>
+</ul></li>
+<li>Space padded, see example.</li>
+</ul></li>
+<li><code>VARCHAR(M)</code>
+<ul>
+<li>For ASCII (1B) <span class="math">\(M \in \{0,1,2,...,65535\}\)</span></li>
+<li>For UTF-8 (3B) <span class="math">\(M \in \{0,1,2,...,21844\}\)</span></li>
 </ul></li>
 <li>How many bytes needed to store 256 characters of ASCII?</li>
 <li>How many bytes needed to store 256 characters of UTF-8?</li>
@@ -329,15 +336,24 @@ CREATE TABLE DBLTest ( val DOUBLE ); Insert into DBLTest VALUES (.1),(.7); Selec
 </section><section id="binary" class="slide level2">
 <h1><a href="#/binary">Binary</a></h1>
 <ul>
-<li><code>BINARY(M)</code></li>
-<li><code>VARBINARY(M)</code></li>
-<li><span class="math">\(M\)</span> is number of bytes
+<li><code>BINARY(M)</code>
 <ul>
+<li><span class="math">\(M\)</span> is number of bytes</li>
+<li><span class="math">\(M \in \{0,1,2,...,255\}\)</span></li>
+</ul></li>
+<li><code>VARBINARY(M)</code>
+<ul>
+<li><span class="math">\(M \in \{0,1,2,...,65535\}\)</span></li>
 <li>How many bytes need to store 255 bytes?</li>
 </ul></li>
 </ul>
 </section><section id="text-blob" class="slide level2">
 <h1><a href="#/text-blob">Text &amp; Blob</a></h1>
+<ul>
+<li>Contributes 9-12B toward total row size</li>
+<li>8B + Length Bytes</li>
+</ul>
+<p> </p>
 <table>
 <thead>
 <tr class="header">
@@ -377,8 +393,18 @@ CREATE TABLE DBLTest ( val DOUBLE ); Insert into DBLTest VALUES (.1),(.7); Selec
 </section><section id="row-size-1" class="slide level2">
 <h1><a href="#/row-size-1">Row Size</a></h1>
 <ul>
-<li>Calculating total row size</li>
+<li>Calculating total row size
+<ul>
+<li>If we used <code>MEDIUMBLOB NOT NULL</code> how big of a <code>VARCHAR(M) NOT NULL</code> could we store?
+<ul>
+<li><code>VARCHAR(M) NULL</code>?</li>
+</ul></li>
+<li>Calculate row size for table</li>
+</ul></li>
 </ul>
+<aside class="notes">
+Method I used: Space left in row when using TINYBLOB NOT NULL 65535-(8+1)=65526 Space left in row when using VARCHAR NOT NULL &gt; 255 65526-(2) = 65524Space left in row when using MEDIUMBLOB NOT NULL 65535-(8+3)=65524 Space left in row when using VARCHAR NOT NULL &gt; 255 65524-(2) = 65522
+</aside>
 </section></section>
 <section><section id="constraints" class="titleslide slide level1"><h1><a href="#/constraints">Constraints</a></h1></section><section id="domains" class="slide level2">
 <h1><a href="#/domains">Domains</a></h1>
@@ -419,34 +445,38 @@ CREATE TABLE DBLTest ( val DOUBLE ); Insert into DBLTest VALUES (.1),(.7); Selec
 </ul></li>
 </ul>
 <pre class="sql"><code>CHECK (Dnumber &gt; 0 AND Dnumber &lt; 21)</code></pre>
-</section><section id="keys" class="slide level2">
-<h1><a href="#/keys">Keys</a></h1>
+</section><section id="key" class="slide level2">
+<h1><a href="#/key">Key</a></h1>
 <ul>
 <li><code>PRIMARY KEY</code> clause
 <ul>
 <li>Specifies one or more attributes that makeup the primary key for the table</li>
+<li>Implicitly says <code>NOT NULL</code></li>
 </ul></li>
-</ul>
-<pre class="sql"><code>Dnumber INT PRIMARY KEY</code></pre>
-<ul>
 <li><code>UNIQUE</code> clause
 <ul>
 <li>Specifies alternate keys</li>
+<li>NULLs are allowed on this attribute unless you specify <code>NOT NULL</code></li>
 </ul></li>
 </ul>
-<pre class="sql"><code>Dname VARCHAR(15) UNIQUE</code></pre>
-</section><section id="keys-1" class="slide level2">
-<h1><a href="#/keys-1">Keys</a></h1>
+<pre class="sql"><code>Dnumber INT PRIMARY KEY  -- as part of attribute options</code></pre>
+<pre class="sql"><code>Dname VARCHAR(15) UNIQUE  -- as part of attribute options</code></pre>
+<pre class="sql"><code>PRIMARY KEY (Dnumber)  -- as part of table options</code></pre>
+<pre class="sql"><code>UNIQUE KEY (Dname)  -- as part of table options</code></pre>
+</section><section id="keys" class="slide level2">
+<h1><a href="#/keys">Keys</a></h1>
 <ul>
 <li><code>FOREIGN KEY</code> clause
 <ul>
 <li>Default operation is reject when violated</li>
+<li>Must provide <code>REFERENCES</code></li>
 <li>Can attach referential triggered action to <code>ON DELETE</code> or <code>ON UPDATE</code>
 <ul>
-<li><code>SET NULL</code>, <code>CASCADE</code>, and <code>SET DEFAULT</code></li>
+<li><code>SET NULL</code>, <code>CASCADE</code>, <code>RESTRICT</code> and <code>SET DEFAULT</code></li>
 </ul></li>
 </ul></li>
 </ul>
+<pre class="sql"><code>FOREIGN KEY (super_ssn) REFERENCES (ssn)  -- as part of table options</code></pre>
 </section></section>
 <section><section id="creation" class="titleslide slide level1"><h1><a href="#/creation">Creation</a></h1></section><section id="create-syntax" class="slide level2">
 <h1><a href="#/create-syntax">Create Syntax</a></h1>
@@ -456,8 +486,8 @@ CREATE TABLE DBLTest ( val DOUBLE ); Insert into DBLTest VALUES (.1),(.7); Selec
     ...
     col_nameN TYPE [options],
     PRIMARY KEY(col_Name),
-    FOREIGN KEY (col_name) REFERENCES EMPLOYEE(other_col_name)
-    ); [table_options]</code></pre>
+    FOREIGN KEY (col2_name) REFERENCES tbl2_name(other_col_name)
+    ); [table_options]  -- Note FK can reference same table too!</code></pre>
 </section><section id="create-table" class="slide level2">
 <h1><a href="#/create-table">Create Table</a></h1>
 <pre class="sql"><code>CREATE TABLE EMPLOYEE 
@@ -472,9 +502,9 @@ CREATE TABLE DBLTest ( val DOUBLE ); Insert into DBLTest VALUES (.1),(.7); Selec
     Salary DECIMAL(10,2),
     Super_ssn CHAR(9),
     Dno INT NOT NULL,
-        PRIMARY KEY (Ssn),
-        FOREIGN KEY (Super_ssn) REFERENCES EMPLOYEE(Ssn),
-        FOREIGN KEY (Dno) REFERENCES DEPARTMENT(Dnumber)
+    PRIMARY KEY (Ssn),
+    FOREIGN KEY (Super_ssn) REFERENCES EMPLOYEE(Ssn),
+    FOREIGN KEY (Dno) REFERENCES DEPARTMENT(Dnumber)
     );
 
 CREATE TABLE DEPARTMENT
@@ -483,9 +513,9 @@ CREATE TABLE DEPARTMENT
     Dnumber INT NOT NULL,
     Mgr_ssn CHAR(9) NOT NULL,
     Mgr_start_date DATE,
-        PRIMARY KEY (Dnumber),
-        UNIQUE (Dname),
-        FOREIGN KEY (Mgr_ssn) REFERENCES EMPLOYEE(Ssn)
+    PRIMARY KEY (Dnumber),
+    UNIQUE (Dname),
+    FOREIGN KEY (Mgr_ssn) REFERENCES EMPLOYEE(Ssn)
     );</code></pre>
 </section><section id="chicken-egg" class="slide level2">
 <h1><a href="#/chicken-egg">Chicken Egg</a></h1>
@@ -493,8 +523,41 @@ CREATE TABLE DEPARTMENT
 <li>Some FK’s may cause errors… which goes first?</li>
 <li>How can you fix?</li>
 </ul>
-<p> </p>
+<blockquote>
+<p>Deviation from SQL standards: … InnoDB checks foreign key constraints immediately; the check is not deferred to transaction commit. According to the SQL standard, the default behavior should be deferred checking. That is, constraints are only checked after the entire SQL statement has been processed. Until InnoDB implements deferred constraint checking, some things will be impossible, such as deleting a record that refers to itself using a foreign key.</p>
+</blockquote>
 <pre class="sql"><code>ALTER TABLE tbl_name ADD FOREIGN KEY (col_name) REFERENCES other_tbl(other_col);</code></pre>
+</section></section>
+<section><section id="insertion" class="titleslide slide level1"><h1><a href="#/insertion">Insertion</a></h1></section><section id="insert" class="slide level2">
+<h1><a href="#/insert">Insert</a></h1>
+<ul>
+<li>Insert data using the <code>INSERT</code> statement
+<ul>
+<li>If using <code>VALUES</code> only syntax you MUST specify a value for every column, in order
+<ul>
+<li>Recall ordered list of values</li>
+</ul></li>
+<li>Alternatively can supply the column or attribute names
+<ul>
+<li>Forms the ordered pair across <code>VALUES</code></li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="sql"><code>INSERT INTO table_name VALUES (value1,value2,value3,...);
+-- OR
+INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value3,...);</code></pre>
+</section><section id="practice" class="slide level2">
+<h1><a href="#/practice">Practice</a></h1>
+<ul>
+<li>Lets create a <code>Product</code> table with:
+<ul>
+<li><code>itemName</code></li>
+<li><code>quantity</code></li>
+<li><code>price</code></li>
+</ul></li>
+<li>Row size?</li>
+<li>Then fill it with some data</li>
+</ul>
 </section></section>
 <section><section id="retrieval" class="titleslide slide level1"><h1><a href="#/retrieval">Retrieval</a></h1></section><section id="selection" class="slide level2">
 <h1><a href="#/selection">Selection</a></h1>
@@ -503,7 +566,9 @@ CREATE TABLE DEPARTMENT
 <dd>Basic statement used to retreive data from DBMS.
 </dd>
 </dl>
-<pre class="sql"><code>SELECT &lt;attributes&gt; FROM &lt;tables&gt; WHERE &lt;conditions&gt;;</code></pre>
+<p> </p>
+<pre class="sql"><code>SELECT &lt;projection attributes&gt; FROM &lt;tables&gt; WHERE &lt;selection conditions&gt; ORDER BY &lt;attribute list&gt;;</code></pre>
+<p> </p>
 <dl>
 <dt>Projection attributes</dt>
 <dd>The attribute names whose values will be retrieved by the query. A <code>*</code> indicates all.
@@ -520,13 +585,44 @@ CREATE TABLE DEPARTMENT
 <ul>
 <li>Relational Comparison Operators
 <ul>
-<li><code>=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>, and <code>&lt;&gt;</code></li>
+<li><code>=</code> - note the lack of a double equals</li>
+<li><code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>, and <code>&lt;&gt;</code></li>
 </ul></li>
 <li>Logical Operators
 <ul>
 <li><code>AND</code>, <code>OR</code>, <code>NOT</code></li>
+<li>More on <code>NOT</code> later</li>
 </ul></li>
 </ul>
+</section><section id="order" class="slide level2">
+<h1><a href="#/order">Order</a></h1>
+<ul>
+<li>DBMS will make no guarantee of the order without an <code>ORDER BY</code> clause
+<ul>
+<li>Can order <code>ASC</code> for ascending or <code>DESC</code> for descending</li>
+<li>Can provide multiple attributes to sort on</li>
+</ul></li>
+</ul>
+<pre class="sql"><code>SELECT name FROM Product WHERE price &gt; 2 ORDER BY price DESC, name ASC;</code></pre>
+</section><section id="conceptual-steps" class="slide level2">
+<h1><a href="#/conceptual-steps">Conceptual Steps</a></h1>
+<ul>
+<li>Iterate over each row</li>
+<li>Check selection condition</li>
+<li>Order rows</li>
+<li>Project attributes/columns</li>
+</ul>
+<pre class="sql"><code>SELECT name FROM Product WHERE price &gt; 2 ORDER BY price;</code></pre>
+</section><section id="practice-1" class="slide level2">
+<h1><a href="#/practice-1">Practice</a></h1>
+<ol type="1">
+<li>What are all the products?</li>
+<li>Which products have a price greater than or equal to 10.00?</li>
+<li>Which products are not priced at .99?</li>
+<li>Which products are priced at .99?</li>
+<li>Which products are between 5.00 and 10.00?</li>
+<li>Which products are less than 5.00 or greater than 10.00?</li>
+</ol>
 <aside class="notes">
 <pre><code>CREATE TABLE Product (
   id int(11) NOT NULL auto_increment,
