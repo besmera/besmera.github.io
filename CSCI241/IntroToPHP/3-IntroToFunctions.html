@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>Intro To Functions</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Intro To Functions</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/functions">Functions</a></li>
+<li><a href="#/misc">Misc</a></li>
+</ul>
+</section>
+
+<section><section id="functions" class="titleslide slide level1"><h1><a href="#/functions">Functions</a></h1></section><section id="function" class="slide level2">
+<h1><a href="#/function">Function</a></h1>
+<ul>
+<li>Functions help make reusable code</li>
+<li>A function can be written once and used over and over</li>
+<li>Functions have a specific purpose like add two numbers</li>
+<li>Functions can take 0, 1, or more arguments</li>
+<li>Functions may, but does not have to, return a value</li>
+<li>You call (or invoke) a function by providing it arguments</li>
+</ul>
+</section><section id="function-1" class="slide level2">
+<h1><a href="#/function-1">Function</a></h1>
+<ul>
+<li><code>isset()</code> is a function that takes one argument</li>
+<li>The argument passed to it will be checked
+<ul>
+<li>Returns <code>true</code> if set</li>
+<li>Returns <code>false</code> if not</li>
+</ul></li>
+</ul>
+<pre class="php"><code>isset($_POST[&quot;applyTax&quot;]);</code></pre>
+</section><section id="function-2" class="slide level2">
+<h1><a href="#/function-2">Function</a></h1>
+<ul>
+<li><code>is_numeric()</code> takes an argument and checks it to see if it is numeric
+<ul>
+<li><code>true</code> if it is some sort of number</li>
+<li><code>false</code> if it is not</li>
+</ul></li>
+<li>It does not change the variables type if it is</li>
+<li>Example <a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></li>
+</ul>
+<pre class="php"><code>&lt;?php
+$tests = array(
+    &quot;42&quot;,
+    1337,
+    0x539,
+    02471,
+    0b10100111001,
+    1337e0,
+    &quot;not numeric&quot;,
+    array(),
+    9.1
+);</code></pre>
+</section><section id="function-3" class="slide level2">
+<h1><a href="#/function-3">Function</a></h1>
+<ul>
+<li><code>is_int()</code> takes an argument and checks it to see if it is an integer</li>
+<li>Again, it does not change the data type</li>
+<li>Example<a href="#/fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></li>
+</ul>
+<pre class="php"><code>$tests = array(
+    23,
+    &quot;23&quot;,
+    23.5,
+    &quot;23.5&quot;,
+    null,
+    true,
+    false
+);</code></pre>
+</section><section id="function-4" class="slide level2">
+<h1><a href="#/function-4">Function</a></h1>
+<ul>
+<li>Others
+<ul>
+<li><code>is_bool()</code></li>
+<li><code>is_float()</code></li>
+<li><code>is_numeric()</code></li>
+<li><code>is_string()</code></li>
+<li><code>is_array()</code></li>
+<li><code>is_object()</code></li>
+</ul></li>
+<li>These are all useful to check the actual data type</li>
+<li>All <code>$_GET</code> and <code>$_POST</code> are provided as a string</li>
+</ul>
+</section></section>
+<section><section id="misc" class="titleslide slide level1"><h1><a href="#/misc">Misc</a></h1></section><section id="var_dump" class="slide level2">
+<h1><a href="#/var_dump">var_dump</a></h1>
+<ul>
+<li><code>var_dump()</code> takes an argument and outputs it to the screen</li>
+</ul>
+<pre class="php"><code>&lt;?php
+var_dump($_SERVER); //Server is another super global</code></pre>
+</section><section id="ternery" class="slide level2">
+<h1><a href="#/ternery">Ternery</a></h1>
+<ul>
+<li><code>?</code> is called a ternary operator</li>
+<li><code>:</code> indicates the separation of true/false values in the ternary</li>
+</ul>
+<pre class="php"><code>conditional_expression ? true_value : false_value</code></pre>
+</section><section id="ternary-application" class="slide level2">
+<h1><a href="#/ternary-application">Ternary Application</a></h1>
+<ul>
+<li>Useful for short handing certain conditional logic</li>
+</ul>
+<pre class="php"><code>if (isset($_POST[&quot;taxRate&quot;]) == true)
+{
+    $tax = $_POST[&quot;taxRate&quot;];
+}
+else
+{
+    $tax = 0.00;
+}
+
+//Equivalent to
+
+$tax = isset($_POST[&quot;taxRate&quot;]) ? $_POST[&quot;taxRate&quot;] : 0.00;</code></pre>
+</section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="http://php.net">PHP</a><a href="#/fnref1">↩</a></p></li>
+<li id="fn2"><p><a href="http://php.net">PHP</a><a href="#/fnref2">↩</a></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+
+  <script src="../reveal.js/lib/js/head.min.js"></script>
+  <script src="../reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
