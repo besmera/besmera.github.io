@@ -50,22 +50,33 @@
 <ul>
 <li>Functions help make reusable code</li>
 <li>A function can be written once and used over and over</li>
-<li>Functions have a specific purpose like add two numbers</li>
-<li>Functions can take 0, 1, or more arguments</li>
-<li>Functions may, but does not have to, return a value</li>
-<li>You call (or invoke) a function by providing it arguments</li>
+<li>Functions have a specific purpose like add two numbers
+<ul>
+<li>Calling the function with a different set of inputs can provide different results</li>
+</ul></li>
+<li>PHP has many different functions pre-built in for you to use
+<ul>
+<li>A <a href="http://php.net/manual/en/indexes.functions.php">complete list</a></li>
+</ul></li>
 </ul>
 </section><section id="function-1" class="slide level2">
 <h1><a href="#/function-1">Function</a></h1>
 <ul>
-<li><code>isset()</code> is a function that takes one argument</li>
-<li>The argument passed to it will be checked
+<li>Functions can take 0, 1, or more arguments
 <ul>
-<li>Returns <code>true</code> if set</li>
-<li>Returns <code>false</code> if not</li>
+<li>The order of the arguments does matter</li>
+<li>Arguments are mapped in order to their parameters (more next class)</li>
 </ul></li>
+<li>Functions may, but do not have to, return a value
+<ul>
+<li>If they do not have a return you are provided with <code>NULL</code></li>
+</ul></li>
+<li>You call (or invoke) a function by providing it arguments</li>
 </ul>
-<pre class="php"><code>isset($_POST[&quot;applyTax&quot;]);</code></pre>
+<pre class="php"><code>myFunction(); //No arguments
+myFunction($arg1); //One argument
+myFunction($arg1, $arg2); //Two arguments
+myFunction($arg1, $arg2, ..., $argN); //N arguments</code></pre>
 </section><section id="function-2" class="slide level2">
 <h1><a href="#/function-2">Function</a></h1>
 <ul>
@@ -121,9 +132,34 @@ $tests = array(
 <li>All <code>$_GET</code> and <code>$_POST</code> are provided as a string</li>
 </ul>
 </section></section>
-<section><section id="misc" class="titleslide slide level1"><h1><a href="#/misc">Misc</a></h1></section><section id="var_dump" class="slide level2">
-<h1><a href="#/var_dump">var_dump</a></h1>
+<section><section id="misc" class="titleslide slide level1"><h1><a href="#/misc">Misc</a></h1></section><section id="lab-3" class="slide level2">
+<h1><a href="#/lab-3">Lab 3</a></h1>
 <ul>
+<li>There is not one way to solve these lab problems or indeed any programming problem</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Not everything we learn will immediately apply to a lab
+<ul>
+<li>Think about what we learned does</li>
+<li>See if it helps you solve your problem</li>
+<li>Did anyone use <code>%</code>, <code>$var++</code>, or <code>--$var</code> for Lab 3?</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Most used <code>isset($_POST[&quot;invoiceItem1&quot;])</code>
+<ul>
+<li>Based on what we learned this was best option, why?</li>
+<li>What problem does this technique have?</li>
+</ul></li>
+</ul>
+</div>
+</section><section id="server" class="slide level2">
+<h1><a href="#/server">$_SERVER</a></h1>
+<ul>
+<li>New super global variable <code>$_SERVER</code></li>
 <li><code>var_dump()</code> takes an argument and outputs it to the screen</li>
 </ul>
 <pre class="php"><code>&lt;?php
