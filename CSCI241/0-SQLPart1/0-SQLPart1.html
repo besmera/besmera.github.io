@@ -47,6 +47,8 @@
 <li><a href="#/creation">Creation</a></li>
 <li><a href="#/insertion">Insertion</a></li>
 <li><a href="#/retrieval">Retrieval</a></li>
+<li><a href="#/modification">Modification</a></li>
+<li><a href="#/multiple-tables">Multiple Tables</a></li>
 </ul>
 </section>
 
@@ -601,6 +603,24 @@ INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value
 <li>More on <code>NOT</code> later</li>
 </ul></li>
 </ul>
+</section><section id="comparisonarithmetic" class="slide level2">
+<h1><a href="#/comparisonarithmetic">Comparison/Arithmetic</a></h1>
+<ul>
+<li><code>LIKE</code> comparison operator
+<ul>
+<li>Used for string pattern matching</li>
+<li><code>%</code> replaces an arbitrary number of zero or more characters</li>
+<li><code>_</code> replaces a single character</li>
+</ul></li>
+<li>Standard arithmetic operators
+<ul>
+<li>Addition <code>+</code>, subtraction <code>–</code>, multiplication <code>*</code>, and division <code>/</code></li>
+</ul></li>
+<li>BETWEEN comparison operator
+<ul>
+<li><code>WHERE DNumber BETWEEN 1 AND 2</code></li>
+</ul></li>
+</ul>
 </section><section id="order" class="slide level2">
 <h1><a href="#/order">Order</a></h1>
 <ul>
@@ -611,6 +631,15 @@ INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value
 </ul></li>
 </ul>
 <pre class="sql"><code>SELECT name FROM Product WHERE price &gt; 2 ORDER BY price DESC, name ASC;</code></pre>
+</section><section id="duplicates" class="slide level2">
+<h1><a href="#/duplicates">Duplicates</a></h1>
+<ul>
+<li>SQL does not automatically eliminate <strong><em>duplicate rows</em></strong></li>
+<li>Use keyword <code>DISTINCT</code> with a <code>SELECT</code></li>
+</ul>
+<pre class="sql"><code>SELECT salary FROM EMPLOYEE;
+
+SELECT DISTINCT salary FROM EMPLOYEE; </code></pre>
 </section><section id="conceptual-steps" class="slide level2">
 <h1><a href="#/conceptual-steps">Conceptual Steps</a></h1>
 <ul>
@@ -620,6 +649,16 @@ INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value
 <li>Project attributes/columns</li>
 </ul>
 <pre class="sql"><code>SELECT name FROM Product WHERE price &gt; 2 ORDER BY price;</code></pre>
+</section><section id="views" class="slide level2">
+<h1><a href="#/views">Views</a></h1>
+<ul>
+<li>Last thing before we practice…</li>
+</ul>
+<p> </p>
+<ul>
+<li>Virtual relations can be created as a view</li>
+</ul>
+<pre class="sql"><code>CREATE VIEW ProductValues AS SELECT qty*price AS value FROM Product;</code></pre>
 </section><section id="practice-1" class="slide level2">
 <h1><a href="#/practice-1">Practice</a></h1>
 <ol type="1">
@@ -630,6 +669,176 @@ INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value
 <li>Which products are between 5.00 and 10.00?</li>
 <li>Which products are less than 5.00 or greater than 10.00?</li>
 </ol>
+</section></section>
+<section><section id="modification" class="titleslide slide level1"><h1><a href="#/modification">Modification</a></h1></section><section id="update" class="slide level2">
+<h1><a href="#/update">UPDATE</a></h1>
+<ul>
+<li><code>UPDATE</code> Syntax</li>
+</ul>
+<pre class="sql"><code>UPDATE table SET col1=val1, col2=val2 WHERE col3=val3;</code></pre>
+<ul>
+<li>WARNING: Failure to include a WHERE clause will cause it to operate on all rows!!!!</li>
+</ul>
+</section><section id="delete" class="slide level2">
+<h1><a href="#/delete">DELETE</a></h1>
+<ul>
+<li><p><code>DELETE</code> Syntax</p>
+<pre class="sql"><code>DELETE FROM table WHERE col1=val1;</code></pre></li>
+<li><p>WARNING: Failure to include a WHERE clause will cause it to operate on all rows!!!!</p></li>
+</ul>
+</section></section>
+<section><section id="multiple-tables" class="titleslide slide level1"><h1><a href="#/multiple-tables">Multiple Tables</a></h1></section><section id="selection-1" class="slide level2">
+<h1><a href="#/selection-1">Selection</a></h1>
+<ul>
+<li>When selecting from multiple tables you must <code>JOIN</code> them</li>
+<li>Types of JOINS
+<ul>
+<li><code>CROSS JOIN</code> - Cartesian product</li>
+<li>INNER - Implicit vs Explicit
+<ul>
+<li>EQUI &amp; NON-EQUI
+<ul>
+<li><code>INNER JOIN</code> or <code>JOIN</code></li>
+</ul></li>
+<li>NATURAL
+<ul>
+<li><code>NATURAL JOIN</code></li>
+</ul></li>
+</ul></li>
+<li>OUTER
+<ul>
+<li><code>LEFT JOIN</code></li>
+<li><code>RIGHT JOIN</code></li>
+<li><code>FULL JOIN</code> <a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="join-pdf" class="slide level2">
+<h1><a href="#/join-pdf">JOIN PDF</a></h1>
+<ul>
+<li>Refer to <code>JOIN</code> PDF</li>
+</ul>
+</section><section id="ambiguous-attributes" class="slide level2">
+<h1><a href="#/ambiguous-attributes">Ambiguous Attributes</a></h1>
+<ul>
+<li>Same name can be used for two or more attributes (in different relations/tables)</li>
+<li>When selecting must <strong>qualify</strong> the attribute name with relation name
+<ul>
+<li><code>EMPLOYEE.Dnumber</code></li>
+</ul></li>
+</ul>
+<pre class="sql"><code>SELECT Fname, EMPLOYEE.Name, Address FROM EMPLOYEE, DEPARTMENT
+WHERE DEPARTMENT.Name = &#39;Research&#39; AND DEPARTMENT.Dnumber = EMPLOYEE.Dnumber;</code></pre>
+</section><section id="aliasing" class="slide level2">
+<h1><a href="#/aliasing">Aliasing</a></h1>
+<ul>
+<li>Alias using the AS keyword</li>
+</ul>
+<pre class="sql"><code>EMPLOYEE AS E(Fn, Mi, Ln, Ssn, Bd, Addr, Sex, Sal, Sssn, Dno)
+
+-- Now can use Select E.Fn, E.Ln .....
+
+-- MySQL Ex: Select C.id AS i, C.Name AS n FROM Company AS C;</code></pre>
+</section><section id="er-diagram" class="slide level2">
+<h1><a href="#/er-diagram">ER Diagram</a></h1>
+<figure>
+<img src="Product-Category-Company-ER.png" alt="Product Company Category ER" /><figcaption>Product Company Category ER</figcaption>
+</figure>
+<ul>
+<li>Convert to Relations</li>
+</ul>
+</section><section id="pure-relations" class="slide level2">
+<h1><a href="#/pure-relations">Pure Relations</a></h1>
+<figure>
+<img src="Product-Category-Company-Pure-Relations.drawio.png" alt="Product Company Category Pure Relations" /><figcaption>Product Company Category Pure Relations</figcaption>
+</figure>
+<ul>
+<li>Make SQL <code>CREATE TABLE</code></li>
+<li>Calculate Row Sizes</li>
+</ul>
+</section><section id="sensible-relations" class="slide level2">
+<h1><a href="#/sensible-relations">Sensible Relations</a></h1>
+<figure>
+<img src="Product-Category-Company-Relations.drawio.png" alt="Product Company Category Sensible Relations" /><figcaption>Product Company Category Sensible Relations</figcaption>
+</figure>
+<ul>
+<li>Make SQL <code>CREATE TABLE</code></li>
+<li>Calculate Row Sizes</li>
+</ul>
+</section><section id="sql" class="slide level2">
+<h1><a href="#/sql">SQL</a></h1>
+<pre class="sql"><code>
+-- DROP Existing
+
+DROP TABLE Product, Company, Category;
+
+-- Create Product Table
+
+CREATE TABLE Product (
+ id SMALLINT UNSIGNED NOT NULL auto_increment,
+ name VARCHAR(50) NOT NULL,
+ qty SMALLINT NOT NULL,
+ price DOUBLE(7,2) NOT NULL,
+ company SMALLINT UNSIGNED default NULL,
+ category SMALLINT UNSIGNED default NULL,
+ PRIMARY KEY  (id)
+ ) ENGINE=InnoDB ;
+
+-- Create Category Table
+
+CREATE TABLE Category (
+ id SMALLINT UNSIGNED NOT NULL auto_increment,
+ name VARCHAR(50) NOT NULL,
+ PRIMARY KEY  (id)
+) ENGINE=InnoDB ;
+
+-- Add Category Foreign Key
+
+ALTER TABLE Product ADD FOREIGN KEY (category) REFERENCES Category(id);
+
+-- Create Company Table
+
+CREATE TABLE Company (
+ id SMALLINT UNSIGNED NOT NULL auto_increment,
+ name VARCHAR(50) NOT NULL,
+ PRIMARY KEY  (id)
+) ENGINE=InnoDB ;
+
+-- Add Company Foreign Key
+
+ALTER TABLE Product ADD FOREIGN KEY (Company) REFERENCES Company(id);
+
+-- Fill Category Table
+
+INSERT INTO Category (name) VALUES (&quot;Toys&quot;), (&quot;Tools&quot;), (&quot;Health&quot;);
+
+-- Fill Company Table
+
+Insert INTO Company (name) VALUES (&quot;LEGO&quot;), (&quot;Craftsman&quot;), (&quot;Stanley&quot;), (&quot;Crest&quot;);
+
+-- Fill Product Table
+
+Insert INTO Product (name, category, company, qty, price) Select &quot;Batman Lego Set&quot;, Category.id, Company.id, 1, 9.99 from Category, Company WHERE Category.name = &quot;Toys&quot; AND Company.name = &quot;LEGO&quot;;
+
+Insert INTO Product (name, category, company, qty, price) Select &quot;32 Piece Ratchet Set&quot;, Category.id, Company.id, 2, 29.99 from Category, Company WHERE Category.name = &quot;Tools&quot; AND Company.name = &quot;Stanley&quot;;
+
+Insert INTO Product (name, category, company, qty, price) Select &quot;Hammer&quot;, Category.id, Company.id, 5, 5.99 from Category, Company WHERE Category.name = &quot;Tools&quot; AND Company.name = &quot;Stanley&quot;;
+
+Insert INTO Product (name, category, company, qty, price) Select &quot;Toothpaste&quot;, Category.id, Company.id, 1, 2.99 from Category, Company WHERE Category.name = &quot;Health&quot; AND Company.name = &quot;Crest&quot;;
+
+Insert INTO Product (name, category, company, qty, price) Select &quot;Floss&quot;, Category.id, Company.id, .99 from Category, Company WHERE Category.name = &quot;Health&quot; AND Company.name = &quot;Crest&quot;;
+
+Insert INTO Product (name, category, company, qty, price) Select &quot;Power Drill&quot;, Category.id, NULL, 5, 49.99 from Category WHERE Category.name = &quot;Tools&quot;;
+
+Insert INTO Product (name, category, company, qty, price) Select &quot;120 Piece Lego Set&quot;, NULL, Company.id, 1, 12.99 from Company WHERE Company.name = &quot;LEGO&quot;;
+
+Insert INTO Product (name, category, company, qty, price) Select &quot;Hot-wheels Car&quot;, NULL, NULL, 10, .99 ;
+</code></pre>
+</section><section id="join-practice" class="slide level2">
+<h1><a href="#/join-practice">JOIN Practice</a></h1>
+<ul>
+<li>Practice <code>JOIN</code>s</li>
+</ul>
 <aside class="notes">
 <pre><code>CREATE TABLE Product (
   id int(11) NOT NULL auto_increment,
@@ -658,6 +867,12 @@ CREATE TABLE Company (
 ALTER TABLE Product ADD FOREIGN KEY (Company) REFERENCES Company(id);</code></pre>
 </aside>
 </section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="http://bugs.mysql.com/bug.php?id=18003">FULL JOIN Bug Report</a><a href="#/fnref1">↩</a></p></li>
+</ol>
+</section>
     </div>
   </div>
 
