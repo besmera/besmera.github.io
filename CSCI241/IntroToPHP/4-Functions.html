@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>Functions</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Functions</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/creation">Creation</a></li>
+<li><a href="#/function-use">Function Use</a></li>
+<li><a href="#/variable-scope">Variable Scope</a></li>
+<li><a href="#/passing-arguments">Passing Arguments</a></li>
+<li><a href="#/call-stack">Call stack</a></li>
+<li><a href="#/more-functions">More Functions</a></li>
+</ul>
+</section>
+
+<section><section id="creation" class="titleslide slide level1"><h1><a href="#/creation">Creation</a></h1></section><section id="creation-1" class="slide level2">
+<h1><a href="#/creation-1">Creation</a></h1>
+<ul>
+<li>To create (declare) a function you must provide several different pieces
+<ul>
+<li>Required:
+<ul>
+<li><strong>Keyword</strong> - The keyword <code>function</code></li>
+<li><strong>Function Name</strong> - This will be used when you want to call or invoke the function</li>
+<li><strong>Body</strong> - List of statements to be executed when the function is invoked</li>
+</ul></li>
+<li>Optional:
+<ul>
+<li><strong>Parameters</strong> - Variables that will be used in the function</li>
+<li><strong>Return Statement</strong> - Data to be passed back to caller</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="creation-2" class="slide level2">
+<h1><a href="#/creation-2">Creation</a></h1>
+<ul>
+<li>Identify the <strong>keyword</strong>, <strong>function name</strong>, <strong>body</strong>, <strong>parameters</strong>, and <strong>return statement</strong></li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function sayHello()
+{
+    echo &quot;Hello World!&quot;;
+}</code></pre>
+</section><section id="creation-3" class="slide level2">
+<h1><a href="#/creation-3">Creation</a></h1>
+<ul>
+<li>Identify the <strong>keyword</strong>, <strong>function name</strong>, <strong>body</strong>, <strong>parameters</strong>, and <strong>return statement</strong></li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function sayHello($name)
+{
+    $message = &quot;Hello $name&quot;;
+    return $message;
+}</code></pre>
+</section><section id="parameters" class="slide level2">
+<h1><a href="#/parameters">Parameters</a></h1>
+<ul>
+<li>Specified as an ordered list</li>
+<li>In PHP, parameters can be unknown length (not covered)</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function sayHello($prefix, $postfix)
+{
+    return $prefix . &quot; &quot; . $postfix . &quot;\n&quot;;
+}</code></pre>
+</section></section>
+<section><section id="function-use" class="titleslide slide level1"><h1><a href="#/function-use">Function Use</a></h1></section><section id="function-use-1" class="slide level2">
+<h1><a href="#/function-use-1">Function Use</a></h1>
+<ul>
+<li>Call or invoke function by using it’s name with ()</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function sayHello()
+{
+    echo &quot;Hello World!&quot;;
+}
+
+sayHello();</code></pre>
+</section><section id="function-use-2" class="slide level2">
+<h1><a href="#/function-use-2">Function Use</a></h1>
+<ul>
+<li>When invoking
+<ul>
+<li>Must provide <strong>arguments</strong> in the order matching the <strong>parameters</strong></li>
+<li>Must also provide the correct number</li>
+</ul></li>
+<li>Parameters differ from arguments
+<ul>
+<li>Parameter is the specification</li>
+<li>Argument is providing the actual value while invoking</li>
+</ul></li>
+</ul>
+</section><section id="function-use-3" class="slide level2">
+<h1><a href="#/function-use-3">Function Use</a></h1>
+<ul>
+<li>What will result be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function sayHello($prefix, $postfix)
+{
+    return $prefix . &quot; &quot; . $postfix . &quot;\n&quot;;
+}
+
+echo sayHello(&quot;Hello&quot;, &quot;World&quot;);
+
+echo sayHello(&quot;World&quot;, &quot;Hello&quot;);
+
+echo sayHello(&quot;Hello&quot;);</code></pre>
+</section><section id="default-arguments" class="slide level2">
+<h1><a href="#/default-arguments">Default Arguments</a></h1>
+<ul>
+<li>Sometimes it is not desirable to force arguments to be provided each time
+<ul>
+<li>Specify the parameter as <code>NULL</code> or provide a default value</li>
+<li>Must be constant expression</li>
+<li>Can mix some required some not<br /></li>
+<li>Passing <code>NULL</code> as argument means <code>NULL</code></li>
+</ul></li>
+</ul>
+</section><section id="default-arguments-1" class="slide level2">
+<h1><a href="#/default-arguments-1">Default Arguments</a></h1>
+<ul>
+<li>What will happen?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function sayHello($prefix = &quot;Hello&quot;, $postfix = &quot;there&quot;)
+{
+    return $prefix . &quot; &quot; . $postfix . &quot;\n&quot;;
+}
+
+echo sayHello(&quot;Hello&quot;, &quot;World&quot;);
+
+echo sayHello(&quot;Hello&quot;);
+
+echo sayHello();
+
+echo sayHello(NULL, &quot;World&quot;);
+
+echo sayHello(&quot;Hello&quot;, NULL);
+
+echo sayHello(NULL);</code></pre>
+</section><section id="function-use-4" class="slide level2">
+<h1><a href="#/function-use-4">Function Use</a></h1>
+<ul>
+<li>Functions can’t be redeclared</li>
+<li>What will happen?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function sayHello()
+{
+    echo &quot;Hello World!&quot;;
+}
+
+function sayHello()
+{
+    echo &quot;Hello World!&quot;;
+}
+
+sayHello();</code></pre>
+</section><section id="function-use-5" class="slide level2">
+<h1><a href="#/function-use-5">Function Use</a></h1>
+<ul>
+<li>Can we do this?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+sayHello();
+
+function sayHello()
+{
+    echo &quot;Hello World!&quot;;
+}</code></pre>
+</section><section id="function-use-6" class="slide level2">
+<h1><a href="#/function-use-6">Function Use</a></h1>
+<ul>
+<li>Function does not need to appear before using it unlike variables
+<ul>
+<li>Except:
+<ul>
+<li>When declared inside other functions</li>
+<li>Conditionally declared</li>
+</ul></li>
+</ul></li>
+<li>All functions <em>once created</em> have global scope (can be used anywhere)
+<ul>
+<li>Except:
+<ul>
+<li>Classes/Namespaces (CSCI242)</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="function-use-7" class="slide level2">
+<h1><a href="#/function-use-7">Function Use</a></h1>
+<ul>
+<li>The body can call other functions, even itself!</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function getNum()
+{
+    $num = getFive();
+    return $num;
+}
+
+function getFive()
+{
+    return &quot;five&quot;;
+}
+
+echo &quot;High &quot; . getNum() . &quot;!&quot;;</code></pre>
+</section><section id="function-use-8" class="slide level2">
+<h1><a href="#/function-use-8">Function Use</a></h1>
+<ul>
+<li>Can call function as part of expression</li>
+<li>Can call function as argument for another function</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function getNum($num)
+{
+    return $num;
+}
+
+function getFive()
+{
+    return &quot;five&quot;;
+}
+
+echo &quot;High &quot; . getNum(getFive()) . &quot;!&quot;;</code></pre>
+</section><section id="function-use-9" class="slide level2">
+<h1><a href="#/function-use-9">Function Use</a></h1>
+<ul>
+<li>Functions can be called in the <code>return</code> statement</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function getNum()
+{
+    return getFive();
+}
+
+function getFive()
+{
+    return &quot;five&quot;;
+}
+
+echo &quot;High &quot; . getNum() . &quot;!&quot;;</code></pre>
+</section><section id="return-statement" class="slide level2">
+<h1><a href="#/return-statement">Return Statement</a></h1>
+<ul>
+<li>Can only return a ‘single’ value</li>
+<li>Can provide multiple return statements
+<ul>
+<li>Only one can be returned though</li>
+</ul></li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function isOvertime($hours)
+{
+    if($hours &gt; 40)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+isOvertime(50); //Hmm...</code></pre>
+</section><section id="return-statement-1" class="slide level2">
+<h1><a href="#/return-statement-1">Return Statement</a></h1>
+<ul>
+<li>Function exits at first return encountered
+<ul>
+<li>Be careful of bad logic</li>
+</ul></li>
+<li>What happens here?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function isOvertime($hours)
+{
+    return NULL; //I&#39;m not sure yet let me check
+
+    if($hours &gt; 40)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+echo isOvertime(50);</code></pre>
+</section></section>
+<section><section id="variable-scope" class="titleslide slide level1"><h1><a href="#/variable-scope">Variable Scope</a></h1></section><section id="variable-scope-1" class="slide level2">
+<h1><a href="#/variable-scope-1">Variable Scope</a></h1>
+<ul>
+<li>Variable scope refers to the ability to reference a variable</li>
+<li>It’s an important concept to understand in order to effectively program</li>
+</ul>
+</section><section id="variable-scope-2" class="slide level2">
+<h1><a href="#/variable-scope-2">Variable Scope</a></h1>
+<ul>
+<li>In PHP there are three scopes
+<ul>
+<li>Local - Can only be used within the context it was created</li>
+<li>Global - Depending on context of use may need to use <code>global</code> keyword or <code>$GLOBALS</code></li>
+<li>Super Global - Can be used anywhere within the program</li>
+</ul></li>
+</ul>
+</section><section id="variable-scope-3" class="slide level2">
+<h1><a href="#/variable-scope-3">Variable Scope</a></h1>
+<ul>
+<li>Local - Generally variables created in functions</li>
+<li>Global - Generally created within main application</li>
+<li>Super Global - Provided by PHP (there are 9)
+<ul>
+<li><code>$GLOBALS</code></li>
+<li><code>$_SERVER</code></li>
+<li><code>$_GET</code></li>
+<li><code>$_POST</code></li>
+<li><code>$_FILES</code></li>
+<li><code>$_COOKIE</code></li>
+<li><code>$_SESSION</code></li>
+<li><code>$_REQUEST</code></li>
+<li><code>$_ENV</code></li>
+</ul></li>
+</ul>
+</section><section id="variable-scope-4" class="slide level2">
+<h1><a href="#/variable-scope-4">Variable Scope</a></h1>
+<ul>
+<li>What will happen?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function world()
+{
+    $world = &quot;world&quot;;
+}
+
+echo &quot;Hello &quot; . $world;</code></pre>
+</section><section id="variable-scope-5" class="slide level2">
+<h1><a href="#/variable-scope-5">Variable Scope</a></h1>
+<ul>
+<li>What will happen?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function world()
+{
+    $world = &quot;world&quot;;
+}
+
+world();
+echo &quot;Hello &quot; . $world;</code></pre>
+</section><section id="variable-scope-6" class="slide level2">
+<h1><a href="#/variable-scope-6">Variable Scope</a></h1>
+<ul>
+<li>What will happen?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function world()
+{
+    $world = &quot;world&quot;;
+}
+
+echo &quot;Hello &quot; . world();</code></pre>
+</section><section id="variable-scope-7" class="slide level2">
+<h1><a href="#/variable-scope-7">Variable Scope</a></h1>
+<ul>
+<li>What will happen?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+$hello = &quot;hello&quot;;
+
+function world()
+{
+    echo $hello . &quot; world&quot;;
+}
+
+world();</code></pre>
+</section><section id="variable-scope-8" class="slide level2">
+<h1><a href="#/variable-scope-8">Variable Scope</a></h1>
+<ul>
+<li>What will happen?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+$hello = &quot;hello&quot;;
+
+function world()
+{
+    global $hello;
+    echo $hello . &quot; world&quot;;
+}
+
+world();</code></pre>
+</section><section id="variable-scope-9" class="slide level2">
+<h1><a href="#/variable-scope-9">Variable Scope</a></h1>
+<ul>
+<li>What will happen?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+$hello = &quot;hello&quot;;
+
+function world()
+{
+    echo $GLOBALS[&quot;hello&quot;] . &quot; world&quot;;
+}
+
+world();</code></pre>
+</section><section id="variable-scope-10" class="slide level2">
+<h1><a href="#/variable-scope-10">Variable Scope</a></h1>
+<ul>
+<li>What will happen?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function hello()
+{
+    $hello = &quot;hello&quot;;
+}
+
+function world()
+{
+    $world = &quot;world&quot;;
+    echo $hello . &quot; &quot; . $world;
+}
+
+hello();
+world();</code></pre>
+</section><section id="variable-scope-11" class="slide level2">
+<h1><a href="#/variable-scope-11">Variable Scope</a></h1>
+<ul>
+<li>What will happen?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function hello()
+{
+    $hello = &quot;hello&quot;;
+}
+
+function world()
+{
+    hello();
+    $world = &quot;world&quot;;
+    echo $hello . &quot; &quot; . $world;
+}
+
+world();</code></pre>
+</section><section id="variable-scope-12" class="slide level2">
+<h1><a href="#/variable-scope-12">Variable Scope</a></h1>
+<ul>
+<li>What will happen?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+function world()
+{
+    echo $_SERVER[&quot;REQUEST_METHOD&quot;];
+}
+
+world();</code></pre>
+</section><section id="variable-scope-13" class="slide level2">
+<h1><a href="#/variable-scope-13">Variable Scope</a></h1>
+<ul>
+<li>Variable scope is highly related to how variables are passed and the call stack, our next topics!</li>
+</ul>
+</section></section>
+<section><section id="passing-arguments" class="titleslide slide level1"><h1><a href="#/passing-arguments">Passing Arguments</a></h1></section><section id="pass-by-value" class="slide level2">
+<h1><a href="#/pass-by-value">Pass by Value</a></h1>
+<ul>
+<li>When arguments are passed to functions they are passed by value or copied
+<ul>
+<li>Exception is objects (CSCI242)</li>
+</ul></li>
+<li>Even arrays are passed by value, this is different from many other languages</li>
+</ul>
+<p> </p>
+<ul>
+<li>What will happen?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+$x = 5;
+
+function changeVar($x)
+{
+    $x = 12;
+    return $x;
+}
+
+changeVar($x);
+
+echo $x;</code></pre>
+</section><section id="pass-by-value-1" class="slide level2">
+<h1><a href="#/pass-by-value-1">Pass by Value</a></h1>
+<ul>
+<li>What will happen?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+$x = 5;
+
+function changeVar($x)
+{
+    $x = 12;
+    return $x;
+}
+
+$x = changeVar($x);
+
+echo $x;</code></pre>
+</section><section id="pass-by-value-2" class="slide level2">
+<h1><a href="#/pass-by-value-2">Pass by Value</a></h1>
+<ul>
+<li>Advantage of this method is that function can not modify your variables leading to unexpected results</li>
+<li>Disadvantage is that it uses additional memory for each function call</li>
+<li>There is also overhead as we will see with call stack</li>
+</ul>
+</section><section id="pass-by-reference" class="slide level2">
+<h1><a href="#/pass-by-reference">Pass by Reference</a></h1>
+<ul>
+<li>You can pass by reference using an <code>&amp;</code> when defining the parameters
+<ul>
+<li>Some languages let you indicate pass by reference when invoking the function, PHP does not</li>
+</ul></li>
+<li>When you pass by reference the actual variable is used by the function</li>
+<li>Objects are implicitly by reference (CSCI241)</li>
+</ul>
+</section><section id="pass-by-reference-1" class="slide level2">
+<h1><a href="#/pass-by-reference-1">Pass by Reference</a></h1>
+<ul>
+<li>What will happen?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+$x = 5;
+
+function changeVar(&amp;$x)
+{
+    $x = 12;
+    return $x;
+}
+
+changeVar($x);
+
+echo $x;</code></pre>
+</section><section id="pass-by-reference-2" class="slide level2">
+<h1><a href="#/pass-by-reference-2">Pass by Reference</a></h1>
+<ul>
+<li>What will happen?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+$x = 5;
+
+function changeVar(&amp;$x)
+{
+    $x = 10;
+    changeVar2($x);
+    return $x;
+}
+
+function changeVar2($x)
+{
+    $x = 9;
+    return $x;
+}
+
+changeVar($x);
+
+echo $x;</code></pre>
+</section></section>
+<section><section id="call-stack" class="titleslide slide level1"><h1><a href="#/call-stack">Call stack</a></h1></section><section id="call-stack-1" class="slide level2">
+<h1><a href="#/call-stack-1">Call stack</a></h1>
+<dl>
+<dt>Call Stack</dt>
+<dd>Contains information about the current active function calls
+</dd>
+</dl>
+<ul>
+<li>When a function is called a <strong>stack frame</strong> is created and pushed onto call stack
+<ul>
+<li>Control is passed to the function called</li>
+</ul></li>
+<li>When a function returns the stack frame is popped off the call stack
+<ul>
+<li>The return value is given to the caller and control is passed back to the caller</li>
+<li>All local variables in that frame cease to exist</li>
+</ul></li>
+</ul>
+</section><section id="call-stack-2" class="slide level2">
+<h1><a href="#/call-stack-2">Call stack</a></h1>
+<p><img src="call_stack.png" alt="The Call Stack" /> <a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+</section><section id="call-stack-3" class="slide level2">
+<h1><a href="#/call-stack-3">Call stack</a></h1>
+<ul>
+<li>Because of memory overhead it is possible to call to many functions at once
+<ul>
+<li>Particularly with recursion</li>
+</ul></li>
+<li>This is called <strong>stack overflow</strong> or <strong>smashing the stack</strong>
+<ul>
+<li>In PHP app will crash</li>
+<li>In some lower level programming languages this may allow arbitrary execution of code</li>
+</ul></li>
+</ul>
+</section><section id="call-stack-4" class="slide level2">
+<h1><a href="#/call-stack-4">Call stack</a></h1>
+<ul>
+<li>Example</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+$x = 5;
+
+function changeVar($x)
+{
+    $x = 12;
+    return $x;
+}
+
+changeVar($x);
+
+echo $x;</code></pre>
+</section><section id="call-stack-5" class="slide level2">
+<h1><a href="#/call-stack-5">Call stack</a></h1>
+<ul>
+<li>Example</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+$x = 5;
+
+function changeVar($x)
+{
+    $x = 12;
+    return $x;
+}
+
+$x = changeVar($x);
+
+echo $x;</code></pre>
+</section><section id="call-stack-6" class="slide level2">
+<h1><a href="#/call-stack-6">Call stack</a></h1>
+<ul>
+<li>Example</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+$x = 5;
+
+function changeVar(&amp;$x)
+{
+    $x = 10;
+    changeVar2($x);
+    return $x;
+}
+
+function changeVar2($x)
+{
+    $x = 9;
+    return $x;
+}
+
+changeVar($x);
+
+echo $x;</code></pre>
+</section></section>
+<section><section id="more-functions" class="titleslide slide level1"><h1><a href="#/more-functions">More Functions</a></h1></section><section id="more-built-in" class="slide level2">
+<h1><a href="#/more-built-in">More Built-In</a></h1>
+<ul>
+<li><code>abs</code></li>
+<li><code>ceil</code></li>
+<li><code>floor</code></li>
+<li><code>max</code></li>
+<li><code>min</code></li>
+<li><code>round</code></li>
+<li><code>rand</code></li>
+</ul>
+</section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="http://wikipedia.org">Wikipedia</a><a href="#/fnref1">↩</a></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+
+  <script src="../reveal.js/lib/js/head.min.js"></script>
+  <script src="../reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
