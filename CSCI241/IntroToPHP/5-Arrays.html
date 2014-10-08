@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>Arrays</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Arrays</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/arrays">Arrays</a></li>
+<li><a href="#/sequential-arrays">Sequential Arrays</a></li>
+<li><a href="#/associative-arrays">Associative Arrays</a></li>
+<li><a href="#/multi-dimensional-arrays">Multi-dimensional Arrays</a></li>
+<li><a href="#/additional-users">Additional Users</a></li>
+<li><a href="#/additional-functions">Additional Functions</a></li>
+</ul>
+</section>
+
+<section><section id="arrays" class="titleslide slide level1"><h1><a href="#/arrays">Arrays</a></h1></section><section id="about-arrays" class="slide level2">
+<h1><a href="#/about-arrays">About Arrays</a></h1>
+<ul>
+<li>What if you needed to average all of the grades for a student in a class? One possibility is:</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+$grade1 = 88;
+$grade2 = 92;
+$grade3 = 75;
+...
+...
+$gradeN = 97;</code></pre>
+<ul>
+<li>What sort of issues would this have?</li>
+</ul>
+</section><section id="about-arrays-1" class="slide level2">
+<h1><a href="#/about-arrays-1">About Arrays</a></h1>
+<ul>
+<li>Arrays can hold multiple values
+<ul>
+<li>Each value is called an <strong>element</strong></li>
+</ul></li>
+<li>Lend themselves well to looping structures we have learned</li>
+<li>It’s not required to know how many you need to store at the time of development</li>
+</ul>
+</section><section id="about-arrays-2" class="slide level2">
+<h1><a href="#/about-arrays-2">About Arrays</a></h1>
+<ul>
+<li>PHP arrays are not really arrays, they are much more flexible</li>
+<li>PHP arrays allow values of different types to be stored
+<ul>
+<li>Not limited to only <code>integer</code> or only <code>float</code></li>
+<li>Typed languages generally do not allow this</li>
+<li>Underneath arrays are actually hash maps</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="sequential-arrays" class="titleslide slide level1"><h1><a href="#/sequential-arrays">Sequential Arrays</a></h1></section><section id="sequential-arrays-1" class="slide level2">
+<h1><a href="#/sequential-arrays-1">Sequential Arrays</a></h1>
+<ul>
+<li>Lets look at storing a students grades in an array</li>
+<li>Observe
+<ul>
+<li>Structure</li>
+<li>Indexing - zero based</li>
+<li>Retrieval</li>
+<li>Properties</li>
+</ul></li>
+</ul>
+</section><section id="creating-arrays" class="slide level2">
+<h1><a href="#/creating-arrays">Creating Arrays</a></h1>
+<ul>
+<li>Use <code>array()</code> to create arrays
+<ul>
+<li>Pass your values each separated by a comma</li>
+</ul></li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+$grades = array(88, 92, 75, 97);
+
+var_dump($grades);</code></pre>
+</section><section id="accessing-array" class="slide level2">
+<h1><a href="#/accessing-array">Accessing Array</a></h1>
+<ul>
+<li>Subscripts <code>[]</code>
+<ul>
+<li>integer - <code>$grades[0]</code></li>
+<li>string - <code>$grades[&quot;0&quot;]</code></li>
+</ul></li>
+<li>Casting
+<ul>
+<li>booleans - <code>true</code> to <code>1</code> and <code>false</code> to <code>0</code></li>
+<li>floats - <code>5.4</code> to <code>5</code></li>
+<li>strings - Depends!</li>
+</ul></li>
+</ul>
+</section><section id="deleting-array-element" class="slide level2">
+<h1><a href="#/deleting-array-element">Deleting Array Element</a></h1>
+<ul>
+<li><code>unset($grades[0])</code> - Removes item from an array</li>
+<li><code>unset($grades)</code> - Removes whole array</li>
+</ul>
+</section><section id="creating-arrays-1" class="slide level2">
+<h1><a href="#/creating-arrays-1">Creating Arrays</a></h1>
+<ul>
+<li>Optionally use <code>[]</code> for assigning one at a time</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+$grades[] = 88;
+$grades[] = 92;
+$grades[] = 75;
+$grades[] = 97;
+
+var_dump($grades);</code></pre>
+</section></section>
+<section><section id="associative-arrays" class="titleslide slide level1"><h1><a href="#/associative-arrays">Associative Arrays</a></h1></section><section id="associative" class="slide level2">
+<h1><a href="#/associative">Associative</a></h1>
+<ul>
+<li>Optionally create by specifying a key value pair with the <code>=&gt;</code> operator</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+$grades = array(&quot;test1&quot; =&gt; 88, &quot;hw1&quot; =&gt; 92, &quot;hw2&quot; =&gt; 75, &quot;midterm&quot; =&gt; 97);
+
+var_dump($grades);</code></pre>
+</section><section id="accessing-array-1" class="slide level2">
+<h1><a href="#/accessing-array-1">Accessing Array</a></h1>
+<ul>
+<li>Access using string <code>$grades[&quot;test1&quot;]</code></li>
+</ul>
+</section><section id="accessing-array-2" class="slide level2">
+<h1><a href="#/accessing-array-2">Accessing Array</a></h1>
+<ul>
+<li>Can but should not use regular for loop
+<ul>
+<li><code>count()</code> function and access in other languages</li>
+<li>Instead use <code>foreach</code></li>
+</ul></li>
+</ul>
+<pre class="php"><code>foreach($myArray as $value)
+{
+    echo $value;
+}
+
+foreach($myArray as $key =&gt; $value)
+{
+    echo $key . &quot; &quot; . $value;
+}</code></pre>
+</section><section id="accessing-array-3" class="slide level2">
+<h1><a href="#/accessing-array-3">Accessing Array</a></h1>
+<ul>
+<li>Iteration
+<ul>
+<li>Order added not indexed</li>
+<li>Linked list</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="multi-dimensional-arrays" class="titleslide slide level1"><h1><a href="#/multi-dimensional-arrays">Multi-dimensional Arrays</a></h1></section><section id="multi-dimensional-arrays-1" class="slide level2">
+<h1><a href="#/multi-dimensional-arrays-1">Multi-dimensional Arrays</a></h1>
+<ul>
+<li>Arrays within arrays</li>
+</ul>
+<pre class="php"><code>$grades = array(&quot;Andrew&quot; =&gt; array(&quot;test1&quot; =&gt; 88, &quot;hw1&quot; =&gt; 92, &quot;hw2&quot; =&gt; 75, &quot;midterm&quot; =&gt; 97));
+
+var_dump($grades);</code></pre>
+<ul>
+<li>How can you access my test1 score?</li>
+</ul>
+</section></section>
+<section><section id="additional-users" class="titleslide slide level1"><h1><a href="#/additional-users">Additional Users</a></h1></section><section id="stack" class="slide level2">
+<h1><a href="#/stack">Stack</a></h1>
+<ul>
+<li>Stacks are LIFO
+<ul>
+<li><code>array_push($myArray, $value)</code></li>
+<li><code>array_pop($myArray)</code></li>
+</ul></li>
+</ul>
+</section><section id="queue" class="slide level2">
+<h1><a href="#/queue">Queue</a></h1>
+<ul>
+<li>Queues are FIFO
+<ul>
+<li><code>array_shift($myArray)</code></li>
+<li><code>array_unshift($myArray, $value)</code></li>
+</ul></li>
+</ul>
+</section><section id="sorting" class="slide level2">
+<h1><a href="#/sorting">Sorting</a></h1>
+<ul>
+<li><code>sort()</code> numerically and alphabetically ascending
+<ul>
+<li>New sorted array starts at 0</li>
+</ul></li>
+<li><code>rsort()</code> numerically and alphabetically descending</li>
+</ul>
+<p> </p>
+<ul>
+<li><code>asort()</code> numerically and alphabetically ascending keeping index key</li>
+</ul>
+</section></section>
+<section><section id="additional-functions" class="titleslide slide level1"><h1><a href="#/additional-functions">Additional Functions</a></h1></section><section id="functions" class="slide level2">
+<h1><a href="#/functions">Functions</a></h1>
+<ul>
+<li><code>isset($grades[&quot;Andrew&quot;])</code> - check if an element exists</li>
+<li><code>max($grades[&quot;Andrew&quot;])</code> - get max element</li>
+<li><code>min($grades[&quot;Andrew&quot;])</code> - get min element</li>
+<li><code>sum($grades[&quot;Andrew&quot;])</code> - sum all elements</li>
+<li><code>count($grades[&quot;Andrew&quot;]&quot;)</code> - count of elements</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="../reveal.js/lib/js/head.min.js"></script>
+  <script src="../reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
