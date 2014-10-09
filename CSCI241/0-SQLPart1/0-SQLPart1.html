@@ -836,9 +836,32 @@ Insert INTO Product (name, category, company, qty, price) Select &quot;Hot-wheel
 </code></pre>
 </section><section id="join-practice" class="slide level2">
 <h1><a href="#/join-practice">JOIN Practice</a></h1>
+<ol type="1">
+<li>Create a view showing the values of the product on hand.</li>
+<li>Select all the products and the category that the product is in.
 <ul>
-<li>Practice <code>JOIN</code>s</li>
-</ul>
+<li>Implicit</li>
+<li>Explicit</li>
+</ul></li>
+<li>Select the <em>product name</em> and the <em>category name</em> of all the products.</li>
+</ol>
+</section><section id="join-practice-1" class="slide level2">
+<h1><a href="#/join-practice-1">JOIN Practice</a></h1>
+<ol start="4" type="1">
+<li>Select all the products, the categories they belong to, and the company the product is made by. Hint: LEFT LEFT!
+<ul>
+<li>Update the company Stanley to Stanley Black and Decker and rerun</li>
+</ul></li>
+<li>Select all the products in the tools category with a price greater than 10.00.
+<ul>
+<li>Now only those made by Stanley Black and Decker.</li>
+</ul></li>
+<li>Delete the matchbox company.
+<ul>
+<li>Why did this happen?</li>
+<li>What can you do? Do it! Try again.</li>
+</ul></li>
+</ol>
 <aside class="notes">
 <pre><code>CREATE TABLE Product (
   id int(11) NOT NULL auto_increment,
