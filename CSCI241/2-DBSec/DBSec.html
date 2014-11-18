@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>DB Security</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">DB Security</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/db-security">DB Security</a></li>
+<li><a href="#/the-dba">The DBA</a></li>
+<li><a href="#/mysql-specific">MySQL Specific</a></li>
+</ul>
+</section>
+
+<section><section id="db-security" class="titleslide slide level1"><h1><a href="#/db-security">DB Security</a></h1></section><section id="threats" class="slide level2">
+<h1><a href="#/threats">Threats</a></h1>
+<ul>
+<li><strong>CIA</strong>
+<ul>
+<li>Loss of <strong>confidentiality</strong> - Data is viewed by those who should not view it</li>
+<li>Loss of <strong>integrity</strong> - Data is inserted or updated by those who should not</li>
+<li>Loss of <strong>availability</strong> - Those who have access to data are unable to because the system is unavailable</li>
+</ul></li>
+<li>These form a “triad”
+<ul>
+<li>Over balancing one is undesirable</li>
+</ul></li>
+</ul>
+</section><section id="protecting-databases" class="slide level2">
+<h1><a href="#/protecting-databases">Protecting Databases</a></h1>
+<ul>
+<li>Countermeasures
+<ul>
+<li>Inference Control</li>
+<li>Encryption</li>
+<li>Access Control</li>
+<li>Flow Control</li>
+</ul></li>
+</ul>
+</section><section id="inference-control" class="slide level2">
+<h1><a href="#/inference-control">Inference Control</a></h1>
+<ul>
+<li>Databases can be used to provide statistical data on various populations
+<ul>
+<li>Populations are set of tuples that satisfy selection condition</li>
+<li>Statistical functions:
+<ul>
+<li><code>AVG()</code></li>
+<li><code>SUM()</code></li>
+<li><code>COUNT()</code></li>
+<li><code>MIN()</code></li>
+<li><code>MAX()</code></li>
+<li><code>SD()</code></li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="inference-control-1" class="slide level2">
+<h1><a href="#/inference-control-1">Inference Control</a></h1>
+<ul>
+<li><p>Populations need to be of sufficient size of inference of individuals data is possible</p></li>
+<li>Should not be able to determine for example income of one employee
+<ul>
+<li>Allow only aggregates</li>
+<li>Allow only on data of sufficient size</li>
+<li>Allow only on data of sufficient distribution</li>
+</ul></li>
+</ul>
+</section><section id="encryption" class="slide level2">
+<h1><a href="#/encryption">Encryption</a></h1>
+<ul>
+<li>Encryption is used to protect sensitive data
+<ul>
+<li>Information is encoded using an encoding algorithm</li>
+<li>Unauthorized users have difficulty deciphering</li>
+</ul></li>
+<li>Encryption ensures that if access control is compromised data remains protected
+<ul>
+<li>At least minimally</li>
+<li>Encryption however is NOT meant to provide access control</li>
+</ul></li>
+</ul>
+</section><section id="hashing" class="slide level2">
+<h1><a href="#/hashing">Hashing</a></h1>
+<ul>
+<li>Similar goal but for passwords
+<ul>
+<li>Minimally protecting passwords in event of theft by storing digest of one way hash</li>
+</ul></li>
+<li>What is hashing?</li>
+</ul>
+</section><section id="hashing-functions" class="slide level2">
+<h1><a href="#/hashing-functions">Hashing Functions</a></h1>
+<ul>
+<li>Commonly used but are fast which is a problem… what?!
+<ul>
+<li><strong>SHA1</strong> - 160 bits 40 hex chars (should not be used)</li>
+<li><strong>SHA-256</strong> - 256 bits 64 hex chars</li>
+<li><strong>SHA-512</strong> - 512 bits 128 hex chars</li>
+</ul></li>
+</ul>
+</section><section id="salting" class="slide level2">
+<h1><a href="#/salting">Salting</a></h1>
+<ul>
+<li>When hashing passwords should provide a salt
+<ul>
+<li>Prevents rainbow tables</li>
+</ul></li>
+<li>Make sure you
+<ul>
+<li>use salt for each password including updates or resets</li>
+<li>use 64 bits or 8 bytes minimum</li>
+</ul></li>
+<li>Generate salts using Cryptographically Secure Pseudo-Random Number Generator (CSPRNG)</li>
+</ul>
+<pre class="php"><code>//For PHP
+$csprnOrSalt = openssl_random_pseudo_bytes(8);</code></pre>
+</section><section id="key-stretching" class="slide level2">
+<h1><a href="#/key-stretching">Key Stretching</a></h1>
+<ul>
+<li>Consider key stretching
+<ul>
+<li>Increases time and/or memory required to brute force</li>
+<li>1000 iterations minimum</li>
+<li><strong>PBKDF2</strong> (Password-Based Key Derivation Function) with hashing functions like <strong>SHA-256</strong></li>
+</ul></li>
+</ul>
+<pre class="php"><code>$hash = hash_pbkdf2(&quot;sha256&quot;, $password, $salt, $iterations);</code></pre>
+<ul>
+<li><strong>bcrypt</strong>, <strong>scrypt</strong>
+<ul>
+<li>Require look up tables which use main memory</li>
+<li>Time and memory increase as rounds increase</li>
+</ul></li>
+</ul>
+</section><section id="a-warning" class="slide level2">
+<h1><a href="#/a-warning">A Warning</a></h1>
+<ul>
+<li>Do not use the mysql built in functions to hash! Do it server side and send to the SQL server.</li>
+</ul>
+<blockquote>
+<p>Passwords can be written as plain text in SQL statements such as CREATE USER, GRANT, and SET PASSWORD, or statements that invoke the PASSWORD() function. If these statements are logged by the MySQL server as written, such passwords become available to anyone with access to the logs.</p>
+</blockquote>
+</section><section id="bad-example" class="slide level2">
+<h1><a href="#/bad-example">Bad Example!</a></h1>
+<ul>
+<li>Don’t be this guy/girl!
+<ul>
+<li>What is good?</li>
+<li>What is bad?</li>
+</ul></li>
+</ul>
+<pre class="php"><code>$stmt = $db-&gt;prepare(&quot;Select * from User where (username, hash) =
+(Select username, SHA2(CONCAT(salt, :password), 256) as hash 
+FROM User where username = :username)&quot;);
+
+$stmt-&gt;bindValue(&quot;:username&quot;, $username);
+$stmt-&gt;bindValue(&quot;:password&quot;, $password);
+
+$stmt-&gt;execute();</code></pre>
+</section><section id="better-example" class="slide level2">
+<h1><a href="#/better-example">Better Example</a></h1>
+<pre class="php"><code>$stmt = $db-&gt;prepare(&quot;Select * from User where username = :username&quot;);
+
+$stmt-&gt;bindValue(&quot;:username&quot;, $username);
+
+$stmt-&gt;execute();
+    
+if($stmt-&gt;rowCount() == 1){
+    $row = $stmt-&gt;fetch(PDO::FETCH_ASSOC);
+
+    $passToCheck = $row[&quot;salt&quot;] . $password;
+    
+    //Plain text password never leaves server, not in MySQL logs...
+    if(hash(&quot;sha256&quot;, $passToCheck) == $row[&quot;hash&quot;]) {
+        //Yes!
+    }
+    else
+    {
+        //No!
+    }
+}</code></pre>
+</section></section>
+<section><section id="the-dba" class="titleslide slide level1"><h1><a href="#/the-dba">The DBA</a></h1></section><section id="the-dba-1" class="slide level2">
+<h1><a href="#/the-dba-1">The DBA</a></h1>
+<ul>
+<li>The DBA is the central authority for managing a DBMS
+<ul>
+<li>Grants privileges to users who need to use the system</li>
+<li>Classifies data and users according to set policy</li>
+<li>DBA is responsible for overall security of the DBMS</li>
+</ul></li>
+<li>DBA obviously has many other roles besides security</li>
+</ul>
+</section><section id="the-dba-2" class="slide level2">
+<h1><a href="#/the-dba-2">The DBA</a></h1>
+<ul>
+<li>DBA has special account sometimes called system or root or superuser account
+<ul>
+<li>Akin to “root” or “Administrator” on linux/windows</li>
+<li>These accounts can
+<ul>
+<li>Create accounts</li>
+<li>Grant privileges - DAC</li>
+<li>Revoke privileges - DAC</li>
+<li>Assign security levels - MAC only</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="access-control" class="slide level2">
+<h1><a href="#/access-control">Access Control</a></h1>
+<ul>
+<li>Access to the DBMS is separate from access to the database
+<ul>
+<li>DBA will create account if they need access to the DBMS</li>
+<li>The DBA can not explicitly specify a user should be denied access to connect
+<ul>
+<li>Because of 2 stage access control (later)</li>
+</ul></li>
+<li>They can then grant privileges system wide or to specific databases</li>
+</ul></li>
+</ul>
+</section><section id="access-control-1" class="slide level2">
+<h1><a href="#/access-control-1">Access Control</a></h1>
+<ul>
+<li>Two types of DB security mechanisms
+<ul>
+<li><strong>DAC</strong> - Discretionary Access Control
+<ul>
+<li>Characterized by high degree of flexibility</li>
+<li>Suitable for a large number of applications</li>
+</ul></li>
+<li><strong>MAC</strong> - Mandatory Access Control
+<ul>
+<li>Administrator dictates policies</li>
+<li>Very rigid policies not easily modifiable</li>
+<li>Oracle security labels</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="dac---privileges" class="slide level2">
+<h1><a href="#/dac---privileges">DAC - Privileges</a></h1>
+<ul>
+<li>Generally though about in terms of <strong>access control matrix</strong> <code>M</code>
+<ul>
+<li>The <strong>rows</strong> of the matrix represents <strong>subjects</strong>
+<ul>
+<li>User accounts</li>
+</ul></li>
+<li>The <strong>columns</strong> of the matrix represent <strong>objects</strong>
+<ul>
+<li>Relations</li>
+<li>Records</li>
+<li>Columns</li>
+<li>Views</li>
+</ul></li>
+<li>Each position <code>M[s,o]</code> in matrix represents the type of privileges (<code>read</code>, <code>write</code>, <code>update</code>) that subject <code>s</code> holds on object <code>o</code></li>
+</ul></li>
+</ul>
+</section><section id="dac---privileges-1" class="slide level2">
+<h1><a href="#/dac---privileges-1">DAC - Privileges</a></h1>
+<ul>
+<li>There are multiple levels of privileges
+<ul>
+<li>Account level
+<ul>
+<li>DANGER!</li>
+<li>User can perform these operations independent of any database</li>
+<li>For example, <code>SELECT</code> at the account level can select from any database or table</li>
+</ul></li>
+<li>Relation (or table) level
+<ul>
+<li>User can perform operations on specific table, view, etc…</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="sql"><code>GRANT SELECT, INSERT ON *.* TO &#39;andrew&#39;@&#39;%&#39;; --account
+GRANT SELECT, INSERT ON company.* TO &#39;andrew&#39;@&#39;%&#39;; --database
+GRANT SELECT, INSERT ON company.employee TO &#39;andrew&#39;@&#39;%&#39;; --table
+
+GRANT ALL ON *.* TO &#39;andrew&#39;@&#39;%&#39;; --AHH!</code></pre>
+</section><section id="dac---privileges-2" class="slide level2">
+<h1><a href="#/dac---privileges-2">DAC - Privileges</a></h1>
+<ul>
+<li>Account level
+<ul>
+<li><code>CREATE SCHEMA</code></li>
+<li><code>CREATE VIEW</code></li>
+<li><code>ALTER</code> Adding/Removing Attributes</li>
+<li><code>DROP</code> Relations/Views</li>
+<li><code>MODIFY</code>
+<ul>
+<li><code>INSERT</code>/<code>DELETE</code>/<code>UPDATE</code></li>
+</ul></li>
+<li><code>SELECT</code></li>
+</ul></li>
+</ul>
+</section><section id="dac---privileges-3" class="slide level2">
+<h1><a href="#/dac---privileges-3">DAC - Privileges</a></h1>
+<ul>
+<li>Relation level
+<ul>
+<li>Base Relations (Tables) or Views
+<ul>
+<li><code>SELECT</code></li>
+<li><code>MODIFY</code></li>
+</ul></li>
+</ul></li>
+<li>Only want a user to be able to see the name, birthday and address for the engineering department?
+<ul>
+<li>Create a view showing only that</li>
+<li>Grant that user SELECT on it</li>
+</ul></li>
+</ul>
+</section><section id="dac---privileges-4" class="slide level2">
+<h1><a href="#/dac---privileges-4">DAC - Privileges</a></h1>
+<ul>
+<li>Each relation <code>R</code> in database is assigned an owner
+<ul>
+<li>Owner has all privileges on that relation</li>
+<li>Owner can pass privileges on any of the objects they own</li>
+<li>Use <code>GRANT OPTION</code> to allow those users to continue to pass privileges</li>
+<li>Not using <code>GRANT OPTION</code> = MAC</li>
+</ul></li>
+</ul>
+</section><section id="privilege-revocation" class="slide level2">
+<h1><a href="#/privilege-revocation">Privilege Revocation</a></h1>
+<ul>
+<li>Suppose <code>A</code> is owner of <code>EMPLOYEE</code></li>
+</ul>
+<pre class="sql"><code>GRANT SELECT ON EMPLOYEE, DEPARTMENT TO B WITH GRANT OPTION;</code></pre>
+<ul>
+<li>Now <code>B</code> grants <code>C</code> access.</li>
+</ul>
+</section><section id="privilege-revocation-1" class="slide level2">
+<h1><a href="#/privilege-revocation-1">Privilege Revocation</a></h1>
+<ul>
+<li>What should happen if <code>A</code> revokes <code>B</code>’s privilege?</li>
+</ul>
+<pre class="sql"><code>REVOKE SELECT ON EMPLOYEE FROM B;</code></pre>
+</section><section id="limits-on-propagation" class="slide level2">
+<h1><a href="#/limits-on-propagation">Limits on Propagation</a></h1>
+<ul>
+<li>Techniques exist for example:
+<ul>
+<li><strong>Horizontal propagation</strong> - a given user can grant to at most <code>i</code> users</li>
+<li><strong>Vertical propagation</strong> - maximum depth ie. for <code>i=2</code>
+<ul>
+<li>A-&gt;B</li>
+<li>B-&gt;C</li>
+<li>C-&gt;D - Not allowed…</li>
+</ul></li>
+</ul></li>
+<li>Not implemented in almost all DBMS</li>
+</ul>
+</section><section id="mac---privileges" class="slide level2">
+<h1><a href="#/mac---privileges">MAC - Privileges</a></h1>
+<ul>
+<li>Bell-LaPadula - Each subject/object classified into one class
+<ul>
+<li>Read down, Write Up</li>
+</ul></li>
+<li>Typical Security Classes:
+<ul>
+<li>TS - Top Secret</li>
+<li>S - Secret</li>
+<li>C - Confidential</li>
+<li>U - Unclassified</li>
+<li>TS ≥ S ≥ C ≥ U</li>
+</ul></li>
+</ul>
+</section><section id="mac---privileges-1" class="slide level2">
+<h1><a href="#/mac---privileges-1">MAC - Privileges</a></h1>
+<ul>
+<li>Two restrictions
+<ul>
+<li><strong>Simple security property</strong> - A subject <code>S</code> is not allowed to read access to object <code>O</code> unless <code>class(S) ≥ class(O)</code></li>
+<li><strong>Star Property</strong> - A subject <code>S</code> is not allowed to write an object <code>O</code> unless <code>class(O) ≥ class(S)</code></li>
+</ul></li>
+<li>Different levels have different “views” of the DB</li>
+<li>No notion of a given user giving TS access to another user… thus MAC</li>
+</ul>
+</section><section id="covert-channels" class="slide level2">
+<h1><a href="#/covert-channels">Covert Channels</a></h1>
+<ul>
+<li><strong>Covert channel</strong> allows transfer of information that violates security policy
+<ul>
+<li>The ability to write up or deny read implies an object actually exists</li>
+</ul></li>
+<li>Two broad types
+<ul>
+<li>Storage (previous example)</li>
+<li>Timing - I.E. denied access quicker when object does not exist</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="mysql-specific" class="titleslide slide level1"><h1><a href="#/mysql-specific">MySQL Specific</a></h1></section><section id="mysql-specific-1" class="slide level2">
+<h1><a href="#/mysql-specific-1">MySQL Specific</a></h1>
+<ul>
+<li>Newer MySQL can limit users:
+<ul>
+<li>Queries per hour</li>
+<li>Updates per hour</li>
+<li>Number of concurrent sessions</li>
+</ul></li>
+</ul>
+<pre class="sql"><code>GRANT ALL ON company.* TO &#39;andrew&#39;@&#39;%&#39; WITH 
+MAX_QUERIES_PER_HOUR 100 MAX_UPDATES_PER_HOUR 100;</code></pre>
+</section><section id="mysql-storage" class="slide level2">
+<h1><a href="#/mysql-storage">MySQL Storage</a></h1>
+<ul>
+<li>If you are MySQL where would you store your access control information?</li>
+</ul>
+</section><section id="mysql" class="slide level2">
+<h1><a href="#/mysql">MySQL</a></h1>
+<ul>
+<li><p>MySQL has a database <code>mysql</code></p></li>
+<li>User tables loaded into memory when server starts
+<ul>
+<li>If you use <code>CREATE USER</code>, <code>SET PASSWORD</code> auto reloaded</li>
+<li>If you manually <code>INSERT</code>, <code>UPDATE</code> to table requires restart or “flushing privileges”</li>
+</ul></li>
+</ul>
+</section><section id="stage-access-control" class="slide level2">
+<h1><a href="#/stage-access-control">2 Stage Access Control</a></h1>
+<ul>
+<li>MySQL security split into two “stages”
+<ul>
+<li>Stage 1 - Connection Verification</li>
+<li>Stage 2 - Request Verification</li>
+</ul></li>
+</ul>
+</section><section id="stage-1" class="slide level2">
+<h1><a href="#/stage-1">Stage 1</a></h1>
+<ul>
+<li>User is defined by both a name and host</li>
+<li><code>'andrew'@'aspen.winthrop.edu'</code></li>
+<li><p><code>'andrew'@'%'</code></p></li>
+<li>These are two completely different users</li>
+<li><p>Permissions assigned to each individually</p></li>
+<li><p>MySQL matches based on most specific host to least specific</p></li>
+</ul>
+</section><section id="stage-1-1" class="slide level2">
+<h1><a href="#/stage-1-1">Stage 1</a></h1>
+<ul>
+<li>For example
+<ul>
+<li><code>'%'@'aspen.winthrop.edu'</code></li>
+<li><code>'andrew'@'%'</code></li>
+</ul></li>
+<li>Which user is used if I connect from the aspen server using username ‘andrew’?</li>
+<li>What about from abernathy?</li>
+</ul>
+</section><section id="stage-1-2" class="slide level2">
+<h1><a href="#/stage-1-2">Stage 1</a></h1>
+<ul>
+<li>So… If you experience permission problems check your current user…</li>
+</ul>
+<pre class="sql"><code>SELECT CURRENT_USER();</code></pre>
+</section><section id="creating-users" class="slide level2">
+<h1><a href="#/creating-users">Creating Users</a></h1>
+<ul>
+<li>Creating users for Stage 1</li>
+</ul>
+<pre class="sql"><code>CREATE USER &#39;databases&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;csci355&#39;;
+-- vs 
+CREATE USER &#39;csci355&#39;@&#39;localhost&#39;;
+-- vs
+CREATE USER &#39;databases&#39;@&#39;%&#39; IDENTIFIED BY &#39;csci355&#39;;
+-- vs
+CREATE USER &#39;csci355&#39;@&#39;%&#39;;</code></pre>
+</section><section id="stage-2" class="slide level2">
+<h1><a href="#/stage-2">Stage 2</a></h1>
+<ul>
+<li>Access checked by:
+<ul>
+<li>global privileges</li>
+<li>OR (database privileges AND host privileges)</li>
+<li>OR table privileges</li>
+<li>OR column privileges</li>
+</ul></li>
+<li>For dev setups I like to
+<ul>
+<li>Create users using the host <code>'%'</code></li>
+<li>Grant all privileges to databases matching <code>username_%</code></li>
+</ul></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="../reveal.js/lib/js/head.min.js"></script>
+  <script src="../reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
