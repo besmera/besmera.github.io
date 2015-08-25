@@ -1,3 +1,6 @@
 [submodule "CSCI241/reveal.js"]
 	path = CSCI241/reveal.js
 	url = https://github.com/hakimel/reveal.js.git
+[submodule "reveal.js"]
+	path = reveal.js
+	url = git@github.com:hakimel/reveal.js.git
