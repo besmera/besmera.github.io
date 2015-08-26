@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>Forms</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Forms</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/forms">Forms</a></li>
+<li><a href="#/elements">Elements</a></li>
+</ul>
+</section>
+
+<section><section id="forms" class="titleslide slide level1"><h1>Forms</h1></section><section id="forms-slidessource" class="slide level2">
+<h1>Forms <a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></h1>
+<ul>
+<li><a href="http://www.winthrop.edu/sitefeedback/default.aspx?ekfrm=17422">We use forms all the time</a></li>
+<li><p><a href="https://support.godaddy.com/help/article/8376/using-our-php-form-mailers-on-web-classic-hosting">GoDaddy and others write server side code for you</a></p>
+<ul>
+<li>User sends data to server</li>
+<li>Server processes data
+<ul>
+<li>Mail</li>
+<li>DB</li>
+</ul></li>
+<li>Server sends data to user</li>
+</ul></li>
+</ul>
+</section><section id="forms-1" class="slide level2">
+<h1>Forms</h1>
+<form action="http://imagine-it.org/processform.php" method="GET">
+  
+<label>First: <input type="text" name="first"></label><br> <label>Last: <input type="text" name="last"></label><br>
+<button type="submit">
+Submit
+</button>
+</form>
+
+
+
+</section><section id="sending-data" class="slide level2">
+<h1>Sending Data</h1>
+<ul>
+<li>Lets fill out this form using the following pieces of data
+<ul>
+<li>Andrew</li>
+<li>4825</li>
+<li>besmera</li>
+<li>Thurmond 304</li>
+</ul></li>
+</ul>
+<p> </p>
+<p><label><input type="text" name="first"></label><br> <label><input type="text" name="username"></label><br> <label><input type="text" name="room"></label><br> <label><input type="text" name="extension"></label><br></p>
+</section><section id="sending-data-1" class="slide level2">
+<h1>Sending Data</h1>
+<ul>
+<li>Lets fill out this form using the following pieces of data
+<ul>
+<li>Andrew</li>
+<li>4825</li>
+<li>besmera</li>
+<li>Thurmond 304</li>
+</ul></li>
+</ul>
+<p> </p>
+<p><label>Name: <input type="text" name="first"></label><br> <label>Username: <input type="text" name="username"></label><br> <label>Room: <input type="text" name="room"></label><br> <label>Ext: <input type="text" name="extension"></label><br></p>
+</section><section id="name-value-pairs" class="slide level2">
+<h1>Name Value Pairs</h1>
+<ul>
+<li>camelCaseIsUsedForMultipleWords</li>
+<li>itshardertoreadtextlikethis</li>
+</ul>
+</section><section id="query-string" class="slide level2">
+<h1>Query String</h1>
+<ul>
+<li>Starts with <code>?</code></li>
+<li>Uses name value pairs seperated by <code>=</code></li>
+<li>More than one seperated by <code>&amp;</code></li>
+</ul>
+<pre class="html"><code>?first=Andrew&amp;last=Besmer</code></pre>
+</section><section id="try-it" class="slide level2">
+<h1>Try it</h1>
+<ul>
+<li><a href="http://imagine-it.org/processform.php">http://imagine-it.org/processform.php</a></li>
+</ul>
+</section><section id="form-structure" class="slide level2">
+<h1>Form Structure</h1>
+<ul>
+<li>Forms use the <code>form</code> tag and require two attributes
+<ul>
+<li><code>action</code> - Where the data will be sent</li>
+<li><code>method</code> - How the data will be sent</li>
+</ul></li>
+</ul>
+<pre class="html"><code>&lt;form action=&quot;http://imagine-it.org/processform.php&quot; method=&quot;GET&quot;&gt;
+
+&lt;/form&gt;</code></pre>
+</section><section id="form-methods" class="slide level2">
+<h1>Form Methods</h1>
+<ul>
+<li>GET
+<ul>
+<li>Visible in url</li>
+<li>Saved in browser history</li>
+<li>Has size limits</li>
+</ul></li>
+<li>POST
+<ul>
+<li>Sent as part of message body</li>
+<li>Not stored in browser history</li>
+<li>No practical size limits</li>
+</ul></li>
+</ul>
+</section><section id="get-form" class="slide level2">
+<h1>GET Form</h1>
+<form action="http://imagine-it.org/processform.php" method="GET">
+  
+<label>First: <input type="text" name="first"></label><br> <label>Last: <input type="text" name="last"></label><br>
+<button type="submit">
+Submit
+</button>
+</form>
+
+<pre class="html"><code>&lt;form action=&quot;http://imagine-it.org/processform.php&quot; method=&quot;GET&quot;&gt;
+  &lt;label&gt;First: &lt;input type=&quot;text&quot; name=&quot;first&quot;&gt;&lt;/label&gt;&lt;br&gt;
+  &lt;label&gt;Last: &lt;input type=&quot;text&quot; name=&quot;last&quot;&gt;&lt;/label&gt;&lt;br&gt;
+  &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+</section><section id="post-form" class="slide level2">
+<h1>POST Form</h1>
+<form action="http://imagine-it.org/processform.php" method="POST">
+  
+<label>First: <input type="text" name="first"></label><br> <label>Last: <input type="text" name="last"></label><br>
+<button type="submit">
+Submit
+</button>
+</form>
+
+<pre class="html"><code>&lt;form action=&quot;http://imagine-it.org/processform.php&quot; method=&quot;POST&quot;&gt;
+  &lt;label&gt;First: &lt;input type=&quot;text&quot; name=&quot;first&quot;&gt;&lt;/label&gt;&lt;br&gt;
+  &lt;label&gt;Last: &lt;input type=&quot;text&quot; name=&quot;last&quot;&gt;&lt;/label&gt;&lt;br&gt;
+  &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+</section></section>
+<section><section id="elements" class="titleslide slide level1"><h1>Elements</h1></section><section id="text-input" class="slide level2">
+<h1>Text Input</h1>
+<p><input type="text" name="firstName"></p>
+<pre class="html"><code>&lt;input type=&quot;text&quot; name=&quot;firstName&quot;&gt;</code></pre>
+</section><section id="button" class="slide level2">
+<h1>Button</h1>
+<button type="submit">
+Submit
+</button>
+<button type="reset">
+Reset
+</button>
+
+<pre class="html"><code>&lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+&lt;button type=&quot;reset&quot;&gt;Reset&lt;/button&gt;</code></pre>
+</section><section id="labels" class="slide level2">
+<h1>Labels</h1>
+<p><label> First Name: <input type="text" name="firstName"> </label></p>
+<p>  or  </p>
+<p><label for="firstName"> First Name: </label> <input type="text" name="firstName" id="firstName"></p>
+<pre class="html"><code>&lt;label&gt; First Name:
+&lt;input type=&quot;text&quot; name=&quot;firstName&quot;&gt;
+&lt;/label&gt;
+
+&lt;label for=&quot;firstName&quot;&gt; First Name: &lt;/label&gt;
+&lt;input type=&quot;text&quot; name=&quot;firstName&quot; id=&quot;firstName&quot;&gt;</code></pre>
+</section><section id="try-it-1" class="slide level2">
+<h1>Try it</h1>
+<p>Morse code!</p>
+</section><section id="checkboxes" class="slide level2">
+<h1>Checkboxes</h1>
+<ul>
+<li>Warning: Only transmitted if checked!</li>
+</ul>
+<p> </p>
+<p>Status:<br> <input type="checkbox" name="student" id="student"> <label for="student">Student</label><br> <input type="checkbox" name="faculty" id="faculty"> <label for="cheese">Faculty</label></p>
+<pre class="html"><code>Status:&lt;br&gt;
+&lt;input type=&quot;checkbox&quot; name=&quot;student&quot; id=&quot;student&quot;&gt;
+&lt;label for=&quot;student&quot;&gt;Student&lt;/label&gt;&lt;br&gt;
+&lt;input type=&quot;checkbox&quot; name=&quot;faculty&quot; id=&quot;faculty&quot;&gt;
+&lt;label for=&quot;cheese&quot;&gt;Faculty&lt;/label&gt;</code></pre>
+</section><section id="radios" class="slide level2">
+<h1>Radios</h1>
+<p><label for="freshman">Freshman</label> <input type="radio" name="classStanding" id="freshman" value="freshman"> <label for="sophmore">Sophmore</label> <input type="radio" name="classStanding" id="sophmore" value="sophmore"></p>
+<pre class="html"><code>&lt;label for=&quot;freshman&quot;&gt;Freshman&lt;/label&gt;
+&lt;input type=&quot;radio&quot; name=&quot;classStanding&quot; id=&quot;freshman&quot; value=&quot;freshman&quot;&gt;
+&lt;label for=&quot;sophmore&quot;&gt;Sophmore&lt;/label&gt;
+&lt;input type=&quot;radio&quot; name=&quot;classStanding&quot; id=&quot;sophmore&quot; value=&quot;sophmore&quot;&gt;</code></pre>
+</section><section id="field-set" class="slide level2">
+<h1>Field Set</h1>
+<fieldset>
+    
+<legend>Class Standing:</legend> <label for="freshman">Freshman</label> <input type="radio" name="classStanding" id="freshman" value="freshman"> <label for="sophmore">Sophmore</label> <input type="radio" name="classStanding" id="sophmore" value="sophmore">
+</fieldset>
+
+<pre class="html"><code>&lt;fieldset&gt;
+    &lt;legend&gt;Class Standing:&lt;/legend&gt;
+    &lt;label for=&quot;freshman&quot;&gt;Freshman&lt;/label&gt;
+    &lt;input type=&quot;radio&quot; name=&quot;classStanding&quot; id=&quot;freshman&quot; value=&quot;freshman&quot;&gt;
+    &lt;label for=&quot;sophmore&quot;&gt;Sophmore&lt;/label&gt;
+    &lt;input type=&quot;radio&quot; name=&quot;classStanding&quot; id=&quot;sophmore&quot; value=&quot;sophmore&quot;&gt;
+&lt;/fieldset&gt;</code></pre>
+</section><section id="selects" class="slide level2">
+<h1>Selects</h1>
+<p><label for="state">State:</label> <select name="state" id="state"> <option value="NC">NC</option> <option value="SC">SC</option> </select></p>
+<pre class="html"><code>&lt;label for=&quot;state&quot;&gt;State:&lt;/label&gt;
+&lt;select name=&quot;state&quot; id=&quot;state&quot;&gt;
+  &lt;option value=&quot;NC&quot;&gt;North Carolina&lt;/option&gt;
+  &lt;option value=&quot;SC&quot;&gt;South Carolina&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+</section><section id="textarea" class="slide level2">
+<h1>Textarea</h1>
+<label>Student Notes: <br>
+<textarea name="notes"></textarea>
+<p></label></p>
+<pre class="html"><code>&lt;label&gt;Student Notes: &lt;br&gt;
+&lt;textarea name=&quot;notes&quot;&gt;&lt;/textarea&gt;
+&lt;/label&gt;</code></pre>
+</section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Slides are roughly based on CC licensed slides by Pamela Fox at Kahn Academy<a href="#/fnref1">↩</a></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

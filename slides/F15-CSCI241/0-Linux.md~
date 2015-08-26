@@ -1,0 +1,12 @@
+% Linux Primer
+% Dr. Andrew Besmer
+
+# Linux
+
+## Terminal
+
+* The terminal makes it easy to understand what directory you are in, who you are, and what computer you are using
+
+```bash
+ACC.besmera2@abernathy:~$ 
+```

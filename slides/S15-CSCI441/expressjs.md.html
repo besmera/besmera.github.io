@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>socket.io</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">socket.io</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/socket.io">socket.io</a></li>
+<li><a href="#/persistence">Persistence</a></li>
+</ul>
+</section>
+
+<section><section id="socket.io" class="titleslide slide level1"><h1>socket.io</h1></section><section id="chat-server" class="slide level2">
+<h1>Chat Server</h1>
+<ul>
+<li>Options for chat server
+<ul>
+<li>Short Polling (Very Bad)</li>
+<li>Long Polling (Good)</li>
+<li>Web Sockets (Good)</li>
+</ul></li>
+</ul>
+</section><section id="web-socket-vs-requestresponse" class="slide level2">
+<h1>Web Socket vs Request/Response</h1>
+<p><img src="http://www.websocket.org/img/latency-comparison.gif"></p>
+</section><section id="socket.io-server" class="slide level2">
+<h1>Socket.io Server</h1>
+<pre class="bash"><code>npm install socket.io</code></pre>
+<pre class="javascript"><code>// app.js
+
+var express = require(&#39;express&#39;);
+var app = express();
+var server = require(&#39;http&#39;).createServer(app);
+var socket = require(&#39;socket.io&#39;);
+var io = socket.listen(server);
+
+app.use(express.static(__dirname + &#39;/public&#39;)); //shares a static folder
+
+io.sockets.on(&#39;connection&#39;, function(client) {
+  console.log(&#39;New Chat User Connected&#39;);
+});
+
+server.listen(8024, function() {
+  console.log(&#39;Express server is listening on port 8024...&#39;);
+});</code></pre>
+</section><section id="client-template" class="slide level2">
+<h1>Client Template</h1>
+<ul>
+<li>Template we will use</li>
+</ul>
+<pre class="html"><code>&lt;!-- public/index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;\o/ Chat&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;h1&gt;\o/ Chat&lt;/h1&gt;
+
+   &lt;div id=&quot;users&quot;&gt;&lt;/div&gt;
+
+   &lt;div id=&quot;chatRoom&quot;&gt;
+     &lt;h3 id=&quot;chatStatus&quot;&gt;&lt;/h3&gt;
+     &lt;ul&gt;
+     &lt;/ul&gt;
+   &lt;/div&gt;
+
+ &lt;form id=&quot;chatForm&quot;&gt;
+   &lt;input id=&quot;chatInput&quot; type=&quot;text&quot;&gt;
+   &lt;input type=&quot;submit&quot; value=&quot;Send&quot;&gt;
+  &lt;/form&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</section><section id="socket.io-client" class="slide level2">
+<h1>Socket.io Client</h1>
+<ul>
+<li>Don’t forget to put the <code>socket.io.js</code> and <code>jquery-2.1.3.min.js</code> in the <code>public/libs</code> folder!</li>
+</ul>
+<pre class="html"><code>&lt;!-- public/index.html --&gt;
+
+ &lt;script src=&quot;libs/socket.io.js&quot;&gt;&lt;/script&gt;
+ &lt;script src=&quot;libs/jquery-2.1.3.min.js&quot;&gt;&lt;/script&gt;
+ &lt;script&gt;
+   var server = io.connect(&#39;http://winthrop.dbms.rocks:8024&#39;);
+&lt;/script&gt;</code></pre>
+</section><section id="sending-events-client-to-server" class="slide level2">
+<h1>Sending Events Client to Server</h1>
+<ul>
+<li>Use <code>emit()</code> passing object to send</li>
+<li>Object will be sent to server using socket.io</li>
+</ul>
+<pre class="html"><code>&lt;!-- public/index.html --&gt;
+
+&lt;script&gt;
+     server.emit(&#39;setUsername&#39;, {username : &#39;bsmith&#39;});
+&lt;/script&gt;</code></pre>
+</section><section id="receiving-events-on-server" class="slide level2">
+<h1>Receiving Events on Server</h1>
+<ul>
+<li>Register a <code>.on()</code> to listen for events
+<ul>
+<li>A <code>connection</code> event is a built in event for when a new client is connected</li>
+<li>The <code>setUsername</code> is a custom event specific to the client socket</li>
+</ul></li>
+</ul>
+<pre class="javascript"><code>// app.js
+
+io.sockets.on(&#39;connection&#39;, function(client) {
+  console.log(&#39;New Chat User Connected&#39;);
+
+  client.on(&#39;setUsername&#39;, function(data) {
+    console.log(data);
+    client.username = data.username;
+  });
+
+});</code></pre>
+</section><section id="sending-events-client-to-server-1" class="slide level2">
+<h1>Sending Events Client to Server</h1>
+<ul>
+<li>Probably don’t want everyone to have <code>bsmith</code></li>
+<li>Lets ask them for their user</li>
+</ul>
+<pre class="html"><code>&lt;!-- public/index.html --&gt;
+
+&lt;script&gt;
+ server.on(&#39;connect&#39;, function(data) {
+     var username = prompt(&quot;What is your chat name?&quot;);
+
+     $(&#39;#chatStatus&#39;).html(&#39;Connected to \\o/ Chat&#39;);
+
+     server.emit(&#39;setUsername&#39;, {username : username});
+   });
+&lt;/script&gt;</code></pre>
+</section><section id="try-it" class="slide level2">
+<h1>Try it</h1>
+<ul>
+<li>Practice Time</li>
+</ul>
+</section><section id="sending-events-server-to-client" class="slide level2">
+<h1>Sending Events Server to Client</h1>
+<ul>
+<li>Use <code>emit()</code>!
+<ul>
+<li>Can emit using a reference to the client socket or to all</li>
+</ul></li>
+</ul>
+<pre class="javascript"><code>// app.js
+
+io.sockets.on(&#39;connection&#39;, function(client) {
+  client.on(&#39;myEvent&#39;, function(data) {
+    client.emit(&#39;someEvent&#39;, {}); //Send to socket data from
+    //Note: you could use a reference to other client sockets provided it is in scope
+  });</code></pre>
+<p>  or</p>
+<pre class="javascript"><code>// app.js
+
+io.sockets.on(&#39;connection&#39;, function(client) {
+  client.on(&#39;myEvent&#39;, function(data) {
+    io.emit(&#39;someEvent&#39;, {}); //broadcast to all connected sockets
+  });</code></pre>
+</section><section id="receiving-events-on-client" class="slide level2">
+<h1>Receiving Events on Client</h1>
+<ul>
+<li>Register a <code>on()</code>!</li>
+<li>Thats it!</li>
+</ul>
+<pre class="html"><code>&lt;!-- index.html --&gt;
+
+   server.on(&#39;someEvent&#39;, function(data) {
+     console.log(data);
+   });</code></pre>
+</section><section id="try-it-1" class="slide level2">
+<h1>Try it</h1>
+<ul>
+<li>Practice Time
+<ul>
+<li>Emit from the client a <code>chatMessage</code> event sending the <code>message</code> you enter</li>
+<li>When the event is received by the server
+<ul>
+<li>Send the message in an object to the other chatters
+<ul>
+<li><code>username</code> and <code>message</code> properties</li>
+</ul></li>
+</ul></li>
+<li>Starter code and hints on next few slides</li>
+</ul></li>
+</ul>
+</section><section id="hint-app" class="slide level2">
+<h1>Hint App</h1>
+<pre class="javascript"><code>//app.js
+
+io.sockets.on(&#39;connection&#39;, function(client) {
+
+  //setUsername event...
+
+  // register the chatMessage event and when received
+     // emit the username and message to a single client or everyone?
+});
+</code></pre>
+</section><section id="hint-index" class="slide level2">
+<h1>Hint Index</h1>
+<pre class="html"><code>&lt;script&gt;
+   // socket io and username setup stuff
+
+   //register listener chat messages and when they arrive
+       // $(&#39;#chatRoom ul&#39;).append(&quot;&lt;li&gt;&quot; + ??????????? + &quot;: &quot; + ????????????? + &quot;&lt;/li&gt;&quot;);
+
+   $(document).ready(function() {
+     $(&#39;#chatForm&#39;).submit(function(e) {
+       e.preventDefault();
+
+       var message = $(&#39;#chatInput&#39;).val();
+
+       //emit the ‘chatMessage’ event on the server
+
+       $(&#39;#chatInput&#39;).val(&quot;&quot;);
+     });
+   });
+ &lt;/script&gt;</code></pre>
+</section><section id="try-it-2" class="slide level2">
+<h1>Try it</h1>
+<ul>
+<li>Practice Time</li>
+</ul>
+</section><section id="solution-app" class="slide level2">
+<h1>Solution App</h1>
+<pre class="javascript"><code>
+// app.js
+var express = require(&#39;express&#39;);
+var app = express();
+var server = require(&#39;http&#39;).createServer(app);
+var socket = require(&#39;socket.io&#39;);
+var io = socket.listen(server);
+
+app.use(express.static(__dirname + &#39;/public&#39;)); //shares a static folder
+
+io.sockets.on(&#39;connection&#39;, function(client) {
+  console.log(&#39;New Chat User Connected&#39;);
+
+  client.on(&#39;setUsername&#39;, function(data) {
+    client.username = data.username;
+  });
+
+  client.on(&#39;chatMessage&#39;, function(data) {
+    io.emit(&#39;chatMessage&#39;, {username: client.username, message: data.message }); //broadcast to all clients connected
+  });
+});
+
+server.listen(8024, function() {
+  console.log(&#39;Express server is listening on port 8024...&#39;);
+});</code></pre>
+</section><section id="solution-index" class="slide level2">
+<h1>Solution Index</h1>
+<pre class="html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;\o/ Chat&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;h1&gt;\o/ Chat&lt;/h1&gt;
+
+  &lt;form id=&quot;chatForm&quot;&gt;
+
+   &lt;div id=&quot;users&quot;&gt;&lt;/div&gt;
+
+   &lt;div id=&quot;chatRoom&quot;&gt;
+     &lt;h3 id=&quot;chatStatus&quot;&gt;&lt;/h3&gt;
+     &lt;ul&gt;
+     &lt;/ul&gt;
+   &lt;/div&gt;
+   &lt;input id=&quot;chatInput&quot; type=&quot;text&quot;&gt;
+   &lt;input type=&quot;submit&quot; value=&quot;Send&quot;&gt;
+  &lt;/form&gt;
+ &lt;/body&gt;
+
+ &lt;script src=&quot;libs/socket.io.js&quot;&gt;&lt;/script&gt;
+ &lt;script src=&quot;libs/jquery-2.1.3.min.js&quot;&gt;&lt;/script&gt;
+ &lt;script&gt;
+   var server = io.connect(&#39;http://winthrop.dbms.rocks:8024&#39;);
+
+   server.on(&#39;connect&#39;, function(data) {
+     var username = prompt(&quot;What is your chat name?&quot;);
+
+     $(&#39;#chatStatus&#39;).html(&#39;Connected to \\o/ Chat&#39;);
+
+     server.emit(&#39;setUsername&#39;, {username : username});
+   });
+
+   server.on(&#39;chatMessage&#39;, function(data) {
+     $(&#39;#chatRoom ul&#39;).append(&quot;&lt;li&gt;&quot; + data.username + &quot;: &quot; + data.message + &quot;&lt;/li&gt;&quot;);
+   }); // listen for message events
+
+   $(document).ready(function() {
+     $(&#39;#chatForm&#39;).submit(function(e) {
+
+       e.preventDefault();
+
+       var message = $(&#39;#chatInput&#39;).val();
+
+       //emit the ‘chatMessage’ event on the server
+       server.emit(&#39;chatMessage&#39;, { message : message });
+
+       $(&#39;#chatInput&#39;).val(&quot;&quot;);
+     });
+   });
+ &lt;/script&gt;
+
+&lt;/html&gt;</code></pre>
+</section></section>
+<section><section id="persistence" class="titleslide slide level1"><h1>Persistence</h1></section><section id="persistence-1" class="slide level2">
+<h1>Persistence</h1>
+<ul>
+<li>What happens when you first get to the chatroom?</li>
+</ul>
+</section><section id="persistence-2" class="slide level2">
+<h1>Persistence</h1>
+<ul>
+<li>Show the last 10 messages by storing them in mongodb capped collection</li>
+</ul>
+<pre class="javascript"><code>// 3145728 bytes = 3MB x (1024KB/1MB) x (1024B/1KB)
+db.createCollection(&quot;chat&quot;, {capped: true, size: 3145728, max: 10});</code></pre>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
