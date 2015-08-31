@@ -43,6 +43,7 @@ ACC.besmera2@abernathy:~$
 
 * To change the directory you are in use the `cd` command and pass either an absolute or a relative directory
 	* At anytime type `cd` without passing anything to return to `~`
+	* Use `cd ..` to go to the directly directly above the current
 
 ```terminal
 ACC.besmera2@abernathy:~$ ls
