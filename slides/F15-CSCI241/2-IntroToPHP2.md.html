@@ -43,6 +43,8 @@
 <li><a href="#/operators">Operators</a></li>
 <li><a href="#/conditionals">Conditionals</a></li>
 <li><a href="#/logical">Logical</a></li>
+<li><a href="#/looping">Looping</a></li>
+<li><a href="#/more-conditionals">More Conditionals</a></li>
 </ul>
 </section>
 
@@ -333,6 +335,12 @@ $y = 6;
 var_dump((bool)($x=$y)); // true
 
 `rm -rf ~/somefolder`; // Deletes the folder!</code></pre>
+</section><section id="existance" class="slide level2">
+<h1>Existance</h1>
+<ul>
+<li>Check <code>$_GET</code> and <code>$_POST</code> data to see if a name or key value pair was transmitted using <code>isset()</code></li>
+<li><code>isset()</code> returns true or false… perfect for conditionals</li>
+</ul>
 </section></section>
 <section><section id="logical" class="titleslide slide level1"><h1>Logical</h1></section><section id="logical-operators" class="slide level2">
 <h1>Logical Operators</h1>
@@ -365,6 +373,7 @@ var_dump((bool)($x=$y)); // true
 <p> </p>
 <ul>
 <li>Can be combined to form more complex logic</li>
+<li>Truth Tables</li>
 </ul>
 </section><section id="operator-precedence" class="slide level2">
 <h1>Operator Precedence</h1>
@@ -413,12 +422,474 @@ var_dump((bool)($x=$y)); // true
 <ul>
 <li>Examples</li>
 </ul>
-</section><section id="existance" class="slide level2">
-<h1>Existance</h1>
+</section><section id="logic-challenge" class="slide level2">
+<h1>Logic Challenge</h1>
+<pre class="php"><code>$u = 0;
+$v = &quot;Andrew&quot;;
+$w = true;
+$x = 5;
+$y = 22;
+$z = false;
+
+if($u || $v) 
+{ //true or false? }
+
+if(!$w == false &amp;&amp; $y &gt; 22) 
+{ //true or false? }
+
+if(!$z || ($z == true &amp;&amp; $x)) 
+{ //true or false? }
+
+if(!$u &amp;&amp; $v &amp;&amp; ($w &amp;&amp; $x) &lt; $y &amp;&amp; ($z || $y)) 
+{ //true or false? }</code></pre>
+</section></section>
+<section><section id="looping" class="titleslide slide level1"><h1>Looping</h1></section><section id="while-loop" class="slide level2">
+<h1>while Loop</h1>
 <ul>
-<li>Check <code>$_GET</code> and <code>$_POST</code> data to see if a name or key value pair was transmitted using <code>isset()</code></li>
-<li><code>isset()</code> returns true or false… perfect for conditionals</li>
+<li>Executes code block only if expression evaluates to true</li>
+<li>This is a pre-test loop</li>
+<li>Two parts
+<ul>
+<li>Code block</li>
+<li>Expression</li>
+</ul></li>
+<li>Each run of the code block is called an iteration</li>
 </ul>
+<pre class="php"><code>while(conditional expression)
+{
+    //statements
+}</code></pre>
+</section><section id="while-loop-1" class="slide level2">
+<h1>while Loop</h1>
+<ul>
+<li>1 check the condition
+<ul>
+<li>If true
+<ul>
+<li>Execute 2</li>
+<li>Go back to 1</li>
+</ul></li>
+<li>If false
+<ul>
+<li>Skip code block</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="php"><code>while(1)
+{
+    2
+}</code></pre>
+</section><section id="while-loop-2" class="slide level2">
+<h1>while Loop</h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$takeoff = 3;
+
+while($takeoff &gt;= 0)
+{
+    echo $takeoff-- . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+</section><section id="while-loop-3" class="slide level2">
+<h1>while Loop</h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$takeoff = -3;
+
+while($takeoff &gt;= 0)
+{
+    echo $takeoff-- . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+</section><section id="while-loop-4" class="slide level2">
+<h1>while Loop</h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$takeoff = 3;
+
+while($takeoff &lt;= 3)
+{
+    echo $takeoff-- . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+<div class="fragment">
+<ul>
+<li>Be careful of infinite loops
+<ul>
+<li>Ensure you will eventually reach an exit condition</li>
+</ul></li>
+</ul>
+</div>
+</section><section id="break" class="slide level2">
+<h1>break</h1>
+<ul>
+<li><code>break</code> can be used to exit the nearest looping structure it is contained in</li>
+<li>This allows us to create intentional infinite loops or to exit a loop given a condition</li>
+</ul>
+<pre class="php"><code>while(true)
+{
+    //Get controller commands
+    if(quit command received)
+        break;
+    //Process character movements
+    //Update UI
+}</code></pre>
+</section><section id="while-loop-5" class="slide level2">
+<h1>while Loop</h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$takeoff = 3;
+
+while(true)
+{
+    echo $takeoff . &quot;&lt;br&gt;&quot;;
+    if(--$takeoff &lt;= 0)
+        break; 
+}</code></pre>
+<ul>
+<li class="fragment">What about <code>if($takeoff-- &lt;= 0)</code></li>
+</ul>
+</section><section id="do-while-loop" class="slide level2">
+<h1>do while Loop</h1>
+<ul>
+<li>Executes code block once</li>
+<li>Executes it again only if expression evaluates to true</li>
+<li>This is a post-test loop</li>
+<li>Notice a <code>;</code> is used here</li>
+</ul>
+<pre class="php"><code>do
+{
+    //statements
+} while(conditional expression);</code></pre>
+</section><section id="do-while-loop-1" class="slide level2">
+<h1>do while Loop</h1>
+<ul>
+<li>Execute 1 then</li>
+<li>Check condition 2
+<ul>
+<li>If true
+<ul>
+<li>Execute 1</li>
+<li>Go back to check condition 2</li>
+</ul></li>
+<li>If false
+<ul>
+<li>Skip code block</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="php"><code>do
+{
+    1
+} while(2);</code></pre>
+</section><section id="do-while-loop-2" class="slide level2">
+<h1>do while Loop</h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$takeoff = 3;
+
+do
+{
+    echo --$takeoff . &quot;&lt;br&gt;&quot;;
+}
+while ($takeoff &gt;= 0);</code></pre>
+</section><section id="do-while-loop-3" class="slide level2">
+<h1>do while Loop</h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$takeoff = 3;
+
+do
+{
+    echo $takeoff-- . &quot;&lt;br&gt;&quot;;
+}
+while ($takeoff = 3);</code></pre>
+<ul>
+<li class="fragment">Trick Question! Infinite 3’s!</li>
+</ul>
+</section><section id="do-while-loop-4" class="slide level2">
+<h1>do while Loop</h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$takeoff = 3;
+
+do
+{
+    echo $takeoff-- . &quot;&lt;br&gt;&quot;;
+}
+while ($takeoff &lt;= 3);</code></pre>
+</section><section id="for-loop" class="slide level2">
+<h1>for Loop</h1>
+<ul>
+<li>For loop is typically used when number of iterations is known
+<ul>
+<li>Known can be based on runtime variables like number of items entered by user</li>
+</ul></li>
+<li>For loops require three statements
+<ul>
+<li>initialization</li>
+<li>conditional expression</li>
+<li>incrementor</li>
+</ul></li>
+</ul>
+<pre class="php"><code>for(initialization; conditional expression; incrementor)
+{
+    //statements
+}</code></pre>
+</section><section id="for-loop-1" class="slide level2">
+<h1>for Loop</h1>
+<ul>
+<li>1 Initialize code</li>
+<li>2 Check conditional expression
+<ul>
+<li>If true
+<ul>
+<li>Execute 3</li>
+<li>Execute incrementor 4</li>
+<li>Go back to check 2</li>
+</ul></li>
+<li>If false
+<ul>
+<li>Stop and skip code block</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="php"><code>for(1; 2; 4)
+{
+    3
+}</code></pre>
+</section><section id="for-loop-2" class="slide level2">
+<h1>for Loop</h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+for($ct = 0; $ct &lt; 5; $ct++)
+{
+    echo $ct . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+</section><section id="for-loop-3" class="slide level2">
+<h1>for Loop</h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+for($ct = 0; $ct &lt; 5; ++$ct)
+{
+    echo $ct . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+</section><section id="for-loop-4" class="slide level2">
+<h1>for Loop</h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+for($ct = 0; $ct &lt; 5; $ct+=2)
+{
+    echo $ct . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+</section><section id="for-loop-5" class="slide level2">
+<h1>for Loop</h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$ct = 0;
+for(; $ct &lt; 4; )
+{
+    echo $ct++ . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+</section><section id="continue" class="slide level2">
+<h1>continue</h1>
+<ul>
+<li><code>continue</code> can be used to exit the <strong><em>current</em></strong> iteration of the nearest looping structure it is contained in</li>
+<li>This means that the loop will go to whatever it’s next step normally would be</li>
+</ul>
+</section><section id="for-loop-6" class="slide level2">
+<h1>for Loop</h1>
+<ul>
+<li>What will the output of this script be?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+for($ct = 0; $ct &lt; 5; $ct++)
+{
+    if($ct == 3)
+        continue;
+    echo $ct . &quot;&lt;br&gt;&quot;;
+}</code></pre>
+</section><section id="nested-loops" class="slide level2">
+<h1>Nested Loops</h1>
+<ul>
+<li>Looping structures like conditionals can be nested within one another</li>
+<li><code>for</code> loop is one commonly nested loop</li>
+</ul>
+<pre class="php"><code>&lt;?php
+for($i = 1; $i &lt;= 3; $i++)
+{
+    for($j = 1; $j &lt;= 3; $j++)
+    {
+    }
+}</code></pre>
+</section><section id="for-loop-7" class="slide level2">
+<h1>for Loop</h1>
+<ul>
+<li>What is the output of the following script?</li>
+</ul>
+<pre class="php"><code>&lt;?php
+echo &quot;Before loops: \$i=$i &amp; \$j=$j\n&quot;;
+for($i = 1; $i &lt;= 3; $i++)
+{
+    echo &quot;Before nested: \$i=$i &amp; \$j=$j\n&quot;;
+    for($j = 1; $j &lt;= 3; $j++)
+    {
+        echo &quot;In nested: \$i=$i &amp; \$j=$j\n&quot;;
+    }
+    echo &quot;After nested: \$i=$i &amp; \$j=$j\n&quot;;
+}
+echo &quot;After Loops: \$i=$i &amp; \$j=$j\n&quot;;</code></pre>
+</section><section id="for-loop-8" class="slide level2">
+<h1>for Loop</h1>
+<ul>
+<li>Lets make stars using nested loops</li>
+</ul>
+<figure>
+<img src="nestedForLoopPart1.png" alt="Nested For Loops Part 1 Example" /><figcaption>Nested For Loops Part 1 Example</figcaption>
+</figure>
+</section><section id="for-loop-9" class="slide level2">
+<h1>for Loop</h1>
+<ul>
+<li>Lets make stars using nested loops</li>
+</ul>
+<figure>
+<img src="nestedForLoopPart2.png" alt="Nested For Loops Part 2 Example" /><figcaption>Nested For Loops Part 2 Example</figcaption>
+</figure>
+</section></section>
+<section><section id="more-conditionals" class="titleslide slide level1"><h1>More Conditionals</h1></section><section id="switch" class="slide level2">
+<h1>Switch</h1>
+<ul>
+<li>A switch statement can be used to simplify code such as multiple <code>if else</code> statements or complicated nested logic</li>
+<li>More importantly it supports falling through the structure
+<ul>
+<li>Once matched it will execute the case and all cases below it</li>
+</ul></li>
+</ul>
+<pre class="php"><code>switch ($var) {
+    case val1:
+        //runs if $var == val1
+        break;
+    case val2:
+        //runs if $var == val2
+        break;
+    case val3:
+        //runs if $var == val3
+        break;
+    default:
+        //runs if nothing matched
+}</code></pre>
+</section><section id="switch-1" class="slide level2">
+<h1>Switch</h1>
+<ul>
+<li>Note the lack of <code>break</code></li>
+</ul>
+<pre class="php"><code>switch ($var) {
+    case val1:
+        //runs if $var == val1
+    case val2:
+        //runs if $var == val2 || $var == val1 
+    case val3:
+        //runs if $var == val3 || $var == val2 || $var == val1
+    default:
+        //runs always
+}</code></pre>
+</section><section id="switch-2" class="slide level2">
+<h1>Switch</h1>
+<ul>
+<li class="fragment">What will the output of this script be?
+<ul>
+<li class="fragment"><code>$grade = 89;</code></li>
+<li class="fragment"><code>$grade = 70;</code></li>
+<li class="fragment"><code>$grade = 64;</code></li>
+<li class="fragment"><code>$grade = -5;</code></li>
+</ul></li>
+</ul>
+<pre class="php"><code>&lt;?php
+switch ($grade) {
+    case ($grade &gt;= 90):
+        echo &quot;A&quot;;
+    break;
+    case ($grade &gt;= 80):
+        echo &quot;B&quot;;
+    break;
+    case ($grade &gt;= 70):
+        echo &quot;C&quot;;
+    break;
+    case ($grade &gt;= 60):
+        echo &quot;D&quot;;
+    break;
+    case ($grade &gt;= 0):
+        echo &quot;F&quot;;
+    break;
+    default:
+        echo &quot;Really?&quot;;
+}</code></pre>
+</section><section id="switch-3" class="slide level2">
+<h1>Switch</h1>
+<ul>
+<li class="fragment">What will the output of this script be?
+<ul>
+<li class="fragment"><code>$grade = 89;</code></li>
+<li class="fragment"><code>$grade = 70;</code></li>
+<li class="fragment"><code>$grade = 64;</code></li>
+<li class="fragment"><code>$grade = -5;</code></li>
+</ul></li>
+</ul>
+<pre class="php"><code>&lt;?php
+switch ($grade) {
+    case ($grade &gt;= 90):
+        echo &quot;A&quot;;
+    case ($grade &gt;= 80):
+        echo &quot;B&quot;;
+    case ($grade &gt;= 70):
+        echo &quot;C&quot;;
+    case ($grade &gt;= 60):
+        echo &quot;D&quot;;
+    case ($grade &gt;= 0):
+        echo &quot;F&quot;;
+    default:
+        echo &quot;Really?&quot;;
+}</code></pre>
+</section><section id="switch-4" class="slide level2">
+<h1>Switch</h1>
+<ul>
+<li class="fragment">What will the output of this script be?
+<ul>
+<li class="fragment"><code>$state = &quot;NC&quot;;</code></li>
+<li class="fragment"><code>$state = &quot;SC&quot;;</code></li>
+<li class="fragment"><code>$state = &quot;FL&quot;;</code></li>
+</ul></li>
+</ul>
+<pre class="php"><code>&lt;?php
+switch ($state) {
+    case &quot;NC&quot;:
+        echo &quot;North Carolina&quot;;
+    break;
+    case &quot;SC&quot;:
+        echo &quot;South Carolina&quot;;
+    break;    
+default:
+        echo &quot;Twilight Zone&quot;;
+}</code></pre>
 </section></section>
     </div>
   </div>
