@@ -45,6 +45,7 @@
 <li><a href="#/logical">Logical</a></li>
 <li><a href="#/looping">Looping</a></li>
 <li><a href="#/more-conditionals">More Conditionals</a></li>
+<li><a href="#/ternery">Ternery</a></li>
 </ul>
 </section>
 
@@ -886,10 +887,35 @@ switch ($state) {
     break;
     case &quot;SC&quot;:
         echo &quot;South Carolina&quot;;
-    break;    
+    break; 
 default:
         echo &quot;Twilight Zone&quot;;
 }</code></pre>
+</section></section>
+<section><section id="ternery" class="titleslide slide level1"><h1>Ternery</h1></section><section id="ternery-1" class="slide level2">
+<h1>Ternery</h1>
+<ul>
+<li><code>?</code> is called a ternary operator</li>
+<li><code>:</code> indicates the separation of true/false values in the ternary</li>
+</ul>
+<pre class="php"><code>conditional_expression ? true_value : false_value</code></pre>
+</section><section id="ternary-application" class="slide level2">
+<h1>Ternary Application</h1>
+<ul>
+<li>Useful for short handing certain conditional logic</li>
+</ul>
+<pre class="php"><code>if (isset($_POST[&quot;taxRate&quot;]) == true)
+{
+    $tax = $_POST[&quot;taxRate&quot;];
+}
+else
+{
+    $tax = 0.00;
+}
+
+//Equivalent to
+
+$tax = isset($_POST[&quot;taxRate&quot;]) ? $_POST[&quot;taxRate&quot;] : 0.00;</code></pre>
 </section></section>
     </div>
   </div>

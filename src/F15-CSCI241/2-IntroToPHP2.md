@@ -686,10 +686,39 @@ switch ($state) {
 	break;
     case "SC":
         echo "South Carolina";
-	break;    
+	break; 
 default:
         echo "Twilight Zone";
 }
 ```
 
+# Ternery
+
+## Ternery
+
+* `?` is called a ternary operator
+* `:` indicates the separation of true/false values in the ternary
+
+```php
+conditional_expression ? true_value : false_value
+```
+
+## Ternary Application
+
+* Useful for short handing certain conditional logic
+
+```php
+if (isset($_POST["taxRate"]) == true)
+{
+	$tax = $_POST["taxRate"];
+}
+else
+{
+	$tax = 0.00;
+}
+
+//Equivalent to
+
+$tax = isset($_POST["taxRate"]) ? $_POST["taxRate"] : 0.00;
+```
 
