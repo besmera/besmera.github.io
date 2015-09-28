@@ -269,6 +269,12 @@ AND Product.Price &gt; 15.00;</code></pre>
 </ul></li>
 </ul>
 <pre class="sql"><code>SELECT Company, AVG(Price) FROM Product GROUP BY Company;</code></pre>
+</section><section id="group-by-1" class="slide level2">
+<h1>GROUP BY</h1>
+<ul>
+<li>Beware of projecting any attributes not used in the <code>GROUP BY</code> or that are not the result of the aggregation functions</li>
+</ul>
+<pre class="sql"><code>SELECT name, AVG(Price) FROM Product GROUP BY Company;</code></pre>
 </section><section id="practice" class="slide level2">
 <h1>Practice</h1>
 <ol type="1">
@@ -286,8 +292,6 @@ AND Product.Price &gt; 15.00;</code></pre>
 <li>Can use aggregate functions in the <code>HAVING</code> but not <code>WHERE</code></li>
 </ul></li>
 </ul>
-<pre class="sql"><code>SELECT Company, AVG(Price) FROM Product GROUP BY Company HAVING Company = 1;</code></pre>
-<p>or</p>
 <pre class="sql"><code>SELECT Company, AVG(Price) FROM Product 
 GROUP BY Company HAVING AVG(Price) &lt; 15.00;</code></pre>
 </section><section id="practice-1" class="slide level2">
@@ -297,6 +301,12 @@ GROUP BY Company HAVING AVG(Price) &lt; 15.00;</code></pre>
 </ol>
 <pre class="sql"><code>SELECT Company, AVG(Price) FROM Product 
 GROUP BY Company HAVING AVG(Price) &lt; 15.00;</code></pre>
+<ol start="2" type="1">
+<li>Modify the query below to output the company name, category name, and average price instead of just the id.</li>
+</ol>
+<pre class="sql"><code>SELECT Category, Company, AVG(Price) FROM Product 
+GROUP BY Category, Company;
+</code></pre>
 </section></section>
 <section><section id="summary" class="titleslide slide level1"><h1>Summary</h1></section><section id="summary-1" class="slide level2">
 <h1>Summary</h1>

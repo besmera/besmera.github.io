@@ -174,6 +174,14 @@ SELECT * FROM Company WHERE EXISTS
 SELECT Company, AVG(Price) FROM Product GROUP BY Company;
 ```
 
+## GROUP BY
+
+* Beware of projecting any attributes not used in the `GROUP BY` or that are not the result of the aggregation functions
+
+```sql
+SELECT name, AVG(Price) FROM Product GROUP BY Company;
+```
+
 ## Practice
 
 1) Get ***all the company names*** and the ***average price of their products***.
@@ -184,12 +192,6 @@ SELECT Company, AVG(Price) FROM Product GROUP BY Company;
 
 * `HAVING` Provides a condition on the summary information, **applied after grouping**
 	* Can use aggregate functions in the `HAVING` but not `WHERE`
-
-```sql
-SELECT Company, AVG(Price) FROM Product GROUP BY Company HAVING Company = 1;
-```
-
-or
 
 ```sql
 SELECT Company, AVG(Price) FROM Product 
@@ -203,6 +205,14 @@ GROUP BY Company HAVING AVG(Price) < 15.00;
 ```sql
 SELECT Company, AVG(Price) FROM Product 
 GROUP BY Company HAVING AVG(Price) < 15.00;
+```
+
+2) Modify the query below to output the company name, category name, and average price instead of just the id.
+
+```sql
+SELECT Category, Company, AVG(Price) FROM Product 
+GROUP BY Category, Company;
+
 ```
 
 # Summary
