@@ -213,9 +213,9 @@
 WHERE Company.id IN (Select Product.Company 
         FROM Product WHERE Product.Price &gt; 15.00);</code></pre>
 <p>same as</p>
-<pre class="sql"><code>SELECT Company.Name FROM Company, Product 
-WHERE Company.id = Product.Company 
-AND Product.Price &gt; 15.00;</code></pre>
+<pre class="sql"><code>SELECT Company.Name FROM Company JOIN Product ON 
+Company.id = Product.Company WHERE
+ Product.Price &gt; 15.00;</code></pre>
 </section><section id="subquery-2" class="slide level2">
 <h1>Subquery</h1>
 <ul>

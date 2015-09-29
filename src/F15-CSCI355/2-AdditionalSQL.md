@@ -117,9 +117,9 @@ WHERE Company.id IN (Select Product.Company
 same as
 
 ```sql
-SELECT Company.Name FROM Company, Product 
-WHERE Company.id = Product.Company 
-AND Product.Price > 15.00;
+SELECT Company.Name FROM Company JOIN Product ON 
+Company.id = Product.Company WHERE
+ Product.Price > 15.00;
 ```
 
 ## Subquery
