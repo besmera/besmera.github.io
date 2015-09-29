@@ -635,8 +635,6 @@ Insert INTO Product (name, category, company, qty, price) Select "Hot-wheels Car
 
 1) Create a view showing the values of the product on hand.
 2) Select all the products and the category that the product is in.
-	* Implicit
-	* Explicit
 3) Select the *product name* and the *category name* of all the products.
 
 ## JOIN Practice
