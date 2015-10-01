@@ -676,3 +676,106 @@ Insert INTO Product (name, category, company, qty, price) Select "Hot-wheels Car
 	ALTER TABLE Product ADD FOREIGN KEY (Company) REFERENCES Company(id);
 </div>
 
+
+## M:N JOIN Twitter
+
+![Twitter ER](Twitter-ER.png)
+
+## M:N JOIN Twitter
+
+![Twitter Relations](Twitter-Relations.png)
+
+## M:N JOIN Twitter
+
+```sql
+DROP TABLE Follow, Tweet, User;
+
+CREATE TABLE User (
+	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Tweet (
+	id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	text VARCHAR(140) NOT NULL,
+	user INT UNSIGNED NOT NULL,
+	createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (user) REFERENCES User(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE Follow (
+	follower INT UNSIGNED,
+	followee INT UNSIGNED,
+	PRIMARY KEY(follower, followee),
+	FOREIGN KEY (follower) REFERENCES User(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (followee) REFERENCES User(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+INSERT INTO User (name) VALUES ("KATY PERRY"),("Justin Bieber"),("Barack Obama"),("Taylor Swift"),("YouTube"),("Rihanna"),("Lady Gaga"),("Justin Timberlake");
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "If people want a role model, they can have Miley Cyrus!", id FROM User where name = "KATY PERRY";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "My personality is up and down, sassy and cheeky.", id FROM User where name = "KATY PERRY";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "Canada's the best country in the world.", id FROM User where name = "Justin Bieber";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "I want to give people a taste of the Caribbean, and show them the fun side of me.", id FROM User where name = "Rihanna";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "Love is like a brick. You can build a house, or you can sink a dead body.", id FROM User where name = "Lady Gaga";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "They can't scare me, if I scare them first.", id FROM User where name = "Lady Gaga";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "If I had to name my greatest strength, I guess it would be my humility. Greatest weakness, it’s possible that I’m a little too awesome.", id FROM User where name = "Barack Obama";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "Just be yourself, there is no one better.", id FROM User where name = "Taylor Swift";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "No matter what happens in life, be good to people. Being good to people is a wonderful legacy to leave behind.", id FROM User where name = "Taylor Swift";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "Want your video posted, send us a message!", id FROM User where name = "YouTube";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "I want to especially thank all the members who took a break from their exhausting schedule of not passing any laws to be here tonight.", id FROM User where name = "Barack Obama";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "I never know what day it is. Never, ever, ever.", id FROM User where name = "Rihanna";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "I like simple things. I like to sneak in the theatre and watch movies. I'm a movie buff.", id FROM User where name = "Justin Timberlake";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "Hello YouTubes!", id FROM User where name = "YouTube";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "I try to read all of my fan mail. A lot of them send me candy, which I'm not allowed to eat 'cause my mom says it might be poisonous.", id FROM User where name = "Justin Bieber";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "I have 20,000 girlfriends, all around the world.", id FROM User where name = "Justin Timberlake";
+
+```
+
