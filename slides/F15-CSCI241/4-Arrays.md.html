@@ -112,27 +112,6 @@ $gradeN = 97;</code></pre>
 $grades = array(88, 92, 75, 97);
 
 var_dump($grades);</code></pre>
-</section><section id="accessing-array" class="slide level2">
-<h1>Accessing Array</h1>
-<ul>
-<li>Subscripts <code>[]</code>
-<ul>
-<li>integer - <code>$grades[0]</code></li>
-<li>string - <code>$grades[&quot;0&quot;]</code></li>
-</ul></li>
-<li>Casting
-<ul>
-<li>booleans - <code>true</code> to <code>1</code> and <code>false</code> to <code>0</code></li>
-<li>floats - <code>5.4</code> to <code>5</code></li>
-<li>strings - Depends!</li>
-</ul></li>
-</ul>
-</section><section id="deleting-array-element" class="slide level2">
-<h1>Deleting Array Element</h1>
-<ul>
-<li><code>unset($grades[0])</code> - Removes item from an array</li>
-<li><code>unset($grades)</code> - Removes whole array</li>
-</ul>
 </section><section id="creating-arrays-1" class="slide level2">
 <h1>Creating Arrays</h1>
 <ul>
@@ -146,6 +125,27 @@ $grades[] = 75;
 $grades[] = 97;
 
 var_dump($grades);</code></pre>
+</section><section id="accessing-array" class="slide level2">
+<h1>Accessing Array</h1>
+<ul>
+<li>Subscripts <code>[]</code>
+<ul>
+<li>integer - <code>$grades[0]</code></li>
+<li>string - <code>$grades[&quot;test1&quot;]</code></li>
+</ul></li>
+<li>Casting
+<ul>
+<li>booleans <strong><em>don’t use</em></strong> - <code>true</code> to <code>1</code> and <code>false</code> to <code>0</code></li>
+<li>floats <strong><em>don’t use</em></strong> - <code>5.4</code> to <code>5</code></li>
+<li>strings - Depends!</li>
+</ul></li>
+</ul>
+</section><section id="deleting-array-element" class="slide level2">
+<h1>Deleting Array Element</h1>
+<ul>
+<li><code>unset($grades[0])</code> - Removes item from an array</li>
+<li><code>unset($grades)</code> - Removes whole array</li>
+</ul>
 </section></section>
 <section><section id="associative-arrays" class="titleslide slide level1"><h1>Associative Arrays</h1></section><section id="associative" class="slide level2">
 <h1>Associative</h1>
@@ -180,13 +180,16 @@ foreach($myArray as $key =&gt; $value)
 {
     echo $key . &quot; &quot; . $value;
 }</code></pre>
+<p> </p>
+<ul>
+<li>Example</li>
+</ul>
 </section><section id="accessing-array-3" class="slide level2">
 <h1>Accessing Array</h1>
 <ul>
 <li>Iteration
 <ul>
 <li>Order added not indexed</li>
-<li>Linked list</li>
 </ul></li>
 </ul>
 </section></section>
@@ -210,6 +213,7 @@ var_dump($grades);</code></pre>
 <li><code>array_push($myArray, $value)</code></li>
 <li><code>array_pop($myArray)</code></li>
 </ul></li>
+<li>Palindrome Example</li>
 </ul>
 </section><section id="queue" class="slide level2">
 <h1>Queue</h1>
@@ -217,7 +221,6 @@ var_dump($grades);</code></pre>
 <li>Queues are FIFO
 <ul>
 <li><code>array_shift($myArray)</code></li>
-<li><code>array_unshift($myArray, $value)</code></li>
 </ul></li>
 </ul>
 </section><section id="sorting" class="slide level2">
@@ -232,6 +235,16 @@ var_dump($grades);</code></pre>
 <p> </p>
 <ul>
 <li><code>asort()</code> numerically and alphabetically ascending keeping index key</li>
+</ul>
+</section><section id="sorting-1" class="slide level2">
+<h1>Sorting</h1>
+<ul>
+<li>Consider an account with a balance of <code>$100</code> and the following transactions:
+<ul>
+<li><code>12, 10, 5, 4, 3, 24, 15, 22, 52</code></li>
+</ul></li>
+<li>Overdrafts are subject to <code>$35</code> fee</li>
+<li>Lets use an <code>array</code> and <code>array_shift</code> and <code>rsort</code> to see what kind of trouble we can get into</li>
 </ul>
 </section></section>
 <section><section id="additional-functions" class="titleslide slide level1"><h1>Additional Functions</h1></section><section id="functions" class="slide level2">

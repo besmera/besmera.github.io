@@ -59,20 +59,6 @@ $grades = array(88, 92, 75, 97);
 var_dump($grades);
 ```
 
-## Accessing Array
-
-* Subscripts `[]`
-	* integer - `$grades[0]`
-	* string - `$grades["0"]`
-* Casting
-	* booleans - `true` to `1` and `false` to `0`
-	* floats - `5.4` to `5`
-	* strings - Depends!
-
-## Deleting Array Element
-
-* `unset($grades[0])` - Removes item from an array
-* `unset($grades)` - Removes whole array
 
 ## Creating Arrays
 
@@ -89,6 +75,23 @@ $grades[] = 97;
 
 var_dump($grades);
 ```
+
+
+## Accessing Array
+
+* Subscripts `[]`
+	* integer - `$grades[0]`
+	* string - `$grades["test1"]`
+* Casting
+	* booleans ***don't use*** - `true` to `1` and `false` to `0` 
+	* floats ***don't use*** - `5.4` to `5`
+	* strings - Depends!
+
+## Deleting Array Element
+
+* `unset($grades[0])` - Removes item from an array
+* `unset($grades)` - Removes whole array
+
 
 
 # Associative Arrays
@@ -127,11 +130,14 @@ foreach($myArray as $key => $value)
 }
 ```
 
+\ 
+
+* Example
+
 ## Accessing Array
 
 * Iteration
 	* Order added not indexed
-	* Linked list
 
 # Multi-dimensional Arrays
 
@@ -155,11 +161,15 @@ var_dump($grades);
 	* `array_push($myArray, $value)` 
 	* `array_pop($myArray)`
 
+* Palindrome Example
+
+
+
 ## Queue
 
 * Queues are FIFO
 	* `array_shift($myArray)`
-	* `array_unshift($myArray, $value)`
+
 
 ## Sorting
 
@@ -170,6 +180,13 @@ var_dump($grades);
 \ 
 
 * `asort()` numerically and alphabetically ascending keeping index key
+
+## Sorting
+
+* Consider an account with a balance of `$100` and the following transactions:
+	* `12, 10, 5, 4, 3, 24, 15, 22, 52`
+* Overdrafts are subject to `$35` fee
+* Lets use an `array` and `array_shift` and `rsort` to see what kind of trouble we can get into
 
 # Additional Functions
 
