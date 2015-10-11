@@ -153,22 +153,20 @@ var_dump($grades);
 
 * How can you access my test1 score?
 
-# Additional Users
+# Additional Uses
 
 ## Stack
 
 * Stacks are LIFO
-	* `array_push($myArray, $value)` 
-	* `array_pop($myArray)`
+	* `array_push($myArray, $value)` - Add element to the end of array
+	* `array_pop($myArray)` - Remove and return last element from array
 
 * Palindrome Example
-
-
 
 ## Queue
 
 * Queues are FIFO
-	* `array_shift($myArray)`
+	* `array_shift($myArray)` - Remove and return first element in array
 
 
 ## Sorting
@@ -195,7 +193,7 @@ var_dump($grades);
 * `isset($grades["Andrew"])` - check if an element exists
 * `max($grades["Andrew"])` - get max element
 * `min($grades["Andrew"])` - get min element
-* `sum($grades["Andrew"])` - sum all elements
+* `array_sum($grades["Andrew"])` - sum all elements
 * `count($grades["Andrew"]")` - count of elements
 
 
