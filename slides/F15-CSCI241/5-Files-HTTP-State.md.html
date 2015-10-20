@@ -187,13 +187,22 @@ $line = implode(&quot;,&quot;,array(&quot;1&quot;, &quot;Dictum Eu Company&quot;
 </section><section id="in-array" class="slide level2">
 <h1>In Array</h1>
 <ul>
-<li><p><code>in_array($needle, $haystack)</code> - Searches the haystack (<code>array</code>) for the needle (element) and returns <code>true</code> if found, <code>false</code> if not</p></li>
-<li><p>How would you check to see if the 5th row is in the variable <code>$companies</code> using <code>in_array()</code>?</p></li>
+<li><code>in_array($needle, $haystack)</code> - Searches the haystack (<code>array</code>) for the needle (element) and returns <code>true</code> if found, <code>false</code> if not</li>
+</ul>
+<pre class="php"><code>&lt;?php
+
+$colors = array(&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;);</code></pre>
+<ul>
+<li>How would you check to see if <code>indigo</code> is in the variable <code>$colors</code> using <code>in_array()</code>?</li>
 </ul>
 </section><section id="in-array-1" class="slide level2">
 <h1>In Array</h1>
-<pre class="php"><code>in_array(4,$companies);
-//Because $companies[4]=array(&quot;5&quot;,&quot;Dolor Quam Elementum PC&quot;,&quot;1-928-801-9652&quot;);</code></pre>
+<pre class="php"><code>in_array(&quot;indigo&quot;,$colors);</code></pre>
+</section><section id="array-search" class="slide level2">
+<h1>Array Search</h1>
+<ul>
+<li><code>array_search($needle, $haystack)</code> - Searches the haystack (<code>array</code>) for the needle (element) and returns the key (or index) if found, <code>false</code> if not</li>
+</ul>
 </section><section id="outputting" class="slide level2">
 <h1>Outputting</h1>
 <ul>

@@ -143,14 +143,25 @@ $line = implode(",",array("1", "Dictum Eu Company", "1-194-286-3041"));
 
 * `in_array($needle, $haystack)` - Searches the haystack (`array`) for the needle (element) and returns `true` if found, `false` if not
 
-* How would you check to see if the 5th row is in the variable `$companies` using `in_array()`?
+```php
+<?php
+
+$colors = array("red", "green", "blue");
+```
+
+* How would you check to see if `indigo` is in the variable `$colors` using `in_array()`?
+
+
 
 ## In Array
  
 ```php
-in_array(4,$companies);
-//Because $companies[4]=array("5","Dolor Quam Elementum PC","1-928-801-9652");
+in_array("indigo",$colors);
 ```
+
+## Array Search
+
+* `array_search($needle, $haystack)` - Searches the haystack (`array`) for the needle (element) and returns the key (or index) if found, `false` if not
 
 ## Outputting
 
