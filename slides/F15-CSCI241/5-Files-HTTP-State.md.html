@@ -349,6 +349,29 @@ header(&quot;Location: /~acc.besmera2/b.php&quot;);</code></pre>
 </ul></li>
 <li>Lets do it</li>
 </ul>
+</section><section id="cookies-9" class="slide level2">
+<h1>Cookies</h1>
+<ul>
+<li>The cookies we have tried have been setup as “session cookies”
+<ul>
+<li>They <del>will</del> should cease to exist when the client closes the browser</li>
+<li><code>Set-Cookie</code> can be specified with a
+<ul>
+<li><code>Max-Age</code> in seconds or</li>
+<li><code>Expires</code> specified as <code>Wdy, DD Mon YYYY HH:MM:SS GMT</code></li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="cookies-10" class="slide level2">
+<h1>Cookies</h1>
+<ul>
+<li>Several versions of Internet Explorer do not support the <code>Max-Age</code> directive so <code>Expires</code> or both are typically used</li>
+<li>To delete a cookie
+<ul>
+<li>Set the <code>Max-Age</code> to <code>0</code> or a negative number</li>
+<li>Set the <code>Expires</code> to a previously occuring time <code>Thu, 01 Jan 1970 00:00:01 GMT</code></li>
+</ul></li>
+</ul>
 </section></section>
 <section class="footnotes">
 <hr />

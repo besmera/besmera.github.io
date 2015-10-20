@@ -297,3 +297,19 @@ header("Location: /~acc.besmera2/b.php");
 	* `base64_decode()`
 
 * Lets do it
+
+## Cookies
+
+* The cookies we have tried have been setup as "session cookies"
+	* They ~~will~~ should cease to exist when the client closes the browser
+	* `Set-Cookie` can be specified with a 
+		* `Max-Age` in seconds or 
+		* `Expires` specified as `Wdy, DD Mon YYYY HH:MM:SS GMT`
+
+## Cookies
+
+* Several versions of Internet Explorer do not support the `Max-Age` directive so `Expires` or both are typically used
+* To delete a cookie 
+	* Set the `Max-Age` to `0` or a negative number
+	* Set the `Expires` to a previously occuring time `Thu, 01 Jan 1970 00:00:01 GMT`
+
