@@ -313,3 +313,8 @@ header("Location: /~acc.besmera2/b.php");
 	* Set the `Max-Age` to `0` or a negative number
 	* Set the `Expires` to a previously occuring time `Thu, 01 Jan 1970 00:00:01 GMT`
 
+## Cookies
+
+* You may find `setcookie($name, $value = "", int $expire = 0)` easier to use
+	* This is only a PHP method, not an HTTP method.
+	* Same rules regarding setting cookie before body apply
