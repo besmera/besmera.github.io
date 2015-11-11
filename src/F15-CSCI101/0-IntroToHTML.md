@@ -430,7 +430,7 @@ Do you want to search <a>Google</a>?
 
 ## Links
 
-* To open a link in a new window set the `href` to `_blank`
+* To open a link in a new window set the `target` attribute to `_blank`
 * Try it!
 
 ## Images
