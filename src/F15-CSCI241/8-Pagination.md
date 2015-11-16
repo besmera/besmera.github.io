@@ -177,8 +177,7 @@ $contacts = array(
 ## Pagination 
 
 * Lets try
-	* With a for loop
-	* With a while loop
+
 
 
 
