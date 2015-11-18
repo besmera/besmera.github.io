@@ -152,5 +152,10 @@ bin2hex(openssl_random_pseudo_bytes(8));  //16 chars
 
 * Files can be deleted using `unlink($filename)`
 
+## Multiple Files
+
+* How could you allow multiple files? 
+	* How does PHP handle each?
+
 
 
