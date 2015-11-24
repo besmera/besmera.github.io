@@ -6,8 +6,8 @@
 ## Getting Access to Mongo
 
 * Everyone will use the same server
-	* winthrop.dbms.rocks
-	* Logon using Putty with given user/password
+	* infd.birdnest.org
+	* Logon using Putty with campus user/password
 
 * Accessing mongo
 	* Create your database
@@ -82,7 +82,7 @@ db.users.find()
 	* They are schemaless
 	* `_id` is **always** the primary key 
 	* `_id` is **always** the first property [^pkidException] [^pkidException2]
-* Schemaless design means no a priori rigid specification like MySQL
+* Schemaless design means no apriori rigid specification like MySQL
 
 [^pkidException]: If you don't provide `_id` mongo will and also make it the first
 [^pkidException2]: Mongo will reorder the `_id` if you don't put it first
@@ -216,12 +216,7 @@ db.users.insert (
 * Free created at functionality!
 * Why wouldn't mongo just use an auto incrementing id like mysql?
 
-
-
-
-
 # Retrieval
-
 
 ## Basic Retrieval
 
