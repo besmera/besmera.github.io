@@ -140,7 +140,9 @@ db.users.find() </code></pre>
 <ul>
 <li><code>db.users.find()</code> - Get all the documents in the users collection</li>
 </ul>
-<p><img src="http://docs.mongodb.org/manual/_images/crud-annotated-collection.png" alt="Collections" width="800"></p>
+<figure>
+<img src="crud-annotated-collection.png" alt="Collections" /><figcaption>Collections</figcaption>
+</figure>
 </section><section id="documents" class="slide level2">
 <h1>Documents</h1>
 <ul>
@@ -161,6 +163,7 @@ db.users.find() </code></pre>
 <ul>
 <li><code>name</code> - Name of the person</li>
 <li><code>age</code> - Age of the person</li>
+<li><code>status</code> - Current grade</li>
 <li><code>groups</code> - List of groups the person belongs to</li>
 </ul></li>
 </ul>
@@ -226,7 +229,9 @@ db.users.find() </code></pre>
 <ul>
 <li><code>db.createCollection()</code> allows for custom collection creation
 <ul>
-<li>More on this later</li>
+<li>Check out the capped collection</li>
+<li><code>size</code> is bytes</li>
+<li><code>max</code> is n</li>
 </ul></li>
 </ul>
 <pre class="javascript"><code>db.createCollection(name, {
@@ -251,7 +256,9 @@ db.users.insert (
 )</code></pre>
 </section><section id="anatomy-of-an-insert" class="slide level2">
 <h1>Anatomy of an Insert</h1>
-<p><img src="http://docs.mongodb.org/manual/_images/crud-insert-stages.png" alt="Insert" height="550"></p>
+<figure>
+<img src="crud-insert-stages.png" alt="Inserting" /><figcaption>Inserting</figcaption>
+</figure>
 </section><section id="data-types" class="slide level2">
 <h1>Data Types</h1>
 <ul>
@@ -297,7 +304,7 @@ db.users.find();</code></pre>
 <li>Several methods for selection
 <ul>
 <li><code>db.collection.find()</code></li>
-<li><code>db.collection.aggregate()</code> <strong>explain later</strong></li>
+<li><code>db.collection.aggregate()</code></li>
 </ul></li>
 </ul>
 <pre class="javascript"><code>db.users.find();
@@ -377,7 +384,9 @@ db.students.insert({
 });</code></pre>
 </section><section id="anatomy-of-find" class="slide level2">
 <h1>Anatomy of find</h1>
-<p><img src="find.png" alt="Find" width="800"></p>
+<figure>
+<img src="crud-query-stages.png" alt="Querying" /><figcaption>Querying</figcaption>
+</figure>
 </section><section id="criteria-select" class="slide level2">
 <h1>Criteria Select</h1>
 <ul>
@@ -663,23 +672,7 @@ db.students.find({_id:12345});
 <li>Other operators are available and can be found in the <a href="http://docs.mongodb.org/">documentation</a></li>
 </ul>
 </section></section>
-<section><section id="removal" class="titleslide slide level1"><h1>Removal</h1></section><section id="removing-databases" class="slide level2">
-<h1>Removing Databases</h1>
-<ul>
-<li>To remove a database use <code>.dropDatabase()</code></li>
-</ul>
-<pre class="javascript"><code>db.dropDatabase();</code></pre>
-</section><section id="removing-collections" class="slide level2">
-<h1>Removing Collections</h1>
-<ul>
-<li>You can remove an entire collection by dropping it
-<ul>
-<li>All documents within it will also be removed</li>
-<li>There is no “are you sure” feature</li>
-</ul></li>
-</ul>
-<pre class="javascript"><code>db.students.drop();</code></pre>
-</section><section id="removing-documents" class="slide level2">
+<section><section id="removal" class="titleslide slide level1"><h1>Removal</h1></section><section id="removing-documents" class="slide level2">
 <h1>Removing Documents</h1>
 <ul>
 <li>To remove documents use <code>db.collection.remove()</code></li>
@@ -698,16 +691,30 @@ db.students.find({_id:12345});
 </ul></li>
 </ul>
 <pre class="javascript"><code>db.students.remove({}); //Dang!</code></pre>
+</section><section id="removing-collections" class="slide level2">
+<h1>Removing Collections</h1>
+<ul>
+<li>You can remove an entire collection by dropping it
+<ul>
+<li>All documents within it will also be removed</li>
+<li>There is no “are you sure” feature</li>
+</ul></li>
+</ul>
+<pre class="javascript"><code>db.students.drop();</code></pre>
+</section><section id="removing-databases" class="slide level2">
+<h1>Removing Databases</h1>
+<ul>
+<li>To remove a database use <code>.dropDatabase()</code></li>
+</ul>
+<pre class="javascript"><code>db.dropDatabase();</code></pre>
 </section></section>
 <section><section id="practice-2" class="titleslide slide level1"><h1>Practice</h1></section><section id="example-products" class="slide level2">
 <h1>Example Products</h1>
 <ul>
-<li>On lab computer, open Notepad++</li>
-<li>Use NppFTP plugin to create/edit file on server</li>
-<li>Copy code from next slide into a <code>jungle_username.js</code> file</li>
-<li>Open ssh (Putty) connection to winthrop.dbms.rocks
+<li>Copy code from next slide into a <code>products.js</code> file</li>
+<li>Open ssh (Putty) connection to infd.birdnest.org
 <ul>
-<li><code>mongo YOURUSERNAME &lt; jungle_username.js</code></li>
+<li><code>mongo YOURUSERNAME &lt; products.js</code></li>
 </ul></li>
 </ul>
 </section><section id="example-products-1" class="slide level2">
@@ -778,7 +785,7 @@ db.product.insert({
 <ol type="1">
 <li>Create a view showing the values of the product on hand.
 <ul>
-<li>No option to do this with find… more later.</li>
+<li>No option to do this with find. Must aggregate.</li>
 </ul></li>
 </ol>
 <!---

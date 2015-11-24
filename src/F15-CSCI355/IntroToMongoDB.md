@@ -14,7 +14,6 @@
 		* `mongo YOURUSERNAME`
 		* Create all your collections in this same db
 
-
 # Terms
 
 ## RDBMS vs Document Oriented
@@ -71,7 +70,7 @@ db.users.find()
 
 * `db.users.find()` - Get all the documents in the users collection
 
-<img src="http://docs.mongodb.org/manual/_images/crud-annotated-collection.png" alt="Collections" width="800">
+![Collections](crud-annotated-collection.png)
 
 
 
@@ -93,6 +92,7 @@ db.users.find()
 * The following schema contains properties for
 	* `name` - Name of the person
 	* `age` - Age of the person
+	* `status` - Current grade
 	* `groups` - List of groups the person belongs to
 
 ```javascript
@@ -160,7 +160,9 @@ db.users.find()
 ## Creating Collections
 
 * `db.createCollection()` allows for custom collection creation
-	* More on this later
+	* Check out the capped collection
+	* `size` is bytes
+	* `max` is n
 
 ```javascript 
 db.createCollection(name, {
@@ -190,9 +192,7 @@ db.users.insert (
 
 ## Anatomy of an Insert
 
-<img src="http://docs.mongodb.org/manual/_images/crud-insert-stages.png" alt="Insert" height="550">
-
-
+![Inserting](crud-insert-stages.png)
 
 
 ## Data Types
@@ -234,7 +234,7 @@ db.users.find();
 ## Selecting All
 * Several methods for selection
 	* `db.collection.find()`
-	* `db.collection.aggregate()` **explain later**
+	* `db.collection.aggregate()` 
 
 ```javascript
 db.users.find();
@@ -316,7 +316,8 @@ db.students.find({
 
 ## Anatomy of find
 
-<img src="find.png" alt="Find" width="800">
+
+![Querying](crud-query-stages.png)
 
 
 
@@ -499,7 +500,7 @@ db.students.find(
 * The `.update()` usually takes at least two parameters
 	* The selection criteria indicating which documents to update
 	* The update object
-* **Note** that the update object will _replace_ the matched document unless you use special operators!  
+* **Note** that the update object will _replace_ the matched document unless you use special operators! 
 	* It will not overwrite `_id` though
 
 ```javascript
@@ -601,23 +602,6 @@ db.students.update(
 
 # Removal
 
-## Removing Databases
-
-* To remove a database use `.dropDatabase()`
-
-```javascript
-db.dropDatabase();
-```
-
-## Removing Collections
-
-* You can remove an entire collection by dropping it
-	* All documents within it will also be removed
-	* There is no "are you sure" feature
-
-```javascript
-db.students.drop();
-```
 
 ## Removing Documents
 
@@ -637,15 +621,36 @@ db.students.drop();
 db.students.remove({}); //Dang!
 ```
 
+
+
+## Removing Collections
+
+* You can remove an entire collection by dropping it
+	* All documents within it will also be removed
+	* There is no "are you sure" feature
+
+```javascript
+db.students.drop();
+```
+
+
+
+## Removing Databases
+
+* To remove a database use `.dropDatabase()`
+
+```javascript
+db.dropDatabase();
+```
+
+
 # Practice
 
 ## Example Products
 
-* On lab computer, open Notepad++
-* Use NppFTP plugin to create/edit file on server 
-* Copy code from next slide into a `jungle_username.js` file
-* Open ssh (Putty) connection to winthrop.dbms.rocks
-	* `mongo YOURUSERNAME < jungle_username.js`
+* Copy code from next slide into a `products.js` file
+* Open ssh (Putty) connection to infd.birdnest.org
+	* `mongo YOURUSERNAME < products.js`
 
 ## Example Products
 
@@ -716,7 +721,7 @@ db.product.insert({
 ## Practice (1 of 2)
 
 1. Create a view showing the values of the product on hand.
-	* No option to do this with find... more later.
+	* No option to do this with find.  Must aggregate. 
 
 <!---
 db.product.aggregate([{$project:{ prodvalue : {$multiply: ["$qty", "$price"]}}}]);
