@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Andrew Besmer" />
+  <title>Feuding Cities</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Feuding Cities</h1>
+    <h2 class="author">Andrew Besmer</h2>
+    <h3 class="date">http://……</h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/overview">Overview</a></li>
+<li><a href="#/the-game">The Game</a></li>
+<li><a href="#/arduino-setup">Arduino Setup</a></li>
+<li><a href="#/kit-components">Kit Components</a></li>
+</ul>
+</section>
+
+<section><section id="overview" class="titleslide slide level1"><h1>Overview</h1></section><section id="overview-1" class="slide level2">
+<h1>Overview</h1>
+<ul>
+<li>The Game</li>
+<li>Arduino Setup</li>
+<li>Kit Components</li>
+<li>Feuding Cities Remote Control</li>
+</ul>
+</section></section>
+<section><section id="the-game" class="titleslide slide level1"><h1>The Game</h1></section><section id="the-game-1" class="slide level2">
+<h1>The Game</h1>
+<ul>
+<li>Physical and Virtual</li>
+<li>Two ways to play</li>
+<li>Battle is Wednesday</li>
+</ul>
+</section></section>
+<section><section id="arduino-setup" class="titleslide slide level1"><h1>Arduino Setup</h1></section><section id="arduino-setup-1" class="slide level2">
+<h1>Arduino Setup</h1>
+<ul>
+<li>Plug in the Arduino using the provided usb cord <img src="!!!!!!!!!!!!.png" alt="Board and USB Cord!!!!!!!!!!!!!!!!!" /></li>
+</ul>
+</section><section id="arduino-setup-2" class="slide level2">
+<h1>Arduino Setup</h1>
+<ul>
+<li>Open the Arduino Software (IDE)</li>
+<li>Select the board included in the kit</li>
+</ul>
+<figure>
+<img src="ArduinoBoard.png" alt="Arduino IDE Board Choice" /><figcaption>Arduino IDE Board Choice</figcaption>
+</figure>
+</section><section id="arduino-setup-3" class="slide level2">
+<h1>Arduino Setup</h1>
+<ul>
+<li>Select the proper port for the software to communicate with the board on</li>
+</ul>
+<figure>
+<img src="ArduinoPort.png" alt="Arduino IDE Port Choice" /><figcaption>Arduino IDE Port Choice</figcaption>
+</figure>
+</section></section>
+<section><section id="kit-components" class="titleslide slide level1"><h1>Kit Components</h1></section><section id="kit-notes" class="slide level2">
+<h1>Kit Notes</h1>
+<ul>
+<li>Free to use but not keep</li>
+<li>Please replace all kit components the way you found them</li>
+</ul>
+</section><section id="balls" class="slide level2">
+<h1>Balls</h1>
+<ul>
+<li>3/4 plastic balls serve as ammunition</li>
+</ul>
+<figure>
+<img src="!!A!!!!!!!!!rduinoUpload.png" alt="3/4 Balls" /><figcaption>3/4 Balls</figcaption>
+</figure>
+</section><section id="breadboard" class="slide level2">
+<h1>Breadboard</h1>
+<ul>
+<li>Use with jumper cables/wire</li>
+<li>Some components like buttons etc… fit nicely in it</li>
+<li>Each group of 5 is actually connected</li>
+</ul>
+<figure>
+<img src="!!A!!!!!!!!!rduinoUpload.png" alt="Breadboard" /><figcaption>Breadboard</figcaption>
+</figure>
+</section><section id="arduino-board" class="slide level2">
+<h1>Arduino Board</h1>
+<ul>
+<li>Arduino Uno
+<ul>
+<li>16Mhz</li>
+<li>14 Digital Inputs/Outputs
+<ul>
+<li>HIGH</li>
+<li>LOW</li>
+</ul></li>
+</ul></li>
+<li>Three Powering Options (5v)
+<ul>
+<li>USB (As you work)</li>
+<li>Power Jack</li>
+<li>VIN/GND Pins</li>
+</ul></li>
+</ul>
+</section><section id="arduino-board-1" class="slide level2">
+<h1>Arduino Board</h1>
+<ul>
+<li>Pin Locations <img src="!!!Ar!!duinoBoard.png" alt="Arduino Board" /></li>
+</ul>
+</section><section id="programming-the-board" class="slide level2">
+<h1>Programming the Board</h1>
+<ul>
+<li>Use Arduino Software (IDE) to create sketch</li>
+<li>The Arduino language supports all standard c/c++ constructors supported by avr-g++</li>
+</ul>
+<pre class="c"><code>void setup() {
+  // put your setup code here, to run once:
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}</code></pre>
+</section><section id="programming-with-pins-sourcearduino" class="slide level2">
+<h1>Programming with Pins <a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></h1>
+<ul>
+<li>Before using a pin you should initialize it setting it’s mode using <code>pinMode()</code> and the constant <code>INPUT</code> or <code>OUTPUT</code></li>
+</ul>
+<pre class="c"><code>
+int buttonPin = 12;              // Button connected to digital input 12
+int ledPin = 13;                 // LED connected to digital pin 13
+
+void setup()
+{
+  pinMode(buttonPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop()
+{
+}</code></pre>
+</section><section id="digital-vs-analog" class="slide level2">
+<h1>Digital vs Analog</h1>
+<ul>
+<li>Analog maps the 0-5v to 0-1023
+<ul>
+<li><code>analogRead(pin)</code> will return values from 0-1023</li>
+<li><code>analogWrite(pin, value)</code> will accept values from 0-255
+<ul>
+<li>Generates a square wave based on duty cycle</li>
+<li>(0 - 0%), (64 - 25%), (127 - 50%), (255 - 100%)</li>
+</ul></li>
+</ul></li>
+<li>Digital maps 0v to <code>LOW</code> and 5v to <code>HIGH</code>
+<ul>
+<li><code>digitalRead(pin)</code> will return value of <code>HIGH</code> or <code>LOW</code></li>
+<li><code>digitalWrite(pin, value)</code> will accept values of <code>HIGH</code> or <code>LOW</code></li>
+</ul></li>
+</ul>
+</section><section id="combining-the-two" class="slide level2">
+<h1>Combining The Two</h1>
+<pre class="c"><code>int ledPin = 9;      // LED connected to digital pin 9
+int analogPin = 3;   // potentiometer connected to analog pin 3
+int val = 0;         // variable to store the read value
+
+void setup()
+{
+  pinMode(ledPin, OUTPUT);   // sets the pin as output
+}
+
+void loop()
+{
+  val = analogRead(analogPin);   // read the input pin
+  analogWrite(ledPin, val / 4);  // analogRead values go from 0 to 1023, analogWrite values from 0 to 255
+}</code></pre>
+</section><section id="uploading" class="slide level2">
+<h1>Uploading</h1>
+<ul>
+<li>Upload your Sketch</li>
+</ul>
+<figure>
+<img src="ArduinoUpload.png" alt="Arduino IDE Sketch Upload" /><figcaption>Arduino IDE Sketch Upload</figcaption>
+</figure>
+</section><section id="motor-and-wheel" class="slide level2">
+<h1>Motor and Wheel</h1>
+<ul>
+<li>Two hobby motors w/gear (up to 12v)</li>
+<li>Two wheels with rubber tires</li>
+<li>Powering motors should not be done through the arduino (directly)</li>
+<li>Direction the motor spins is based on which way you wire it, switching wires will reverse motor Direction</li>
+</ul>
+</section><section id="servos-sourcearduino" class="slide level2">
+<h1>Servos <a href="#/fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></h1>
+<ul>
+<li>Three high torque servos with variety of attachments</li>
+<li>Run @ 4.8v-6.0v through the arduino</li>
+<li>Rotation is 0-180 degrees</li>
+<li>Three wires
+<ul>
+<li>Brown - Ground</li>
+<li>Red - 5v Power</li>
+<li>Orange - Data from arduino</li>
+</ul></li>
+<li>Note that 0 degree will depend on how you attach the attachments</li>
+</ul>
+<figure>
+<img src="!!A!!!!!!!!!rduinoUpload.png" alt="Servos and Attachments" /><figcaption>Servos and Attachments</figcaption>
+</figure>
+</section><section id="servos" class="slide level2">
+<h1>Servos</h1>
+<ul>
+<li>Be sure to use a PWM pin to control the servo</li>
+<li>Use the Arduino Servo Library so that you can work with angles instead of PWM</li>
+<li>Start by <code>attach()</code>ing the servo and then <code>write()</code> an angle to it</li>
+</ul>
+<pre class="c"><code>#include &lt;Servo.h&gt;
+
+Servo myservo;
+
+void setup()
+{
+  myservo.attach(9);
+  myservo.write(90);  // set servo to mid-point
+}
+
+void loop() {}</code></pre>
+</section><section id="remote-control" class="slide level2">
+<h1>Remote Control</h1>
+<ul>
+<li><a href="http://www.feudingcities.com/remote.html" class="uri">http://www.feudingcities.com/remote.html</a></li>
+<li>Supplies digital outputs to your arduino board for input
+<ul>
+<li><code>HIGH</code>/<code>LOW</code></li>
+</ul></li>
+<li>Register with me to get one (or more)</li>
+<li>I expect common usage will be L/R/U/D and FIRE!</li>
+<li>Controls are movable and support multi touch</li>
+</ul>
+</section><section id="remote-controls" class="slide level2">
+<h1>Remote Controls</h1>
+<ul>
+<li>The remote supplies only digital inputs for you (<code>HIGH</code>/<code>LOW</code>)</li>
+<li>Need to decide between <code>delay()</code> and <code>millis()</code>, recommend the latter</li>
+<li>Both work with milliseconds (1000ms = 1s)</li>
+<li><code>delay(milliseconds)</code> actually pauses most of sketch for specified time</li>
+<li><code>millis()</code> returns number of milliseconds since the arduino started
+<ul>
+<li>Requires some custom logic</li>
+</ul></li>
+</ul>
+<pre class="c"><code>/* Blink without Delay
+
+ Turns on and off a light emitting diode (LED) connected to a digital
+ pin, without using the delay() function.  This means that other code
+ can run at the same time without being interrupted by the LED code.
+
+ The circuit:
+ * LED attached from pin 13 to ground.
+ * Note: on most Arduinos, there is already an LED on the board
+ that&#39;s attached to pin 13, so no hardware is needed for this example.
+
+ created 2005
+ by David A. Mellis
+ modified 8 Feb 2010
+ by Paul Stoffregen
+ modified 11 Nov 2013
+ by Scott Fitzgerald
+
+
+ This example code is in the public domain.
+
+ http://www.arduino.cc/en/Tutorial/BlinkWithoutDelay
+ */
+
+// constants won&#39;t change. Used here to set a pin number :
+const int ledPin =  13;      // the number of the LED pin
+
+// Variables will change :
+int ledState = LOW;             // ledState used to set the LED
+
+// Generally, you should use &quot;unsigned long&quot; for variables that hold time
+// The value will quickly become too large for an int to store
+unsigned long previousMillis = 0;        // will store last time LED was updated
+
+// constants won&#39;t change :
+const long interval = 1000;           // interval at which to blink (milliseconds)
+
+void setup() {
+  // set the digital pin as output:
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  // here is where you&#39;d put code that needs to be running all the time.
+
+  // check to see if it&#39;s time to blink the LED; that is, if the
+  // difference between the current time and last time you blinked
+  // the LED is bigger than the interval at which you want to
+  // blink the LED.
+  unsigned long currentMillis = millis();
+
+  if (currentMillis - previousMillis &gt;= interval) {
+    // save the last time you blinked the LED
+    previousMillis = currentMillis;
+
+    // if the LED is off turn it on and vice-versa:
+    if (ledState == LOW) {
+      ledState = HIGH;
+    } else {
+      ledState = LOW;
+    }
+
+    // set the LED with the ledState of the variable:
+    digitalWrite(ledPin, ledState);
+  }
+}</code></pre>
+</section><section id="firing-range" class="slide level2">
+<h1>Firing Range</h1>
+<ul>
+<li>Test Weapons</li>
+</ul>
+<p>USe printers, laser cutters</p>
+</section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Source code on this slide based on arduino examples.<a href="#/fnref1">↩</a></p></li>
+<li id="fn2"><p>Source code on this slide based on arduino examples.<a href="#/fnref2">↩</a></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
