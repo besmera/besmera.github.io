@@ -36,60 +36,32 @@
 <section>
     <h1 class="title">Feuding Cities</h1>
     <h2 class="author">Andrew Besmer</h2>
-    <h3 class="date">http://……</h3>
+    <h3 class="date">http://goo.gl/YjVPYc</h3>
 </section>
 <section id="TOC">
 <ul>
-<li><a href="#/overview">Overview</a></li>
 <li><a href="#/the-game">The Game</a></li>
-<li><a href="#/arduino-setup">Arduino Setup</a></li>
 <li><a href="#/kit-components">Kit Components</a></li>
+<li><a href="#/control-for-weapons">Control for Weapons</a></li>
 </ul>
 </section>
 
-<section><section id="overview" class="titleslide slide level1"><h1>Overview</h1></section><section id="overview-1" class="slide level2">
-<h1>Overview</h1>
-<ul>
-<li>The Game</li>
-<li>Arduino Setup</li>
-<li>Kit Components</li>
-<li>Feuding Cities Remote Control</li>
-</ul>
-</section></section>
 <section><section id="the-game" class="titleslide slide level1"><h1>The Game</h1></section><section id="the-game-1" class="slide level2">
 <h1>The Game</h1>
 <ul>
-<li>Physical and Virtual</li>
+<li>Physical and Virtual
+<ul>
+<li>iOS and Android supported</li>
+</ul></li>
+<li>Battle is Wednesday @ 4PM</li>
 <li>Two ways to play</li>
-<li>Battle is Wednesday</li>
+<li>Several prizes for various aspects of game</li>
 </ul>
-</section></section>
-<section><section id="arduino-setup" class="titleslide slide level1"><h1>Arduino Setup</h1></section><section id="arduino-setup-1" class="slide level2">
-<h1>Arduino Setup</h1>
-<ul>
-<li>Plug in the Arduino using the provided usb cord <img src="!!!!!!!!!!!!.png" alt="Board and USB Cord!!!!!!!!!!!!!!!!!" /></li>
-</ul>
-</section><section id="arduino-setup-2" class="slide level2">
-<h1>Arduino Setup</h1>
-<ul>
-<li>Open the Arduino Software (IDE)</li>
-<li>Select the board included in the kit</li>
-</ul>
-<figure>
-<img src="ArduinoBoard.png" alt="Arduino IDE Board Choice" /><figcaption>Arduino IDE Board Choice</figcaption>
-</figure>
-</section><section id="arduino-setup-3" class="slide level2">
-<h1>Arduino Setup</h1>
-<ul>
-<li>Select the proper port for the software to communicate with the board on</li>
-</ul>
-<figure>
-<img src="ArduinoPort.png" alt="Arduino IDE Port Choice" /><figcaption>Arduino IDE Port Choice</figcaption>
-</figure>
 </section></section>
 <section><section id="kit-components" class="titleslide slide level1"><h1>Kit Components</h1></section><section id="kit-notes" class="slide level2">
 <h1>Kit Notes</h1>
 <ul>
+<li>Limited number of kits</li>
 <li>Free to use but not keep</li>
 <li>Please replace all kit components the way you found them</li>
 </ul>
@@ -99,7 +71,7 @@
 <li>3/4 plastic balls serve as ammunition</li>
 </ul>
 <figure>
-<img src="!!A!!!!!!!!!rduinoUpload.png" alt="3/4 Balls" /><figcaption>3/4 Balls</figcaption>
+<img src="balls.jpg" alt="3/4 Balls" /><figcaption>3/4 Balls</figcaption>
 </figure>
 </section><section id="breadboard" class="slide level2">
 <h1>Breadboard</h1>
@@ -109,7 +81,7 @@
 <li>Each group of 5 is actually connected</li>
 </ul>
 <figure>
-<img src="!!A!!!!!!!!!rduinoUpload.png" alt="Breadboard" /><figcaption>Breadboard</figcaption>
+<img src="breadboard.jpg" alt="Breadboard" /><figcaption>Breadboard</figcaption>
 </figure>
 </section><section id="arduino-board" class="slide level2">
 <h1>Arduino Board</h1>
@@ -117,31 +89,31 @@
 <li>Arduino Uno
 <ul>
 <li>16Mhz</li>
-<li>14 Digital Inputs/Outputs
-<ul>
-<li>HIGH</li>
-<li>LOW</li>
-</ul></li>
+<li>14 Digital Inputs/Outputs</li>
+<li>6 PWM</li>
+<li>6 Analog Inputs</li>
 </ul></li>
 <li>Three Powering Options (5v)
 <ul>
 <li>USB (As you work)</li>
 <li>Power Jack</li>
-<li>VIN/GND Pins</li>
+<li><em>VIN/GND Pins</em></li>
 </ul></li>
 </ul>
 </section><section id="arduino-board-1" class="slide level2">
 <h1>Arduino Board</h1>
 <ul>
-<li>Pin Locations <img src="!!!Ar!!duinoBoard.png" alt="Arduino Board" /></li>
+<li>Pin Locations <img src="arduino.jpg" alt="Arduino Board" /></li>
 </ul>
 </section><section id="programming-the-board" class="slide level2">
 <h1>Programming the Board</h1>
 <ul>
 <li>Use Arduino Software (IDE) to create sketch</li>
-<li>The Arduino language supports all standard c/c++ constructors supported by avr-g++</li>
+<li>The Arduino language is very similar to (based on) c/c++</li>
 </ul>
-<pre class="c"><code>void setup() {
+<pre class="c"><code>//Typically variable/includes
+
+void setup() {
   // put your setup code here, to run once:
 
 }
@@ -186,8 +158,8 @@ void loop()
 <li><code>digitalWrite(pin, value)</code> will accept values of <code>HIGH</code> or <code>LOW</code></li>
 </ul></li>
 </ul>
-</section><section id="combining-the-two" class="slide level2">
-<h1>Combining The Two</h1>
+</section><section id="combining-the-two-sourcearduino" class="slide level2">
+<h1>Combining The Two <a href="#/fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></h1>
 <pre class="c"><code>int ledPin = 9;      // LED connected to digital pin 9
 int analogPin = 3;   // potentiometer connected to analog pin 3
 int val = 0;         // variable to store the read value
@@ -202,8 +174,26 @@ void loop()
   val = analogRead(analogPin);   // read the input pin
   analogWrite(ledPin, val / 4);  // analogRead values go from 0 to 1023, analogWrite values from 0 to 255
 }</code></pre>
-</section><section id="uploading" class="slide level2">
-<h1>Uploading</h1>
+</section><section id="uploading-sketch" class="slide level2">
+<h1>Uploading Sketch</h1>
+<ul>
+<li>Plug in the Arduino using the provided usb cord</li>
+<li>Open the Arduino Software (IDE)</li>
+<li>Select the board included in the kit</li>
+</ul>
+<figure>
+<img src="ArduinoBoard.png" alt="Arduino IDE Board Choice" /><figcaption>Arduino IDE Board Choice</figcaption>
+</figure>
+</section><section id="uploading-sketch-1" class="slide level2">
+<h1>Uploading Sketch</h1>
+<ul>
+<li>Select the proper port for the software to communicate with the board on</li>
+</ul>
+<figure>
+<img src="ArduinoPort.png" alt="Arduino IDE Port Choice" /><figcaption>Arduino IDE Port Choice</figcaption>
+</figure>
+</section><section id="uploading-sketch-2" class="slide level2">
+<h1>Uploading Sketch</h1>
 <ul>
 <li>Upload your Sketch</li>
 </ul>
@@ -215,11 +205,10 @@ void loop()
 <ul>
 <li>Two hobby motors w/gear (up to 12v)</li>
 <li>Two wheels with rubber tires</li>
-<li>Powering motors should not be done through the arduino (directly)</li>
-<li>Direction the motor spins is based on which way you wire it, switching wires will reverse motor Direction</li>
+<li>Direction the motor spins is based on which way you wire it, switching wires will reverse motor direction</li>
 </ul>
-</section><section id="servos-sourcearduino" class="slide level2">
-<h1>Servos <a href="#/fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></h1>
+</section><section id="servos" class="slide level2">
+<h1>Servos</h1>
 <ul>
 <li>Three high torque servos with variety of attachments</li>
 <li>Run @ 4.8v-6.0v through the arduino</li>
@@ -230,17 +219,25 @@ void loop()
 <li>Red - 5v Power</li>
 <li>Orange - Data from arduino</li>
 </ul></li>
+</ul>
+</section><section id="servos-1" class="slide level2">
+<h1>Servos</h1>
+<ul>
 <li>Note that 0 degree will depend on how you attach the attachments</li>
 </ul>
 <figure>
-<img src="!!A!!!!!!!!!rduinoUpload.png" alt="Servos and Attachments" /><figcaption>Servos and Attachments</figcaption>
+<img src="servo.jpg" alt="Servos and Attachments" /><figcaption>Servos and Attachments</figcaption>
 </figure>
-</section><section id="servos" class="slide level2">
+</section><section id="servos-2" class="slide level2">
 <h1>Servos</h1>
 <ul>
-<li>Be sure to use a PWM pin to control the servo</li>
+<li>Use a PWM pin to control the servo</li>
 <li>Use the Arduino Servo Library so that you can work with angles instead of PWM</li>
-<li>Start by <code>attach()</code>ing the servo and then <code>write()</code> an angle to it</li>
+<li>Start by attaching the servo and then an angle to it
+<ul>
+<li><code>attach(pin)</code></li>
+<li><code>write(angle)</code> - kit servos support max of 0 to 180</li>
+</ul></li>
 </ul>
 <pre class="c"><code>#include &lt;Servo.h&gt;
 
@@ -253,79 +250,63 @@ void setup()
 }
 
 void loop() {}</code></pre>
+</section></section>
+<section><section id="control-for-weapons" class="titleslide slide level1"><h1>Control for Weapons</h1></section><section id="wire" class="slide level2">
+<h1>Wire</h1>
+<ul>
+<li>Run wire from inside the game to outside the safety area
+<ul>
+<li>Most likely needed for any analog inputs you want to use</li>
+</ul></li>
+<li>Or maybe you just go random!</li>
+</ul>
 </section><section id="remote-control" class="slide level2">
 <h1>Remote Control</h1>
 <ul>
 <li><a href="http://www.feudingcities.com/remote.html" class="uri">http://www.feudingcities.com/remote.html</a></li>
+<li>Register with me to get one (or more) line(s)</li>
+<li>I expect common usage will be L/R/U/D and FIRE!</li>
+<li>Controls are movable and support multi touch</li>
+</ul>
+</section><section id="remote-control-1" class="slide level2">
+<h1>Remote Control</h1>
+<ul>
+<li>Requires n+1 wires: n inputs + 1 ground</li>
 <li>Supplies digital outputs to your arduino board for input
 <ul>
 <li><code>HIGH</code>/<code>LOW</code></li>
 </ul></li>
-<li>Register with me to get one (or more)</li>
-<li>I expect common usage will be L/R/U/D and FIRE!</li>
-<li>Controls are movable and support multi touch</li>
-</ul>
-</section><section id="remote-controls" class="slide level2">
-<h1>Remote Controls</h1>
+<li>Two options are <code>delay()</code> and <code>millis()</code>, recommend the latter
 <ul>
-<li>The remote supplies only digital inputs for you (<code>HIGH</code>/<code>LOW</code>)</li>
-<li>Need to decide between <code>delay()</code> and <code>millis()</code>, recommend the latter</li>
-<li>Both work with milliseconds (1000ms = 1s)</li>
-<li><code>delay(milliseconds)</code> actually pauses most of sketch for specified time</li>
+<li>Could also do state tracking, or other custom logic</li>
+</ul></li>
+<li>Both work with milliseconds (1000ms = 1s)
+<ul>
+<li><code>delay(milliseconds)</code> actually pauses most of your program for specified time</li>
 <li><code>millis()</code> returns number of milliseconds since the arduino started
 <ul>
 <li>Requires some custom logic</li>
 </ul></li>
+</ul></li>
 </ul>
-<pre class="c"><code>/* Blink without Delay
-
- Turns on and off a light emitting diode (LED) connected to a digital
- pin, without using the delay() function.  This means that other code
- can run at the same time without being interrupted by the LED code.
-
- The circuit:
- * LED attached from pin 13 to ground.
- * Note: on most Arduinos, there is already an LED on the board
- that&#39;s attached to pin 13, so no hardware is needed for this example.
-
- created 2005
- by David A. Mellis
- modified 8 Feb 2010
- by Paul Stoffregen
- modified 11 Nov 2013
- by Scott Fitzgerald
-
-
- This example code is in the public domain.
-
+</section><section id="remote-controls" class="slide level2">
+<h1>Remote Controls</h1>
+<pre class="c"><code>/*
+ Modified from:
  http://www.arduino.cc/en/Tutorial/BlinkWithoutDelay
  */
 
-// constants won&#39;t change. Used here to set a pin number :
-const int ledPin =  13;      // the number of the LED pin
+const int ledPin =  13;
+int ledState = LOW;
 
-// Variables will change :
-int ledState = LOW;             // ledState used to set the LED
-
-// Generally, you should use &quot;unsigned long&quot; for variables that hold time
-// The value will quickly become too large for an int to store
 unsigned long previousMillis = 0;        // will store last time LED was updated
-
-// constants won&#39;t change :
 const long interval = 1000;           // interval at which to blink (milliseconds)
 
 void setup() {
-  // set the digital pin as output:
   pinMode(ledPin, OUTPUT);
 }
 
 void loop() {
-  // here is where you&#39;d put code that needs to be running all the time.
-
-  // check to see if it&#39;s time to blink the LED; that is, if the
-  // difference between the current time and last time you blinked
-  // the LED is bigger than the interval at which you want to
-  // blink the LED.
   unsigned long currentMillis = millis();
 
   if (currentMillis - previousMillis &gt;= interval) {
@@ -343,12 +324,23 @@ void loop() {
     digitalWrite(ledPin, ledState);
   }
 }</code></pre>
-</section><section id="firing-range" class="slide level2">
-<h1>Firing Range</h1>
+</section><section id="in-the-studio" class="slide level2">
+<h1>In the Studio</h1>
+<ul>
+<li>Table behind this space for programming arduino, getting help</li>
+<li>We have a variety of tools to help you build
+<ul>
+<li>Laser cutters &amp; cardboard</li>
+<li>Soldering irons</li>
+<li>Cutting instruments</li>
+<li>Much more!</li>
+</ul></li>
+<li>Firing Range
 <ul>
 <li>Test Weapons</li>
+<li>Don’t need to register to use remote there</li>
+</ul></li>
 </ul>
-<p>USe printers, laser cutters</p>
 </section></section>
 <section class="footnotes">
 <hr />
