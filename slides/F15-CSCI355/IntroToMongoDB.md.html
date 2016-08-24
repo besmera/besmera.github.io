@@ -791,7 +791,6 @@ db.product.insert({
 <!---
 db.product.aggregate([{$project:{ prodvalue : {$multiply: ["$qty", "$price"]}}}]);
 --->
-
 <ol start="2" type="1">
 <li>Select all the products and the category that the product is in.
 <ul>
@@ -806,7 +805,6 @@ db.product.aggregate([{$project:{ prodvalue : {$multiply: ["$qty", "$price"]}}}]
 <!--
   db.products.find({}, {name: 1, category: 1});
 -->
-
 </section><section id="practice-2-of-2" class="slide level2">
 <h1>Practice (2 of 2)</h1>
 <ol start="4" type="1">
@@ -815,13 +813,10 @@ db.product.aggregate([{$project:{ prodvalue : {$multiply: ["$qty", "$price"]}}}]
 <li>How much easier is this query compared to MySQL?</li>
 <li>What cost does this easy query come with?</li>
 </ul></li>
-<li><ol type="1">
-<li>Update the company “Stanley” to “Stanley Black and Decker” and re-run</li>
 </ol>
-<ul>
-<li>How many documents needed to be updated?<br /></li>
-<li>How many rows would MySQL have required?</li>
-</ul></li>
+<p>4.1. Update the company “Stanley” to “Stanley Black and Decker” and re-run * How many documents needed to be updated?<br />
+* How many rows would MySQL have required?</p>
+<ol start="5" type="1">
 <li>Select all the products in the tools category with a price greater than 10.00.
 <ul>
 <li>Now only those made by Stanley Black and Decker.</li>
@@ -832,9 +827,6 @@ db.product.aggregate([{$project:{ prodvalue : {$multiply: ["$qty", "$price"]}}}]
 </ul></li>
 </ol>
 <!-- NOTE: REVISIT THESE SAME QUESTIONS IN ADVANCED SQL WITH INDEXING AND .EXPLAIN() -->
-
-
-
 </section></section>
 <section class="footnotes">
 <hr />

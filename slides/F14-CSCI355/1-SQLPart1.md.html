@@ -28,7 +28,7 @@
     <!--[if lt IE 9]>
     <script src="../../reveal.js/lib/js/html5shiv.js"></script>
     <![endif]-->
-    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 </head>
 <body>
   <div class="reveal">
@@ -236,7 +236,7 @@ CREATE TABLE Product (
 <li>Use <code>DECIMAL</code> when you want <em>exact</em> precision
 <ul>
 <li>Specify precision (<code>M</code>) and scale (<code>D</code>)</li>
-<li><code>DECIMAL(M,D)</code> where <span class="math">\(M \in \{1,2,3,...,254\}\)</span> &amp; <span class="math">\(D \in \{0,1,2,...30\}\)</span></li>
+<li><code>DECIMAL(M,D)</code> where <span class="math inline">\(M \in \{1,2,3,...,254\}\)</span> &amp; <span class="math inline">\(D \in \{0,1,2,...30\}\)</span></li>
 <li><code>D</code> must never exceed <code>M</code></li>
 <li><code>DECIMAL</code> is the same <code>DECIMAL(10,0)</code></li>
 <li>What are valid values for <code>DECIMAL(6,3)</code>?</li>
@@ -288,11 +288,11 @@ CREATE TABLE Product (
 <li>Try testing <code>DOUBLE</code> against <code>DECIMAL</code></li>
 </ul></li>
 </ul>
-<pre class="SQL"><code>INSERT INTO DecimalTest VALUES (.1),(.7);
+<pre class="sql"><code>INSERT INTO DecimalTest VALUES (.1),(.7);
 SELECT floor(sum(val)*10) FROM DecimalTest;</code></pre>
 <aside class="notes">
 <p>CREATE TABLE DECTest (val DECIMAL(2,1)); Insert into DecimalTest VALUES (.1),(.7); Select floor(sum(val)*10) from DECTest;</p>
-CREATE TABLE DBLTest ( val DOUBLE ); Insert into DBLTest VALUES (.1),(.7); Select floor(sum(val)*10) from DBLTest;
+<p>CREATE TABLE DBLTest ( val DOUBLE ); Insert into DBLTest VALUES (.1),(.7); Select floor(sum(val)*10) from DBLTest;</p>
 </aside>
 </section><section id="time" class="slide level2">
 <h1>Time</h1>
@@ -321,16 +321,16 @@ CREATE TABLE DBLTest ( val DOUBLE ); Insert into DBLTest VALUES (.1),(.7); Selec
 <ul>
 <li><code>CHAR(M)</code>
 <ul>
-<li><span class="math">\(M\)</span> is number of characters
+<li><span class="math inline">\(M\)</span> is number of characters
 <ul>
-<li><span class="math">\(M \in \{0,1,2,...,255\}\)</span></li>
+<li><span class="math inline">\(M \in \{0,1,2,...,255\}\)</span></li>
 </ul></li>
 <li>Space padded, see example.</li>
 </ul></li>
 <li><code>VARCHAR(M)</code>
 <ul>
-<li>For ASCII (1B) <span class="math">\(M \in \{0,1,2,...,65535\}\)</span></li>
-<li>For UTF-8 (3B) <span class="math">\(M \in \{0,1,2,...,21844\}\)</span></li>
+<li>For ASCII (1B) <span class="math inline">\(M \in \{0,1,2,...,65535\}\)</span></li>
+<li>For UTF-8 (3B) <span class="math inline">\(M \in \{0,1,2,...,21844\}\)</span></li>
 </ul></li>
 <li>How many bytes needed to store 256 characters of ASCII?</li>
 <li>How many bytes needed to store 256 characters of UTF-8?</li>
@@ -340,12 +340,12 @@ CREATE TABLE DBLTest ( val DOUBLE ); Insert into DBLTest VALUES (.1),(.7); Selec
 <ul>
 <li><code>BINARY(M)</code>
 <ul>
-<li><span class="math">\(M\)</span> is number of bytes</li>
-<li><span class="math">\(M \in \{0,1,2,...,255\}\)</span></li>
+<li><span class="math inline">\(M\)</span> is number of bytes</li>
+<li><span class="math inline">\(M \in \{0,1,2,...,255\}\)</span></li>
 </ul></li>
 <li><code>VARBINARY(M)</code>
 <ul>
-<li><span class="math">\(M \in \{0,1,2,...,65535\}\)</span></li>
+<li><span class="math inline">\(M \in \{0,1,2,...,65535\}\)</span></li>
 <li>How many bytes need to store 255 bytes?</li>
 </ul></li>
 </ul>
@@ -405,7 +405,7 @@ CREATE TABLE DBLTest ( val DOUBLE ); Insert into DBLTest VALUES (.1),(.7); Selec
 </ul></li>
 </ul>
 <aside class="notes">
-Method I used: Space left in row when using TINYBLOB NOT NULL 65535-(8+1)=65526 Space left in row when using VARCHAR NOT NULL &gt; 255 65526-(2) = 65524Space left in row when using MEDIUMBLOB NOT NULL 65535-(8+3)=65524 Space left in row when using VARCHAR NOT NULL &gt; 255 65524-(2) = 65522
+<p>Method I used: Space left in row when using TINYBLOB NOT NULL 65535-(8+1)=65526 Space left in row when using VARCHAR NOT NULL &gt; 255 65526-(2) = 65524Space left in row when using MEDIUMBLOB NOT NULL 65535-(8+3)=65524 Space left in row when using VARCHAR NOT NULL &gt; 255 65524-(2) = 65522</p>
 </aside>
 </section></section>
 <section><section id="constraints" class="titleslide slide level1"><h1>Constraints</h1></section><section id="domains" class="slide level2">

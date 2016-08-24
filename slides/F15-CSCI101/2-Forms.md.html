@@ -63,15 +63,11 @@
 </section><section id="forms-1" class="slide level2">
 <h1>Forms</h1>
 <form action="http://imagine-it.org/processform.php" method="GET">
-  
 <label>First: <input type="text" name="first"></label><br> <label>Last: <input type="text" name="last"></label><br>
 <button type="submit">
 Submit
 </button>
 </form>
-
-
-
 </section><section id="sending-data" class="slide level2">
 <h1>Sending Data</h1>
 <ul>
@@ -115,7 +111,7 @@ Submit
 </section><section id="try-it" class="slide level2">
 <h1>Try it</h1>
 <ul>
-<li><a href="http://imagine-it.org/processform.php">http://imagine-it.org/processform.php</a></li>
+<li><a href="http://imagine-it.org/processform.php" class="uri">http://imagine-it.org/processform.php</a></li>
 </ul>
 </section><section id="form-structure" class="slide level2">
 <h1>Form Structure</h1>
@@ -148,13 +144,11 @@ Submit
 </section><section id="get-form" class="slide level2">
 <h1>GET Form</h1>
 <form action="http://imagine-it.org/processform.php" method="GET">
-  
 <label>First: <input type="text" name="first"></label><br> <label>Last: <input type="text" name="last"></label><br>
 <button type="submit">
 Submit
 </button>
 </form>
-
 <pre class="html"><code>&lt;form action=&quot;http://imagine-it.org/processform.php&quot; method=&quot;GET&quot;&gt;
   &lt;label&gt;First: &lt;input type=&quot;text&quot; name=&quot;first&quot;&gt;&lt;/label&gt;&lt;br&gt;
   &lt;label&gt;Last: &lt;input type=&quot;text&quot; name=&quot;last&quot;&gt;&lt;/label&gt;&lt;br&gt;
@@ -163,13 +157,11 @@ Submit
 </section><section id="post-form" class="slide level2">
 <h1>POST Form</h1>
 <form action="http://imagine-it.org/processform.php" method="POST">
-  
 <label>First: <input type="text" name="first"></label><br> <label>Last: <input type="text" name="last"></label><br>
 <button type="submit">
 Submit
 </button>
 </form>
-
 <pre class="html"><code>&lt;form action=&quot;http://imagine-it.org/processform.php&quot; method=&quot;POST&quot;&gt;
   &lt;label&gt;First: &lt;input type=&quot;text&quot; name=&quot;first&quot;&gt;&lt;/label&gt;&lt;br&gt;
   &lt;label&gt;Last: &lt;input type=&quot;text&quot; name=&quot;last&quot;&gt;&lt;/label&gt;&lt;br&gt;
@@ -188,7 +180,6 @@ Submit
 <button type="reset">
 Reset
 </button>
-
 <pre class="html"><code>&lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
 &lt;button type=&quot;reset&quot;&gt;Reset&lt;/button&gt;</code></pre>
 </section><section id="labels" class="slide level2">
@@ -227,10 +218,12 @@ Reset
 </section><section id="field-set" class="slide level2">
 <h1>Field Set</h1>
 <fieldset>
-    
-<legend>Class Standing:</legend> <label for="freshman">Freshman</label> <input type="radio" name="classStanding" id="freshman" value="freshman"> <label for="sophmore">Sophmore</label> <input type="radio" name="classStanding" id="sophmore" value="sophmore">
+<pre><code>&lt;legend&gt;Class Standing:&lt;/legend&gt;
+&lt;label for=&quot;freshman&quot;&gt;Freshman&lt;/label&gt;
+&lt;input type=&quot;radio&quot; name=&quot;classStanding&quot; id=&quot;freshman&quot; value=&quot;freshman&quot;&gt;
+&lt;label for=&quot;sophmore&quot;&gt;Sophmore&lt;/label&gt;
+&lt;input type=&quot;radio&quot; name=&quot;classStanding&quot; id=&quot;sophmore&quot; value=&quot;sophmore&quot;&gt;</code></pre>
 </fieldset>
-
 <pre class="html"><code>&lt;fieldset&gt;
     &lt;legend&gt;Class Standing:&lt;/legend&gt;
     &lt;label for=&quot;freshman&quot;&gt;Freshman&lt;/label&gt;
@@ -249,7 +242,8 @@ Reset
 </section><section id="textarea" class="slide level2">
 <h1>Textarea</h1>
 <label>Student Notes: <br>
-<textarea name="notes"></textarea>
+<textarea name="notes">
+</textarea>
 <p></label></p>
 <pre class="html"><code>&lt;label&gt;Student Notes: &lt;br&gt;
 &lt;textarea name=&quot;notes&quot;&gt;&lt;/textarea&gt;

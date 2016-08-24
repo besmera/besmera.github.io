@@ -28,7 +28,7 @@
     <!--[if lt IE 9]>
     <script src="../../reveal.js/lib/js/html5shiv.js"></script>
     <![endif]-->
-    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 </head>
 <body>
   <div class="reveal">
@@ -150,13 +150,9 @@
 <h1>Statements</h1>
 <dl>
 <dt>Statement</dt>
-<dd>Instruction given within the language.
+<dd>Instruction given within the language. * When in PHP mode the interpreter will evaluate and execute each statement then move to the next * Each statement <strong>must</strong> end with a semicolon <code>;</code><a href="#/fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>
 </dd>
 </dl>
-<ul>
-<li>When in PHP mode the interpreter will evaluate and execute each statement then move to the next</li>
-<li>Each statement <strong>must</strong> end with a semicolon <code>;</code><a href="#/fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></li>
-</ul>
 </section><section id="comments" class="slide level2">
 <h1>Comments</h1>
 <ul>
@@ -256,7 +252,7 @@ echo &#39;This will not end well!&#39;; /* Do you see the problem? */
 <h1>Boolean</h1>
 <dl>
 <dt><code>boolean</code></dt>
-<dd>A boolean value is either <em><code>true</code></em> or <em><code>false</code></em> alternatively <span class="math">\(B = \{0, 1\}\)</span>
+<dd>A boolean value is either <em><code>true</code></em> or <em><code>false</code></em> alternatively <span class="math inline">\(B = \{0, 1\}\)</span>
 </dd>
 </dl>
 <ul>
@@ -275,7 +271,7 @@ echo &#39;This will not end well!&#39;; /* Do you see the problem? */
 <h1>Integer</h1>
 <dl>
 <dt><code>integer</code></dt>
-<dd><span class="math">\(\mathbb{Z} = \{..., -3, -2, -1, 0, 1, 2, 3, ...\}\)</span>
+<dd><span class="math inline">\(\mathbb{Z} = \{..., -3, -2, -1, 0, 1, 2, 3, ...\}\)</span>
 </dd>
 </dl>
 <ul>
@@ -322,19 +318,19 @@ var_dump(011901); //Decimal 9!</code></pre></li>
 </section><section id="integer-overflow" class="slide level2">
 <h1>Integer Overflow</h1>
 <ul>
-<li>Unlike other languages <code>integer</code> overflow results in using a <code>float</code> using <span class="math">\(E\)</span> notation</li>
+<li>Unlike other languages <code>integer</code> overflow results in using a <code>float</code> using <span class="math inline">\(E\)</span> notation</li>
 <li>Typed languages generally roll over because of 2’s complement</li>
 </ul>
 </section><section id="float" class="slide level2">
 <h1>Float</h1>
 <dl>
 <dt><code>float</code></dt>
-<dd><span class="math">\(\mathbb{R} = \{x | x\text{ is a real number}\}\)</span>
+<dd><span class="math inline">\(\mathbb{R} = \{x | x\text{ is a real number}\}\)</span>
 </dd>
 </dl>
 <ul>
-<li>Can be specified by providing <span class="math">\(E\)</span> notation or number with decimal place</li>
-<li>Floats like integers depend on the platform, a max of ~<span class="math">\(1.8e308\)</span> with ~14 digit precision per IEEE 64bit standard</li>
+<li>Can be specified by providing <span class="math inline">\(E\)</span> notation or number with decimal place</li>
+<li>Floats like integers depend on the platform, a max of ~<span class="math inline">\(1.8e308\)</span> with ~14 digit precision per IEEE 64bit standard</li>
 </ul>
 </section><section id="float-1" class="slide level2">
 <h1>Float</h1>
@@ -650,7 +646,7 @@ echo (int) ( (0.1+0.7) * 10 ); //Is 7 not 8!</code></pre></li>
 </ul></li>
 <li>From <code>float</code> or <code>integer</code> to <code>string</code>
 <ul>
-<li>Textual representation to string form with <span class="math">\(E\)</span> notation</li>
+<li>Textual representation to string form with <span class="math inline">\(E\)</span> notation</li>
 </ul></li>
 <li>From <code>object</code> to <code>string</code>
 <ul>
@@ -708,7 +704,7 @@ $lastName = $_POST[&quot;lastName&quot;];
     &lt;/body&gt;
 &lt;/html&gt;</code></pre>
 <aside class="notes">
-This is some notes
+<p>This is some notes</p>
 </aside>
 </section></section>
 <section class="footnotes">
@@ -718,10 +714,10 @@ This is some notes
 <li id="fn2"><p>Exception is when closing the PHP tag. Don’t do this!<a href="#/fnref2">↩</a></p></li>
 <li id="fn3"><p>Exceptions are sometimes made for complex data types.<a href="#/fnref3">↩</a></p></li>
 <li id="fn4"><p>SimpleXML objects from empty tags are also false.<a href="#/fnref4">↩</a></p></li>
-<li id="fn5"><p><a href="http://www.php.net">http://www.php.net</a><a href="#/fnref5">↩</a></p></li>
-<li id="fn6"><p><a href="http://www.php.net">http://www.php.net</a><a href="#/fnref6">↩</a></p></li>
-<li id="fn7"><p><a href="http://www.php.net">http://www.php.net</a><a href="#/fnref7">↩</a></p></li>
-<li id="fn8"><p><a href="http://www.php.net">http://www.php.net</a><a href="#/fnref8">↩</a></p></li>
+<li id="fn5"><p><a href="http://www.php.net" class="uri">http://www.php.net</a><a href="#/fnref5">↩</a></p></li>
+<li id="fn6"><p><a href="http://www.php.net" class="uri">http://www.php.net</a><a href="#/fnref6">↩</a></p></li>
+<li id="fn7"><p><a href="http://www.php.net" class="uri">http://www.php.net</a><a href="#/fnref7">↩</a></p></li>
+<li id="fn8"><p><a href="http://www.php.net" class="uri">http://www.php.net</a><a href="#/fnref8">↩</a></p></li>
 <li id="fn9"><p>XSS has been left in example for simplicity.<a href="#/fnref9">↩</a></p></li>
 </ol>
 </section>
