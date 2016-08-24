@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>Linux Primer</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Linux Primer</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/linux-primer">Linux Primer</a></li>
+<li><a href="#/practice">Practice</a></li>
+</ul>
+</section>
+
+<section><section id="linux-primer" class="titleslide slide level1"><h1>Linux Primer</h1></section><section id="connecting-to-campus-servers" class="slide level2">
+<h1>Connecting to Campus Servers</h1>
+<ul>
+<li>For server choose one of the campus linux servers
+<ul>
+<li>For username use <code>acc.yourusername</code></li>
+<li>For password use your password</li>
+</ul></li>
+<li>On campus
+<ul>
+<li><code>aspen.winthrop.edu</code></li>
+<li><code>abernathy.winthrop.edu</code></li>
+<li><code>houston.winthrop.edu</code></li>
+<li>and more…</li>
+</ul></li>
+<li>Off campus
+<ul>
+<li><code>reno.winthrop.edu</code></li>
+</ul></li>
+</ul>
+</section><section id="connecting-to-campus-servers-1" class="slide level2">
+<h1>Connecting to Campus Servers</h1>
+<ul>
+<li>From windows use <a href="https://the.earth.li/~sgtatham/putty/latest/x86/putty.exe">PuTTY</a>
+<ul>
+<li>Protocol is <code>SSH</code>, port is <code>22</code></li>
+</ul></li>
+<li>From Linux/Mac
+<ul>
+<li>Open a terminal and use the <code>ssh</code> command</li>
+<li><code>ssh acc.yourusername@aspen.winthrop.edu</code></li>
+</ul></li>
+</ul>
+</section><section id="file-systems" class="slide level2">
+<h1>File Systems</h1>
+<ul>
+<li>Windows</li>
+</ul>
+<pre><code>C:\Users\besmera\</code></pre>
+<ul>
+<li>Linux/Mac</li>
+</ul>
+<pre><code>/home/besmera/</code></pre>
+</section><section id="terminal" class="slide level2">
+<h1>Terminal</h1>
+<ul>
+<li>The terminal makes it easy to understand what the current directory is, who you are, and what computer you are using</li>
+<li><code>~</code> represents the current users home directory</li>
+</ul>
+<pre class="bash"><code>user@host:~$ 
+ </code></pre>
+</section><section id="terminal-1" class="slide level2">
+<h1>Terminal</h1>
+<ul>
+<li>Who is the current user?</li>
+<li>What machine are the commands being executed on?</li>
+<li>What directory is the terminal currently working in?</li>
+</ul>
+<pre class="terminal"><code>ACC.besmera2@abernathy:~/public_html$
+  </code></pre>
+</section><section id="listing-files" class="slide level2">
+<h1>Listing Files</h1>
+<ul>
+<li>To list files use the <code>ls</code> command
+<ul>
+<li>Depending on a number of factors the results may be color coded</li>
+<li>Can accept many arguments for example <code>-a</code> for all files or <code>-l</code> for longer format</li>
+</ul></li>
+</ul>
+<pre class="terminal"><code>ACC.besmera2@abernathy:~$ ls
+Documents  examples.desktop  Pictures  Templates
+Desktop    Downloads         Music     Public
+Videos
+ACC.besmera2@abernathy:~$ </code></pre>
+</section><section id="changing-directories" class="slide level2">
+<h1>Changing Directories</h1>
+<ul>
+<li>To change the directory you are in use the <code>cd</code> command and pass either an absolute or a relative directory
+<ul>
+<li>At anytime type <code>cd</code> without passing anything to return to <code>~</code></li>
+<li>Use <code>cd ..</code> to go to the directly directly above the current</li>
+</ul></li>
+</ul>
+<pre class="terminal"><code>ACC.besmera2@abernathy:~$ ls
+Documents  examples.desktop  Pictures  Templates
+Desktop    Downloads         Music     Public
+Videos
+ACC.besmera2@abernathy:~$ cd Desktop/
+ACC.besmera2@abernathy:~/Desktop$ ls
+CSCI241.pdf
+CSCI242.pdf
+ACC.besmera2@abernathy:~/Desktop$ </code></pre>
+<dl>
+<dt>Hint</dt>
+<dd>Make liberal use of the <code>Tab</code> key to autocomplete segments
+</dd>
+</dl>
+</section><section id="where-am-i" class="slide level2">
+<h1>Where Am I?</h1>
+<ul>
+<li>To get the current full path use the <code>pwd</code> command</li>
+</ul>
+<pre class="terminal"><code>ACC.besmera2@abernathy:~/Desktop$ pwd
+/home/ACC.besmera2/Desktop
+ACC.besmera2@abernathy:~/Desktop$ </code></pre>
+</section><section id="editing-a-file" class="slide level2">
+<h1>Editing a File</h1>
+<ul>
+<li>A very basic and easy to use text editor is <code>nano</code>
+<ul>
+<li>The <code>^</code> charachter means use the <code>Ctrl</code> key</li>
+</ul></li>
+</ul>
+<pre class="terminal"><code>ACC.besmera2@abernathy:~/Desktop$ nano somefile.txt</code></pre>
+<pre class="terminal"><code>  GNU nano 2.2.6             File: somefile.txt
+
+
+
+
+
+
+
+
+
+
+                                  [ New File ]
+^G Get Help  ^O WriteOut  ^R Read File ^Y Prev Page ^K Cut Text  ^C Cur Pos
+^X Exit      ^J Justify   ^W Where Is  ^V Next Page ^U UnCut Text^T To Spell</code></pre>
+</section><section id="copyingmoving" class="slide level2">
+<h1>Copying/Moving</h1>
+<ul>
+<li>To copy a file use <code>cp</code></li>
+<li>To move a file use <code>mv</code>
+<ul>
+<li>Both require passing a source and destination</li>
+</ul></li>
+</ul>
+<pre class="terminal"><code>ACC.besmera2@abernathy:~/Desktop$ ls
+somefile.txt
+ACC.besmera2@abernathy:~/Desktop$ cp somefile.txt somecopy.txt
+ACC.besmera2@abernathy:~/Desktop$ ls
+somecopy.txt  somefile.txt
+ACC.besmera2@abernathy:~/Desktop$ mv somefile.txt somenewfile.txt
+ACC.besmera2@abernathy:~/Desktop$ ls
+somecopy.txt  somenewfile.txt
+ACC.besmera2@abernathy:~/Desktop$</code></pre>
+</section><section id="deleting-files" class="slide level2">
+<h1>Deleting Files</h1>
+<ul>
+<li>To delete a file use the <code>rm</code> command passing the file(s) to be removed
+<ul>
+<li>Be very careful, there is no recycle bin</li>
+<li>Only forensic tools <em>may</em> be able to recover files</li>
+</ul></li>
+</ul>
+<pre class="terminal"><code>ACC.besmera2@abernathy:~/Desktop$ ls
+somecopy.txt  somenewfile.txt
+ACC.besmera2@abernathy:~/Desktop$ rm somecopy.txt 
+ACC.besmera2@abernathy:~/Desktop$ ls
+somenewfile.txt
+ACC.besmera2@abernathy:~/Desktop$ </code></pre>
+</section><section id="making-directories" class="slide level2">
+<h1>Making Directories</h1>
+<ul>
+<li>To make a directory use <code>mkdir</code> passing the directory name</li>
+</ul>
+<pre class="terminal"><code>ACC.besmera2@abernathy:~/Desktop$ mkdir testDirectory
+ACC.besmera2@abernathy:~/Desktop$ ls
+testDirectory
+ACC.besmera2@abernathy:~/Desktop$ </code></pre>
+</section><section id="deleting-directories" class="slide level2">
+<h1>Deleting Directories</h1>
+<ul>
+<li>To delete a directory use the <code>rm</code> command and use the argument <code>-r</code>
+<ul>
+<li>The argument means recursively remove</li>
+<li>Many people will pass an argument of <code>-f</code> for force, <strong><em>beware</em></strong></li>
+</ul></li>
+</ul>
+<pre class="terminal"><code>ACC.besmera2@abernathy:~/Desktop$ ls
+testDirectory
+ACC.besmera2@abernathy:~/Desktop$ rm -r testDirectory/
+ACC.besmera2@abernathy:~/Desktop$ ls
+ACC.besmera2@abernathy:~/Desktop$ </code></pre>
+</section><section id="shortcut-keys" class="slide level2">
+<h1>Shortcut Keys</h1>
+<ul>
+<li>Use keyboard shortcuts to enhance your experience
+<ul>
+<li><code>Ctrl + A</code> - Similar to Home key</li>
+<li><code>Ctrl + E</code> - Similar to End key</li>
+<li><code>Ctrl + L</code> - Clear the screen <code>clear</code> command as well</li>
+<li><code>Ctrl + C</code> - Kill current proccess</li>
+<li><code>Ctrl + D</code> - End of File (<code>eof</code>)</li>
+<li><code>Tab</code> - Autocomplete files and folders</li>
+</ul></li>
+</ul>
+</section><section id="outputting-files" class="slide level2">
+<h1>Outputting Files</h1>
+<ul>
+<li><code>cat</code> concatenates files and prints them to standard out</li>
+</ul>
+<pre class="terminal"><code>ACC.besmera2@abernathy:~$ cat hello.txt 
+This is the contents of the hello file!
+ACC.besmera2@abernathy:~$ </code></pre>
+</section><section id="getting-help" class="slide level2">
+<h1>Getting Help</h1>
+<ul>
+<li>Get help on virtually any command using <code>man</code> passing the command you want help with
+<ul>
+<li>Example - <code>man rm</code></li>
+</ul></li>
+</ul>
+<pre class="terminal"><code>RM(1)                            User Commands                           RM(1)
+
+NAME
+       rm - remove files or directories
+
+SYNOPSIS
+       rm [OPTION]... FILE...
+
+DESCRIPTION
+       This  manual  page  documents  the  GNU version of rm.  rm removes each
+       specified file.  By default, it does not remove directories.
+
+       If the -I or --interactive=once option is given,  and  there  are  more
+
+ Manual page rm(1) line 1 (press h for help or q to quit)</code></pre>
+</section></section>
+<section><section id="practice" class="titleslide slide level1"><h1>Practice</h1></section><section id="practice-1" class="slide level2">
+<h1>Practice</h1>
+<ol type="1">
+<li>Start by go to your home directory</li>
+<li>Make a new directory <code>about_me</code></li>
+<li>Change directory into that directory</li>
+<li>Use <code>nano</code> to create a file called <code>me.txt</code></li>
+<li>In the file write your name, and a quick list of real or fictional classes you are taking</li>
+<li>List the files in that directory, you should see what you just created</li>
+<li>Use <code>cat</code> to print out the contents of the file</li>
+<li>Copy the <code>me.txt</code> to <code>yourfirstname.txt</code></li>
+<li>Use <code>cat</code> to verify the new file is the same</li>
+</ol>
+</section><section id="practice-2" class="slide level2">
+<h1>Practice</h1>
+<ol start="10" type="1">
+<li>Edit <code>me.txt</code> to include your partners name and a list of their real or fictional classes</li>
+<li>Since <code>me.txt</code> is no longer about you, move the file to <code>theirname.txt</code></li>
+<li>Access the man page for the command <code>du</code>, use it to find the human readable size of both files</li>
+<li>Remove both files</li>
+<li>Go back to your home directory using the short cut method</li>
+<li>Remove the folder</li>
+</ol>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
