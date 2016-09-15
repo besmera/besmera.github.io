@@ -93,7 +93,6 @@ CREATE TABLE Product (
 * Floating point (real) numbers: `FLOAT`, `DOUBLE`
 	* `FLOAT` uses 4 bytes, `DOUBLE` uses 8 bytes
 	* ***WARNING***: These data types are approximations!
-	* Try testing `DOUBLE` against `DECIMAL`
 
 ```SQL
 INSERT INTO DecimalTest VALUES (.1),(.7);
@@ -122,7 +121,7 @@ Select floor(sum(val)*10) from DBLTest;
 	* `D` must never exceed `M`
 	* `DECIMAL` is the same `DECIMAL(10,0)`
 	* What are valid values for `DECIMAL(6,3)`?
-
+	* Try testing `DOUBLE` against `DECIMAL`
 
 
 <div class="notes">

@@ -237,7 +237,6 @@ CREATE TABLE Product (
 <ul>
 <li><code>FLOAT</code> uses 4 bytes, <code>DOUBLE</code> uses 8 bytes</li>
 <li><strong><em>WARNING</em></strong>: These data types are approximations!</li>
-<li>Try testing <code>DOUBLE</code> against <code>DECIMAL</code></li>
 </ul></li>
 </ul>
 <pre class="sql"><code>INSERT INTO DecimalTest VALUES (.1),(.7);
@@ -260,6 +259,7 @@ SELECT floor(sum(val)*10) FROM DecimalTest;</code></pre>
 <li><code>D</code> must never exceed <code>M</code></li>
 <li><code>DECIMAL</code> is the same <code>DECIMAL(10,0)</code></li>
 <li>What are valid values for <code>DECIMAL(6,3)</code>?</li>
+<li>Try testing <code>DOUBLE</code> against <code>DECIMAL</code></li>
 </ul></li>
 </ul>
 <aside class="notes">
