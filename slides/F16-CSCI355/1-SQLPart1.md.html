@@ -230,6 +230,22 @@ CREATE TABLE Product (
 <li>How much space?</li>
 </ul></li>
 </ul>
+</section><section id="floats" class="slide level2">
+<h1>Floats</h1>
+<ul>
+<li>Floating point (real) numbers: <code>FLOAT</code>, <code>DOUBLE</code>
+<ul>
+<li><code>FLOAT</code> uses 4 bytes, <code>DOUBLE</code> uses 8 bytes</li>
+<li><strong><em>WARNING</em></strong>: These data types are approximations!</li>
+<li>Try testing <code>DOUBLE</code> against <code>DECIMAL</code></li>
+</ul></li>
+</ul>
+<pre class="sql"><code>INSERT INTO DecimalTest VALUES (.1),(.7);
+SELECT floor(sum(val)*10) FROM DecimalTest;</code></pre>
+<aside class="notes">
+<p>CREATE TABLE DECTest (val DECIMAL(2,1)); Insert into DecimalTest VALUES (.1),(.7); Select floor(sum(val)*10) from DECTest;</p>
+<p>CREATE TABLE DBLTest ( val DOUBLE ); Insert into DBLTest VALUES (.1),(.7); Select floor(sum(val)*10) from DBLTest;</p>
+</aside>
 </section><section id="decimals" class="slide level2">
 <h1>Decimals</h1>
 <ul>
@@ -246,6 +262,10 @@ CREATE TABLE Product (
 <li>What are valid values for <code>DECIMAL(6,3)</code>?</li>
 </ul></li>
 </ul>
+<aside class="notes">
+<p>CREATE TABLE DECTest (val DECIMAL(2,1)); Insert into DecimalTest VALUES (.1),(.7); Select floor(sum(val)*10) from DECTest;</p>
+<p>CREATE TABLE DBLTest ( val DOUBLE ); Insert into DBLTest VALUES (.1),(.7); Select floor(sum(val)*10) from DBLTest;</p>
+</aside>
 </section><section id="decimal-storage" class="slide level2">
 <h1>Decimal Storage</h1>
 <ul>
@@ -282,22 +302,6 @@ CREATE TABLE Product (
 </tr>
 </tbody>
 </table>
-</section><section id="floats" class="slide level2">
-<h1>Floats</h1>
-<ul>
-<li>Floating point (real) numbers: <code>FLOAT</code>, <code>DOUBLE</code>
-<ul>
-<li><code>FLOAT</code> uses 4 bytes, <code>DOUBLE</code> uses 8 bytes</li>
-<li><strong><em>WARNING</em></strong>: These data types are approximations!</li>
-<li>Try testing <code>DOUBLE</code> against <code>DECIMAL</code></li>
-</ul></li>
-</ul>
-<pre class="sql"><code>INSERT INTO DecimalTest VALUES (.1),(.7);
-SELECT floor(sum(val)*10) FROM DecimalTest;</code></pre>
-<aside class="notes">
-<p>CREATE TABLE DECTest (val DECIMAL(2,1)); Insert into DecimalTest VALUES (.1),(.7); Select floor(sum(val)*10) from DECTest;</p>
-<p>CREATE TABLE DBLTest ( val DOUBLE ); Insert into DBLTest VALUES (.1),(.7); Select floor(sum(val)*10) from DBLTest;</p>
-</aside>
 </section><section id="time" class="slide level2">
 <h1>Time</h1>
 <ul>

@@ -88,6 +88,30 @@ CREATE TABLE Product (
 * `BOOLEAN` is really `TINYINT(1)` 
 	* How much space?
 
+## Floats
+
+* Floating point (real) numbers: `FLOAT`, `DOUBLE`
+	* `FLOAT` uses 4 bytes, `DOUBLE` uses 8 bytes
+	* ***WARNING***: These data types are approximations!
+	* Try testing `DOUBLE` against `DECIMAL`
+
+```SQL
+INSERT INTO DecimalTest VALUES (.1),(.7);
+SELECT floor(sum(val)*10) FROM DecimalTest;
+```
+
+
+<div class="notes">
+CREATE TABLE DECTest (val DECIMAL(2,1));
+Insert into DecimalTest VALUES (.1),(.7);
+Select floor(sum(val)*10) from DECTest;
+
+CREATE TABLE DBLTest ( val DOUBLE );
+Insert into DBLTest VALUES (.1),(.7);
+Select floor(sum(val)*10) from DBLTest;
+</div>
+
+
 ## Decimals
 
 * Use `DECIMAL` when you want *exact* precision
@@ -98,6 +122,19 @@ CREATE TABLE Product (
 	* `D` must never exceed `M`
 	* `DECIMAL` is the same `DECIMAL(10,0)`
 	* What are valid values for `DECIMAL(6,3)`?
+
+
+
+<div class="notes">
+CREATE TABLE DECTest (val DECIMAL(2,1));
+Insert into DecimalTest VALUES (.1),(.7);
+Select floor(sum(val)*10) from DECTest;
+
+CREATE TABLE DBLTest ( val DOUBLE );
+Insert into DBLTest VALUES (.1),(.7);
+Select floor(sum(val)*10) from DBLTest;
+</div>
+
 
 ## Decimal Storage
 
@@ -113,31 +150,6 @@ CREATE TABLE Product (
 | 5–6    | 3     |
 | 7–9    | 4     |
 
-
-
-## Floats
-
-* Floating point (real) numbers: `FLOAT`, `DOUBLE`
-	* `FLOAT` uses 4 bytes, `DOUBLE` uses 8 bytes
-	* ***WARNING***: These data types are approximations!
-	* Try testing `DOUBLE` against `DECIMAL`
-
-```SQL
-INSERT INTO DecimalTest VALUES (.1),(.7);
-SELECT floor(sum(val)*10) FROM DecimalTest;
-```
-
-
-
-<div class="notes">
-CREATE TABLE DECTest (val DECIMAL(2,1));
-Insert into DecimalTest VALUES (.1),(.7);
-Select floor(sum(val)*10) from DECTest;
-
-CREATE TABLE DBLTest ( val DOUBLE );
-Insert into DBLTest VALUES (.1),(.7);
-Select floor(sum(val)*10) from DBLTest;
-</div>
 
 
 ## Time
