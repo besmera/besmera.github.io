@@ -214,7 +214,7 @@ SELECT Category, Company, AVG(Price) FROM Product
 GROUP BY Category, Company;
 
 ```
-
+ 
 # Summary
 
 ## Summary
