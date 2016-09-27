@@ -145,7 +145,8 @@ Correlated Query
 * Evaluated once ***for each row*** in the outer
 
 ```sql
-SELECT * FROM Product AS P WHERE P.Price > (Select AVG(Product.Price) FROM Product WHERE Product.Category = P.Category);
+SELECT * FROM Product AS P WHERE P.Price > (Select AVG(Product.Price)
+ FROM Product WHERE Product.Category = P.Category);
 ```
 
 ## Exists
@@ -154,8 +155,8 @@ SELECT * FROM Product AS P WHERE P.Price > (Select AVG(Product.Price) FROM Produ
 	* Example is correlated
 
 ```sql
-SELECT * FROM Company WHERE EXISTS 
-(Select * FROM Product WHERE Product.Company = Company.id);
+SELECT * FROM Company WHERE EXISTS (Select * FROM Product 
+WHERE Product.Company = Company.id);
 ```
 
 * What would NOT EXISTS do then?
@@ -186,7 +187,7 @@ SELECT name, AVG(Price) FROM Product GROUP BY Company;
 
 1) Get ***all the company names*** and the ***average price of their products***.
 2) Get ***all the company names*** and the ***average price of their products***.  ***Don't discard the NULL*** (missing companies) avg price. 
-	* ***Hint:*** `FULL OUTER`
+	* ***Hint:*** `OUTER`
 
 ## HAVING
 

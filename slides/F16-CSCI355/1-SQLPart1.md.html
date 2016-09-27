@@ -48,7 +48,6 @@
 <li><a href="#/insertion">Insertion</a></li>
 <li><a href="#/retrieval">Retrieval</a></li>
 <li><a href="#/modification">Modification</a></li>
-<li><a href="#/multiple-tables">Multiple Tables</a></li>
 </ul>
 </section>
 
@@ -692,10 +691,9 @@ SELECT DISTINCT salary FROM EMPLOYEE; </code></pre>
 <ul>
 <li><p><code>DELETE</code> Syntax</p>
 <pre class="sql"><code>DELETE FROM table WHERE col1=val1;</code></pre></li>
-<li><p>WARNING: Failure to include a WHERE clause will cause it to operate on all rows!!!!</p></li>
+<li><p>WARNING: Failure to include a WHERE clause will cause it to operate on all rows!!!! SQL # Multiple Tables</p></li>
 </ul>
-</section></section>
-<section><section id="multiple-tables" class="titleslide slide level1"><h1>Multiple Tables</h1></section><section id="selection-1" class="slide level2">
+</section><section id="selection-1" class="slide level2">
 <h1>Selection</h1>
 <ul>
 <li>When selecting from multiple tables you must <code>JOIN</code> them</li>
@@ -778,6 +776,7 @@ WHERE DEPARTMENT.Name = &#39;Research&#39; AND DEPARTMENT.Dnumber = EMPLOYEE.Dnu
 <pre class="sql"><code>
 -- DROP Existing
 
+DROP VIEW ProductValues;
 DROP TABLE Product, Company, Category;
 
 -- Create Product Table
@@ -815,7 +814,7 @@ CREATE TABLE Company (
 -- Add Company Foreign Key
 
 ALTER TABLE Product ADD FOREIGN KEY (Company) REFERENCES Company(id);
-
+SQL
 -- Fill Category Table
 
 INSERT INTO Category (name) VALUES (&quot;Toys&quot;), (&quot;Tools&quot;), (&quot;Health&quot;);
@@ -994,6 +993,14 @@ SELECT SLEEP(1);
 
 INSERT INTO Tweet (text, user) SELECT &quot;I have 20,000 girlfriends, all around the world.&quot;, id FROM User where name = &quot;Justin Timberlake&quot;;
 </code></pre>
+</section><section id="mn-join-twitter-3" class="slide level2">
+<h1>M:N JOIN Twitter</h1>
+<ol type="1">
+<li><p>Insert data into <code>Follow</code> for who Barack Obama should be following. Remember he is incredibly busy so don’t add everyone. Also recall that the twitter relationship is not reciprocal.</p></li>
+<li><p>Write the SQL statement that would be neccessary to display the twitter feed for Barack Obama. Recall that order is not guaranteed.</p></li>
+<li><p>Add a <code>Tweet</code> for someone who you had Barack Obama follow and someone who he did not follow.</p></li>
+<li><p>Rerun your SQL statement to show the twitter feed.</p></li>
+</ol>
 </section></section>
 <section class="footnotes">
 <hr />

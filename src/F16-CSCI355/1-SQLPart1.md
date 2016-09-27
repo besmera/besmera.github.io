@@ -500,7 +500,7 @@ UPDATE table SET col1=val1, col2=val2 WHERE col3=val3;
 DELETE FROM table WHERE col1=val1;
 ```
 * WARNING: Failure to include a WHERE clause will cause it to operate on all rows!!!!
-
+SQL
 # Multiple Tables
 
 ## Selection 
@@ -576,6 +576,7 @@ EMPLOYEE AS E(Fn, Mi, Ln, Ssn, Bd, Addr, Sex, Sal, Sssn, Dno)
 
 -- DROP Existing
 
+DROP VIEW ProductValues;
 DROP TABLE Product, Company, Category;
 
 -- Create Product Table
@@ -613,7 +614,7 @@ CREATE TABLE Company (
 -- Add Company Foreign Key
 
 ALTER TABLE Product ADD FOREIGN KEY (Company) REFERENCES Company(id);
-
+SQL
 -- Fill Category Table
 
 INSERT INTO Category (name) VALUES ("Toys"), ("Tools"), ("Health");
@@ -789,4 +790,14 @@ SELECT SLEEP(1);
 INSERT INTO Tweet (text, user) SELECT "I have 20,000 girlfriends, all around the world.", id FROM User where name = "Justin Timberlake";
 
 ```
+
+## M:N JOIN Twitter
+
+1. Insert data into `Follow` for who Barack Obama should be following.  Remember he is incredibly busy so don't add everyone. Also recall that the twitter relationship is not reciprocal. 
+
+2. Write the SQL statement that would be neccessary to display the twitter feed for Barack Obama. Recall that order is not guaranteed.
+
+3. Add a `Tweet` for someone who you had Barack Obama follow and someone who he did not follow.
+
+4. Rerun your SQL statement to show the twitter feed.
 

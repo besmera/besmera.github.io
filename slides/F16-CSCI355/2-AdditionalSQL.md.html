@@ -241,7 +241,8 @@ Company.id = Product.Company WHERE
 <ul>
 <li>Evaluated once <strong><em>for each row</em></strong> in the outer</li>
 </ul>
-<pre class="sql"><code>SELECT * FROM Product AS P WHERE P.Price &gt; (Select AVG(Product.Price) FROM Product WHERE Product.Category = P.Category);</code></pre>
+<pre class="sql"><code>SELECT * FROM Product AS P WHERE P.Price &gt; (Select AVG(Product.Price)
+ FROM Product WHERE Product.Category = P.Category);</code></pre>
 </section><section id="exists" class="slide level2">
 <h1>Exists</h1>
 <ul>
@@ -250,8 +251,8 @@ Company.id = Product.Company WHERE
 <li>Example is correlated</li>
 </ul></li>
 </ul>
-<pre class="sql"><code>SELECT * FROM Company WHERE EXISTS 
-(Select * FROM Product WHERE Product.Company = Company.id);</code></pre>
+<pre class="sql"><code>SELECT * FROM Company WHERE EXISTS (Select * FROM Product 
+WHERE Product.Company = Company.id);</code></pre>
 <ul>
 <li>What would NOT EXISTS do then?</li>
 </ul>
@@ -281,7 +282,7 @@ Company.id = Product.Company WHERE
 <li>Get <strong><em>all the company names</em></strong> and the <strong><em>average price of their products</em></strong>.</li>
 <li>Get <strong><em>all the company names</em></strong> and the <strong><em>average price of their products</em></strong>. <strong><em>Don’t discard the NULL</em></strong> (missing companies) avg price.
 <ul>
-<li><strong><em>Hint:</em></strong> <code>FULL OUTER</code></li>
+<li><strong><em>Hint:</em></strong> <code>OUTER</code></li>
 </ul></li>
 </ol>
 </section><section id="having" class="slide level2">
