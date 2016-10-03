@@ -614,7 +614,7 @@ CREATE TABLE Company (
 -- Add Company Foreign Key
 
 ALTER TABLE Product ADD FOREIGN KEY (Company) REFERENCES Company(id);
-SQL
+
 -- Fill Category Table
 
 INSERT INTO Category (name) VALUES ("Toys"), ("Tools"), ("Health");
