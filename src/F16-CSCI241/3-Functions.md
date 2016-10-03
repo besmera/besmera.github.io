@@ -783,3 +783,19 @@ echo $x;
 * `min`
 * `round`
 * `rand`
+
+# Functions Example
+
+## Functions Example
+
+Create script to purchase rock salt.  Calculate the subtotal of only the rock salt and then calculate shipping.  From all that together calculate tax. 
+
+* Rock salt is billed at .14c per # 
+* Shipping it however is more complicated
+	* Can fit 8x 50# bags per gaggle
+	* Can fit 40 – 50# bags per pallet (5 gaggles)
+		* $50 per full pallet
+		* $12 per gaggle
+		* $5 per bag
+* Tax is 7%
+
