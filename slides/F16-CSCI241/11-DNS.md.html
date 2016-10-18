@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>DNS</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">DNS</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/dns">DNS</a></li>
+</ul>
+</section>
+
+<section><section id="dns" class="titleslide slide level1"><h1>DNS</h1></section><section id="motivation" class="slide level2">
+<h1>Motivation</h1>
+<ul>
+<li>Remembering host names is easier than remembering IP addresses
+<ul>
+<li><code>www.winthrop.edu</code></li>
+<li><code>209.198.12.163</code></li>
+</ul></li>
+</ul>
+</section><section id="dns-history" class="slide level2">
+<h1>DNS History</h1>
+<ul>
+<li>Prior to the 80’s mapping hosts to their ip addresses was done in <code>hosts.txt</code></li>
+<li>Copies were downloaded to get updates</li>
+</ul>
+<pre class="txt"><code>127.0.0.1   localhost
+127.0.1.1   machinename
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters</code></pre>
+<ul>
+<li>What problems might arise with this approach?</li>
+</ul>
+</section><section id="dns-history-1" class="slide level2">
+<h1>DNS History</h1>
+<ul>
+<li><code>hosts.txt</code> file still exists today
+<ul>
+<li>Useful when developing</li>
+</ul></li>
+</ul>
+<pre class="txt"><code>127.0.0.1   localhost
+127.0.1.1   machinename
+127.0.0.1   nonexistant.com
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters</code></pre>
+</section><section id="dns-1" class="slide level2">
+<h1>DNS</h1>
+<ul>
+<li>DNS stands for Domain Name System
+<ul>
+<li>Is a distributed, hierarchical, database for providing information about domains.</li>
+</ul></li>
+<li>Most commonly it takes domains and translates them to their ip address equivalents
+<ul>
+<li><code>www.winthrop.edu</code> =&gt; <code>209.198.12.163</code></li>
+<li><code>209.198.12.163</code> =&gt; <code>11010001 11000110 00001100 10100011</code></li>
+</ul></li>
+</ul>
+</section><section id="domain-registration" class="slide level2">
+<h1>Domain Registration</h1>
+<ul>
+<li>Domain names can be obtained from registrars
+<ul>
+<li>Namecheap</li>
+<li>Godaddy</li>
+<li>etc…</li>
+</ul></li>
+<li><strong>All</strong> registrars must be authorized by Internet Corporation for Assigned Names and Numbers (ICANN)
+<ul>
+<li>Non-profit</li>
+<li>Controls which domains can be registered</li>
+<li>Manages IP addresses</li>
+</ul></li>
+</ul>
+</section><section id="domains" class="slide level2">
+<h1>Domains</h1>
+<ul>
+<li>Domains must be registered under one of the top-level domains (TLDs)</li>
+<li><code>edu.</code> and <code>com.</code> are considered TLDs
+<ul>
+<li>Many more exist</li>
+</ul></li>
+</ul>
+</section><section id="dns-2" class="slide level2">
+<h1>DNS</h1>
+<ul>
+<li>Domains are split up by their parts indicated with a <code>.</code>
+<ul>
+<li><code>winthrop.edu</code> is part of <code>edu.</code> domain</li>
+<li><code>facebook.com</code> is part of <code>com.</code> domain</li>
+</ul></li>
+<li>Each part may contain only letters, numbers or hyphens</li>
+</ul>
+</section><section id="dns-3" class="slide level2">
+<h1>DNS</h1>
+<ul>
+<li>DNS is made up of a tree structure
+<ul>
+<li>Tree is split up based on zones</li>
+<li>Each node contains resource records</li>
+</ul></li>
+<li>All domains require primary and secondary name servers (<code>NS</code>)
+<ul>
+<li>If primary fails, rolls over to secondary</li>
+</ul></li>
+</ul>
+</section><section id="resource-records" class="slide level2">
+<h1>Resource Records</h1>
+<ul>
+<li>Many types of entries, most common:
+<ul>
+<li><code>NS</code> - Name Server</li>
+<li><code>A</code> - IPv4 address</li>
+<li><code>AAAA</code> - IPv6 address</li>
+<li><code>MX</code> - Mail exchange</li>
+<li><code>PTR</code> - Reverse lookup</li>
+<li><code>TXT</code> - Arbitrary text</li>
+<li><code>CNAME</code> - Canonical Name (alias)</li>
+</ul></li>
+</ul>
+</section><section id="dns-4" class="slide level2">
+<h1>DNS</h1>
+<ul>
+<li>Querying can be recursive or iterative</li>
+</ul>
+<p><img src="dnsRecursion.svg" alt="DNS Recursion" /> <a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+</section><section id="dns-cardinality" class="slide level2">
+<h1>DNS Cardinality</h1>
+<ul>
+<li>DNS is M:N
+<ul>
+<li>A host can have multiple ip addresses (<code>A</code> records)
+<ul>
+<li><p>Load balancing</p>
+<pre><code>www.winthrop.edu.   627 IN  A   199.79.254.163
+www.winthrop.edu.   627 IN  A   209.198.12.163</code></pre></li>
+</ul></li>
+<li>An IP address can belong to multiple hosts
+<ul>
+<li><code>winthrop.edu</code> may not be the same thing as <code>www.winthrop.edu</code>
+<ul>
+<li>Common in early Internet</li>
+<li><p><code>www</code> subdomain was where you would “find” the web server</p>
+<pre><code>winthrop.edu.       495 IN  A   199.79.254.163</code></pre></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="creating-subdomains" class="slide level2">
+<h1>Creating Subdomains</h1>
+<ul>
+<li>Subdivision allows for many different sub-domains
+<ul>
+<li><code>i.am.a.student.at.winthrop.edu</code></li>
+</ul></li>
+<li>Can create <code>A</code> record for subdomains
+<ul>
+<li><code>locations</code></li>
+<li><code>*.locations</code>
+<ul>
+<li>Now <code>rockhill.locations.winthrop.edu</code> exists</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="configuring-mail" class="slide level2">
+<h1>Configuring Mail</h1>
+<ul>
+<li>Setup <code>MX</code> records
+<ul>
+<li>Set priority for example, <code>10</code>, <code>20</code>, <code>30</code></li>
+</ul></li>
+<li>Lets look at winthrop <code>MX</code> records</li>
+</ul>
+<pre class="bash"><code>dig MX winthrop.edu</code></pre>
+</section><section id="dns-5" class="slide level2">
+<h1>DNS</h1>
+<ul>
+<li>Responses to queries can be cached
+<ul>
+<li>Cuts down traffic</li>
+<li>Increases response time
+<ul>
+<li>Local Cache</li>
+<li>Server Cache</li>
+</ul></li>
+</ul></li>
+<li>TTL (Time To Live)
+<ul>
+<li>Specified in seconds</li>
+<li>Is the answer cached?</li>
+<li>Has the TTL passed?</li>
+</ul></li>
+</ul>
+</section><section id="dns-6" class="slide level2">
+<h1>DNS</h1>
+<ul>
+<li>Authoritative name servers
+<ul>
+<li>Authoritative Answers (<code>AA</code>)</li>
+</ul></li>
+<li>Lets look at the name servers for <code>winthrop.edu</code>
+<ul>
+<li>Circular/Glue Records</li>
+</ul></li>
+</ul>
+<pre class="bash"><code>dig NS winthrop.edu @a.gtld-servers.net</code></pre>
+</section><section id="reverse-lookup" class="slide level2">
+<h1>Reverse Lookup</h1>
+<ul>
+<li>What about the other way?
+<ul>
+<li><code>192.203.180.5</code> is which host?</li>
+<li>Looks for <code>PTR</code> record</li>
+</ul></li>
+</ul>
+<pre class="bash"><code>dig -x 192.203.180.5</code></pre>
+</section><section id="configure" class="slide level2">
+<h1>Configure</h1>
+<ul>
+<li>Lets sign into <a href="http://www.namecheap.com">namecheap</a> and create some records</li>
+</ul>
+</section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>https://commons.wikimedia.org/wiki/File:An_example_of_theoretical_DNS_recursion.svg#/media/File:An_example_of_theoretical_DNS_recursion.svg<a href="#/fnref1">↩</a></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
