@@ -315,6 +315,6 @@ header("Location: /~acc.besmera2/b.php");
 
 ## Cookies
 
-* You may find `setcookie($name, $value = "", int $expire = 0)` easier to use
+* You may find `setrawcookie($name, $value = "", int $expire = 0)` easier to use
 	* This is only a PHP method, not an HTTP method.
 	* Same rules regarding setting cookie before body apply
