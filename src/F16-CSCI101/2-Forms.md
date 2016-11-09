@@ -18,7 +18,7 @@
 
 ## Forms
 
-<form action="http://imagine-it.org/processform.php" method="GET">
+<form action="http://infd.birdnest.org/~acc.besmera2/simulators/FormData/echo.php" method="GET">
   <label>First: <input type="text" name="first"></label><br>
   <label>Last: <input type="text" name="last"></label><br>
   <button type="submit">Submit</button>
@@ -74,7 +74,7 @@
 
 ## Try it
 
-* [http://imagine-it.org/processform.php](http://imagine-it.org/processform.php)
+* [http://infd.birdnest.org/~acc.besmera2/simulators/FormData/echo.php](http://infd.birdnest.org/~acc.besmera2/simulators/FormData/echo.php)
 
 
 ## Form Structure
@@ -84,7 +84,7 @@
 	* `method` - How the data will be sent
 
 ```html
-<form action="http://imagine-it.org/processform.php" method="GET">
+<form action="http://infd.birdnest.org/~acc.besmera2/simulators/FormData/echo.php" method="GET">
 
 </form>
 ```
@@ -105,14 +105,14 @@
 
 ## GET Form
 
-<form action="http://imagine-it.org/processform.php" method="GET">
+<form action="http://infd.birdnest.org/~acc.besmera2/simulators/FormData/echo.php" method="GET">
   <label>First: <input type="text" name="first"></label><br>
   <label>Last: <input type="text" name="last"></label><br>
   <button type="submit">Submit</button>
 </form>
 
 ```html
-<form action="http://imagine-it.org/processform.php" method="GET">
+<form action="http://infd.birdnest.org/~acc.besmera2/simulators/FormData/echo.php" method="GET">
   <label>First: <input type="text" name="first"></label><br>
   <label>Last: <input type="text" name="last"></label><br>
   <button type="submit">Submit</button>
@@ -121,14 +121,14 @@
 
 ## POST Form
 
-<form action="http://imagine-it.org/processform.php" method="POST">
+<form action="http://infd.birdnest.org/~acc.besmera2/simulators/FormData/echo.php" method="POST">
   <label>First: <input type="text" name="first"></label><br>
   <label>Last: <input type="text" name="last"></label><br>
   <button type="submit">Submit</button>
 </form>
 
 ```html
-<form action="http://imagine-it.org/processform.php" method="POST">
+<form action="http://infd.birdnest.org/~acc.besmera2/simulators/FormData/echo.php" method="POST">
   <label>First: <input type="text" name="first"></label><br>
   <label>Last: <input type="text" name="last"></label><br>
   <button type="submit">Submit</button>
