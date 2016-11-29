@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Aggregate Pipeline" />
+  <title>Advanced NoSQL</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Advanced NoSQL</h1>
+    <h2 class="author">Aggregate Pipeline</h2>
+    <h3 class="date">Dr. Andrew Watson</h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/aggregation-framework">Aggregation Framework</a></li>
+<li><a href="#/aggregation-pipeline">Aggregation Pipeline</a></li>
+<li><a href="#/filtering">Filtering</a></li>
+<li><a href="#/projection">Projection</a></li>
+<li><a href="#/grouping">Grouping</a></li>
+<li><a href="#/deconstruct-arrays">Deconstruct Arrays</a></li>
+<li><a href="#/sorting-and-pagination">Sorting and Pagination</a></li>
+</ul>
+</section>
+
+<section><section id="aggregation-framework" class="titleslide slide level1"><h1>Aggregation Framework</h1></section><section id="what-is-the-aggregation-framework" class="slide level2">
+<h1>What is the Aggregation Framework?</h1>
+<p><img src="aggregation_tool.png" alt="Aggregation Toolbox" height="550"></p>
+</section><section id="why-aggregation-is-needed" class="slide level2">
+<h1>Why Aggregation is Needed</h1>
+<ul>
+<li>Document structure may not fit application</li>
+<li>Aggregation framework helps reshape documents / collections
+<ul>
+<li>Averages</li>
+<li>Summation</li>
+<li>Grouping</li>
+<li>Reshaping</li>
+</ul></li>
+</ul>
+</section><section id="aggregation-framework-1" class="slide level2">
+<h1>Aggregation Framework</h1>
+<ul>
+<li>Executes in native code
+<ul>
+<li>written in c++</li>
+<li>uses JSON parameters</li>
+</ul></li>
+</ul>
+<p><img src="aggregate_framework.png" alt="Aggregation Framework" height="300"></p>
+</section></section>
+<section><section id="aggregation-pipeline" class="titleslide slide level1"><h1>Aggregation Pipeline</h1></section><section id="what-is-an-aggregation-pipeline" class="slide level2">
+<h1>What is an Aggregation Pipeline?</h1>
+<ul>
+<li>A series of document transformation
+<ul>
+<li>Executed in stages</li>
+<li>Each stage uses output from last stage as input</li>
+<li>Final output as document, cursor or collection</li>
+</ul></li>
+</ul>
+<p><img src="aggregate_pipline.png" alt="Aggregation Pipeline" height="150"></p>
+</section><section id="aggregation-pipeline-example" class="slide level2">
+<h1>Aggregation Pipeline Example</h1>
+<p><img src="aggregation-pipeline-ex.png" alt="Aggregation Pipeline Example" height="550"></p>
+</section><section id="pipeline-operators" class="slide level2">
+<h1>Pipeline Operators</h1>
+<ul>
+<li>$match - filters documents</li>
+<li>$project - reshapes documents</li>
+<li>$group - aggregates property data</li>
+<li>$unwind - expand properties to documents</li>
+<li>$sort - order documents</li>
+<li>$limit / $skip - pagenate documents</li>
+<li>$redact - restrict access to parts of documents</li>
+<li>$geoNear - proximity filter</li>
+<li>$let / $map - create subexpression variables</li>
+</ul>
+</section></section>
+<section><section id="filtering" class="titleslide slide level1"><h1>Filtering</h1></section><section id="our-example-data" class="slide level2">
+<h1>Our Example Data</h1>
+<pre class="javascript"><code>db.product.drop();
+
+db.product.insert({
+  name: &quot;Batman Lego Set&quot;,
+  qty: 1,
+  price: 9.99,
+  company: &quot;LEGO&quot;,
+  category: &quot;Toys&quot;
+});
+
+db.product.insert({
+  name: &quot;32 Piece Ratchet Set&quot;,
+  qty: 2,
+  price: 29.99,
+  company: &quot;Stanley&quot;,
+  category: &quot;Tools&quot;,
+  vendors: [&quot;Home Depot&quot;, &quot;Lowes&quot;]
+});
+
+db.product.insert({
+  name: &quot;Hammer&quot;,
+  qty: 5,
+  price: 5.99,
+  company: &quot;Stanley&quot;,
+  category: &quot;Tools&quot;,
+  vendors: [&quot;Lowes&quot;, &quot;Ace&quot;]
+});
+
+db.product.insert({
+  name: &quot;Toothpaste&quot;,
+  qty: 1,
+  price: 2.99,
+  company: &quot;Crest&quot;,
+  category: &quot;Health&quot;,
+  vendors: [&quot;Walmart&quot;, &quot;Walgreens&quot;]
+});
+
+db.product.insert({
+  name: &quot;Floss&quot;,
+  qty: 0,
+  price: .99,
+  company: &quot;Crest&quot;,
+  category: &quot;Health&quot;,
+  vendors: [&quot;Publix&quot;]
+});
+
+db.product.insert({
+  name: &quot;Power Drill&quot;,
+  qty: 5,
+  price: 49.99,
+  category: &quot;Tools&quot;,
+  vendors: [&quot;Lowes&quot;, &quot;Ace&quot;]
+});
+
+db.product.insert({
+  name: &quot;120 Piece Lego Set&quot;,
+  qty: 1,
+  price: 12.99,
+  company: &quot;LEGO&quot;,
+  vendors: [&quot;Freds&quot;, &quot;Walmart&quot;]
+});
+
+db.product.insert({
+  name: &quot;Hot-wheels Car&quot;,
+  qty: 10,
+  price: .99
+});
+
+db.product.insert({
+  name: &quot;Elite Rescue Marine Boat&quot;,
+  qty: 1,
+  price: 39.99,
+  category: &quot;Toys&quot;,
+  company: &quot;Matchbox&quot;,
+  vendors: [&quot;Belk&quot;, &quot;Toys R Us&quot;, &quot;Kmart&quot;]
+});</code></pre>
+</section><section id="a-few-neat-things-before" class="slide level2">
+<h1>A Few Neat Things Before…</h1>
+<ul>
+<li>Shell has many methods
+<ul>
+<li><code>db.collection.find();</code></li>
+<li><code>db.collection.aggregate([]);</code></li>
+<li>lots more in <a href="https://docs.mongodb.com/master/reference/method/#collection">documentation</a></li>
+</ul></li>
+<li>Also cursor methods
+<ul>
+<li><code>.next()</code> - moves to the next document</li>
+<li><code>.pretty()</code> - gives pretty JSON output</li>
+<li><code>.forEach(jsfunction)</code> - moves cursor through results and runs jsfunction on each</li>
+<li>lots more in <a href="https://docs.mongodb.com/master/reference/method/#cursor">documentation</a></li>
+</ul></li>
+</ul>
+</section><section id="match" class="slide level2">
+<h1>$match</h1>
+<ul>
+<li>Filters documents
+<ul>
+<li>same syntax as <code>db.collection.find({});</code></li>
+</ul></li>
+<li>Try it out
+<ul>
+<li>use aggregate to find all products in the “Toys” category</li>
+</ul></li>
+</ul>
+</section><section id="results" class="slide level2">
+<h1>Results</h1>
+<div style="position:relative; width:960px; height:540px; margin:0 auto; padding-top: 20px">
+<div class="fragment fade-out" data-fragment-index="0">
+<pre class="javascript"><code>db.product.aggregate([
+    {
+        $match: {category: &quot;Toys&quot;}
+    }
+]).pretty();</code></pre>
+</div>
+<p><img class="fragment fade-in" data-fragment-index="0" height="540px" src="aggregate_match.png" alt="Aggregate Match Example" style="position:absolute;top:0;left:0;" /></p>
+</div>
+</section><section id="match-with-query-operators" class="slide level2">
+<h1>$match with Query Operators</h1>
+<ul>
+<li><p>Find some cheap products</p>
+<pre class="javascript"><code>db.product.aggregate([
+    {
+      $match: {
+                price: {$lt: 1.00}
+              }
+    }
+]).pretty();</code></pre></li>
+<li>You try
+<ul>
+<li>Find the products that are out of stock</li>
+</ul></li>
+</ul>
+</section><section id="results-1" class="slide level2">
+<h1>Results</h1>
+<div style="position:relative; width:960px; height:540px; margin:0 auto; padding-top: 20px">
+<div class="fragment fade-out" data-fragment-index="0">
+<pre class="javascript"><code>   db.product.aggregate([           
+    {
+       $match: {
+        qty: {$lt: 1}
+       }
+    }   
+   ]).pretty();</code></pre>
+</div>
+<p><img class="fragment fade-in" data-fragment-index="0" height="540px" src="aggregate_matchwoper.png" alt="Aggregate Match With Operator Example" style="position:absolute;top:0;left:0;" /></p>
+</div>
+</section></section>
+<section><section id="projection" class="titleslide slide level1"><h1>Projection</h1></section><section id="projection-explained" class="slide level2">
+<h1>Projection Explained</h1>
+<ul>
+<li>Used to reshape documents
+<ul>
+<li>Include, exclude or rename fields</li>
+<li>Inject computed fields</li>
+<li>Create sub-document fields</li>
+</ul></li>
+</ul>
+</section><section id="project" class="slide level2">
+<h1>$project</h1>
+<ul>
+<li>Very similar to project argument for find
+<ul>
+<li>exception is there is only exclusion for <code>_id</code></li>
+</ul></li>
+<li>You try now
+<ul>
+<li>project only the <code>name</code>, <code>company</code> and <code>category</code> fields</li>
+<li>exclude <code>_id</code></li>
+</ul></li>
+</ul>
+</section><section id="project-to-include-exclude-fields" class="slide level2">
+<h1>$project to Include / Exclude Fields</h1>
+<div style="position:relative; width:960px; height:540px; margin:0 auto; padding-top: 20px">
+<div class="fragment fade-out" data-fragment-index="0">
+<pre class="javascript"><code>db.product.aggregate([
+    {
+        $project: {
+            _id: 0, 
+            name: 1,
+            company: 1,
+            category: 1
+        }
+    }
+]).pretty();</code></pre>
+</div>
+<p><img class="fragment fade-in" data-fragment-index="0" height="540px" src="aggregate_project.png" alt="Aggregate Project Example" style="position:absolute;top:0;left:0;" /></p>
+</div>
+</section><section id="project-to-rename-compute-fields" class="slide level2">
+<h1>$project to Rename / Compute Fields</h1>
+<ul>
+<li>Use operators to rename or compute fields</li>
+<li>Some $project operators are:
+<ul>
+<li>$add, $subtract, $divide, $multiply</li>
+<li>$ceil, $floor, $abs, $log, $sqrt</li>
+<li>$concat, $toLower, $substr</li>
+<li>many, many more</li>
+</ul></li>
+</ul>
+</section><section id="project-to-rename-compute-fields-1" class="slide level2">
+<h1>$project to Rename / Compute Fields</h1>
+<ul>
+<li>Add the company and name together<br />
+</li>
+<li>exclude <code>_id</code></li>
+</ul>
+<pre class="javascript"><code>db.product.aggregate([
+    {
+        $project: {
+            _id: 0, 
+            FullName: {
+                $concat: [&quot;$company&quot;, &quot; &quot;, &quot;$name&quot;]
+            }
+        }
+    }
+]).pretty();</code></pre>
+<ul>
+<li>Nice! Now we can do number 1 from previous lecture
+<ul>
+<li>Create a view showing the values of the product on hand</li>
+</ul></li>
+</ul>
+</section><section id="project-to-rename-compute-fields-2" class="slide level2">
+<h1>$project to Rename / Compute Fields</h1>
+<div style="position:relative; width:960px; height:540px; margin:0 auto; padding-top: 20px">
+<div class="fragment fade-out" data-fragment-index="0">
+<pre class="javascript"><code>db.product.aggregate([
+    {
+        $project:   {
+                _id: 0, 
+                name: 1,
+                onhand: 
+                    {
+                        $multiply: [&quot;$qty&quot;, &quot;$price&quot;]
+                    }
+        }
+    }, 
+    {
+        $match: {
+                onhand: {$gt: 0}
+        }
+    }
+]).pretty();</code></pre>
+</div>
+<p><img class="fragment fade-in" data-fragment-index="0" height="540px" src="aggregate_project_compute.png" alt="Aggregate Project Rename or Compute Example" style="position:absolute;top:0;left:0;" /></p>
+</div>
+</section><section id="project-to-create-sub-document-fields" class="slide level2">
+<h1>$project to Create Sub-Document Fields</h1>
+<ul>
+<li>Using $project to reshape the document</li>
+</ul>
+<pre class="javascript"><code>db.product.aggregate([
+    {
+        $project: {
+            name: 1, 
+            inventory: {qty: &quot;$qty&quot;, price: &quot;$price&quot;}
+        }
+    }
+]).pretty();</code></pre>
+<ul>
+<li>Single result example</li>
+</ul>
+<pre class="json"><code>{
+        &quot;_id&quot; : ObjectId(&quot;57e008fa905431769accaaca&quot;),
+        &quot;name&quot; : &quot;Batman Lego Set&quot;,
+        &quot;inventory&quot; : {
+                &quot;qty&quot; : 1,
+                &quot;price&quot; : 9.99
+        }
+}</code></pre>
+</section></section>
+<section><section id="grouping" class="titleslide slide level1"><h1>Grouping</h1></section><section id="group" class="slide level2">
+<h1>$group</h1>
+<ul>
+<li>Allows use of <em>real</em> aggregate functions</li>
+<li>Groups documents by value
+<ul>
+<li>Field reference, object, constant for grouping value</li>
+<li>All other fields are computed with a function
+<ul>
+<li><code>$max</code>, <code>$min</code>, <code>$avg</code>, <code>$sum</code></li>
+<li><code>$addToSet</code>, <code>$push</code></li>
+<li><code>$first</code>, <code>$last</code></li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="group-1" class="slide level2">
+<h1>$group</h1>
+<ul>
+<li>Syntax same as other pipeline operators <code>{$group: {_id: $group, prop: {$avg: &quot;$prop&quot;}, ... }}</code></li>
+<li><code>_id</code> is used as the grouping property
+<ul>
+<li>can be multiple properties</li>
+<li>use <code>_id: null</code> to group all documents</li>
+</ul></li>
+<li>Other aggregated properties are named and assigned operators</li>
+<li>You try now…
+<ul>
+<li>Show average price of products by category</li>
+</ul></li>
+</ul>
+</section><section id="group-2" class="slide level2">
+<h1>$group</h1>
+<div style="position:relative; width:960px; height:540px; margin:0 auto; padding-top: 20px">
+<div class="fragment fade-out" data-fragment-index="0">
+<pre class="javascript"><code>db.product.aggregate([
+    {
+        $group: 
+        {
+            _id: &quot;$category&quot;, 
+            avgPrice: {$avg: &quot;$price&quot;}
+        }
+    }
+]).pretty(); </code></pre>
+</div>
+<p><img class="fragment fade-in" data-fragment-index="0" height="540px" src="aggregate_group_avg.png" alt="Aggregate Group Average Example" style="position:absolute;top:0;left:0;" /></p>
+</div>
+</section><section id="summing-and-counting" class="slide level2">
+<h1>Summing and Counting</h1>
+<ul>
+<li><code>$sum</code> same as <code>$avg</code> to sum field values</li>
+<li>Use <code>$sum: 1</code> to count documents</li>
+<li>Show the sum of all product quantities and number of products by company</li>
+</ul>
+</section><section id="summing-and-counting-1" class="slide level2">
+<h1>Summing and Counting</h1>
+<div style="position:relative; width:960px; height:540px; margin:0 auto; padding-top: 20px">
+<div class="fragment fade-out" data-fragment-index="0">
+<pre class="javascript"><code>db.product.aggregate([
+    {
+        $group: 
+        {
+            _id: &quot;$company&quot;, 
+            totQty: {$sum: &quot;$qty&quot;},
+            countProducts: {$sum: 1}
+        }
+    }
+]).pretty(); </code></pre>
+</div>
+<p><img class="fragment fade-in" data-fragment-index="0" height="540px" src="aggregate_group_sum.png" alt="Aggregate Group Sum and Count Example" style="position:absolute;top:0;left:0;" /></p>
+</div>
+</section><section id="addtoset---collecting-distinct-values" class="slide level2">
+<h1>$addToSet - Collecting Distinct Values</h1>
+<ul>
+<li>Which products are made by each company?</li>
+</ul>
+<p><img src="aggregate_group_distinct.png" alt="Using $addToSet for Collecting Distinct Values" height="550"></p>
+</section></section>
+<section><section id="deconstruct-arrays" class="titleslide slide level1"><h1>Deconstruct Arrays</h1></section><section id="unwind" class="slide level2">
+<h1>$unwind</h1>
+<ul>
+<li>Operate on array fields</li>
+<li>Creates new documents from array elements
+<ul>
+<li>i.e. [“a”, “b”, “c”, “d”, “e”] would create 5 new documents</li>
+<li>Array is replaced by single element value</li>
+<li>Missing/empty fields -&gt; no output</li>
+<li>Non-array fields -&gt; (v2.6) error, (v3.2) treats as single item array</li>
+</ul></li>
+<li>Can be piped to <code>$group</code> to aggregate</li>
+</ul>
+</section><section id="unwind-1" class="slide level2">
+<h1>$unwind</h1>
+<p><img src="aggregate_unwind.png" alt="Aggregation Unwind Example" height="550"></p>
+</section><section id="unwind-2" class="slide level2">
+<h1>$unwind</h1>
+<ul>
+<li><strong>You try</strong>: Use unwind to help you get the average price of all the products sold by each vendor.</li>
+</ul>
+</section><section id="unwind-3" class="slide level2">
+<h1>$unwind</h1>
+<pre class="javascript"><code>db.product.aggregate([
+    { $unwind: &quot;$vendors&quot;},
+    {         $group:
+            {
+                     _id: &quot;$vendors&quot;,
+                     avgPrice: {$avg: &quot;$price&quot;}
+                }
+    } 
+]).pretty();
+</code></pre>
+</section></section>
+<section><section id="sorting-and-pagination" class="titleslide slide level1"><h1>Sorting and Pagination</h1></section><section id="sort" class="slide level2">
+<h1>$sort</h1>
+<ul>
+<li>Sort documents by one or more fields
+<ul>
+<li><code>{$sort: {field: 1}}  // ascending order</code></li>
+<li><code>{$sort: {field: -1}} // descending order</code></li>
+</ul></li>
+<li>Waits for previous pipeline operator to finish and return
+<ul>
+<li>Makes sense for sorting</li>
+</ul></li>
+<li>Works in memory if not based on an index</li>
+</ul>
+</section><section id="sort-example" class="slide level2">
+<h1>$sort Example</h1>
+<p><img src="aggregate_sort.png" alt="Aggregation Sort Example" height="550"></p>
+</section><section id="pagination" class="slide level2">
+<h1>Pagination</h1>
+<ul>
+<li><code>$limit</code> - Limits the result set
+<ul>
+<li>Useful for pagination</li>
+<li>Also useful for testing large data sets</li>
+</ul></li>
+<li><code>$skip</code> - Skips through document results
+<ul>
+<li>Useful for pagination</li>
+<li>ex. 3rd page of 5 docs / page</li>
+<li><code>{$skip: 10},{$limit: 5}</code></li>
+</ul></li>
+</ul>
+</section><section id="limit-example" class="slide level2">
+<h1>$limit Example</h1>
+<p><img src="aggregate_limit.png" alt="Aggregation Limit Example" height="550"></p>
+</section><section id="skip-example" class="slide level2">
+<h1>$skip Example</h1>
+<p><img src="aggregate_skip.png" alt="Aggregation Skip Example" height="550"></p>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
