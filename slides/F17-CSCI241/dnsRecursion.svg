@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+	"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="450pt"
+   height="160pt"
+   id="svg1373">
+  <defs
+     id="defs1375">
+    <marker
+       refX="0"
+       refY="0"
+       orient="auto"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         transform="scale(0.8,0.8)"
+         id="path6037"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none" />
+    </marker>
+  </defs>
+  <g
+     id="layer1">
+    <g
+       id="g3044">
+      <g
+         transform="translate(-218,-418)"
+         id="g2169">
+        <text
+           x="293"
+           y="533.36218"
+           id="text2778"
+           xml:space="preserve"
+           style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+             x="293"
+             y="533.36218"
+             id="tspan2780"> </tspan></text>
+        <rect
+           width="106"
+           height="36"
+           x="240"
+           y="515.36218"
+           id="rect2782"
+           style="color:#000000;fill:#7f7fff;fill-opacity:0.13815786;fill-rule:nonzero;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible" />
+        <text
+           x="250.70117"
+           y="537.71277"
+           id="text1310"
+           xml:space="preserve"
+           style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+             x="250.70117"
+             y="537.71277"
+             id="tspan1312">DNS Recurser</tspan></text>
+      </g>
+      <g
+         transform="translate(-120,-396)"
+         id="g3690">
+        <rect
+           width="106"
+           height="36"
+           x="443.99414"
+           y="425.8783"
+           id="rect2183"
+           style="color:#000000;fill:#ffff7f;fill-opacity:0.27631579;fill-rule:nonzero;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible" />
+        <text
+           x="496.43457"
+           y="440.50037"
+           id="text2185"
+           xml:space="preserve"
+           style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+             x="496.43457"
+             y="440.50037"
+             id="tspan2187">root</tspan><tspan
+             x="496.43457"
+             y="455.50037"
+             id="tspan3684">nameserver</tspan></text>
+      </g>
+      <g
+         transform="translate(-123.0059,-401.9883)"
+         id="g3678">
+        <rect
+           width="106"
+           height="36"
+           x="447"
+           y="483.86658"
+           id="rect2191"
+           style="color:#000000;fill:#ffff7f;fill-opacity:0.27631579;fill-rule:nonzero;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible" />
+        <text
+           x="499.77734"
+           y="498.67908"
+           id="text2193"
+           xml:space="preserve"
+           style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+             x="499.77734"
+             y="498.67908"
+             id="tspan2195">org.</tspan><tspan
+             x="499.77734"
+             y="513.67908"
+             id="tspan3672">nameserver</tspan></text>
+      </g>
+      <g
+         transform="translate(-123.0059,-349.9883)"
+         id="g3696">
+        <rect
+           width="106"
+           height="36"
+           x="447"
+           y="483.86658"
+           id="rect3698"
+           style="color:#000000;fill:#ffff7f;fill-opacity:0.27631579;fill-rule:nonzero;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible" />
+        <text
+           x="499.77734"
+           y="498.67908"
+           id="text3700"
+           xml:space="preserve"
+           style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+             x="499.77734"
+             y="498.67908"
+             id="tspan3702">wikipedia.org.</tspan><tspan
+             x="499.77734"
+             y="513.67908"
+             id="tspan3704">nameserver</tspan></text>
+      </g>
+      <text
+         x="440"
+         y="66.179077"
+         id="text3706"
+         xml:space="preserve"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+           x="440"
+           y="66.179077"
+           id="tspan3708">198.41.0.4</tspan></text>
+      <text
+         x="440.68555"
+         y="118.19666"
+         id="text3710"
+         xml:space="preserve"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+           x="440.68555"
+           y="118.19666"
+           id="tspan3712">204.74.112.1</tspan></text>
+      <text
+         x="440.68555"
+         y="170.19666"
+         id="text3714"
+         xml:space="preserve"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+           x="440.68555"
+           y="170.19666"
+           id="tspan3716">207.142.131.234</tspan></text>
+      <text
+         x="416"
+         y="199.36218"
+         id="text3718"
+         xml:space="preserve"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+           x="416"
+           y="199.36218"
+           id="tspan3720"> </tspan></text>
+      <g
+         transform="translate(-95.9584,-398.8284)"
+         id="g5183">
+        <path
+           d="m 243.03125,425.375 c -53.738,0 -97,6.69 -97,15 0,8.24538 42.62476,14.86582 95.78125,14.96875 -4.59342,8.97029 -13.00992,21.7957 -29.6875,30.625 14.39755,-6.17038 32.35672,-20.47875 42.8125,-30.59375 l 0.0313,0 c 53.738,0 96.99998,-6.69 97,-15 0,-8.31 -43.262,-15 -97,-15 l -11.9375,0 z"
+           id="rect3726"
+           style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible" />
+        <text
+           x="158"
+           y="445.36218"
+           id="text3722"
+           xml:space="preserve"
+           style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+             x="158"
+             y="445.36218"
+             id="tspan3724">&quot;Where's www.wikipedia.org?&quot;</tspan></text>
+      </g>
+      <path
+         d="m 143.04372,129.56763 c 0,0 93.3381,15.55635 120.20816,18.38478 26.87005,2.82842 53.74011,-9.8995 53.74011,-9.8995 0,0 -2.82843,2.82843 -36.76955,2.82843 -33.94113,0 -141.42136,-29.69849 -141.42136,-29.69849 0,0 59.39697,5.65686 107.48023,5.65686 48.08326,0 73.53911,-24.04163 73.53911,-24.04163 0,0 -5.65686,2.82842 -41.0122,7.07107 -35.35533,4.24264 -140.00714,1.41421 -140.00714,1.41421 0,0 65.05383,-9.8995 114.5513,-19.79899 49.49748,-9.8995 63.63961,-28.28427 63.63961,-28.28427 0,0 -137.17871,21.2132 -181.01934,39.59798"
+         id="path5188"
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart)" />
+      <g
+         transform="matrix(0.786178,0,0,0.786178,24.575,-396.1817)"
+         id="g6071">
+        <path
+           d="m 252.43712,618.9057 a 12.727922,12.727922 0 1 1 -25.45584,0 12.727922,12.727922 0 1 1 25.45584,0 z"
+           transform="translate(39.59798,-31.1127)"
+           id="path6067"
+           style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible" />
+        <text
+           x="275.31696"
+           y="592.16998"
+           id="text6053"
+           xml:space="preserve"
+           style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+             x="275.31696"
+             y="592.16998"
+             id="tspan6055">1</tspan></text>
+      </g>
+      <g
+         transform="matrix(0.786178,0,0,0.786178,-12.5153,-364.4642)"
+         id="g6076">
+        <path
+           d="m 252.43712,618.9057 a 12.727922,12.727922 0 1 1 -25.45584,0 12.727922,12.727922 0 1 1 25.45584,0 z"
+           transform="translate(77.78175,-28.28427)"
+           id="path6069"
+           style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible" />
+        <text
+           x="313.59445"
+           y="595.07458"
+           id="text6057"
+           xml:space="preserve"
+           style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+             x="313.59445"
+             y="595.07458"
+             id="tspan6059">2</tspan></text>
+      </g>
+      <g
+         transform="matrix(0.786178,0,0,0.786178,-63.34762,-338.9106)"
+         id="g6081">
+        <path
+           d="m 252.43712,618.9057 a 12.727922,12.727922 0 1 1 -25.45584,0 12.727922,12.727922 0 1 1 25.45584,0 z"
+           transform="translate(124.4508,-21.2132)"
+           id="path6065"
+           style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible" />
+        <text
+           x="360.30746"
+           y="602.05481"
+           id="text6061"
+           xml:space="preserve"
+           style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+             x="360.30746"
+             y="602.05481"
+             id="tspan6063">3</tspan></text>
+      </g>
+      <g
+         transform="translate(17.1787,-557.2203)"
+         id="g7564">
+        <rect
+           width="112.13553"
+           height="15.818481"
+           rx="97"
+           ry="15.000001"
+           x="242.3313"
+           y="620.18884"
+           id="rect6098"
+           style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible" />
+        <text
+           x="259.50821"
+           y="631.63367"
+           id="text6086"
+           xml:space="preserve"
+           style="font-size:8.34995651px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1px;marker:none;visibility:visible;display:inline;overflow:visible;font-family:Bitstream Vera Sans"><tspan
+             x="259.50821"
+             y="631.63367"
+             id="tspan6088">&quot;Try 204.74.112.1&quot;</tspan></text>
+      </g>
+      <g
+         transform="translate(-73.33095,-513.3797)"
+         id="g7580">
+        <rect
+           width="112.13553"
+           height="15.818481"
+           rx="97"
+           ry="15.000001"
+           x="313.74908"
+           y="623.72443"
+           id="rect7571"
+           style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible" />
+        <text
+           x="323.1478"
+           y="634.4621"
+           id="text6090"
+           xml:space="preserve"
+           style="font-size:8.34995651px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1px;marker:none;visibility:visible;display:inline;overflow:visible;font-family:Bitstream Vera Sans"><tspan
+             x="323.1478"
+             y="634.4621"
+             id="tspan6092">&quot;Try 207.142.131.234&quot;</tspan></text>
+      </g>
+      <g
+         transform="translate(-95.2513,-478.0244)"
+         id="g7587">
+        <rect
+           width="112.13553"
+           height="15.818481"
+           rx="97"
+           ry="15.000001"
+           x="313.74908"
+           y="623.72443"
+           id="rect7589"
+           style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible" />
+        <text
+           x="323.1478"
+           y="634.4621"
+           id="text7591"
+           xml:space="preserve"
+           style="font-size:8.34995651px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1px;marker:none;visibility:visible;display:inline;overflow:visible;font-family:Bitstream Vera Sans"><tspan
+             x="323.1478"
+             y="634.4621"
+             id="tspan7593">&quot;It's at xxx.xx.xx.xxx&quot;</tspan></text>
+      </g>
+      <text
+         x="377.80316"
+         y="74.4133"
+         id="text7595"
+         xml:space="preserve"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
+           x="377.80316"
+           y="74.4133"
+           id="tspan7597"> </tspan></text>
+    </g>
+  </g>
+</svg>

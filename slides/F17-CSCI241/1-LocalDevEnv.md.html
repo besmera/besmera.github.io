@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>Local Dev Environment</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Local Dev Environment</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/local-dev-environment">Local Dev Environment</a></li>
+<li><a href="#/command-line">Command Line</a></li>
+<li><a href="#/ide">IDE</a></li>
+</ul>
+</section>
+
+<section><section id="local-dev-environment" class="titleslide slide level1"><h1>Local Dev Environment</h1></section><section id="overview" class="slide level2">
+<h1>Overview</h1>
+<ul>
+<li>Your site address
+<ul>
+<li>http://deltona.birdnest.org/~acc.YOURUSER/</li>
+<li>Linked to your <code>~/public_html</code> folder
+<ul>
+<li>Putting a file in this folder makes it accessible online<a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></li>
+</ul></li>
+</ul></li>
+<li>Web server is Apache
+<ul>
+<li>PHP 5.3</li>
+<li>Mail extensions installed</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="command-line" class="titleslide slide level1"><h1>Command Line</h1></section><section id="review" class="slide level2">
+<h1>Review</h1>
+<ul>
+<li>How do you?
+<ul>
+<li>Make directory?</li>
+<li>Change directory?</li>
+<li>Reference your home directory?</li>
+<li>Edit a file?</li>
+<li>Remove a file?</li>
+</ul></li>
+</ul>
+</section><section id="new-commands" class="slide level2">
+<h1>New Commands</h1>
+<ul>
+<li>Who are you?</li>
+<li>Changing permissions</li>
+</ul>
+</section><section id="permissions-problem" class="slide level2">
+<h1>Permissions Problem</h1>
+<ul>
+<li>What is your username?</li>
+</ul>
+<pre class="bash"><code>whoami</code></pre>
+<ul>
+<li>If you asked Apache it would say</li>
+</ul>
+<pre class="bash"><code>www-data@deltona.birdnest.org:~$ whoami
+www-data</code></pre>
+<ul>
+<li>What problem might this create?</li>
+</ul>
+</section><section id="interpretting-permissions" class="slide level2">
+<h1>Interpretting Permissions</h1>
+<pre class="bash"><code>ACC.besmera2@abernathy:~/permissionExample$ ls -l
+total 0
+-rwxrw-r-x 1 ACC.besmera2 ACC.domain^users 0 Sep 10 00:00 file1.txt
+-rwxr-xr-- 1 ACC.besmera2 ACC.domain^users 0 Sep 10 00:00 file2.txt
+-rwxrwxrwx 1 ACC.besmera2 ACC.domain^users 0 Sep 10 00:01 file3.txt</code></pre>
+<p> </p>
+<ul>
+<li>Conversion to and from
+<ul>
+<li>rwxrw-r-x =&gt; 765</li>
+<li>rwxr-xr– =&gt;754</li>
+<li>rwxrwxrwx =&gt; 777</li>
+</ul></li>
+</ul>
+</section><section id="choosing-permissions" class="slide level2">
+<h1>Choosing Permissions</h1>
+<ul>
+<li>What access do you need?</li>
+<li>What access does your group need?</li>
+<li>What access does anyone else need?</li>
+</ul>
+<p> </p>
+<ul>
+<li class="fragment">Friends don’t let friends use 777!</li>
+<li class="fragment">Without good cause anyway.</li>
+</ul>
+</section><section id="changing-permissions" class="slide level2">
+<h1>Changing Permissions</h1>
+<p>Set a file to read, write, execute for owner, and nothing for everyone else</p>
+<pre class="bash"><code>chmod 700 theFileName</code></pre>
+<p>Set a folder and all its files to read, write, execute for owner, and nothing for everyone else</p>
+<pre class="bash"><code>chmod -R 700 theFolderName</code></pre>
+</section><section id="setup-your-public_html" class="slide level2">
+<h1>Setup your public_html</h1>
+<ol type="1">
+<li>Create ~/public_html if it does not exist</li>
+<li>Change the permissions for it
+<ol type="1">
+<li>You get everything</li>
+<li>Group gets read + execute</li>
+<li>Other gets read + execute</li>
+</ol></li>
+<li>Create a file <code>~/public_html/phpinfo.php</code></li>
+<li>Content should be <code>&lt;?php phpinfo();</code></li>
+<li>Fix permissions for this file - see above</li>
+<li>Access this file on deltona.birdnest.org</li>
+</ol>
+</section></section>
+<section><section id="ide" class="titleslide slide level1"><h1>IDE</h1></section><section id="aptana" class="slide level2">
+<h1>Aptana</h1>
+<ul>
+<li>There are many IDEs we could use
+<ul>
+<li>PHPStorm</li>
+<li>Eclipse</li>
+<li>Netbeans</li>
+<li>etc…</li>
+</ul></li>
+<li>Aptana is what we will use
+<ul>
+<li>We may be using notepad++ because Aptana is currently unable to run on some labs</li>
+</ul></li>
+<li>You are encouraged to try your own</li>
+</ul>
+</section><section id="aptana-setup" class="slide level2">
+<h1>Aptana Setup</h1>
+<ul>
+<li>To be able to edit files we will configure Aptana to work with campus servers</li>
+<li>Here at Winthrop Profiles are not saved when computer restarts so this will be done each time you work with Aptana</li>
+</ul>
+<ol type="1">
+<li>Open the Remote View <code>Window</code> &gt; <code>Show View</code> &gt; <code>Remote</code></li>
+<li>Click on the <strong><em>Globe with the + sign</em></strong>.
+<ul>
+<li>If you hover it will say <strong><em>Add New FTP Site…</em></strong></li>
+<li>Don’t worry about connection name it won’t be saved</li>
+</ul></li>
+<li>Change the protocol to <code>SFTP</code></li>
+</ol>
+</section><section id="aptana-setup-1" class="slide level2">
+<h1>Aptana Setup</h1>
+<ol start="4" type="1">
+<li>For server choose one of the campus linux servers:
+<ul>
+<li><code>aspen.winthrop.edu</code></li>
+<li><code>abernathy.winthrop.edu</code></li>
+<li><code>houston.winthrop.edu</code></li>
+<li>From home: <code>reno.winthrop.edu</code></li>
+</ul></li>
+<li>For username use <code>acc.yourusername</code></li>
+<li>For password use your password</li>
+<li>Change remote path by typing <code>/home/ACC.yourusername/public_html</code>
+<ul>
+<li>Capitalization is important</li>
+<li>You <strong><em>can not</em></strong> use browse, it will not work</li>
+</ul></li>
+<li>Try to change the <code>phpinfo.php</code> file you created earlier</li>
+</ol>
+</section><section id="notepad" class="slide level2">
+<h1>Notepad++</h1>
+<ul>
+<li>To be able to edit files we will configure Notepad++ to work with campus servers</li>
+<li>Here at Winthrop Profiles are not saved when computer restarts so this will be done each time you work with Notepad++</li>
+</ul>
+<ol type="1">
+<li>Show the NppFTP Window <code>Plugins</code> &gt; <code>NppFTP</code> &gt; Check <code>Show NppFTP Window</code></li>
+<li>Click the gear icon and open <code>Profile settings</code></li>
+<li>Click <code>Add new</code></li>
+<li>Give the profile some name, for example <code>winthrop server</code></li>
+</ol>
+</section><section id="notepad-1" class="slide level2">
+<h1>Notepad++</h1>
+<ol start="5" type="1">
+<li>In hostname choose one of the campus linux servers:
+<ul>
+<li><code>aspen.winthrop.edu</code></li>
+<li><code>abernathy.winthrop.edu</code></li>
+<li><code>houston.winthrop.edu</code></li>
+<li>From home: <code>reno.winthrop.edu</code></li>
+</ul></li>
+<li>Change the connection type to <code>SFTP</code></li>
+<li>For username use <code>acc.yourusername</code></li>
+<li>For password use your password</li>
+<li>Change the inital remote directpry by typing <code>/home/ACC.yourusername/public_html</code>
+<ul>
+<li>Capitalization is important</li>
+</ul></li>
+</ol>
+</section><section id="notepad-2" class="slide level2">
+<h1>Notepad++</h1>
+<ol start="10" type="1">
+<li>Click <code>Close</code></li>
+<li>Click the plug icon and select the server you just configured</li>
+<li>If prompted indicate you trust the server</li>
+<li>Try to change the <code>phpinfo.php</code> file you created earlier</li>
+</ol>
+</section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Assumes web server has appropriate permission<a href="#/fnref1">↩</a></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
