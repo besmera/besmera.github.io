@@ -41,17 +41,27 @@
 <section id="TOC">
 <ul>
 <li><a href="#/local-dev-environment">Local Dev Environment</a></li>
-<li><a href="#/command-line">Command Line</a></li>
-<li><a href="#/ide">IDE</a></li>
+<li><a href="#/deltona-and-connecting-remotely">Deltona and Connecting Remotely</a></li>
+<li><a href="#/built-in-php-server">Built in PHP Server</a></li>
 </ul>
 </section>
 
 <section><section id="local-dev-environment" class="titleslide slide level1"><h1>Local Dev Environment</h1></section><section id="overview" class="slide level2">
 <h1>Overview</h1>
 <ul>
+<li>Methods for working with websites
+<ul>
+<li>Deltona and working remotely</li>
+<li>Built in PHP server</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="deltona-and-connecting-remotely" class="titleslide slide level1"><h1>Deltona and Connecting Remotely</h1></section><section id="running-off-deltona" class="slide level2">
+<h1>Running off Deltona</h1>
+<ul>
 <li>Your site address
 <ul>
-<li>http://deltona.birdnest.org/~acc.YOURUSER/</li>
+<li>http://deltona.birdnest.org/~acc.youruser/</li>
 <li>Linked to your <code>~/public_html</code> folder
 <ul>
 <li>Putting a file in this folder makes it accessible online<a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></li>
@@ -59,12 +69,11 @@
 </ul></li>
 <li>Web server is Apache
 <ul>
-<li>PHP 5.3</li>
+<li>PHP 7.0</li>
 <li>Mail extensions installed</li>
 </ul></li>
 </ul>
-</section></section>
-<section><section id="command-line" class="titleslide slide level1"><h1>Command Line</h1></section><section id="review" class="slide level2">
+</section><section id="review" class="slide level2">
 <h1>Review</h1>
 <ul>
 <li>How do you?
@@ -145,28 +154,24 @@ total 0
 <li>Fix permissions for this file - see above</li>
 <li>Access this file on deltona.birdnest.org</li>
 </ol>
-</section></section>
-<section><section id="ide" class="titleslide slide level1"><h1>IDE</h1></section><section id="aptana" class="slide level2">
-<h1>Aptana</h1>
+</section><section id="working-remotely" class="slide level2">
+<h1>Working Remotely</h1>
+<ol type="1">
+<li>Use SSH and edit files on the terminal
+<ol type="1">
+<li>Windows use <em>Putty</em>
 <ul>
-<li>There are many IDEs we could use
-<ul>
-<li>PHPStorm</li>
-<li>Eclipse</li>
-<li>Netbeans</li>
-<li>etc…</li>
+<li><em>Host:</em> <code>hopper.winthrop.edu</code></li>
+<li><em>Protocol:</em> <code>SSH</code></li>
 </ul></li>
-<li>Aptana is what we will use
-<ul>
-<li>We may be using notepad++ because Aptana is currently unable to run on some labs</li>
-</ul></li>
-<li>You are encouraged to try your own</li>
-</ul>
+<li>Linux and mac use terminal and <code>ssh youruser@hopper.winthrop.edu</code></li>
+</ol></li>
+<li>Use an IDE that supports SFTP for example Aptana</li>
+</ol>
 </section><section id="aptana-setup" class="slide level2">
 <h1>Aptana Setup</h1>
 <ul>
 <li>To be able to edit files we will configure Aptana to work with campus servers</li>
-<li>Here at Winthrop Profiles are not saved when computer restarts so this will be done each time you work with Aptana</li>
 </ul>
 <ol type="1">
 <li>Open the Remote View <code>Window</code> &gt; <code>Show View</code> &gt; <code>Remote</code></li>
@@ -180,60 +185,83 @@ total 0
 </section><section id="aptana-setup-1" class="slide level2">
 <h1>Aptana Setup</h1>
 <ol start="4" type="1">
-<li>For server choose one of the campus linux servers:
-<ul>
-<li><code>aspen.winthrop.edu</code></li>
-<li><code>abernathy.winthrop.edu</code></li>
-<li><code>houston.winthrop.edu</code></li>
-<li>From home: <code>reno.winthrop.edu</code></li>
-</ul></li>
-<li>For username use <code>acc.yourusername</code></li>
+<li>For server use <code>hopper.winthrop.edu</code></li>
+<li>For username use your username</li>
 <li>For password use your password</li>
-<li>Change remote path by typing <code>/home/ACC.yourusername/public_html</code>
+<li>Change remote path by typing <code>/home/acc.yourusername/public_html</code>
 <ul>
 <li>Capitalization is important</li>
 <li>You <strong><em>can not</em></strong> use browse, it will not work</li>
 </ul></li>
-<li>Try to change the <code>phpinfo.php</code> file you created earlier</li>
+<li>Edit files as neccessary and view them on deltona.birdnest.org</li>
+<li>Remember that all git commands still need to be run through terminal</li>
 </ol>
-</section><section id="notepad" class="slide level2">
-<h1>Notepad++</h1>
+</section></section>
+<section><section id="built-in-php-server" class="titleslide slide level1"><h1>Built in PHP Server</h1></section><section id="built-in-php-server-1" class="slide level2">
+<h1>Built in PHP Server</h1>
 <ul>
-<li>To be able to edit files we will configure Notepad++ to work with campus servers</li>
-<li>Here at Winthrop Profiles are not saved when computer restarts so this will be done each time you work with Notepad++</li>
+<li>Newer versions of PHP have a built in web server
+<ul>
+<li>To run this server open the terminal</li>
+<li>Navigate to the root directory that should be served
+<ul>
+<li>e.g. <code>~/public_html/csci241/</code></li>
+</ul></li>
+<li>Run the webserver
+<ul>
+<li><code>php -S localhost:8080</code></li>
+<li>Listens for connections to localhost on port 8080</li>
+</ul></li>
+<li>NOTE: While you can start this server from off campus you will not be able to access it, you must go through deltona.birdnest.org</li>
+<li>NOTE 2: NOTE: is not strictly true but getting it working is non trivial and depends on a number of factors</li>
+</ul></li>
 </ul>
-<ol type="1">
-<li>Show the NppFTP Window <code>Plugins</code> &gt; <code>NppFTP</code> &gt; Check <code>Show NppFTP Window</code></li>
-<li>Click the gear icon and open <code>Profile settings</code></li>
-<li>Click <code>Add new</code></li>
-<li>Give the profile some name, for example <code>winthrop server</code></li>
-</ol>
-</section><section id="notepad-1" class="slide level2">
-<h1>Notepad++</h1>
-<ol start="5" type="1">
-<li>In hostname choose one of the campus linux servers:
+</section><section id="netbeans-setup" class="slide level2">
+<h1>NetBeans Setup</h1>
 <ul>
-<li><code>aspen.winthrop.edu</code></li>
-<li><code>abernathy.winthrop.edu</code></li>
-<li><code>houston.winthrop.edu</code></li>
-<li>From home: <code>reno.winthrop.edu</code></li>
-</ul></li>
-<li>Change the connection type to <code>SFTP</code></li>
-<li>For username use <code>acc.yourusername</code></li>
-<li>For password use your password</li>
-<li>Change the inital remote directpry by typing <code>/home/ACC.yourusername/public_html</code>
+<li>There are many IDEs we could use
 <ul>
-<li>Capitalization is important</li>
+<li>PHPStorm</li>
+<li>Eclipse</li>
+<li>NetBeans</li>
+<li>Aptana</li>
+<li>etc…</li>
 </ul></li>
-</ol>
-</section><section id="notepad-2" class="slide level2">
-<h1>Notepad++</h1>
-<ol start="10" type="1">
-<li>Click <code>Close</code></li>
-<li>Click the plug icon and select the server you just configured</li>
-<li>If prompted indicate you trust the server</li>
-<li>Try to change the <code>phpinfo.php</code> file you created earlier</li>
-</ol>
+<li>We will use NetBeans</li>
+<li>You are encouraged to try your own</li>
+</ul>
+</section><section id="netbeans-setup-1" class="slide level2">
+<h1>NetBeans Setup</h1>
+<ul>
+<li>Open the NetBeans Application</li>
+<li>Setup a new PHP Application Project from existing sources
+<ul>
+<li><code>File</code> &gt; <code>New Project...</code></li>
+<li>Select <code>PHP</code> under <em>Categories</em> and <code>PHP Appliction with Existing Sources</code></li>
+<li>Click <code>Next</code></li>
+<li>Browse to select your git repository which should be located under <code>public_html</code></li>
+<li>Click <code>Next</code></li>
+</ul></li>
+</ul>
+</section><section id="netbeans-setup-2" class="slide level2">
+<h1>NetBeans Setup</h1>
+<ul>
+<li>Under <em>Run Configuration</em> change the <em>Run As</em> to <code>PHP Built-in Web Server</code></li>
+<li>Leave the <em>Hostname</em>, <em>Port</em>, and <em>Router Script</em> as is</li>
+<li>Click <code>Finish</code></li>
+</ul>
+<p> </p>
+<ul>
+<li>Move to your <em>master</em> branch in git</li>
+<li>Edit the <code>.gitignore</code> file and change <code>/nbproject/private/</code> to <code>/nbproject/*</code></li>
+<li>Add and commit that change in git</li>
+</ul>
+</section><section id="netbeans-setup-3" class="slide level2">
+<h1>NetBeans Setup</h1>
+<ul>
+<li>Now you can code in NetBeans and hit the run button to run your project</li>
+<li>Remember that git commands will still be through the terminal</li>
+</ul>
 </section></section>
 <section class="footnotes">
 <hr />

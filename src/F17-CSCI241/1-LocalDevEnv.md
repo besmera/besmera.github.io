@@ -5,18 +5,25 @@
 
 ## Overview
 
+* Methods for working with websites
+	* Deltona and working remotely
+	* Built in PHP server
+
+
+# Deltona and Connecting Remotely
+
+## Running off Deltona
+
 * Your site address
-	* http://deltona.birdnest.org/~acc.YOURUSER/
+	* http://deltona.birdnest.org/~acc.youruser/
 	* Linked to your `~/public_html` folder
 		* Putting a file in this folder makes it accessible online[^permission]
 * Web server is Apache
-	* PHP 5.3
+	* PHP 7.0
 	* Mail extensions installed
 
 [^permission]: Assumes web server has appropriate permission
 
-
-# Command Line
 
 ## Review
 
@@ -103,24 +110,19 @@ chmod -R 700 theFolderName
 5. Fix permissions for this file - see above
 6. Access this file on deltona.birdnest.org
 
+## Working Remotely 
 
-# IDE
+1. Use SSH and edit files on the terminal
+	1. Windows use *Putty*
+		* *Host:* `hopper.winthrop.edu`
+		* *Protocol:* `SSH`
+	2. Linux and mac use terminal and `ssh youruser@hopper.winthrop.edu`
+2. Use an IDE that supports SFTP for example Aptana
 
-## Aptana
-
-* There are many IDEs we could use
-	* PHPStorm
-	* Eclipse
-	* Netbeans
-	* etc...
-* Aptana is what we will use
-	* We may be using notepad++ because Aptana is currently unable to run on some labs
-* You are encouraged to try your own
 
 ## Aptana Setup
 
 * To be able to edit files we will configure Aptana to work with campus servers
-* Here at Winthrop Profiles are not saved when computer restarts so this will be done each time you work with Aptana
 
 1. Open the Remote View `Window` > `Show View` > `Remote`
 2. Click on the ***Globe with the + sign***.
@@ -130,45 +132,65 @@ chmod -R 700 theFolderName
 
 ## Aptana Setup
 
-4. For server choose one of the campus linux servers:
-	* `aspen.winthrop.edu`
-	* `abernathy.winthrop.edu`
-	* `houston.winthrop.edu`
-	* From home: `reno.winthrop.edu`
-5. For username use `acc.yourusername`
+4. For server use `hopper.winthrop.edu`
+5. For username use your username
 6. For password use your password
-7. Change remote path by typing `/home/ACC.yourusername/public_html`
+7. Change remote path by typing `/home/acc.yourusername/public_html`
 	* Capitalization is important
 	* You ***can not*** use browse, it will not work
-8. Try to change the `phpinfo.php` file you created earlier
+8. Edit files as neccessary and view them on deltona.birdnest.org
+9. Remember that all git commands still need to be run through terminal
 
-## Notepad++
+# Built in PHP Server
+
+## Built in PHP Server
+
+* Newer versions of PHP have a built in web server
+	* To run this server open the terminal
+	* Navigate to the root directory that should be served 
+		* e.g. `~/public_html/csci241/`
+	* Run the webserver
+		* `php -S localhost:8080`
+		* Listens for connections to localhost on port 8080
+	* NOTE: While you can start this server from off campus you will not be able to access it, you must go through deltona.birdnest.org
+	* NOTE 2: NOTE: is not strictly true but getting it working is non trivial and depends on a number of factors
+
+## NetBeans Setup
+
+* There are many IDEs we could use
+	* PHPStorm
+	* Eclipse
+	* NetBeans
+	* Aptana
+	* etc...
+* We will use NetBeans
+* You are encouraged to try your own
+
+## NetBeans Setup
+
+* Open the NetBeans Application
+* Setup a new PHP Application Project from existing sources
+	* `File` > `New Project...`
+	* Select `PHP` under *Categories* and `PHP Appliction with Existing Sources`
+	* Click `Next`
+	* Browse to select your git repository which should be located under `public_html` 
+	* Click `Next`
+
+## NetBeans Setup
+
+* Under *Run Configuration* change the *Run As* to `PHP Built-in Web Server`
+* Leave the *Hostname*, *Port*, and *Router Script* as is
+* Click `Finish`
+
+\ 
+
+* Move to your *master* branch in git
+* Edit the `.gitignore` file and change `/nbproject/private/` to `/nbproject/*`
+* Add and commit that change in git
+
+## NetBeans Setup
+
+* Now you can code in NetBeans and hit the run button to run your project
+* Remember that git commands will still be through the terminal
 
 
-* To be able to edit files we will configure Notepad++ to work with campus servers
-* Here at Winthrop Profiles are not saved when computer restarts so this will be done each time you work with Notepad++
-
-1. Show the NppFTP Window `Plugins` > `NppFTP` > Check `Show NppFTP Window`
-2. Click the gear icon and open `Profile settings`
-3. Click `Add new`
-4. Give the profile some name, for example `winthrop server`
-
-## Notepad++
-
-5. In hostname choose one of the campus linux servers:
-	* `aspen.winthrop.edu`
-	* `abernathy.winthrop.edu`
-	* `houston.winthrop.edu`
-	* From home: `reno.winthrop.edu`
-6. Change the connection type to `SFTP`
-7. For username use `acc.yourusername`
-8. For password use your password
-9. Change the inital remote directpry by typing `/home/ACC.yourusername/public_html`
-	* Capitalization is important
-
-## Notepad++
-
-10. Click `Close`
-11. Click the plug icon and select the server you just configured
-12. If prompted indicate you trust the server
-13. Try to change the `phpinfo.php` file you created earlier
