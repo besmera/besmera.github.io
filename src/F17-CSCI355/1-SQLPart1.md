@@ -745,7 +745,7 @@ CREATE TABLE Follow (
 	FOREIGN KEY (followee) REFERENCES User(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-INSERT INTO User (name) VALUES ("KATY PERRY"),("Justin Bieber"),("Barack Obama"),("Taylor Swift"),("YouTube"),("Rihanna"),("Lady Gaga"),("Justin Timberlake");
+INSERT INTO User (name) VALUES ("KATY PERRY"),("Justin Bieber"),("Barack Obama"),("Taylor Swift"),("YouTube"),("Rihanna"),("Lady Gaga"),("Justin Timberlake"),("Donald Trump");
 
 SELECT SLEEP(1);
 
@@ -811,15 +811,20 @@ SELECT SLEEP(1);
 
 INSERT INTO Tweet (text, user) SELECT "I have 20,000 girlfriends, all around the world.", id FROM User where name = "Justin Timberlake";
 
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "Sorry losers and haters, but my I.Q. is one of the highest -and you all know it! Please don't feel so stupid or insecure,it's not your fault", id FROM User where name = "Donald Trump";
+
+
 ```
 
 ## M:N JOIN Twitter
 
-1. Insert data into `Follow` for who Barack Obama should be following.  Remember he is incredibly busy so don't add everyone. Also recall that the twitter relationship is not reciprocal. 
+1. Insert data into `Follow` for who Donald Trump should be following.  Remember he is incredibly busy so don't add everyone. Also recall that the twitter relationship is not reciprocal. 
 
-2. Write the SQL statement that would be neccessary to display the twitter feed for Barack Obama. Recall that order is not guaranteed.
+2. Write the SQL statement that would be neccessary to display the twitter feed for Donald Trump. Recall that order is not guaranteed.
 
-3. Add a `Tweet` for someone who you had Barack Obama follow and someone who he did not follow.
+3. Add a `Tweet` for someone who you had Donald Trump follow and someone who he did not follow.
 
 4. Rerun your SQL statement to show the twitter feed.
 
