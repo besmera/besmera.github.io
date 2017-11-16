@@ -306,7 +306,7 @@ REVOKE SELECT ON EMPLOYEE FROM B;
 
 * Two broad types
 	* Storage (previous example)
-	* Timing - I.E. denied access quicker when object does not exist
+	* Timing - I.E. denied access quicker when object exists
 
 # MySQL Specific
 
