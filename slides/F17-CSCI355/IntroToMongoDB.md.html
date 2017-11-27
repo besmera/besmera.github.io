@@ -53,18 +53,13 @@
 <section><section id="mongo-access" class="titleslide slide level1"><h1>Mongo Access</h1></section><section id="getting-access-to-mongo" class="slide level2">
 <h1>Getting Access to Mongo</h1>
 <ul>
-<li>Everyone will use the same server
-<ul>
-<li>infd.birdnest.org</li>
-<li>Logon using Putty with campus user/password</li>
-</ul></li>
+<li>Shared with everyone, no individualized accounts</li>
 <li>Accessing mongo
 <ul>
-<li>Create your database
-<ul>
-<li><code>mongo YOURUSERNAME</code></li>
+<li><code>mongo deltona.birdnest.org/csci355</code></li>
 <li>Create all your collections in this same db</li>
-</ul></li>
+<li>User: <code>csci355</code> Pass: <code>csci355</code></li>
+<li><code>db.auth('csci355', 'csci355')</code>;</li>
 </ul></li>
 </ul>
 </section></section>
@@ -710,15 +705,6 @@ db.students.find({_id:12345});
 </section></section>
 <section><section id="practice-2" class="titleslide slide level1"><h1>Practice</h1></section><section id="example-products" class="slide level2">
 <h1>Example Products</h1>
-<ul>
-<li>Copy code from next slide into a <code>products.js</code> file</li>
-<li>Open ssh (Putty) connection to infd.birdnest.org
-<ul>
-<li><code>mongo YOURUSERNAME &lt; products.js</code></li>
-</ul></li>
-</ul>
-</section><section id="example-products-1" class="slide level2">
-<h1>Example Products</h1>
 <pre class="javascript"><code>db.product.drop();
 
 db.product.insert({
@@ -785,7 +771,7 @@ db.product.insert({
 <ol type="1">
 <li>Create a view showing the values of the product on hand.
 <ul>
-<li>No option to do this with find. Must aggregate.</li>
+<li>No option to do this with find. Must aggregate. Still not really a view.</li>
 </ul></li>
 </ol>
 <!---
@@ -814,8 +800,7 @@ db.product.aggregate([{$project:{ prodvalue : {$multiply: ["$qty", "$price"]}}}]
 <li>What cost does this easy query come with?</li>
 </ul></li>
 </ol>
-<p>4.1. Update the company “Stanley” to “Stanley Black and Decker” and re-run * How many documents needed to be updated?<br />
-* How many rows would MySQL have required?</p>
+<p>4.1. Update the company “Stanley” to “Stanley Black and Decker” and re-run * How many documents needed to be updated? * How many rows would MySQL have required?</p>
 <ol start="5" type="1">
 <li>Select all the products in the tools category with a price greater than 10.00.
 <ul>

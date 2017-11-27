@@ -5,14 +5,13 @@
 
 ## Getting Access to Mongo
 
-* Everyone will use the same server
-	* infd.birdnest.org
-	* Logon using Putty with campus user/password
 
+* Shared with everyone, no individualized accounts
 * Accessing mongo
-	* Create your database
-		* `mongo YOURUSERNAME`
-		* Create all your collections in this same db
+	* `mongo deltona.birdnest.org/csci355`
+	* Create all your collections in this same db
+	* User: `csci355` Pass: `csci355`
+	* `db.auth('csci355', 'csci355')`;
 
 # Terms
 
@@ -646,11 +645,7 @@ db.dropDatabase();
 
 # Practice
 
-## Example Products
 
-* Copy code from next slide into a `products.js` file
-* Open ssh (Putty) connection to infd.birdnest.org
-	* `mongo YOURUSERNAME < products.js`
 
 ## Example Products
 
@@ -721,7 +716,7 @@ db.product.insert({
 ## Practice (1 of 2)
 
 1. Create a view showing the values of the product on hand.
-	* No option to do this with find.  Must aggregate. 
+	* No option to do this with find.  Must aggregate. Still not really a view.
 
 <!---
 db.product.aggregate([{$project:{ prodvalue : {$multiply: ["$qty", "$price"]}}}]);
@@ -752,7 +747,7 @@ db.product.aggregate([{$project:{ prodvalue : {$multiply: ["$qty", "$price"]}}}]
 
 
 4.1. Update the company "Stanley" to "Stanley Black and Decker" and re-run
-	* How many documents needed to be updated?  
+	* How many documents needed to be updated? 
 	* How many rows would MySQL have required?
 
 5. Select all the products in the tools category with a price greater than 10.00.
