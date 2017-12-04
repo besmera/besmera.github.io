@@ -1,6 +1,6 @@
 % Advanced NoSQL
 % Aggregate Pipeline
-% Dr. Andrew Watson
+% Dr. Andrew Besmer
 
 # Aggregation Framework
 
