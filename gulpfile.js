@@ -79,7 +79,7 @@ gulp.task('default', function() {
     };
 
     //For image assets, etc...
-    watch({glob: path.join(src_docs, '**/!(*.md)') })
+    watch(path.join(src_docs, '**/!(*.md)'))
         .on('error', console.log)
         .pipe(plumb())
         .pipe(ignore({isDirectory:true}))
@@ -102,7 +102,7 @@ gulp.task('default', function() {
         .pipe(livereload());
 
 
-    watch({glob: path.join(src_docs, '**/*.md') })
+    watch(path.join(src_docs, '**/*.md'))
         .on('error', console.log)
         .pipe(plumb())
         .pipe(ignore({isDirectory:true}))
@@ -111,7 +111,7 @@ gulp.task('default', function() {
             })
         .pipe(spawn(opts, magic))
             .on('failure', console.log)
-        .pipe(rename({ext: ".html"}))
+        .pipe(rename({extname: ".html"}))
        .pipe(gulp.dest(dest_docs))
             .on('data', function(file) {
 
@@ -126,5 +126,9 @@ gulp.task('default', function() {
 
             })
         .pipe(livereload());
+
+
+
+
 
 });
