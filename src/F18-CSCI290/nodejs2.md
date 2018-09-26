@@ -1,7 +1,22 @@
-% Node.js 
+% Node.js
 % Dr. Andrew Besmer
 % The Basics
-	
+
+# Atom Packages
+
+## Some Helpful Packages
+
+* `ide-typescript`
+* `atom-ide-ui`
+* `atom-ide-debugger-node`
+
+## JavaScript Debugging
+
+* Lets look at debugging in JavaScript
+  * Break Points
+	* Step In/Out/Over
+	* Conditional Break Points
+
 # Modules
 
 ## Overview
@@ -14,19 +29,19 @@
 ## Requiring Modules
 
 * Use `require()`
-* Require looks for: 
+* Require looks for:
 	* Exact file match
 	* File ending in `.js` - treated as a JavaScript file
 	* File ending in `.json` - parsed as json
 	* File ending in `.node` - Treated as a compiled addon
 
 ## Requiring Modules
-	
+
 * `require()` has similar rules to other includes
 	* `/` considered absolute
 	* `./` considered relative to files in same directory
 	* `../` relative to parent directory, and so on
-* If not `/`, `./`, etc... it is considered a "core module" 
+* If not `/`, `./`, etc... it is considered a "core module"
 	* If it is native core module like `http` it is loaded
 	* Otherwise loaded from one of many `node_modules` folders by starting at `./node_modules` and working up to root file system
 
@@ -35,8 +50,8 @@
 * When requiring a directory
 	* First node looks for `package.json`
 	* Then `index.js`
-	* Then `index.node`	
-	
+	* Then `index.node`
+
 ## Making a Module
 
 * Create a javascript file that `exports`
@@ -109,7 +124,7 @@ greeting.sayHello("World");
 greeting.sayGoodbye("World"); //Error!
 ```
 
-	
+
 ## Modules
 
 * Modules can also require other modules
@@ -124,10 +139,10 @@ greeting.sayGoodbye("World"); //Error!
 	* Those packages depend on even more packages
 	* Require a certain package version
 
-	
+
 ## npm
 * Find packages at [http://npmjs.com](http://npmjs.com)
-	* Install locally `npm install packageName` 
+	* Install locally `npm install packageName`
 	* Then just `require('packageName')`
 * Can install globally `npm install -g packageName` but then can't require
 	* `node-inspector` or `http-server` are examples
@@ -136,7 +151,7 @@ greeting.sayGoodbye("World"); //Error!
 
 ## Events
 
-* We have expierence with events using jQuery
+* You may have experience with events using jQuery
 
 ```javascript
 $("#albums").on("click", ".album",function(){
@@ -169,7 +184,7 @@ attendant.emit('door bell');
 * Many of the node objects will emit events for your to listen to
 	* `http` emits `request` events
 	* The http `request` object will emit `data` as the request comes in
-	
+
 ## HTTP Server
 
 * Setup a basic http server by listening for the `request` event
@@ -186,7 +201,7 @@ server.listen(8000);
 
 ## HTTP Server
 
-* Alternatively 
+* Alternatively
 	* See [the docs](http://nodejs.org/api/)
 
 ```javascript
@@ -202,7 +217,6 @@ http.createServer(function(request, response){
 * Let's make a home page `/` and an about page `/about`
 	* Just basic html structure and the name of page
 * Use the `request`/`response` objects and multiple `reponse.write()`s
-* Don't forget `node-debug`
 
 # Streams
 
@@ -215,7 +229,7 @@ http.createServer(function(request, response){
 
 * According to Node.js
 
-> A stream is an abstract interface implemented by various objects in Node. For example a request to an HTTP server is a stream, as is stdout. Streams are readable, writable, or both. All streams are instances of EventEmitter. 
+> A stream is an abstract interface implemented by various objects in Node. For example a request to an HTTP server is a stream, as is stdout. Streams are readable, writable, or both. All streams are instances of EventEmitter.
 
 ## Streams
 
@@ -236,7 +250,7 @@ http.createServer(function(request, response){
 * The http server emits `request` event
 * Callback is called passing `request` stream object
 	* `request` stream object emits `data` and `end`
-	
+
 ```javascript
 var http = require('http');
 
@@ -250,23 +264,23 @@ http.createServer(function(request, response){
                 response.end();
         });
 }).listen(8000);
-```	
+```
 
 ## Try it!
 
 * Make the request stream send the incoming data back out to the response stream
 
-\ 
+\
 
 * After completing
 	* How might bandwidth create a problem with our example?
-	
+
 ## Streams
 
 * A stream `.write()` will return whether or not there is more space in the buffer
 	* If there is no space in the buffer you will begin exhausting RAM
 * One option is to `.pause()` the stream you are reading from and waiting for the write stream to `drain()`
-		
+
 ```javascript
 var http = require('http');
 
@@ -275,7 +289,7 @@ http.createServer(function(request, response){
                 if(response.write(data) == false)
 					request.pause();
         });
-		
+
 		response.on('drain', function(){
 			request.resume();
 		})
@@ -285,9 +299,9 @@ http.createServer(function(request, response){
                 response.end();
         });
 }).listen(8000);
-```	
-		
-		
+```
+
+
 ## Piping
 
 * Another option is using a pipe
@@ -302,7 +316,7 @@ http.createServer(function(request, response){
 			response.end();
 		});
 }).listen(8000);
-```	
+```
 
 ## File Uploads
 
@@ -318,10 +332,10 @@ http.createServer(function(request, response) {
 	var uploadedBytes = 0;
 
 	request.pipe(outFile);
-	
+
 	request.on('data', function(data) {
 		uploadedBytes += data.length;
-		response.write((uploadedBytes / uploadSize) * 100) + "%\n");
+		response.write(((uploadedBytes / uploadSize) * 100) + "%\n");
 	});
 
 	request.on('end', function() {
@@ -337,12 +351,12 @@ http.createServer(function(request, response) {
 * Node.js is very low level, not a framework like Symfony2
 * Express is a framework
 	* Request routing
-	* Middleware for 
+	* Middleware for
 		* Url decoding
-		* Query string parsing 
+		* Query string parsing
 		* File uploads
 		* etc ...
-		
+
 ## Getting Express
 
 * Get express `npm install express`
@@ -362,7 +376,7 @@ app.listen(8000);
 
 ## Slugs
 
-* Can use slugs in express routing 
+* Can use slugs in express routing
 
 ```javascript
 var express = require('express');

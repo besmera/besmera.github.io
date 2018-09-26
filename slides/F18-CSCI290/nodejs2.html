@@ -40,6 +40,7 @@
 </section>
 <section id="TOC">
 <ul>
+<li><a href="#/atom-packages">Atom Packages</a></li>
 <li><a href="#/modules">Modules</a></li>
 <li><a href="#/events">Events</a></li>
 <li><a href="#/streams">Streams</a></li>
@@ -47,6 +48,24 @@
 </ul>
 </section>
 
+<section><section id="atom-packages" class="titleslide slide level1"><h1>Atom Packages</h1></section><section id="some-helpful-packages" class="slide level2">
+<h1>Some Helpful Packages</h1>
+<ul>
+<li><code>ide-typescript</code></li>
+<li><code>atom-ide-ui</code></li>
+<li><code>atom-ide-debugger-node</code></li>
+</ul>
+</section><section id="javascript-debugging" class="slide level2">
+<h1>JavaScript Debugging</h1>
+<ul>
+<li>Lets look at debugging in JavaScript</li>
+<li>Break Points
+<ul>
+<li>Step In/Out/Over</li>
+<li>Conditional Break Points</li>
+</ul></li>
+</ul>
+</section></section>
 <section><section id="modules" class="titleslide slide level1"><h1>Modules</h1></section><section id="overview" class="slide level2">
 <h1>Overview</h1>
 <ul>
@@ -188,7 +207,7 @@ greeting.sayGoodbye(&quot;World&quot;); //Error!</code></pre>
 <section><section id="events" class="titleslide slide level1"><h1>Events</h1></section><section id="events-1" class="slide level2">
 <h1>Events</h1>
 <ul>
-<li>We have expierence with events using jQuery</li>
+<li>You may have experience with events using jQuery</li>
 </ul>
 <pre class="javascript"><code>$(&quot;#albums&quot;).on(&quot;click&quot;, &quot;.album&quot;,function(){
     //Do something with this album
@@ -253,7 +272,6 @@ http.createServer(function(request, response){
 <li>Just basic html structure and the name of page</li>
 </ul></li>
 <li>Use the <code>request</code>/<code>response</code> objects and multiple <code>reponse.write()</code>s</li>
-<li>Don’t forget <code>node-debug</code></li>
 </ul>
 </section></section>
 <section><section id="streams" class="titleslide slide level1"><h1>Streams</h1></section><section id="streams-1" class="slide level2">
@@ -308,13 +326,8 @@ http.createServer(function(request, response){
 <ul>
 <li>Make the request stream send the incoming data back out to the response stream</li>
 </ul>
-<p> </p>
-<ul>
-<li>After completing
-<ul>
-<li>How might bandwidth create a problem with our example?</li>
-</ul></li>
-</ul>
+<p><br />
+* After completing * How might bandwidth create a problem with our example?</p>
 </section><section id="streams-4" class="slide level2">
 <h1>Streams</h1>
 <ul>
@@ -331,7 +344,7 @@ http.createServer(function(request, response){
                 if(response.write(data) == false)
                     request.pause();
         });
-        
+
         response.on(&#39;drain&#39;, function(){
             request.resume();
         })
@@ -369,10 +382,10 @@ http.createServer(function(request, response) {
     var uploadedBytes = 0;
 
     request.pipe(outFile);
-    
+
     request.on(&#39;data&#39;, function(data) {
         uploadedBytes += data.length;
-        response.write((uploadedBytes / uploadSize) * 100) + &quot;%\n&quot;);
+        response.write(((uploadedBytes / uploadSize) * 100) + &quot;%\n&quot;);
     });
 
     request.on(&#39;end&#39;, function() {
