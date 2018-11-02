@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Andrew Besmer" />
+  <title>CCSC:SE 2018</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">CCSC:SE 2018</h1>
+    <h2 class="author">Andrew Besmer</h2>
+    <h3 class="date">http://besmera.github.io</h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/overview">Overview</a></li>
+<li><a href="#/infrastructure">Infrastructure</a></li>
+<li><a href="#/configuration-management">Configuration Management</a></li>
+<li><a href="#/our-configuration">Our Configuration</a></li>
+<li><a href="#/questions">Questions</a></li>
+</ul>
+</section>
+
+<section><section id="overview" class="titleslide slide level1"><h1>Overview</h1></section><section id="the-problem" class="slide level2">
+<h1>The Problem</h1>
+<ul>
+<li>Some stuff doesn’t really change much
+<ul>
+<li>Sorting</li>
+<li>Trees</li>
+</ul></li>
+<li>Pedagogical research challenges us to consider using
+<ul>
+<li>New tools</li>
+<li>New Frameworks</li>
+<li>VR/AR</li>
+<li>Mobile Development</li>
+</ul></li>
+<li>We rely heavily on virtualization for info sec, networking, operating systems, and more</li>
+</ul>
+</section><section id="the-problem-1" class="slide level2">
+<h1>The Problem</h1>
+<ul>
+<li class="fragment">But we are a small school</li>
+<li class="fragment">6,109 students in 2016</li>
+<li class="fragment">ITS had 1 Linux Administrator shared with us</li>
+<li class="fragment">And he left</li>
+<li class="fragment">Us running Ubuntu 12.04</li>
+<li class="fragment">and we were rapidly approaching April 2016</li>
+</ul>
+</section><section id="a-solution" class="slide level2">
+<h1>A Solution</h1>
+<ul>
+<li class="fragment">Students can install this software on their own machines</li>
+<li class="fragment">They will learn a lot in the process!</li>
+<li class="fragment">However, educationally it is better to deliberately and carefully offload these tasks <em>where appropriate</em></li>
+</ul>
+</section><section id="a-better-solution" class="slide level2">
+<h1>A Better Solution</h1>
+<ul>
+<li>Create an infrastructure that is
+<ul>
+<li>Modern (LTS)</li>
+<li>Flexible
+<ul>
+<li>New/Updated software</li>
+<li>Roaming students</li>
+</ul></li>
+<li>Tightly integrated with campus systems
+<ul>
+<li>Authentication
+<ul>
+<li>SSSD &amp; NSS &amp; PAM &amp; LDAP &amp; Kerberos</li>
+<li>90 days? Forgot password?</li>
+</ul></li>
+<li>Backup</li>
+</ul></li>
+<li><strong><em>Low Maintenance</em></strong></li>
+</ul></li>
+</ul>
+</section><section id="servers" class="slide level2">
+<h1>Servers</h1>
+<ul>
+<li>There are three servers at the heart of our Infrastructure
+<ul>
+<li>Deltona
+<ul>
+<li>Shared SQL Server</li>
+<li>Shared Web Server</li>
+</ul></li>
+<li><strong><em>ACC</em></strong>Linux
+<ul>
+<li>NFS</li>
+</ul></li>
+<li><strong><em>ACC</em></strong>LinuxImager
+<ul>
+<li>Provisioning (The Foreman)</li>
+<li>Configuration Management (Salt)</li>
+</ul></li>
+</ul></li>
+<li>Could likely be done with fewer servers</li>
+<li>Carefully named</li>
+</ul>
+</section><section id="and-now" class="slide level2">
+<h1>And Now</h1>
+<ul>
+<li>New 1cr JavaScript class this semester wanted to work with Twilio and create an SMS app
+<ul>
+<li>We have nodejs, npm, etc… installed already</li>
+<li>Client machines are behind NAT</li>
+<li>Ngrock to the rescue</li>
+<li>Ngrock is not on our machines and we need it for class next week!</li>
+</ul></li>
+</ul>
+</section><section id="and-now-1" class="slide level2">
+<h1>And Now</h1>
+<ul>
+<li>Download ngrok to server using <code>wget</code> or similar</li>
+<li>Create an SLS (SaLt State file)</li>
+</ul>
+<pre><code># winthrop.devtools.ngrok
+install-ngrok:
+  file.managed:
+    - name: /usr/local/bin/ngrok
+    - source: salt://assets/usr/local/bin/ngrok
+    - mode: 0755
+    - user: root
+    - group: root
+    - backup: minionnode</code></pre>
+</section><section id="and-now-2" class="slide level2">
+<h1>And Now</h1>
+<ul>
+<li>Add to the <code>top.sls</code> file</li>
+</ul>
+<pre><code>    - winthrop.devtools.ngrok</code></pre>
+<ul>
+<li>Deploy!</li>
+</ul>
+<pre><code>salt &#39;*&#39; state.apply winthrop.devtools.ngrok</code></pre>
+</section><section id="updating-and-maintenance" class="slide level2">
+<h1>Updating and Maintenance</h1>
+<ul>
+<li>Upgraded Ubuntu 16.04 to Ubuntu 18.04 in May</li>
+<li>Took very little time time as sls files barely changed</li>
+<li>If machine dies, ITS replaces and reimage takes ~1hr, with about 2-5 mins of human time.</li>
+</ul>
+</section></section>
+<section><section id="infrastructure" class="titleslide slide level1"><h1>Infrastructure</h1></section><section id="installing-spotify" class="slide level2">
+<h1>Installing Spotify</h1>
+<ul>
+<li>Your paper mentioned Spotify, how did that work?</li>
+<li>Installing <a href="https://www.spotify.com/us/download/linux/">spotify</a> on a single machine is easy</li>
+<li>Installing spotify on 33 machines is also easy but requires some <a href="https://docs.saltstack.com/en/latest/ref/states/all/salt.states.pkgrepo.html#salt.states.pkgrepo.managed">tools</a></li>
+</ul>
+</section><section id="installing-spotify-1" class="slide level2">
+<h1>Installing Spotify</h1>
+<ul>
+<li>Compile information into configuration and deploy!</li>
+</ul>
+<pre><code>add-spotify-ppa:
+  pkgrepo.managed:
+    - humanname: Spotify PPA
+    - name: deb http://repository.spotify.com stable non-free
+    - file: /etc/apt/sources.list.d/spotify.list
+    # Need to lookup by searching for repository.spotify.com
+    - keyid: D2C19886
+    - keyserver: keyserver.ubuntu.com
+
+add-spotify-package:
+   pkg.installed:
+      - name: spotify-client
+</code></pre>
+</section><section id="infrastructure-1" class="slide level2">
+<h1>Infrastructure</h1>
+<ul>
+<li>Our Linux infrastructure was created in two steps
+<ul>
+<li><strong><em>Provisioning</em></strong> - Getting Linux onto the bare metal machines</li>
+<li><strong><em>Configuration Management</em></strong> - What the machine should have as a configuration</li>
+</ul></li>
+</ul>
+</section><section id="provisioning" class="slide level2">
+<h1>Provisioning</h1>
+<ul>
+<li>Our provisioning system is <code>Foreman</code> and can be found <a href="https://acclinuximager.winthrop.edu">on our server</a>
+<ul>
+<li>Primarily used for provisioning of Linux operating systems</li>
+<li>Supports bare metal or many different cloud providers like <strong>Amazon EC2</strong> or <strong>Google Compute Engine</strong></li>
+</ul></li>
+<li>Does more than provisioning:
+<ul>
+<li>Integration with LDAP</li>
+<li>Auditing</li>
+<li>Reporting</li>
+<li>Fact Tables
+<ul>
+<li>What is the dell service tag of the lectern in CARR215?</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre><code>host = carr215-lectern.win.winthrop.edu name = serialnumber</code></pre>
+</section><section id="provisioning-1" class="slide level2">
+<h1>Provisioning</h1>
+<ul>
+<li>To configure foreman a few things need to be configured:
+<ul>
+<li>Installation Media</li>
+<li>Templates
+<ul>
+<li>PXE (Preboot Execution Environment)</li>
+<li>Partition Table</li>
+<li>Provisioning
+<ul>
+<li>Provision</li>
+<li>Finish</li>
+</ul></li>
+</ul></li>
+<li>Operating Systems</li>
+<li>Domains and Subnets</li>
+<li>Host Groups</li>
+</ul></li>
+<li>And it needs to be done in roughly that order, there is some back and forth</li>
+</ul>
+</section><section id="installation-media" class="slide level2">
+<h1>Installation Media</h1>
+<ul>
+<li>The default Ubuntu repository is built into <code>Foreman</code>
+<ul>
+<li>Installations took a large amount of time due to bandwidth limitations presumably on Ubuntu’s end</li>
+<li>What is a computer scientist to do???</li>
+</ul></li>
+</ul>
+</section><section id="apt-mirror" class="slide level2">
+<h1>apt-mirror</h1>
+<ul>
+<li>Caching! So we mirror the entire Ubuntu repository for just the <code>xenial</code> branch</li>
+<li>Uses <code>apt-mirror</code></li>
+<li>Wanted to mirror only <code>amd64</code> and not <code>i386</code> but…</li>
+</ul>
+<pre><code>############# config ##################
+#
+# set base_path    /var/spool/apt-mirror
+#
+# set mirror_path  $base_path/mirror
+# set skel_path    $base_path/skel
+# set var_path     $base_path/var
+# set cleanscript $var_path/clean.sh
+# set defaultarch  &lt;running host architecture&gt;
+# set postmirror_script $var_path/postmirror.sh
+# set run_postmirror 0
+set nthreads     20
+set _tilde 0
+#
+############# end config ##############
+
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic main main/debian-installer restricted restricted/debian-installer universe multiverse
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic-security main restricted universe multiverse
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic-updates main restricted universe multiverse
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic-proposed main restricted universe multiverse
+deb-amd64 http://archive.ubuntu.com/ubuntu bionic-backports main restricted universe multiverse
+
+deb-i386 http://archive.ubuntu.com/ubuntu bionic main main/debian-installer restricted restricted/debian-installer universe multiverse
+deb-i386 http://archive.ubuntu.com/ubuntu bionic-security main restricted universe multiverse
+deb-i386 http://archive.ubuntu.com/ubuntu bionic-updates main restricted universe multiverse
+deb-i386 http://archive.ubuntu.com/ubuntu bionic-proposed main restricted universe multiverse
+deb-i386 http://archive.ubuntu.com/ubuntu bionic-backports main restricted universe multiverse
+
+deb-src http://archive.ubuntu.com/ubuntu bionic-security main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu bionic-updates main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu bionic-proposed main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu bionic-backports main restricted universe multiverse
+
+clean http://archive.ubuntu.com/ubuntu
+</code></pre>
+</section><section id="apt-mirror-1" class="slide level2">
+<h1>apt-mirror</h1>
+<pre><code>MAILTO=&quot;besmera@winthrop.edu&quot;
+0 2 * * 4 /usr/bin/apt-mirror</code></pre>
+<pre><code>
+-------- Forwarded Message --------
+Subject:    Cron &lt;root@acclinuximager&gt; /usr/bin/apt-mirror
+Date:   Thu, 1 Nov 2018 02:06:50 -0400
+From:   Cron Daemon &lt;root@acclinuximager.winthrop.edu&gt;
+To:     besmera@winthrop.edu
+
+
+Downloading 439 index files using 20 threads...
+Begin time: Thu Mar 23 02:00:02 2017
+[20]... [19]... [18]... [17]... [16]... [15]... [14]... [13]... [12]... [11]... [10]... [9]... [8]... [7]... [6]... [5]... [4]... [3]... [2]... [1]... [0]...
+End time: Thu Mar 23 02:01:37 2017
+
+Processing tranlation indexes: [TTTTTTTTTT]
+
+Downloading 1116 translation files using 20 threads...
+Begin time: Thu Mar 23 02:01:37 2017
+[20]... [19]... [18]... [17]... [16]... [15]... [14]... [13]... [12]... [11]... [10]... [9]... [8]... [7]... [6]... [5]... [4]... [3]... [2]... [1]... [0]...
+End time: Thu Mar 23 02:02:17 2017
+
+Processing DEP-11 indexes: [DDDDDDDDDD]
+
+Downloading 70 dep11 files using 20 threads...
+Begin time: Thu Mar 23 02:02:17 2017
+[20]... [19]... [18]... [17]... [16]... [15]... [14]... [13]... [12]... [11]... [10]... [9]... [8]... [7]... [6]... [5]... [4]... [3]... [2]... [1]... [0]...
+End time: Thu Mar 23 02:02:19 2017
+
+Processing indexes: [SSSSPPPPPPPPPP]
+
+3.2 GiB will be downloaded into archive.
+Downloading 877 archive files using 20 threads...
+Begin time: Thu Mar 23 02:02:45 2017
+[20]... [19]... [18]... [17]... [16]... [15]... [14]... [13]... [12]... [11]... [10]... [9]... [8]... [7]... [6]... [5]... [4]... [3]... [2]... [1]... [0]...
+End time: Thu Mar 23 02:06:01 2017
+
+19.9 GiB in 6290 files and 8 directories can be freed.
+Run /var/spool/apt-mirror/var/clean.sh for this purpose.
+
+Running the Post Mirror script ...
+(/var/spool/apt-mirror/var/postmirror.sh)
+
+This is an Ubuntu mirror - treat it kindly
+
+
+Post Mirror script has completed. See above output for any possible errors.</code></pre>
+</section><section id="apt-mirror-2" class="slide level2">
+<h1>apt-mirror</h1>
+<ul>
+<li><code>apt-mirror</code> will not grab the installer files needed for Winthrop’s setup so I used <code>rsync</code> to grab the remaining files</li>
+</ul>
+<pre><code>#!/bin/sh -e
+
+## Anything in this file gets run AFTER the mirror has been run.
+## Put your custom post mirror operations in here (like rsyncing the installer
+## files and running clean.sh automatically)!
+
+## Example of grabbing the extra installer files from Ubuntu (Note: rsync needs
+## to be installed and in the path for this example to work correctly)
+
+
+rsync --recursive --times --links --hard-links --delete --delete-after rsync://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/ /var/spool/apt-mirror/mirror/archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/</code></pre>
+</section><section id="apt-mirror-3" class="slide level2">
+<h1>apt-mirror</h1>
+<ul>
+<li><a href="http://acclinuxarchive.winthrop.edu/ubuntu/" class="uri">http://acclinuxarchive.winthrop.edu/ubuntu/</a></li>
+<li>Currently takes up <code>145GB</code> (Nov 2018)</li>
+<li>All installs and updates on machines now done from our data center instead of across the Internet</li>
+</ul>
+</section><section id="pxe" class="slide level2">
+<h1>PXE</h1>
+<ul>
+<li>PXE (Preboot Execution Environment) is a standard for booting software from a network, in our case, the installation media</li>
+<li>Because WU could not support PXE through DHCP servers iPXE had to be used requiring separate setup</li>
+<li>iPXE just emulates what would happen during a PXE boot but requires the creation of a disk (usb/cdrom/etc…)</li>
+<li>Most of the setup is easy:
+<ul>
+<li>When running the <code>foreman-installer</code> tell it you will want <code>usbboot</code></li>
+<li><code>apt-get</code> install <code>syslinux</code>, <code>genisoimage</code>, and <code>mkisofs</code></li>
+</ul></li>
+</ul>
+</section><section id="pxe-1" class="slide level2">
+<h1>PXE</h1>
+<ul>
+<li>Some is not:
+<ul>
+<li>It turns out foreman expects these assets to be in very specific locations (probably default on many other systems)</li>
+<li>Read the source code to find expected locations and created symbolic links</li>
+</ul></li>
+</ul>
+</section><section id="pxe-2" class="slide level2">
+<h1>PXE</h1>
+<ul>
+<li>The iPXE boot needs a template (soon described)</li>
+<li>This template was customized to allow the netboot disk to use DHCP
+<ul>
+<li>I believe the built in script was mismatched with the GUI that is now available</li>
+</ul></li>
+</ul>
+<pre><code>#!gpxe
+&lt;%#
+kind: iPXE
+name: Preseed default iPXE
+oses:
+- Debian
+- Ubuntu
+%&gt;
+&lt;% if @host.operatingsystem.name == &#39;Debian&#39; -%&gt;
+&lt;% keyboard_params = &quot;auto=true domain=#{@host.domain}&quot; -%&gt;
+&lt;% else -%&gt;
+&lt;% keyboard_params = &#39;console-setup/ask_detect=false console-setup/layout=USA console-setup/variant=USA keyboard-configuration/layoutcode=us&#39; -%&gt;
+&lt;% end -%&gt;
+&lt;% boot_files_uris = @host.operatingsystem.boot_files_uri(@host.medium,@host.architecture) -%&gt;
+&lt;% kernel = boot_files_uris[0] -%&gt;
+&lt;% initrd = boot_files_uris[1] -%&gt;
+&lt;% static = @host.token.nil? ? &#39;?static=yes&#39; : &#39;&amp;static=yes&#39; -%&gt;
+
+kernel &lt;%= kernel %&gt; interface=auto url=&lt;%= foreman_url(&#39;provision&#39;)%&gt; ramdisk_size=10800 root=/dev/rd/0 rw auto netcfg/disable_dhcp=false BOOTIF=${netX/mac} hostname=&lt;%= @host.name %&gt; &lt;%= keyboard_params %&gt; locale=&lt;%= @host.params[&#39;lang&#39;] || &#39;en_US&#39; %&gt; netcfg/get_ipaddress=${netX/ip} netcfg/get_netmask=${netX/netmask} netcfg/get_gateway=${netX/gateway} netcfg/get_nameservers=${dns}
+initrd &lt;%= initrd %&gt;
+
+boot</code></pre>
+</section><section id="provisioning-templates" class="slide level2">
+<h1>Provisioning Templates</h1>
+<ul>
+<li>With PXE boot, the local Ubuntu archive, the custom rsync of the net installer
+<ul>
+<li>We can now put a disk into the machine and get it to boot to the standard ubuntu installer</li>
+<li>Unfortunately we would have to sit at each machine and answer prompts</li>
+<li>Templates can automate this for us</li>
+</ul></li>
+</ul>
+</section><section id="partition-table" class="slide level2">
+<h1>Partition Table</h1>
+<ul>
+<li>One major prompt is about partitioning, how should the HD be used?</li>
+<li>Foreman provides a <code>Preseed default</code> template
+<ul>
+<li>It accepts custom configurations or provides a default (auto partition first disk)</li>
+<li>Most of the template turns off common warnings and prompts for confirmation</li>
+</ul></li>
+</ul>
+<pre><code>&lt;%#
+kind: ptable
+name: Preseed default
+oses:
+- Debian
+- Ubuntu
+%&gt;
+&lt;%
+  partitioning_method = @host.params[&#39;partitioning-method&#39;] ? @host.params[&#39;partitioning-method&#39;] : &#39;regular&#39;
+  partitioning_recipe = @host.params[&#39;partitioning-recipe&#39;] ? @host.params[&#39;partitioning-recipe&#39;] : &#39;atomic&#39;
+  partitioning_expert_recipe = @host.params[&#39;partitioning-expert-recipe&#39;] ? @host.params[&#39;partitioning-expert-recipe&#39;] : &#39;&#39;
+  vg_name = @host.params[&#39;partitioning-vg-name&#39;] ? @host.params[&#39;partitioning-vg-name&#39;] : &#39;&#39;
+  partitioning_filesystem = @host.params[&#39;partitioning-filesystem&#39;] ? @host.params[&#39;partitioning-filesystem&#39;] : &#39;&#39;
+-%&gt;
+
+&lt;% if @host.params[&#39;install-disk&#39;] -%&gt;
+d-i partman-auto/disk string &lt;%= @host.params[&#39;install-disk&#39;] %&gt;
+&lt;% else -%&gt;
+# Use the first detected hard disk as default installation disk
+d-i partman/early_command string debconf-set partman-auto/disk &quot;$(list-devices disk | head -n1)&quot;
+&lt;% end -%&gt;
+
+### Partitioning
+# The presently available methods are: &quot;regular&quot;, &quot;lvm&quot; and &quot;crypto&quot;
+d-i partman-auto/method string &lt;%= partitioning_method %&gt;
+
+# If one of the disks that are going to be automatically partitioned
+# contains an old LVM configuration, the user will normally receive a
+# warning. This can be preseeded away...
+d-i partman-lvm/device_remove_lvm boolean true
+# The same applies to pre-existing software RAID array:
+d-i partman-md/device_remove_md boolean true
+# And the same goes for the confirmation to write the lvm partitions.
+d-i partman-lvm/confirm boolean true
+d-i partman-lvm/confirm_nooverwrite boolean true
+
+&lt;% if partitioning_method == &#39;lvm&#39; -%&gt;
+# For LVM partitioning, you can select how much of the volume group to use
+# for logical volumes.
+d-i partman-auto-lvm/guided_size string max
+&lt;% if vg_name != &#39;&#39; -%&gt;
+d-i partman-auto-lvm/new_vg_name string &lt;%= vg_name %&gt;
+&lt;% end -%&gt;
+&lt;% end -%&gt;
+
+# You can choose one of the three predefined partitioning recipes:
+# - atomic: all files in one partition
+# - home:   separate /home partition
+# - multi:  separate /home, /var, and /tmp partitions (/usr was removed in jessie)
+d-i partman-auto/choose_recipe select &lt;%= partitioning_recipe %&gt;
+
+&lt;% if partitioning_expert_recipe != &#39;&#39; -%&gt;
+# Or provide a recipe of your own...
+# If you have a way to get a recipe file into the d-i environment, you can
+# just point at it.
+d-i partman-auto/expert_recipe string \
+&lt;%= partitioning_expert_recipe.gsub(/$/, &quot; \\&quot;) %&gt;
+
+&lt;% end -%&gt;
+
+# If you just want to change the default filesystem to something
+# else, you can do that without providing a full recipe.
+&lt;% if partitioning_filesystem != &#39;&#39; -%&gt;
+d-i partman/default_filesystem string &lt;%= partitioning_filesystem %&gt;
+&lt;% end -%&gt;
+
+# This makes partman automatically partition without confirmation, provided
+# that you told it what to do using one of the methods above.
+d-i partman/confirm_write_new_label boolean true
+d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+d-i partman/confirm_nooverwrite boolean true</code></pre>
+</section><section id="provisioning-2" class="slide level2">
+<h1>Provisioning</h1>
+<ul>
+<li>Another template also called <code>Preseed Default</code> provides the other necessary configuration options without user intervention
+<ul>
+<li>Again, custom options can come from foreman</li>
+<li>You can also customize these templates if needed</li>
+</ul></li>
+</ul>
+<pre><code>&lt;%#
+kind: provision
+name: Preseed default
+oses:
+- Debian
+- Ubuntu
+%&gt;
+&lt;%
+  # safemode renderer does not support unary negation
+  pm_set = @host.puppetmaster.empty? ? false : true
+  proxy_string = @host.params[&#39;http-proxy&#39;] ? &quot; http://#{@host.params[&#39;http-proxy&#39;]}:#{@host.params[&#39;http-proxy-port&#39;]}&quot; : &#39;&#39;
+  puppet_enabled = pm_set || @host.param_true?(&#39;force-puppet&#39;)
+  salt_enabled = @host.params[&#39;salt_master&#39;] ? true : false
+  os_major = @host.operatingsystem.major.to_i
+  squeeze_or_older = (@host.operatingsystem.name == &#39;Debian&#39; &amp;&amp; os_major &lt;= 6)
+%&gt;
+# Locale
+d-i debian-installer/locale string &lt;%= @host.params[&#39;lang&#39;] || &#39;en_US&#39; %&gt;
+# country and keyboard settings are automatic. Keep them ...
+# ... for wheezy and newer:
+d-i keyboard-configuration/xkb-keymap seen true
+&lt;% if squeeze_or_older -%&gt;
+# ... for squeeze and older:
+d-i console-keymaps-at/keymap seen true
+&lt;% end -%&gt;
+
+&lt;% subnet = @host.subnet -%&gt;
+&lt;% if subnet.respond_to?(:dhcp_boot_mode?) -%&gt;
+  &lt;% dhcp = subnet.dhcp_boot_mode? &amp;&amp; !@static -%&gt;
+&lt;% else -%&gt;
+  &lt;% dhcp = !@static -%&gt;
+&lt;% end -%&gt;
+&lt;% unless dhcp -%&gt;
+# Static network configuration.
+d-i preseed/early_command string /bin/killall.sh; /bin/netcfg
+d-i netcfg/disable_autoconfig boolean true
+d-i netcfg/dhcp_failed note
+d-i netcfg/dhcp_options select Configure network manually
+d-i netcfg/disable_dhcp boolean true
+d-i netcfg/get_ipaddress string &lt;%= @host.ip %&gt;
+d-i netcfg/get_netmask string &lt;%= subnet.mask %&gt;
+d-i netcfg/get_nameservers string &lt;%= [subnet.dns_primary,subnet.dns_secondary].reject{|n| n.blank?}.join(&#39; &#39;) %&gt;
+d-i netcfg/get_gateway string &lt;%= subnet.gateway %&gt;
+d-i netcfg/confirm_static boolean true
+&lt;% end -%&gt;
+
+# Network configuration
+d-i netcfg/choose_interface select auto
+d-i netcfg/get_hostname string &lt;%= @host %&gt;
+d-i netcfg/get_domain string &lt;%= @host.domain %&gt;
+d-i netcfg/wireless_wep string
+
+d-i hw-detect/load_firmware boolean true
+
+# Mirror settings
+d-i mirror/country string manual
+d-i mirror/http/hostname string &lt;%= @preseed_server %&gt;
+d-i mirror/http/directory string &lt;%= @preseed_path %&gt;
+d-i mirror/http/proxy string&lt;%= proxy_string %&gt;
+d-i mirror/codename string &lt;%= @host.operatingsystem.release_name %&gt;
+d-i mirror/suite string &lt;%= @host.operatingsystem.release_name %&gt;
+d-i mirror/udeb/suite string &lt;%= @host.operatingsystem.release_name %&gt;
+
+# Time settings
+d-i clock-setup/utc boolean true
+d-i time/zone string &lt;%= @host.params[&#39;time-zone&#39;] || &#39;UTC&#39; %&gt;
+
+# NTP
+d-i clock-setup/ntp boolean true
+d-i clock-setup/ntp-server string &lt;%= @host.params[&#39;ntp-server&#39;] || &#39;0.debian.pool.ntp.org&#39; %&gt;
+
+# Set alignment for automatic partitioning
+# Choices: cylinder, minimal, optimal
+#d-i partman/alignment select cylinder
+
+&lt;%= @host.diskLayout %&gt;
+
+# Install different kernel
+#d-i base-installer/kernel/image string linux-server
+
+# User settings
+d-i passwd/root-password-crypted password &lt;%= root_pass %&gt;
+user-setup-udeb passwd/root-login boolean true
+d-i passwd/make-user boolean false
+user-setup-udeb passwd/make-user boolean false
+
+&lt;% repos = 0 %&gt;
+&lt;% if puppet_enabled -%&gt;
+&lt;% if @host.param_true?(&#39;enable-puppetlabs-repo&#39;) -%&gt;
+# Puppetlabs products
+d-i apt-setup/local&lt;%= repos %&gt;/repository string \
+      http://apt.puppetlabs.com &lt;%= @host.operatingsystem.release_name %&gt; main
+d-i apt-setup/local&lt;%= repos %&gt;/comment string Puppetlabs products
+d-i apt-setup/local&lt;%= repos %&gt;/source boolean true
+d-i apt-setup/local&lt;%= repos %&gt;/key string http://apt.puppetlabs.com/pubkey.gpg
+&lt;% repos += 1 -%&gt;
+# Puppetlabs dependencies
+d-i apt-setup/local&lt;%= repos %&gt;/repository string \
+      http://apt.puppetlabs.com &lt;%= @host.operatingsystem.release_name %&gt; dependencies
+d-i apt-setup/local&lt;%= repos %&gt;/comment string Puppetlabs dependencies
+d-i apt-setup/local&lt;%= repos %&gt;/source boolean true
+d-i apt-setup/local&lt;%= repos %&gt;/key string http://apt.puppetlabs.com/pubkey.gpg
+&lt;% repos += 1 -%&gt;
+&lt;% end -%&gt;
+&lt;% if @host.param_true?(&#39;enable-puppetlabs-pc1-repo&#39;) -%&gt;
+# Puppetlabs PC1 &lt;%= @host.operatingsystem.release_name %&gt; Repository
+d-i apt-setup/local&lt;%= repos %&gt;/repository string http://apt.puppetlabs.com &lt;%= @host.operatingsystem.release_name %&gt; PC1
+d-i apt-setup/local&lt;%= repos %&gt;/comment string Puppetlabs PC1 &lt;%= @host.operatingsystem.release_name %&gt; Repository
+d-i apt-setup/local&lt;%= repos %&gt;/source boolean true
+d-i apt-setup/local&lt;%= repos %&gt;/key string http://apt.puppetlabs.com/pubkey.gpg
+&lt;% repos += 1 -%&gt;
+&lt;% end -%&gt;
+&lt;% end -%&gt;
+
+&lt;% if salt_enabled -%&gt;
+&lt;% salt_package = &#39;salt-minion&#39; -%&gt;
+&lt;% if @host.param_true?(&#39;enable-saltstack-repo&#39;) -%&gt;
+&lt;% if @host.operatingsystem.name == &#39;Debian&#39; -%&gt;
+d-i apt-setup/local&lt;%= repos %&gt;/repository string http://debian.saltstack.com/debian &lt;%= @host.operatingsystem.release_name %&gt;-saltstack main
+d-i apt-setup/local&lt;%= repos %&gt;/comment string SaltStack Repository
+d-i apt-setup/local&lt;%= repos %&gt;/key string http://debian.saltstack.com/debian-salt-team-joehealy.gpg.key
+&lt;% repos += 1 -%&gt;
+&lt;% end -%&gt;
+&lt;% if @host.operatingsystem.name == &#39;Ubuntu&#39; -%&gt;
+d-i apt-setup/local&lt;%= repos %&gt;/repository string http://ppa.launchpad.net/saltstack/salt/ubuntu &lt;%= @host.operatingsystem.release_name %&gt; main
+d-i apt-setup/local&lt;%= repos %&gt;/comment string SaltStack Repository
+d-i apt-setup/local&lt;%= repos %&gt;/key string http://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0x4759FA960E27C0A6
+&lt;% repos += 1 -%&gt;
+&lt;% end -%&gt;
+&lt;% end -%&gt;
+&lt;% else -%&gt;
+&lt;% salt_package = &#39;&#39; -%&gt;
+&lt;% end -%&gt;
+
+# Install minimal task set (see tasksel --task-packages minimal)
+tasksel tasksel/first multiselect minimal, ssh-server, openssh-server
+
+&lt;% if puppet_enabled %&gt;
+&lt;% puppet_package = @host.param_true?(&#39;enable-puppetlabs-pc1-repo&#39;) ? &#39;puppet-agent&#39; : &#39;puppet&#39; -%&gt;
+&lt;% else -%&gt;
+&lt;% puppet_package = &#39;&#39; -%&gt;
+&lt;% end -%&gt;
+
+# Install some base packages
+d-i pkgsel/include string &lt;%= puppet_package %&gt; &lt;%= salt_package %&gt; lsb-release
+d-i pkgsel/update-policy select unattended-upgrades
+
+popularity-contest popularity-contest/participate boolean false
+
+# Boot loader settings
+#grub-pc grub-pc/hidden_timeout boolean false
+#grub-pc grub-pc/timeout string 10
+d-i grub-installer/only_debian boolean true
+d-i grub-installer/with_other_os boolean true
+&lt;% if @host.params[&#39;install-disk&#39;] -%&gt;
+d-i grub-installer/bootdev string &lt;%= @host.params[&#39;install-disk&#39;] %&gt;
+&lt;% elsif (@host.operatingsystem.name == &#39;Debian&#39; and @host.operatingsystem.major.to_i &gt;= 8) or (@host.operatingsystem.name == &#39;Ubuntu&#39; and @host.operatingsystem.major.to_i &gt;= 16) -%&gt;
+d-i grub-installer/bootdev string default
+&lt;% end -%&gt;
+d-i finish-install/reboot_in_progress note
+
+d-i preseed/late_command string wget -Y off &lt;%= @static ? &quot;&#39;#{foreman_url(&#39;finish&#39;)}&amp;static=true&#39;&quot; : foreman_url(&#39;finish&#39;) %&gt; -O /target/tmp/finish.sh &amp;&amp; in-target chmod +x /tmp/finish.sh &amp;&amp; in-target /tmp/finish.sh
+</code></pre>
+</section><section id="provision-finish" class="slide level2">
+<h1>Provision Finish</h1>
+<ul>
+<li><code>Preseed default finish</code> template can provide last minute installation scripts
+<ul>
+<li>It would be tempting here to install all the WU customizations</li>
+<li>Instead we ask the template to setup a configuration management tool <code>salt</code> later discussed</li>
+</ul></li>
+</ul>
+<pre><code>&lt;%#
+kind: finish
+name: Preseed default finish
+oses:
+- Debian
+- Ubuntu
+%&gt;
+&lt;%
+  # safemode renderer does not support unary negation
+  pm_set = @host.puppetmaster.empty? ? false : true
+  puppet_enabled = pm_set || @host.param_true?(&#39;force-puppet&#39;)
+  salt_enabled = @host.params[&#39;salt_master&#39;] ? true : false
+  chef_enabled = @host.respond_to?(:chef_proxy) &amp;&amp; @host.chef_proxy
+%&gt;
+
+&lt;% subnet = @host.subnet -%&gt;
+&lt;% if subnet.respond_to?(:dhcp_boot_mode?) -%&gt;
+&lt;% dhcp = subnet.dhcp_boot_mode? &amp;&amp; !@static -%&gt;
+&lt;% else -%&gt;
+&lt;% dhcp = !@static -%&gt;
+&lt;% end -%&gt;
+&lt;% unless dhcp -%&gt;
+# host and domain name need setting as these values may have come from dhcp if pxe booting
+/bin/sed -i &quot;s/^search.*$/search &lt;%= @host.domain %&gt;/g&quot; /etc/resolv.conf
+/bin/sed -i &quot;s/.*dns-search.*/\tdns-search &lt;%= @host.domain %&gt;/g&quot; /etc/network/interfaces
+/bin/sed -i &quot;s/^&lt;%= @host.ip %&gt;.*/&lt;%= @host.ip %&gt;\t&lt;%= @host.shortname %&gt;.&lt;%= @host.domain %&gt;\t&lt;%= @host.shortname %&gt;/g&quot; /etc/hosts
+/bin/echo &lt;%= @host.shortname %&gt; &gt; /etc/hostname
+&lt;% end -%&gt;
+
+&lt;% if @host.info[&#39;paramepreseed_networking_setup&#39; %&gt;
+/usr/bin/wget --no-proxy --quietters&#39;][&#39;realm&#39;] &amp;&amp; @host.realm &amp;&amp; @host.realm.realm_type == &#39;FreeIPA&#39; -%&gt;
+&lt;%= snippet &#39;freeipa_register&#39; %&gt;
+&lt;% end -%&gt;
+
+&lt;%= snippet(&#39;remote_execution_ssh_keys&#39;) %&gt;
+
+&lt;% if chef_enabled %&gt;
+&lt;%= snippet &#39;chef_client&#39; %&gt;
+&lt;% end -%&gt;
+
+&lt;% if puppet_enabled %&gt;
+&lt;%= snippet &#39;puppet_setup&#39; %&gt;
+&lt;% end -%&gt;
+
+&lt;% if salt_enabled %&gt;
+&lt;%= snippet &#39;saltstack_setup&#39; %&gt;
+&lt;% end -%&gt;
+
+&lt;%= snippet &#39;preseed_networking_setup&#39; %&gt;
+/usr/bin/wget --no-proxy --quiet --output-document=/dev/null --no-check-certificate &lt;%= foreman_url(&#39;built&#39;) %&gt;</code></pre>
+</section><section id="operating-systems" class="slide level2">
+<h1>Operating Systems</h1>
+<ul>
+<li>Templates on their own don’t do anything</li>
+<li>Next step is to define an OS and associate the build templates with it</li>
+<li>This is an entirely GUI process
+<ul>
+<li>One thing that got me was understanding the back and forth
+<ul>
+<li>Create the OS</li>
+<li>Edit the template, associate it with the OS</li>
+<li>Edit the OS and select the relevant template</li>
+</ul></li>
+<li>Would have been nice to have a single configuration interface of some sort</li>
+</ul></li>
+</ul>
+</section><section id="domains-and-subnets" class="slide level2">
+<h1>Domains and Subnets</h1>
+<ul>
+<li>Domains need to be configured mostly for dns search and association with subnets</li>
+<li>Two relevant ones:
+<ul>
+<li><code>winthrop.edu</code> (servers)</li>
+<li><code>win.winthrop.edu</code> (clients)</li>
+</ul></li>
+<li>Subnets can be used by foreman to provide subnet specific templates, i.e. printer configurations, etc…</li>
+</ul>
+</section><section id="host-groups" class="slide level2">
+<h1>Host Groups</h1>
+<ul>
+<li>Host Groups are used to provide logical separation of types of hosts</li>
+<li>I have used two
+<ul>
+<li><code>Ubuntu 18.04</code></li>
+<li><code>Beowulf</code></li>
+</ul></li>
+<li>However you could make these virtually anything</li>
+</ul>
+</section><section id="installation" class="slide level2">
+<h1>Installation</h1>
+<ul>
+<li>Now we will use the <a href="https://acclinuximager.winthrop.edu">GUI</a> to add a new host for provisioning
+<ul>
+<li>Host: <code>demo</code></li>
+<li>MAC: <code>00:11:22:33:44:55</code></li>
+</ul></li>
+<li>Checkout out the <a href="https://acclinuximager.winthrop.edu/unattended/iPXE?mac=00:11:22:33:44:55">preseed</a></li>
+</ul>
+</section><section id="installation-1" class="slide level2">
+<h1>Installation</h1>
+<ul>
+<li>All that and we have a computer that boots to a blank screen!</li>
+<li>Next we need to load it up with software.</li>
+</ul>
+</section></section>
+<section><section id="configuration-management" class="titleslide slide level1"><h1>Configuration Management</h1></section><section id="salt" class="slide level2">
+<h1>Salt</h1>
+<ul>
+<li>Saltstack or simply <code>salt</code> is a configuration management and remote administration tool</li>
+<li>Two types of systems:
+<ul>
+<li>Salt master</li>
+<li>Minions</li>
+</ul></li>
+</ul>
+</section><section id="salt-1" class="slide level2">
+<h1>Salt</h1>
+<ul>
+<li>It’s installation on minions (clients) can be automated using a foreman template</li>
+</ul>
+<pre><code>&lt;%#
+kind: snippet
+name: saltstack_setup
+description: this snippet will configure the Saltstack Minion
+%&gt;
+&lt;%
+etc_path = (@host.operatingsystem.family == &#39;Freebsd&#39;) ? &#39;/usr/local/etc/salt&#39; : &#39;/etc/salt&#39;
+bin_path = (@host.operatingsystem.family == &#39;Freebsd&#39;) ? &#39;/usr/local/bin&#39; : &#39;/usr/bin&#39;
+%&gt;
+
+&lt;% if @host.operatingsystem.family == &#39;Debian&#39; -%&gt;
+apt-get update
+apt-get install -y salt-minion
+&lt;% elsif @host.operatingsystem.family == &#39;Freebsd&#39; -%&gt;
+pkg install -y py27-salt
+&lt;% elsif @host.operatingsystem.family == &#39;Redhat&#39; -%&gt;
+yum -t -y install salt-minion
+&lt;% end -%&gt;
+
+cat &gt; &lt;%= etc_path %&gt;/minion &lt;&lt; EOF
+&lt;%= snippet &#39;saltstack_minion&#39; %&gt;
+EOF
+
+&lt;% if @host.operatingsystem.family == &#39;Freebsd&#39; -%&gt;
+echo &#39;salt_minion_enable=&quot;YES&quot;&#39; &gt;&gt;/etc/rc.conf
+echo &#39;salt_minion_paths=&quot;/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin&quot;&#39; &gt;&gt;/etc/rc.conf
+&lt;% elsif @host.operatingsystem.family == &#39;Redhat&#39; -%&gt;
+/sbin/chkconfig --level 345 salt-minion on
+&lt;% elsif @host.operatingsystem.family == &#39;Suse&#39; -%&gt;
+/sbin/chkconfig salt-minion on -f
+&lt;% end -%&gt;
+
+&lt;%= bin_path %&gt;/salt-call --no-color --grains &gt;/dev/null
+</code></pre>
+</section><section id="salt-2" class="slide level2">
+<h1>Salt</h1>
+<ul>
+<li>When the minion comes online it connects to the salt master retrieving the salt-master public key</li>
+<li>It sends it’s own public key to the master along with it’s hostname for registration</li>
+<li>On the salt master an administrator must run ‘salt-key’ and accept the keys of any clients it should be managing</li>
+<li>Once a key is accepted the minion can communicate with the master and vice versa</li>
+</ul>
+</section><section id="salt-3" class="slide level2">
+<h1>Salt</h1>
+<ul>
+<li>The <code>salt</code> command works by targeting accepted minions</li>
+<li>Since minions by default use their hostname as their <code>minion_id</code> and the hostnames are assigned based on locations it is easy to target machines</li>
+<li><code>salt</code> can also issue arbitrary commands to be run by the client</li>
+<li>For example:
+<ul>
+<li>Which machines are turned on in CARR215?</li>
+<li><code>salt 'carr215*' test.ping</code></li>
+<li>Who is signed on THUR114?</li>
+<li><code>salt 'thur114*' cmd.run who</code></li>
+</ul></li>
+</ul>
+</section><section id="salt-4" class="slide level2">
+<h1>Salt</h1>
+<ul>
+<li>Configuring machines by issuing a bunch of commands would probably work but is a bad idea</li>
+<li>Salt’s power though really comes from its management of configuration</li>
+<li>On the master you can configure <code>/etc/salt/master</code> to specify relevant settings and a base directory to to hold config files</li>
+</ul>
+</section><section id="salt-5" class="slide level2">
+<h1>Salt</h1>
+<ul>
+<li>Configuration of minions is done through a YAML files that end in <code>.sls</code></li>
+<li>The first file is a ‘top’ file
+<ul>
+<li>Levels of file are an id, target(s), and subsequent <code>.sls</code> files to include</li>
+<li>Each line to include is delimited by a <code>.</code> with all parts making up the folder structure and the last part would be the filename</li>
+</ul></li>
+</ul>
+<pre><code># top.sls
+
+base:
+  &#39;*&#39;:
+    - winthrop.desktop.desktop
+    - winthrop.desktop.chromium
+    - winthrop.desktop.env
+    # Atom and not gedit required due to cifs problems
+    - winthrop.devtools.git
+    - winthrop.devtools.java
+    - winthrop.devtools.c++
+    - winthrop.devtools.scheme
+    - winthrop.devtools.haskell
+    - winthrop.devtools.python
+    - winthrop.devtools.fortran
+    - winthrop.devtools.prolog
+    - winthrop.devtools.ruby
+    - winthrop.devtools.mysql-client
+    - winthrop.devtools.mongo-client
+    - winthrop.devtools.php
+    - winthrop.devtools.xdebug
+    - winthrop.devtools.node
+    - winthrop.devtools.misc-tools
+    - winthrop.devtools.vim
+    - winthrop.devtools.eclipse
+    - winthrop.devtools.netbeans
+    - winthrop.devtools.atom
+    - winthrop.devtools.brackets
+    - winthrop.devtools.symfony-installer
+    - winthrop.devtools.meteor-installer
+    - winthrop.devtools.vscode
+    - winthrop.stats.r
+    - winthrop.devtools.ngrok
+
+  &#39;thur114-* or carr215-* or thur317* or thur518* or thur315* or hopper*&#39;:
+    - winthrop.security.antivirus
+    - winthrop.ssh.ssh-server
+    - winthrop.grub.disable-recovery
+    - winthrop.auth.fail2ban
+    - winthrop.printers.printers
+    - winthrop.auth.wuauth
+    - winthrop.auth.admin-user
+    - winthrop.storage.nfs
+    - winthrop.storage.cifs
+    - winthrop.devtools.android-studio
+
+  &#39;thur114-* or carr215-* or thur317* or thur518* or thur315*&#39;:
+    - winthrop.devtools.virtualbox
+    - winthrop.devtools.virtualbox-doman
+    - winthrop.devtools.virtualbox-besmer
+
+  &#39;carr215-lectern*&#39;:
+    - winthrop.devtools.virtualbox-besmer-win7
+    - winthrop.lab-management.server
+
+  &#39;carr215-*&#39;:
+    - winthrop.lab-management.client
+
+  &#39;thur114-04*&#39;:
+    - winthrop.grub.mario
+
+  &#39;virtual*&#39;:
+    - winthrop.devtools.virtualbox-guest-additions
+    - winthrop.printers.printers
+    - winthrop.auth.wuauth
+    - winthrop.auth.admin-user
+    - winthrop.storage.nfs
+    - winthrop.storage.cifs
+    - winthrop.devtools.android-studio
+</code></pre>
+</section><section id="salt-6" class="slide level2">
+<h1>Salt</h1>
+<ul>
+<li>Included sls files levels are id, command, options</li>
+<li>Omitting the options in many cases will use the id as the argument
+<ul>
+<li>I do not recommend doing this</li>
+<li>Abandoned after issues with key uniqueness</li>
+</ul></li>
+</ul>
+<pre><code>install-ubuntu-desktop:
+  pkg.installed:
+    - pkgs:
+      - ubuntu-desktop
+      - ubuntu-restricted-extras
+      - bash-completion
+
+# The locale isn&#39;t set correctly so the terminal won&#39;t run!
+locale-gen:
+  cmd.run
+
+localectl set-locale LANG=&quot;en_US.UTF-8&quot;:
+  cmd.run
+
+set-timezone:
+  timezone.system:
+    - name: America/New_York</code></pre>
+</section><section id="salt-7" class="slide level2">
+<h1>Salt</h1>
+<ul>
+<li>Defining configuration is largely a matter of using the <a href="https://docs.saltstack.com/en/latest/ref/states/all/index.html">documentation</a> to have salt install packages, edit configurations, manage files, etc…</li>
+<li>Once your configuration is ready for deployment you target the machines and ask them to apply the state
+<ul>
+<li><code>salt '*' state.apply</code> forces all minions to read the top.sls and apply relevant sls specifications</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="our-configuration" class="titleslide slide level1"><h1>Our Configuration</h1></section><section id="our-configuration-1" class="slide level2">
+<h1>Our Configuration</h1>
+<ul>
+<li>Lets take a tour of selected important pieces that make up our infrastructure</li>
+</ul>
+</section><section id="local-admin-user" class="slide level2">
+<h1>Local Admin User</h1>
+<ul>
+<li>It’s a good idea to have a local admin user</li>
+<li>Note:
+<ul>
+<li>Home directory location</li>
+<li>Password</li>
+<li>ssh public key</li>
+</ul></li>
+</ul>
+<pre><code># winthrop.auth.admin-user.sls
+# /srv/salt/winthrop/auth/admin-user.sls
+
+create-admin-user:
+  user.present:
+    - name: ubuntu
+    - fullname: ACC Linux
+    - shell: /bin/bash
+    - gid_from_name: true
+    - home: /ubuntu
+    - groups:
+      - adm
+      - cdrom
+      - sudo
+      - dip
+      - plugdev
+      - lpadmin
+    - password : $6$nMVdM....1
+
+add-admin-ssh-key:
+  ssh_auth.present:
+    - user: ubuntu
+    - name: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDvYVlhsOiV4ueMf/Hmm65zN1A+19nWqEx6D64nSPWFxSbuP73TxHdpXU5csPpEzLhjfuh8NmuDbz6RaoKWYxafri0mfs9bvhIxFr7N0CIKUrxi8eNU0qiUXfVnxjZJQpzD5XIChfLBDzkMUFIHHlKzbo61L3KsAdS8NQvt1raOBy4nPo4szh3C6T1JiaHerpEStD5joXAktlk768lWr1OHsoYmR5GhJB3OccgFg7roORlaGnGzdi9HR39j8H+UZxSzQGVpQN/QdWEcU3rKC1z0LJkhXq0lkTVGF51W3WmUo5SvMcnaQMjRB/Wgym1c7u5ZXGsZgIH1SMMLkJ/QG+fR besmera@hydrogen
+</code></pre>
+</section><section id="networked-home-directories" class="slide level2">
+<h1>Networked Home Directories</h1>
+<ul>
+<li>Using NFS for a shared /home across all machines</li>
+</ul>
+<pre><code># winthrop.storage.nfs
+nfs-common:
+  pkg:
+   - installed
+
+/home:
+  mount.mounted:
+    - device: acclinux.winthrop.edu:/srv/home
+    - fstype: nfs
+    - opts: rsize=8192,wsize=8192,bg,rw,nolock,nfsvers=3,hard,intr
+
+acclinux-in-hosts:
+  file.append:
+    - name: /etc/hosts
+    - text: 10.2.1.70 acclinux.winthrop.edu acclinux</code></pre>
+</section><section id="wu-auth" class="slide level2">
+<h1>WU Auth</h1>
+<ul>
+<li>Identification is done through LDAP, Authentication through kerberos</li>
+</ul>
+<pre><code># winthrop.auth.wuauth
+
+{% for pkg in [&#39;sssd&#39;,&#39;libpam-sss&#39;,&#39;sssd-tools&#39;, &#39;krb5-user&#39;] %}
+{{ pkg }}:
+  pkg.installed
+{% endfor %}
+
+/etc/sssd/sssd.conf:
+  file.managed:
+    - source: salt://assets/etc/sssd/sssd.conf
+    - mode: 0600
+    - user: root
+    - group: root
+    - backup: minion
+    - makedirs: true
+
+edit-common-session-mkhomrdir:
+  file.append:
+    - name: /etc/pam.d/common-session
+    - text: session required  pam_mkhomedir.so  umask=0066  skel=/etc/skel
+
+/etc/lightdm/lightdm.conf.d/50-unity-greeter.conf:
+  file.managed:
+    - source: salt://assets/etc/lightdm/lightdm.conf.d/50-unity-greeter.conf
+    - mode: 0644
+    - user: root
+    - group: root
+    - backup: minion
+    - makedirs: true
+
+restart-sssd:
+  cmd.run:
+    - name: service sssd restart
+</code></pre>
+</section><section id="wu-auth-1" class="slide level2">
+<h1>WU Auth</h1>
+<ul>
+<li>And the <code>/etc/sssd/sssd.conf</code></li>
+</ul>
+<pre><code>[nss]
+filter_groups = root
+filter_users = root
+reconnection_retries = 3
+
+[pam]
+reconnection_retries = 3
+
+[sssd]
+#custom re_expression for domain.user or user
+re_expression = (((?P&lt;domain&gt;[^\\]+)\.(?P&lt;name&gt;.+$))|(^(?P&lt;name&gt;[^@\\]+)$))
+config_file_version = 2
+reconnection_retries = 3
+sbus_timeout = 30
+services = nss,pam
+domains = acc,win
+
+[domain/acc]
+#With this as false, a simple &quot;getent passwd&quot; for testing won&#39;t work. You must do getent passwd user@domain.com
+enumerate = false
+cache_credentials = true
+# debug_level = 9
+
+id_provider = ldap
+access_provider = ldap
+auth_provider = krb5
+chpass_provider = krb5
+
+ldap_uri = ldaps://beaufort.winthrop.edu
+ldap_search_base = cn=Users,dc=acc,dc=winthrop,dc=edu
+ldap_tls_cacert = /etc/ssl/certs/ca-certificates.crt
+
+#This parameter requires that the DC present a completely validated certificate chain. If you&#39;re testing or don&#39;t care, use &#39;allow&#39; or &#39;never&#39;.
+ldap_tls_reqcert = demand
+
+krb5_realm = ACC.WINTHROP.EDU
+dns_discovery_domain = ACC.WINTHROP.EDU
+
+ldap_schema = ad
+ldap_access_order = expire
+ldap_account_expire_policy = ad
+ldap_force_upper_case_realm = true
+
+ldap_user_search_base = cn=Users,dc=acc,dc=winthrop,dc=edu
+ldap_user_object_class = user
+ldap_user_name = sAMAccountName
+ldap_user_fullname = displayName
+ldap_user_principal = sssdPleaseConstructUPN
+ldap_id_mapping = true
+
+#Bind credentials
+ldap_default_bind_dn=cn=visitor,cn=Users,dc=acc,dc=winthrop,dc=edu
+ldap_default_authtok=redacted
+
+fallback_homedir = /home/%d.%u
+default_shell = /bin/bash
+
+[domain/win]
+#With this as false, a simple &quot;getent passwd&quot; for testing won&#39;t work. You must do getent passwd user@domain.com
+enumerate = false
+cache_credentials = true
+# debug_level = 9
+
+id_provider = ldap
+access_provider = ldap
+auth_provider = krb5
+chpass_provider = krb5
+
+ldap_uri = ldaps://westerly.winthrop.edu
+ldap_search_base = dc=win,dc=winthrop,dc=edu
+ldap_tls_cacert = /etc/ssl/certs/ca-certificates.crt
+
+#This parameter requires that the DC present a completely validated certificate chain. If you&#39;re testing or don&#39;t care, use &#39;allow&#39; or &#39;never&#39;.
+ldap_tls_reqcert = demand
+
+krb5_realm = WIN.WINTHROP.EDU
+dns_discovery_domain = WIN.WINTHROP.EDU
+
+
+ldap_schema = ad
+ldap_access_order = expire
+ldap_account_expire_policy = ad
+ldap_force_upper_case_realm = true
+
+ldap_user_search_base = dc=win,dc=winthrop,dc=edu
+ldap_user_object_class = user
+ldap_user_name = sAMAccountName
+ldap_user_fullname = displayName
+ldap_user_principal = sssdPleaseConstructUPN
+ldap_id_mapping = true
+
+#Bind credentials
+ldap_default_bind_dn=cn=visitor,ou=Generic Accounts,ou=Winthrop University,ou=Real Users,dc=win,dc=winthrop,dc=edu
+ldap_default_authtok=redacted
+
+fallback_homedir = /home/%d.%u
+default_shell = /bin/bash</code></pre>
+</section><section id="wu-z-drive" class="slide level2">
+<h1>WU Z Drive</h1>
+<ul>
+<li>Using Kerberos means we get a ticket granting ticket that can be used with the file servers for authentication</li>
+</ul>
+<pre><code># winthrop.storage.cifs
+
+{% for pkg in [&#39;cifs-utils&#39;,&#39;libpam-mount&#39;] %}
+{{ pkg }}:
+  pkg.installed
+{% endfor %}
+
+
+manage-pam_mount.conf.xml:
+  file.managed:
+    - name: /etc/security/pam_mount.conf.xml
+    - source: salt://assets/etc/security/pam_mount.conf.xml
+    - mode: 0600
+    - user: root
+    - group: root
+    - backup: minion
+    - makedirs: true
+
+edit-session-common-libpam-mount:
+  file.append:
+    - name: /etc/pam.d/common-session
+    - text: session  optional  pam_mount.so
+</code></pre>
+</section><section id="wu-z-drive-1" class="slide level2">
+<h1>WU Z Drive</h1>
+<ul>
+<li>And mounting the drive automatically</li>
+</ul>
+<pre><code>/srv/salt/assets/etc/security/pam_mount.conf.xml
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+
+&lt;!DOCTYPE pam_mount SYSTEM &quot;pam_mount.conf.xml.dtd&quot;&gt;
+&lt;!--
+    See pam_mount.conf(5) for a description.
+--&gt;
+
+&lt;pam_mount&gt;
+
+&lt;debug enable=&quot;1&quot; /&gt;
+
+        &lt;!-- debug should come before everything else,
+        since this file is still processed in a single pass
+        from top-to-bottom --&gt;
+
+&lt;debug enable=&quot;0&quot; /&gt;
+
+        &lt;!-- Volume definitions --&gt;
+
+
+        &lt;!-- pam_mount parameters: General tunables --&gt;
+
+&lt;!--
+&lt;luserconf name=&quot;.pam_mount.conf.xml&quot; /&gt;
+--&gt;
+
+&lt;!-- Note that commenting out mntoptions will give you the defaults.
+     You will need to explicitly initialize it with the empty string
+     to reset the defaults to nothing. --&gt;
+&lt;mntoptions allow=&quot;nosuid,nodev,loop,encryption,fsck,nonempty,allow_root,allow_other&quot; /&gt;
+&lt;!--
+&lt;mntoptions deny=&quot;suid,dev&quot; /&gt;
+&lt;mntoptions allow=&quot;*&quot; /&gt;
+&lt;mntoptions deny=&quot;*&quot; /&gt;
+--&gt;
+&lt;mntoptions require=&quot;nosuid,nodev&quot; /&gt;
+
+&lt;logout wait=&quot;0&quot; hup=&quot;0&quot; term=&quot;0&quot; kill=&quot;0&quot; /&gt;
+
+
+        &lt;!-- pam_mount parameters: Volume-related --&gt;
+
+&lt;mkmountpoint enable=&quot;1&quot; remove=&quot;true&quot; /&gt;
+
+&lt;volume fstype=&quot;cifs&quot; server=&quot;metropolis.winthrop.edu&quot; path=&quot;share&quot; mountpoint=&quot;/media/%(USER)/S&quot; options=&quot;sec=krb5,uid=%(USER),cruid=%(USER),user=%(USER),file_mode=0700,dir_mode=0700&quot;&gt;
+    &lt;sgrp&gt;Domain Users&lt;/sgrp&gt;
+&lt;/volume&gt;
+&lt;volume fstype=&quot;cifs&quot; server=&quot;metropolis.winthrop.edu&quot; path=&quot;%(USER)&quot; mountpoint=&quot;/media/%(USER)/Z&quot; options=&quot;sec=krb5,uid=%(USER),cruid=%(USER),user=%(USER),file_mode=0700,dir_mode=0700&quot;&gt;
+    &lt;sgrp&gt;Domain Users&lt;/sgrp&gt;
+&lt;/volume&gt;
+
+&lt;/pam_mount&gt;
+</code></pre>
+</section><section id="installing-eclipse" class="slide level2">
+<h1>Installing Eclipse</h1>
+<ul>
+<li>Eclipse is available in the repository but…</li>
+<li>Alternative is to have salt manage the files directly</li>
+<li>Note:
+<ul>
+<li>Different versions</li>
+<li>Script</li>
+</ul></li>
+</ul>
+<pre><code>install-eclipse-cpp:
+  file.recurse:
+    - name: /usr/share/eclipse-cpp
+    - source: salt://assets/usr/share/eclipse-cpp
+    - clean: true
+    - user: root
+    - group: root
+    - dir_mode: 655
+    - file_mode: 655
+    - include_empty: true
+
+make-eclipse-cpp-executable:
+  cmd.run:
+    - name: chmod +x /usr/share/eclipse-cpp/eclipse
+
+add-eclipse-cpp-unity-shortcut:
+  file.managed:
+    - name: /usr/share/applications/eclipse-cpp.desktop
+    - source: salt://assets/usr/share/applications/eclipse-cpp.desktop
+    - mode: 0644
+    - user: root
+    - group: root
+    - backup: minion
+
+install-eclipse-jee:
+  file.recurse:
+    - name: /usr/share/eclipse-jee
+    - source: salt://assets/usr/share/eclipse-jee
+    - clean: true
+    - user: root
+    - group: root
+    - dir_mode: 655
+    - file_mode: 655
+    - include_empty: true
+
+make-eclipse-jee-executable:
+  cmd.run:
+    - name: chmod +x /usr/share/eclipse-jee/eclipse
+
+add-eclipse-jee-unity-shortcut:
+  file.managed:
+    - name: /usr/share/applications/eclipse-jee.desktop
+    - source: salt://assets/usr/share/applications/eclipse-jee.desktop
+    - mode: 0644
+    - user: root
+    - group: root
+    - backup: minion
+
+add-eclipse-script:
+  file.managed:
+    - name: /usr/local/bin/eclipse
+    - source: salt://assets/usr/local/bin/eclipse
+    - mode: 0755
+    - user: root
+    - group: root
+    - backup: minion
+</code></pre>
+</section><section id="deploying-printers" class="slide level2">
+<h1>Deploying Printers</h1>
+<ul>
+<li>Cups (Common UNIX Printing System)</li>
+</ul>
+<pre><code># winthrop.printers.printers
+stop-cups-service:
+  service.dead:
+    - name: cups
+
+install-cups-ppd:
+  file.recurse:
+    - name: /etc/cups/ppd
+    - source: salt://assets/etc/cups/ppd
+    - clean: true
+    - user: root
+    - group: lp
+    - dir_mode: 761
+    - file_mode: 740
+    - include_empty: true
+
+install-cups-printconf:
+  file.managed:
+    - name: /etc/cups/printers.conf
+    - source: salt://assets/etc/cups/printers.conf
+    - mode: 0600
+    - user: root
+    - group: lp
+    - backup: minion
+
+start-cups:
+  service.running:
+    - name: cups
+</code></pre>
+</section><section id="responding-to-incidents" class="slide level2">
+<h1>Responding to Incidents</h1>
+<ul>
+<li>Secure Shell Client not up to date and didn’t support any newer ciphers</li>
+</ul>
+<pre><code># winthrop.ssh.ssh-server
+
+install-ssh:
+  pkg.installed:
+    - pkgs:
+      - openssh-server
+
+#Remove this from being managed in Fall
+enable-weak-ciphers:
+  file.managed:
+    - name: /etc/ssh/sshd_config
+    - source: salt://assets/etc/ssh/sshd_config
+    - mode: 0644
+    - user: root
+    - group: root
+    - backup: minion
+
+#  file.append:
+#    - name: /etc/ssh/sshd_config
+#    - text:
+#      - Ciphers aes128-cbc,aes192-cbc,aes256-cbc,blowfish-cbc,arcfour
+#      - KexAlgorithms diffie-hellman-group1-sha1</code></pre>
+</section><section id="mario" class="slide level2">
+<h1>Mario!</h1>
+<ul>
+<li>An infrastructure isn’t complete without an easter egg.</li>
+<li>One machine, and only one machine, will play a Mario powerup on boot.<br />
+</li>
+<li>Which one is it? <strong><em>Hint:</em></strong> Check <code>top.sls</code>!</li>
+</ul>
+<pre><code># winthrop.grub.mario
+# https://gist.github.com/MaxLaumeister/f93717e91c8bd9d435a5
+
+grub-mario-powerup:
+  file.append:
+    - name: /etc/default/grub
+    - text: GRUB_INIT_TUNE=&quot;1750 523 1 392 1 523 1 659 1 784 1 1047 1 784 1 415 1 523 1 622 1 831 1 622 1 831 1 1046 1 1244 1 1661 1 1244 1 466 1 587 1 698 1 932 1 1195 1 1397 1 1865 1 1397 1&quot;
+
+update-grub-mario:
+  cmd.run:
+    - name: update-grub</code></pre>
+</section></section>
+<section><section id="questions" class="titleslide slide level1"><h1>Questions</h1></section><section id="questions-1" class="slide level2">
+<h1>Questions</h1>
+<ul>
+<li>Questions?</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
