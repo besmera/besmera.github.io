@@ -10,9 +10,11 @@
     * Sorting
     * Trees
 * Pedagogical research challenges us to consider using
+    * New teaching techniques on old problems
     * New tools
-    * New Frameworks
-* I rely heavily on virtualization for: info sec, web development
+    * New frameworks
+    * Virtualization
+* I rely heavily these tools for: info sec, web development
 * Others do the same: networking, operating systems
 
 ## The Problem
@@ -58,6 +60,12 @@
 * Could likely be done with fewer servers
 * Carefully named
 
+## Clients
+
+* We have 60+ clients
+    * Two linux computing labs (~30 machines)
+    * Beowulf Cluster (1 Master 32 Nodes)
+    * Faculty Offices
 
 ## And Now
 
