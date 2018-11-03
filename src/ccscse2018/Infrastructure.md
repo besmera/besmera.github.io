@@ -1,6 +1,6 @@
 % CCSC:SE 2018
 % Andrew Besmer
-% http://besmera.github.io
+% https://besmera.github.io
 
 # Overview
 
@@ -12,9 +12,8 @@
 * Pedagogical research challenges us to consider using
     * New tools
     * New Frameworks
-    * VR/AR
-    * Mobile Development
-* We rely heavily on virtualization for info sec, networking, operating systems, and more
+* I rely heavily on virtualization for: info sec, web development
+* Others do the same: networking, operating systems
 
 ## The Problem
 
@@ -66,8 +65,6 @@
     * We have nodejs, npm, etc... installed already
     * Client machines are behind NAT
     * Ngrock to the rescue
-    * Ngrock is not on our machines and we need it for class next week!
-
 
 ## And Now
 
@@ -106,7 +103,14 @@ salt '*' state.apply winthrop.devtools.ngrok
 * Upgraded Ubuntu 16.04 to Ubuntu 18.04 in May
 * Took very little time time as sls files barely changed
 * If machine dies, ITS replaces and reimage takes ~1hr, with about 2-5 mins of human time.
+* Test deploy students desired software
+* Respond to 'I thought x was installed but it was not'
 
+## Questions
+
+* Any questions?
+
+* https://besmera.github.com
 
 # Infrastructure
 
