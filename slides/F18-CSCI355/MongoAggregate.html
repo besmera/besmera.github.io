@@ -47,9 +47,7 @@
 <li><a href="#/grouping">Grouping</a></li>
 <li><a href="#/deconstruct-arrays">Deconstruct Arrays</a></li>
 <li><a href="#/sorting-and-pagination">Sorting and Pagination</a></li>
-<li><a href="#/restricting-access-to-documents-and-fields">Restricting Access to Documents and Fields</a></li>
 <li><a href="#/geospatial-operator">Geospatial Operator</a></li>
-<li><a href="#/using-variables-in-aggregation">Using Variables in Aggregation</a></li>
 </ul>
 </section>
 
@@ -531,45 +529,6 @@ db.product.insert({
 <h1>$skip Example</h1>
 <p><img src="aggregate_skip.png" alt="Aggregation Skip Example" height="550"></p>
 </section></section>
-<section><section id="restricting-access-to-documents-and-fields" class="titleslide slide level1"><h1>Restricting Access to Documents and Fields</h1></section><section id="redact" class="slide level2">
-<h1>$redact</h1>
-<ul>
-<li>Restrict access to documents
-<ul>
-<li>Uses fields in documents to define privileges</li>
-<li>Apply <code>$cond</code> operator to validate user access</li>
-</ul></li>
-<li>Provides field-level access control
-<ul>
-<li><code>$$DESCEND</code> - returns fields at current document level and continues</li>
-<li><code>$$PRUNE</code> - excludes fields at the current document level</li>
-<li><code>$$KEEP</code> - returns fields at current document level and quits</li>
-</ul></li>
-</ul>
-</section><section id="redact-example" class="slide level2">
-<h1>$redact example</h1>
-<div style="position:relative; width:960px; height:540px; margin:0 auto; padding-top: 20px">
-<div class="fragment fade-out" data-fragment-index="0">
-<pre class="javascript"><code>// catalog collection
-{ 
-    _id: 375,
-    item: &quot;Sony XBR55X900A 55Inch 4K Ultra High Definition TV&quot;,
-    Manufacturer: &quot;Sony&quot;,
-    security: 0, 
-    quantity: 12,
-    list: 4999,
-    pricing: {
-        security: 1, 
-        sale: 2698,
-        wholesale: { 
-            security: 2,
-            amount: 2300 }
-    }
-}</code></pre>
-</div>
-<p><img class="fragment fade-in" data-fragment-index="0" height="540px" src="aggregate_redact.png" alt="Aggregate Redact Example" style="position:absolute;top:0;left:0;" /></p>
-</div>
-</section></section>
 <section><section id="geospatial-operator" class="titleslide slide level1"><h1>Geospatial Operator</h1></section><section id="geonear" class="slide level2">
 <h1>$geoNear</h1>
 <ul>
@@ -598,76 +557,6 @@ db.product.insert({
 }</code></pre>
 </div>
 <p><img class="fragment fade-in" data-fragment-index="0" height="540px" src="aggregate_geonear.png" alt="Aggregate Geonear Example" style="position:absolute;top:0;left:0;" /></p>
-</div>
-</section></section>
-<section><section id="using-variables-in-aggregation" class="titleslide slide level1"><h1>Using Variables in Aggregation</h1></section><section id="let" class="slide level2">
-<h1>$let</h1>
-<ul>
-<li><p>Uses variables to evaluate expressions in fields</p>
-<pre class="json"><code>{
-  $let:
- {
-   vars: { &lt;var1&gt;: &lt;expression&gt;, ... },
-   in: &lt;expression&gt;
- }
-}</code></pre></li>
-</ul>
-</section><section id="subexpression-calculations-with-let" class="slide level2">
-<h1>Subexpression Calculations with $let</h1>
-<div style="position:relative; width:960px; height:540px; margin:0 auto; padding-top: 20px">
-<div class="fragment fade-out" data-fragment-index="0">
-<pre class="javascript"><code>// sales collection
-{
-    &quot;_id&quot; : 1,
-    &quot;price&quot; : 10,
-    &quot;tax&quot; : 0.50,
-    &quot;discount&quot; : true
-}
-
-{
-    &quot;_id&quot; : 2,
-    &quot;price&quot; : 10,
-    &quot;tax&quot; : 0.25,
-    &quot;discount&quot; : false
-}</code></pre>
-</div>
-<p><img class="fragment fade-in" data-fragment-index="0" height="540px" src="aggregate_let.png" alt="Aggregate Let Example" style="position:absolute;top:0;left:0;" /></p>
-</div>
-</section><section id="map" class="slide level2">
-<h1>$map</h1>
-<ul>
-<li><p>Lets you apply an expression to values in arrays</p>
-<pre class="json"><code>{ 
-$map: 
-    { 
-        input: &lt;expression&gt;, 
-        as: &lt;string&gt;, 
-        in: &lt;expression&gt; 
-    } 
-}</code></pre></li>
-</ul>
-</section><section id="subexpression-calculations-on-arrays" class="slide level2">
-<h1>Subexpression Calculations on Arrays</h1>
-<div style="position:relative; width:960px; height:540px; margin:0 auto; padding-top: 20px">
-<div class="fragment fade-out" data-fragment-index="0">
-<pre class="javascript"><code>// sales collection
-{
-    &quot;_id&quot; : 1,
-    &quot;price&quot; : 10,
-    &quot;tax&quot; : 0.50,
-    &quot;discount&quot; : true,
-    &quot;units&quot; : [ 1, 0, 3, 4, 0, 0, 10, 12, 6, 5 ]
-}
-
-{
-    &quot;_id&quot; : 2,
-    &quot;price&quot; : 10,
-    &quot;tax&quot; : 0.50,
-    &quot;discount&quot; : false,
-    &quot;units&quot; : [ 1, 0, 3, 4, 0, 0, 10, 12, 6, 5 ]
-}</code></pre>
-</div>
-<p><img class="fragment fade-in" data-fragment-index="0" height="540px" src="aggregate_map.png" alt="Aggregate Map Example" style="position:absolute;top:0;left:0;" /></p>
 </div>
 </section></section>
     </div>
