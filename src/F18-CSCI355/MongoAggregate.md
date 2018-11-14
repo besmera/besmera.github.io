@@ -48,9 +48,7 @@
 * $unwind - expand properties to documents
 * $sort - order documents
 * $limit / $skip - pagenate documents
-* $redact - restrict access to parts of documents
 * $geoNear - proximity filter
-* $let / $map - create subexpression variables
 
 # Filtering
 
