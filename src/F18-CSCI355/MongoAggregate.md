@@ -1,4 +1,4 @@
-% Advanced NoSQL
+% NoSQL (Aggregate)
 % Aggregate Pipeline
 % Dr. Andrew Besmer
 
