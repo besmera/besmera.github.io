@@ -6,8 +6,8 @@
   "main": "index.js",
   "dependencies": {
     "gulp-ignore": "^2.0.2",
-    "gulp-livereload": "*",
-    "gulp-plumber": "^1.2.0",
+    "gulp-livereload": "^4.0.1",
+    "gulp-plumber": "^1.2.1",
     "gulp-rename": "^1.4.0",
     "gulp-spawn-shim": "*",
     "gulp-util": "^3.0.8",
