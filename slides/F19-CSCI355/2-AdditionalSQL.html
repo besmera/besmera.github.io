@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>Additional SQL</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Additional SQL</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/nulls">NULLs</a></li>
+<li><a href="#/aggregation">Aggregation</a></li>
+<li><a href="#/subquery">Subquery</a></li>
+<li><a href="#/grouping">Grouping</a></li>
+<li><a href="#/summary">Summary</a></li>
+</ul>
+</section>
+
+<section><section id="nulls" class="titleslide slide level1"><h1>NULLs</h1></section><section id="meaning" class="slide level2">
+<h2>Meaning</h2>
+<ul>
+<li>Recall meaning of <code>NULL</code>
+<ul>
+<li>Not Applicable</li>
+<li>Unavailable (Applicable but withheld)</li>
+<li>Unknown value</li>
+</ul></li>
+<li>Each <code>NULL</code> is considered to be different from every other <code>NULL</code> <a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></li>
+</ul>
+<pre class="sql"><code>SELECT * FROM Product WHERE Category = NULL; </code></pre>
+</section><section id="comparisons" class="slide level2">
+<h2>Comparisons</h2>
+<ul>
+<li>When being evaluated <code>NULL</code>s have three valued logic
+<ul>
+<li>I find it helpful to think about it as a placeholder</li>
+</ul></li>
+</ul>
+</section><section id="and" class="slide level2">
+<h2>AND</h2>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>TRUE</strong></th>
+<th><strong>FALSE</strong></th>
+<th><strong>NULL</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>TRUE</strong></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>NULL</td>
+</tr>
+<tr class="even">
+<td><strong>FALSE</strong></td>
+<td>FALSE</td>
+<td>FALSE</td>
+<td>FALSE</td>
+</tr>
+<tr class="odd">
+<td><strong>NULL</strong></td>
+<td>NULL</td>
+<td>FALSE</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+</section><section id="or" class="slide level2">
+<h2>OR</h2>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>TRUE</strong></th>
+<th><strong>FALSE</strong></th>
+<th><strong>NULL</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>TRUE</strong></td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+</tr>
+<tr class="even">
+<td><strong>FALSE</strong></td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>NULL</td>
+</tr>
+<tr class="odd">
+<td><strong>NULL</strong></td>
+<td>TRUE</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+</section><section id="not" class="slide level2">
+<h2>NOT</h2>
+<table>
+<thead>
+<tr class="header">
+<th>In</th>
+<th>Out</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TRUE</td>
+<td>FALSE</td>
+</tr>
+<tr class="even">
+<td>FALSE</td>
+<td>TRUE</td>
+</tr>
+<tr class="odd">
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+</section><section id="comparisons-1" class="slide level2">
+<h2>Comparisons</h2>
+<ul>
+<li>Can use <code>IS NULL</code> or <code>IS NOT NULL</code> when looking to compare in <code>WHERE</code> clause
+<ul>
+<li>Returns <code>TRUE</code> or <code>FALSE</code> instead of <code>NULL</code></li>
+</ul></li>
+<li>What question am I asking the database?</li>
+</ul>
+<pre class="sql"><code>SELECT * FROM Product WHERE Category IS NULL; </code></pre>
+</section></section>
+<section><section id="aggregation" class="titleslide slide level1"><h1>Aggregation</h1></section><section id="aggregate-functions" class="slide level2">
+<h2>Aggregate Functions</h2>
+<ul>
+<li><code>COUNT()</code> - Count items in a <strong><em>group</em></strong></li>
+<li><code>SUM()</code> - Sum items in a group</li>
+<li><code>AVG()</code> - Average items in a group</li>
+<li><code>STD()</code> - Std Dev of items in a group</li>
+<li><code>MIN()</code> - Min of items in a group</li>
+<li><code>MAX()</code> - Max of items in a group</li>
+</ul>
+</section><section id="nulls-waggregation" class="slide level2">
+<h2>NULLs w/Aggregation</h2>
+<ul>
+<li>During aggregation on a column <code>NULL</code>s are simply discarded</li>
+</ul>
+<pre class="sql"><code>SELECT COUNT(*) FROM Product;</code></pre>
+<p>vs</p>
+<pre class="sql"><code>SELECT COUNT(Company) FROM Product;</code></pre>
+</section><section id="in-operator" class="slide level2">
+<h2>IN Operator</h2>
+<ul>
+<li>Comparison operator <code>IN</code>
+<ul>
+<li>Compares value <span class="math inline">\(v\)</span> with a set (or multiset) of values <span class="math inline">\(V\)</span></li>
+<li>Evaluates to <code>TRUE</code> if <span class="math inline">\(v \in V\)</span></li>
+</ul></li>
+<li>Useful with nested queries!</li>
+</ul>
+<pre class="sql"><code>SELECT * FROM Product WHERE Company IN (1,2);</code></pre>
+<pre class="sql"><code>SELECT * FROM Product WHERE (Company,Category) IN ((1,1),(1,2));</code></pre>
+</section></section>
+<section><section id="subquery" class="titleslide slide level1"><h1>Subquery</h1></section><section id="subquery-1" class="slide level2">
+<h2>Subquery</h2>
+<dl>
+<dt>Subquery</dt>
+<dd>SQL query within another query
+</dd>
+</dl>
+<ul>
+<li>Identify <em>inner/sub query</em> and <em>outer query</em></li>
+</ul>
+<pre class="sql"><code>SELECT Company.Name FROM Company 
+WHERE Company.id IN (Select Product.Company 
+        FROM Product WHERE Product.Price &gt; 15.00);</code></pre>
+<p>same as</p>
+<pre class="sql"><code>SELECT Company.Name FROM Company JOIN Product ON 
+Company.id = Product.Company WHERE
+ Product.Price &gt; 15.00;</code></pre>
+</section><section id="subquery-2" class="slide level2">
+<h2>Subquery</h2>
+<ul>
+<li>Can you put them in a <code>FROM</code> clause?</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Must alias the subquery table
+<ul>
+<li>Avoids ambiguities with other tables</li>
+</ul></li>
+<li>Can perform same operations as if table existed</li>
+</ul>
+<pre class="sql"><code>SELECT * FROM (Select * FROM Product) AS P;</code></pre>
+</div>
+</section><section id="correlated" class="slide level2">
+<h2>Correlated</h2>
+<dl>
+<dt>Correlated Query</dt>
+<dd>Inner/subquery references a row in the outer query
+</dd>
+</dl>
+<ul>
+<li>Evaluated once <strong><em>for each row</em></strong> in the outer</li>
+</ul>
+<pre class="sql"><code>SELECT * FROM Product AS P WHERE P.Price &gt; (Select AVG(Product.Price)
+ FROM Product WHERE Product.Category = P.Category);</code></pre>
+</section><section id="exists" class="slide level2">
+<h2>Exists</h2>
+<ul>
+<li><code>EXISTS</code> Checks for the existence of any results in the nested query
+<ul>
+<li>Example is correlated</li>
+</ul></li>
+</ul>
+<pre class="sql"><code>SELECT * FROM Company WHERE EXISTS (Select * FROM Product 
+WHERE Product.Company = Company.id);</code></pre>
+<ul>
+<li>What would NOT EXISTS do then?</li>
+</ul>
+</section></section>
+<section><section id="grouping" class="titleslide slide level1"><h1>Grouping</h1></section><section id="group-by" class="slide level2">
+<h2>GROUP BY</h2>
+<ul>
+<li><code>GROUP BY</code> Partitions results into subsets of tuples based on the grouping attributes
+<ul>
+<li>Aggregate functions are applied independently to each group</li>
+</ul></li>
+<li><code>NULL</code>s get their own group
+<ul>
+<li>Does this query make sense then?</li>
+</ul></li>
+</ul>
+<pre class="sql"><code>SELECT Company, AVG(Price) FROM Product GROUP BY Company;</code></pre>
+</section><section id="group-by-1" class="slide level2">
+<h2>GROUP BY</h2>
+<ul>
+<li>Beware of projecting any attributes not used in the <code>GROUP BY</code> or that are not the result of the aggregation functions</li>
+</ul>
+<pre class="sql"><code>SELECT name, AVG(Price) FROM Product GROUP BY Company;</code></pre>
+</section><section id="practice" class="slide level2">
+<h2>Practice</h2>
+<ol type="1">
+<li>Get <strong><em>all the company names</em></strong> and the <strong><em>average price of their products</em></strong>.</li>
+<li>Get <strong><em>all the company names</em></strong> and the <strong><em>average price of their products</em></strong>. <strong><em>Don’t discard the NULL</em></strong> (missing companies) avg price.
+<ul>
+<li><strong><em>Hint:</em></strong> <code>OUTER</code></li>
+</ul></li>
+</ol>
+</section><section id="having" class="slide level2">
+<h2>HAVING</h2>
+<ul>
+<li><code>HAVING</code> Provides a condition on the summary information, <strong>applied after grouping</strong>
+<ul>
+<li>Can use aggregate functions in the <code>HAVING</code> but not <code>WHERE</code></li>
+</ul></li>
+</ul>
+<pre class="sql"><code>SELECT Company, AVG(Price) FROM Product 
+GROUP BY Company HAVING AVG(Price) &lt; 15.00;</code></pre>
+</section><section id="practice-1" class="slide level2">
+<h2>Practice</h2>
+<ol type="1">
+<li>Modify the last query (shown below) to output the company name and average price instead of just the id.</li>
+</ol>
+<pre class="sql"><code>SELECT Company, AVG(Price) FROM Product 
+GROUP BY Company HAVING AVG(Price) &lt; 15.00;</code></pre>
+<ol start="2" type="1">
+<li>Modify the query below to output the company name, category name, and average price instead of just the id.</li>
+</ol>
+<pre class="sql"><code>SELECT Category, Company, AVG(Price) FROM Product 
+GROUP BY Category, Company;
+</code></pre>
+</section></section>
+<section><section id="summary" class="titleslide slide level1"><h1>Summary</h1></section><section id="summary-1" class="slide level2">
+<h2>Summary</h2>
+<ol type="1">
+<li>Cartesian product of tables <code>FROM</code> &amp; <code>JOIN</code></li>
+<li>Iterate over each row
+<ol start="2" type="1">
+<li>Check selection condition <code>WHERE</code> &amp; <code>ON</code></li>
+</ol></li>
+<li>Partition into groups <code>GROUP BY</code></li>
+<li>Iterate over each group
+<ol start="4" type="1">
+<li>Check grouping condition <code>HAVING</code></li>
+</ol></li>
+<li>Order rows <code>ORDER BY</code></li>
+<li>Project attributes/columns <code>SELECT</code></li>
+</ol>
+<pre class="sql"><code>SELECT &lt;projection attribute(s)&gt;
+FROM &lt;table(s)&gt;
+[WHERE &lt;condition(s)&gt;]
+[GROUP BY &lt;attribute(s)&gt;]
+[HAVING &lt;group condition&gt;]
+[ORDER BY &lt;attribute list&gt;];</code></pre>
+</section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Except when aggregating.<a href="#/fnref1">↩</a></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
