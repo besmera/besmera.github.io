@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>Intro To HTML</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Intro To HTML</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/origin">Origin</a></li>
+<li><a href="#/html">HTML</a></li>
+<li><a href="#/minimal-html">Minimal HTML</a></li>
+<li><a href="#/body-1">Body</a></li>
+</ul>
+</section>
+
+<section><section id="origin" class="titleslide slide level1"><h1>Origin</h1></section><section id="timeline" class="slide level2">
+<h2>Timeline</h2>
+<ul>
+<li><strong>1989</strong> - First HTML page! Tim Berners-Lee</li>
+<li><strong>1993</strong> - Research center created Mosaic browser
+<ul>
+<li>Supports images, etc…</li>
+</ul></li>
+<li><strong>1994</strong> - W3C or World Wide Web Consortium
+<ul>
+<li><strong>1995</strong> - HTML 2.0</li>
+<li><strong>1997</strong> - HTML 3.2 &amp; 4.0</li>
+<li><strong>1999</strong> - HTML 4.01</li>
+<li><strong>2008</strong> - HTML5</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="html" class="titleslide slide level1"><h1>HTML</h1></section><section id="html-1" class="slide level2">
+<h2>HTML</h2>
+<dl>
+<dt>HTML</dt>
+<dd>HyperText Markup Language - A language used to annotate (markup) content
+</dd>
+</dl>
+<ul>
+<li>Webpage
+<ul>
+<li><strong>HTML</strong> - Structure &amp; Semantics</li>
+<li><strong>CSS</strong> - Presentation</li>
+<li><strong>JavaScript</strong> - Interactivity</li>
+</ul></li>
+</ul>
+</section><section id="html-2" class="slide level2">
+<h2>HTML</h2>
+<ul>
+<li>HTML is made up of tags</li>
+<li>Basic tag parts
+<ol type="1">
+<li><code>&lt;</code> - Less than sign</li>
+<li>TAG - The HTML tag</li>
+<li><code>&gt;</code> - Greater than sign</li>
+</ol></li>
+<li>Easiest HTML tag… <code>&lt;html&gt;</code></li>
+</ul>
+</section><section id="html-3" class="slide level2">
+<h2>HTML</h2>
+<ul>
+<li>Recall HTML purpose (structure/semantics)</li>
+<li>To accomplish this most tags require a:
+<ul>
+<li>Start tag <code>&lt;html&gt;</code></li>
+<li>End tag <code>&lt;/html&gt;</code>
+<ol type="1">
+<li><code>&lt;</code> - Less than sign</li>
+<li><code>/</code> - Forward slash</li>
+<li>TAG - The HTML tag</li>
+<li><code>&gt;</code> - Greater than sign</li>
+</ol></li>
+</ul></li>
+</ul>
+</section><section id="html-4" class="slide level2">
+<h2>HTML</h2>
+<ul>
+<li>Tags surround everything they apply to</li>
+<li>What is this tag describing?</li>
+</ul>
+<pre class="html"><code>&lt;address&gt;701 Oakland Ave. Rock Hill, SC 29733&lt;/address&gt;</code></pre>
+</section><section id="html-5" class="slide level2">
+<h2>HTML</h2>
+<ul>
+<li>HTML is generally stored in a file that ends in <code>.html</code></li>
+<li>Many students forget the <code>.html</code>!</li>
+</ul>
+</section></section>
+<section><section id="minimal-html" class="titleslide slide level1"><h1>Minimal HTML</h1></section><section id="minimal-html-1" class="slide level2">
+<h2>Minimal HTML</h2>
+<ul>
+<li>Minimum needed for valid HTML:</li>
+</ul>
+<pre class="html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;&lt;/title&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+
+    &lt;/body&gt;
+&lt;/html&gt; </code></pre>
+</section><section id="doctype" class="slide level2">
+<h2>DOCTYPE</h2>
+<ul>
+<li><code>DOCTYPE</code> is actually not an HTML tag
+<ul>
+<li>Declaration of what follows</li>
+<li>Used by browser to “understand” the rest of the page</li>
+</ul></li>
+</ul>
+<pre class="html"><code>&lt;!DOCTYPE html&gt;</code></pre>
+</section><section id="html-6" class="slide level2">
+<h2>HTML</h2>
+<ul>
+<li><code>html</code> tag is used to surround all other html
+<ul>
+<li>should be first opening tag and last closing tag</li>
+</ul></li>
+</ul>
+<pre class="html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;/html&gt; </code></pre>
+</section><section id="head" class="slide level2">
+<h2>HEAD</h2>
+<ul>
+<li><code>head</code> tag contains information for the webpage
+<ul>
+<li>title</li>
+<li>css</li>
+<li>meta</li>
+<li>…</li>
+</ul></li>
+<li>None of this should be visible<a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></li>
+</ul>
+<pre class="html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+    &lt;/head&gt;
+&lt;/html&gt; </code></pre>
+</section><section id="title" class="slide level2">
+<h2>Title</h2>
+<ul>
+<li>The <code>title</code> tag is used to name the webpage
+<ul>
+<li>This same name is used to label the tab in your browser</li>
+<li><strong>Must</strong> be located inside the <code>head</code></li>
+</ul></li>
+</ul>
+<pre class="html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Cars&lt;/title&gt;
+    &lt;/head&gt;
+&lt;/html&gt; </code></pre>
+</section><section id="body" class="slide level2">
+<h2>Body</h2>
+<ul>
+<li><code>body</code> tag is used to hold of all the content, particularly visible content</li>
+<li>The <code>body</code> tag does not belong inside the <code>head</code>, it is below it at the same level</li>
+</ul>
+<pre class="html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Cars&lt;/title&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        This can be seen on the page!
+    &lt;/body&gt;
+&lt;/html&gt; </code></pre>
+</section><section id="html-7" class="slide level2">
+<h2>HTML</h2>
+<ul>
+<li>HTML does not care about
+<ul>
+<li>White space</li>
+<li>CRLF (carriage return line feeds)</li>
+</ul></li>
+<li>Why?</li>
+</ul>
+<pre class="html"><code>..
+    &lt;body&gt;
+        This can be seen on the page!
+    &lt;/body&gt;
+..</code></pre>
+<ul>
+<li>is the same as</li>
+</ul>
+<pre class="html"><code>..
+    &lt;body&gt;
+        This can be seen 
+
+
+
+        on the page!
+    &lt;/body&gt;
+..</code></pre>
+</section><section id="html-8" class="slide level2">
+<h2>HTML</h2>
+<ul>
+<li>How should you format code?</li>
+</ul>
+<p> </p>
+<ul>
+<li>Use indentation to represent nesting</li>
+</ul>
+<pre class="html"><code>&lt;ul&gt;
+    &lt;li&gt;Some item&lt;/li&gt;
+    &lt;li&gt;Some other item&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<ul>
+<li>Use all lowercase or uppercase for all tags (except <code>DOCTYPE</code>)<a href="#/fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>
+<ul>
+<li>Most use all lower</li>
+</ul></li>
+</ul>
+</section><section id="practice" class="slide level2">
+<h2>Practice</h2>
+<ul>
+<li>Lets practice!</li>
+</ul>
+</section></section>
+<section><section id="body-1" class="titleslide slide level1"><h1>Body</h1></section><section id="heading-tags" class="slide level2">
+<h2>Heading Tags</h2>
+<ul>
+<li>Heading tags</li>
+<li>There are six levels
+<ul>
+<li><code>h1</code>,<code>h2</code>,<code>h3</code>,<code>h4</code>,<code>h5</code>,<code>h6</code></li>
+</ul></li>
+<li>These are <strong>NOT</strong> used to make text bigger or smaller
+<ul>
+<li>The default behavior of most browsers does that</li>
+<li>Professional designers will use a ‘css reset’</li>
+</ul></li>
+</ul>
+</section><section id="heading-tags-1" class="slide level2">
+<h2>Heading Tags</h2>
+<ul>
+<li>Example</li>
+</ul>
+<pre class="html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Cars&lt;/title&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;h1&gt;Cars&lt;/h1&gt;
+        ..
+        &lt;h2&gt;Compact&lt;/h2&gt;
+        ..
+        &lt;h3&gt;Ford Focus&lt;/h3&gt;
+        ..
+        &lt;h3&gt;Honda Civic&lt;/h3&gt;
+        ..
+        &lt;h2&gt;Midsize&lt;/h2&gt;
+        ..
+        &lt;h3&gt;Chevy Malibu&lt;/h3&gt;
+        ..
+        ..
+    &lt;/body&gt;
+&lt;/html&gt; </code></pre>
+</section><section id="paragraphs" class="slide level2">
+<h2>Paragraphs</h2>
+<ul>
+<li><code>p</code> tag is used to indicate content is paragraph text</li>
+<li>A very common mistake is to put a number at the <code>p</code> tag
+<ul>
+<li><del><code>&lt;p2&gt;</code></del> - Don’t do this!</li>
+</ul></li>
+</ul>
+<pre class="html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Cars&lt;/title&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;h1&gt;Cars&lt;/h1&gt;
+        &lt;p&gt;This is my first paragraph.&lt;/p&gt;
+        &lt;p&gt;This is my second paragraph.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt; </code></pre>
+</section><section id="style" class="slide level2">
+<h2>Style</h2>
+<ul>
+<li>Anyone ever use the <code>&lt;b&gt;</code> tag?</li>
+</ul>
+<pre class="html"><code>This is &lt;b&gt;so&lt;/b&gt; important.</code></pre>
+</section><section id="style-1" class="slide level2">
+<h2>Style</h2>
+<ul>
+<li>Don’t do it! Anyone know why?</li>
+</ul>
+<ul>
+<li class="fragment">Can use <code>&lt;strong&gt;</code> instead, why is this better?</li>
+</ul>
+<ul>
+<li class="fragment">Use <code>&lt;i&gt;</code>? Don’t! Use <code>&lt;em&gt;</code>, why is this better?</li>
+</ul>
+</section><section id="lists" class="slide level2">
+<h2>Lists</h2>
+<ul>
+<li>Lists can be
+<ul>
+<li><code>ul</code> - Unordered Lists</li>
+<li><code>ol</code> - Ordered Lists</li>
+</ul></li>
+<li>Which to use for:
+<ul>
+<li>Colors for a product?</li>
+<li>Winners of a race?</li>
+<li>States in the US?</li>
+</ul></li>
+</ul>
+</section><section id="lists-1" class="slide level2">
+<h2>Lists</h2>
+<ul>
+<li>What goes inside lists? List Items!
+<ul>
+<li><code>li</code> - List Item</li>
+<li>Each list item should have it’s own start and close tag</li>
+<li>All items should be surrounded with the <code>ul</code> or <code>ol</code></li>
+</ul></li>
+</ul>
+</section><section id="lists-2" class="slide level2">
+<h2>Lists</h2>
+<ul>
+<li>Unordered Example</li>
+</ul>
+<pre class="html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Cars&lt;/title&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;h1&gt;Cars&lt;/h1&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Honda Civic&lt;/li&gt;
+            &lt;li&gt;Chevy Malibu&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/body&gt;
+&lt;/html&gt; </code></pre>
+</section><section id="lists-3" class="slide level2">
+<h2>Lists</h2>
+<ul>
+<li>Ordered Example</li>
+</ul>
+<pre class="html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Race Results&lt;/title&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;h1&gt;Race Results&lt;/h1&gt;
+        &lt;ol&gt;
+            &lt;li&gt;Alice&lt;/li&gt;
+            &lt;li&gt;Bob&lt;/li&gt;
+            &lt;li&gt;Trudy&lt;/li&gt;
+        &lt;/ol&gt;
+    &lt;/body&gt;
+&lt;/html&gt; </code></pre>
+</section><section id="nested-lists" class="slide level2">
+<h2>Nested Lists</h2>
+<ul>
+<li>Lists can be located inside other lists!</li>
+</ul>
+<pre class="html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Race Results&lt;/title&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;h1&gt;Race Results&lt;/h1&gt;
+        &lt;ol&gt;
+            &lt;li&gt;Alice&lt;/li&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Time: 2min 32sec&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;li&gt;Bob&lt;/li&gt;
+            &lt;li&gt;Trudy&lt;/li&gt;
+        &lt;/ol&gt;
+    &lt;/body&gt;
+&lt;/html&gt; </code></pre>
+</section><section id="links" class="slide level2">
+<h2>Links</h2>
+<ul>
+<li>The web would not be the web without links!</li>
+<li>We can create an anchor tag <code>&lt;a&gt;</code></li>
+</ul>
+<pre class="html"><code>Do you want to search &lt;a&gt;Google&lt;/a&gt;?</code></pre>
+<ul>
+<li>What is missing?</li>
+</ul>
+</section><section id="links-1" class="slide level2">
+<h2>Links</h2>
+<ul>
+<li>Attributes are used to modify tags</li>
+<li>Many attributes can be set on a single tag</li>
+<li>For anchors we want to specify the <code>href</code> or the hypertext reference
+<ul>
+<li>What would href be for the anchor below?</li>
+</ul></li>
+</ul>
+<pre class="html"><code>Do you want to search &lt;a&gt;Google&lt;/a&gt;?</code></pre>
+</section><section id="links-2" class="slide level2">
+<h2>Links</h2>
+<ul>
+<li>Attributes are added inside the opening tag right after the tag name (not closing!)
+<ul>
+<li>A single space</li>
+<li>name - The name of the attribute you are setting</li>
+<li><code>=</code> - Separates the attribute name from the value</li>
+<li><code>&quot;</code> - A double quote indicates start of the value</li>
+<li>value - What should the attribute be set to</li>
+<li><code>&quot;</code> - A double quote indicates end of the value</li>
+</ul></li>
+</ul>
+<pre class="html"><code>&lt;a href=&quot;http://www.google.com&quot;&gt;Google&lt;/a&gt;</code></pre>
+</section><section id="links-3" class="slide level2">
+<h2>Links</h2>
+<ul>
+<li><code>href</code> can be absolute or relative
+<ul>
+<li>Relative to where you are
+<ul>
+<li>My office is room 304</li>
+<li>default.htm</li>
+</ul></li>
+<li>Absolute is fully qualified
+<ul>
+<li>My office is Thurmond 304</li>
+<li>http://faculty.winthrop.edu/besmera/default.htm</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="links-4" class="slide level2">
+<h2>Links</h2>
+<ul>
+<li>It can be undesirable to open a link in the same tab</li>
+<li>Why?</li>
+</ul>
+</section><section id="links-5" class="slide level2">
+<h2>Links</h2>
+<ul>
+<li>To open a link in a new window set the <code>target</code> attribute to <code>_blank</code></li>
+<li>Try it!</li>
+</ul>
+</section><section id="images" class="slide level2">
+<h2>Images</h2>
+<ul>
+<li>Images can be specified using the <code>img</code> tag</li>
+<li>Two attributes should generally be set
+<ul>
+<li><code>src</code> - Source of the image (relative/absolute)</li>
+<li><code>alt</code> - Alternative text for the image. Why?</li>
+</ul></li>
+</ul>
+<pre class="html"><code>&lt;img src=&quot;&quot; alt=&quot;&quot;&gt;</code></pre>
+</section><section id="images-1" class="slide level2">
+<h2>Images</h2>
+<ul>
+<li>Example</li>
+</ul>
+<pre class="html"><code>&lt;img src=&quot;http://www.winthrop.edu/uploadedImages/president/library/Tillman.jpg&quot; alt=&quot;Winthrop is located in Rock Hill, SC.&quot;&gt;</code></pre>
+<ul>
+<li>Notice anything missing?</li>
+</ul>
+</section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The <code>title</code> tag content is visible as the text shown in the browser tab.<a href="#/fnref1">↩</a></p></li>
+<li id="fn2"><p>Browsers should allow you to use whatever case you like. However <code>DOCTYPE</code> would be canonical so should be used.<a href="#/fnref2">↩</a></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
