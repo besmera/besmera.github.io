@@ -178,10 +178,6 @@ or
 <input type="text" name="firstName" id="firstName">
 ```
 
-## Try it
-
-Morse code!
-
 ## Checkboxes
 
 * Warning: Only transmitted if checked!
@@ -192,14 +188,14 @@ Status:<br>
 <input type="checkbox" name="student" id="student">
 <label for="student">Student</label><br>
 <input type="checkbox" name="faculty" id="faculty">
-<label for="cheese">Faculty</label>
+<label for="faculty">Faculty</label>
 
 ```html
 Status:<br>
 <input type="checkbox" name="student" id="student">
 <label for="student">Student</label><br>
 <input type="checkbox" name="faculty" id="faculty">
-<label for="cheese">Faculty</label>
+<label for="faculty">Faculty</label>
 ```
 
 ## Radios
@@ -220,13 +216,7 @@ Status:<br>
 
 ## Field Set
 
-<fieldset>
-	<legend>Class Standing:</legend>
-	<label for="freshman">Freshman</label>
-	<input type="radio" name="classStanding" id="freshman" value="freshman">
-	<label for="sophmore">Sophmore</label>
-	<input type="radio" name="classStanding" id="sophmore" value="sophmore">
-</fieldset>
+
 
 ```html
 <fieldset>
@@ -242,8 +232,8 @@ Status:<br>
 
 <label for="state">State:</label>
 <select name="state" id="state">
-  <option value="NC">NC</option>
-  <option value="SC">SC</option>
+  <option value="NC">North Carolina</option>
+  <option value="SC">South Carolina</option>
 </select>
 
 ```html
