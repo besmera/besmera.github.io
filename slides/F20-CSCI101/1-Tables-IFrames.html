@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>Tables &amp; IFrames</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Tables &amp; IFrames</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/tables">Tables</a></li>
+<li><a href="#/iframes">IFrames</a></li>
+</ul>
+</section>
+
+<section><section id="tables" class="title-slide slide level1"><h1>Tables</h1></section><section id="tables-1" class="slide level2">
+<h2>Tables</h2>
+<ul>
+<li>Tables are great for presenting data</li>
+<li>HTML tables are for display only</li>
+<li>Interactivity is JavaScript</li>
+</ul>
+</section><section id="tables-2" class="slide level2">
+<h2>Tables</h2>
+<ul>
+<li>Lets look at how tables are structured</li>
+</ul>
+</section><section id="tables-3" class="slide level2">
+<h2>Tables</h2>
+<ul>
+<li>Just like <code>html</code> has a <code>head</code> and <code>body</code></li>
+<li>A <code>table</code> has
+<ul>
+<li>A table head <code>thead</code></li>
+<li>A table body <code>tbody</code></li>
+<li>Table rows <code>tr</code></li>
+<li>Table headings <code>th</code></li>
+<li>Table data <code>td</code></li>
+</ul></li>
+</ul>
+</section><section id="tables-4" class="slide level2">
+<h2>Tables</h2>
+<ul>
+<li>Lets start by adding the <code>table</code> element</li>
+</ul>
+<pre class="html"><code>&lt;table&gt;
+&lt;/table&gt;</code></pre>
+</section><section id="tables-5" class="slide level2">
+<h2>Tables</h2>
+<ul>
+<li>Inside the <code>table</code> we will put our <code>thead</code> that contains the headings for our data</li>
+</ul>
+<pre class="html"><code>&lt;table&gt;
+    &lt;thead&gt;
+    &lt;/thead&gt;
+&lt;/table&gt;</code></pre>
+</section><section id="tables-6" class="slide level2">
+<h2>Tables</h2>
+<ul>
+<li>Inside the <code>thead</code> we will put a row <code>tr</code> to hold our headings</li>
+</ul>
+<pre class="html"><code>&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+&lt;/table&gt;</code></pre>
+</section><section id="tables-7" class="slide level2">
+<h2>Tables</h2>
+<ul>
+<li>Inside the row we will put table headings <code>th</code></li>
+</ul>
+<pre class="html"><code>&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Favorite Food&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+&lt;/table&gt;</code></pre>
+</section><section id="tables-8" class="slide level2">
+<h2>Tables</h2>
+<ul>
+<li>An important concept to note is what is happening to the table headings inside the row…
+<ul>
+<li>They are occupying 1 column each!</li>
+</ul></li>
+</ul>
+<pre class="html"><code>&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Favorite Food&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+&lt;/table&gt;</code></pre>
+</section><section id="tables-9" class="slide level2">
+<h2>Tables</h2>
+<ul>
+<li>Now we are ready for the tables body <code>tbody</code></li>
+</ul>
+<pre class="html"><code>&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Favorite Food&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+</section><section id="tables-10" class="slide level2">
+<h2>Tables</h2>
+<ul>
+<li>We will again need a row</li>
+</ul>
+<pre class="html"><code>&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Favorite Food&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+</section><section id="tables-11" class="slide level2">
+<h2>Tables</h2>
+<ul>
+<li>Now instead of table headings we will put the actual table data <code>td</code></li>
+</ul>
+<pre class="html"><code>&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Favorite Food&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Alice&lt;/td&gt;
+            &lt;td&gt;Pizza&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+</section><section id="tables-12" class="slide level2">
+<h2>Tables</h2>
+<ul>
+<li>We can add as many rows as we want…</li>
+</ul>
+<pre class="html"><code>&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Favorite Food&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Alice&lt;/td&gt;
+            &lt;td&gt;Pizza&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Bob&lt;/td&gt;
+            &lt;td&gt;Ice Cream&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+</section><section id="tables-13" class="slide level2">
+<h2>Tables</h2>
+<ul>
+<li>Feel free to add a <code>caption</code></li>
+</ul>
+<pre class="html"><code>&lt;table&gt;
+    &lt;caption&gt;Favorite Foods&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Favorite Food&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Alice&lt;/td&gt;
+            &lt;td&gt;Pizza&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Bob&lt;/td&gt;
+            &lt;td&gt;Ice Cream&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+</section><section id="tables-14" class="slide level2">
+<h2>Tables</h2>
+<ul>
+<li>Setting the <code>border</code> attribute to <code>1</code> (turned on) should help you see the table easier
+<ul>
+<li>We should really do this in CSS but we don’t know CSS yet…</li>
+</ul></li>
+</ul>
+<pre class="html"><code>&lt;table border=&quot;1&quot;&gt;
+    &lt;caption&gt;Favorite Foods&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Favorite Food&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Alice&lt;/td&gt;
+            &lt;td&gt;Pizza&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Bob&lt;/td&gt;
+            &lt;td&gt;Ice Cream&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+</section></section>
+<section><section id="iframes" class="title-slide slide level1"><h1>IFrames</h1></section><section id="iframes-1" class="slide level2">
+<h2>IFrames</h2>
+<ul>
+<li>Webpage within a webpage</li>
+<li>Why?</li>
+</ul>
+<pre class="html"><code>&lt;iframe src=&quot;https://www.winthrop.edu&quot;width=&quot;700&quot; height=&quot;500&quot;&gt;&lt;/iframe&gt;</code></pre>
+<p> </p>
+<iframe src="https://www.winthrop.edu" width="700" height="500">
+</iframe>
+</section><section id="iframes-2" class="slide level2">
+<h2>IFrames</h2>
+<ul>
+<li>Winthrop’s Facebook Likes</li>
+</ul>
+<pre class="html"><code>&lt;iframe src=&quot;//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.winthrop.edu&amp;amp;width&amp;amp;layout=standard&amp;amp;action=like&amp;amp;show_faces=true&amp;amp;share=true&amp;amp;height=80&amp;amp;appId=351918688226073&quot; 
+scrolling=&quot;no&quot; frameborder=&quot;0&quot; style=&quot;border:none; overflow:hidden; height:80px;&quot; 
+allowTransparency=&quot;true&quot;&gt;&lt;/iframe&gt;</code></pre>
+<p> </p>
+<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.winthrop.edu&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=80&amp;appId=351918688226073" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" allowTransparency="true">
+</iframe>
+</section><section id="iframes-3" class="slide level2">
+<h2>IFrames</h2>
+<pre class="html"><code>&lt;iframe width=&quot;560&quot; height=&quot;315&quot; 
+src=&quot;//www.youtube.com/embed/UE5p1OZUjPA&quot; 
+frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</code></pre>
+<p> </p>
+<iframe width="560" height="315" src="//www.youtube.com/embed/UE5p1OZUjPA" frameborder="0" allowfullscreen>
+</iframe>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

@@ -31,7 +31,7 @@ gulp.task('default', function() {
     // global pandoc opts
     opts.args.push('--toc');
     opts.args.push('--mathjax');
-    opts.args.push('-S');
+    //opts.args.push('-S');
     opts.args.push('-s');
     opts.args.push('-t');
     opts.args.push('revealjs');
@@ -111,6 +111,7 @@ gulp.task('default', function() {
             })
         .pipe(spawn(opts, magic))
             .on('failure', console.log)
+            .on('stderr', console.log)
         .pipe(rename({extname: ".html"}))
        .pipe(gulp.dest(dest_docs))
             .on('data', function(file) {
