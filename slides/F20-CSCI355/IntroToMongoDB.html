@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>NoSQL (MongoDB)</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">NoSQL (MongoDB)</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/mongo-access">Mongo Access</a></li>
+<li><a href="#/terms">Terms</a></li>
+<li><a href="#/creation">Creation</a></li>
+<li><a href="#/retrieval">Retrieval</a></li>
+<li><a href="#/modification">Modification</a></li>
+<li><a href="#/removal">Removal</a></li>
+<li><a href="#/practice-2">Practice</a></li>
+</ul>
+</section>
+
+<section><section id="mongo-access" class="title-slide slide level1"><h1>Mongo Access</h1></section><section id="getting-access-to-mongo" class="slide level2">
+<h2>Getting Access to Mongo</h2>
+<ul>
+<li>Shared with everyone, no individualized accounts</li>
+<li>Accessing mongo
+<ul>
+<li><code>mongo deltona.birdnest.org/csci355</code></li>
+<li>Create all your collections in this same db</li>
+<li>User: <code>csci355</code> Pass: <code>csci355</code></li>
+<li><code>db.auth('csci355', 'csci355')</code>;</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="terms" class="title-slide slide level1"><h1>Terms</h1></section><section id="rdbms-vs-document-oriented" class="slide level2">
+<h2>RDBMS vs Document Oriented</h2>
+<ul>
+<li><strong>collection</strong>, <strong>document</strong>, and <strong>properties</strong> instead of table, row, and column
+<ul>
+<li>These are a rough mapping, relational DBMS is not the same as document</li>
+<li>For example, properties can contain many objects, a column in RDBMS should contain an atomic value</li>
+</ul></li>
+</ul>
+<p> </p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Doc Oriented</th>
+<th style="text-align: center;">RDBMS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Collection</td>
+<td style="text-align: center;">Table</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Document</td>
+<td style="text-align: center;">Row</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Property</td>
+<td style="text-align: center;">Column</td>
+</tr>
+</tbody>
+</table>
+</section><section id="databases" class="slide level2">
+<h2>Databases</h2>
+<ul>
+<li>A database is essentially the same as MySQL databases</li>
+<li>Each database houses it’s own files</li>
+<li>A database holds collections which will in turn hold documents</li>
+</ul>
+</section><section id="databases-1" class="slide level2">
+<h2>Databases</h2>
+<ul>
+<li>There are typically many databases on a mongo server</li>
+<li>To specify which you want <code>use</code> a database
+<ul>
+<li><code>use MyDatabaseName;</code></li>
+<li><strong>Note:</strong> If the database doesn’t exist, it will be created<a href="#/fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> when you insert a document into a collection</li>
+</ul></li>
+<li>The <code>use</code> command assigns the specified database to a variable <code>db</code></li>
+<li>Type <code>db</code> to see which you are using</li>
+</ul>
+</section><section id="collections" class="slide level2">
+<h2>Collections</h2>
+<ul>
+<li>Collections are similar to, but different from, MySQL tables</li>
+<li>Collections hold many documents (similar to rows), for example a <code>users</code> collection</li>
+<li>Working with collections should be done through the variable <code>db</code></li>
+</ul>
+<pre class="javascript"><code>//Assign the variable db to the university database
+use university;
+
+/* 
+* Find all the documents in the 
+* university databases collection 
+* users 
+*/
+db.users.find() </code></pre>
+</section><section id="collections-1" class="slide level2">
+<h2>Collections</h2>
+<ul>
+<li><code>db.users.find()</code> - Get all the documents in the users collection</li>
+</ul>
+<figure>
+<img data-src="crud-annotated-collection.png" alt="Collections" /><figcaption>Collections</figcaption>
+</figure>
+</section><section id="documents" class="slide level2">
+<h2>Documents</h2>
+<ul>
+<li>Documents are like MySQL rows with some major exceptions
+<ul>
+<li>They are not usually normalized</li>
+<li>They are schemaless</li>
+<li><code>_id</code> is <strong>always</strong> the primary key</li>
+<li><code>_id</code> is <strong>always</strong> the first property <a href="#/fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> <a href="#/fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></li>
+</ul></li>
+<li>Schemaless design means no apriori rigid specification like MySQL</li>
+</ul>
+</section><section id="document-schema" class="slide level2">
+<h2>Document Schema</h2>
+<ul>
+<li>The document schema is simply the properties on the object to be persisted</li>
+<li>The following schema contains properties for
+<ul>
+<li><code>name</code> - Name of the person</li>
+<li><code>age</code> - Age of the person</li>
+<li><code>status</code> - Current grade</li>
+<li><code>groups</code> - List of groups the person belongs to</li>
+</ul></li>
+</ul>
+<pre class="javascript"><code>{
+  name: &quot;Fred Duncan&quot;,                // &lt;- field: value
+  age: 22,                            // &lt;- field: value
+  status: &quot;A&quot;,                        // &lt;- field: value
+  groups: [ &quot;students&quot;, &quot;employees&quot; ] // &lt;- field: value
+}</code></pre>
+</section><section id="document-schema-1" class="slide level2">
+<h2>Document Schema</h2>
+<ul>
+<li>Notice in the relational model <code>groups</code> would violate 1NF and be considered bad design</li>
+</ul>
+<pre class="javascript"><code>{
+  name: &quot;Fred Duncan&quot;,                // &lt;- field: value
+  age: 22,                            // &lt;- field: value
+  status: &quot;A&quot;,                        // &lt;- field: value
+  groups: [ &quot;students&quot;, &quot;employees&quot; ] // &lt;- field: value
+}</code></pre>
+</section><section id="document-schema-2" class="slide level2">
+<h2>Document Schema</h2>
+<ul>
+<li>Documents within the same collection can have as many different schemas as you can put documents!
+<ul>
+<li>Just because you can doesn’t mean you should!</li>
+<li>You can help, or hang yourself, with the flexibility.</li>
+</ul></li>
+</ul>
+<pre class="javascript"><code>{
+  name: {
+    first: &quot;Sue&quot;,
+    last: &quot;Person&quot;
+  },
+  age: 28,
+  categories: [ {name : &quot;students&quot;}, {name: &quot;honors&quot;} ]
+}</code></pre>
+</section><section id="document-schema-3" class="slide level2">
+<h2>Document Schema</h2>
+<ul>
+<li>Limited to max document size of 16M</li>
+<li>Property names can not start with <code>$</code> or <code>.</code></li>
+<li>Take away is documents are very flexible in terms of schema so use wisely</li>
+</ul>
+</section></section>
+<section><section id="creation" class="title-slide slide level1"><h1>Creation</h1></section><section id="creating-databases" class="slide level2">
+<h2>Creating Databases</h2>
+<ul>
+<li>Creating databases is as simple as using them with <code>use</code> and inserting some data in a collection<a href="#/fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></li>
+<li>Database will not be created until there is data in it!</li>
+<li>Can <code>show dbs</code> to see which currently exist</li>
+</ul>
+</section><section id="creating-collections" class="slide level2">
+<h2>Creating Collections</h2>
+<ul>
+<li>Much like creating database simply insert to create the collection</li>
+<li><code>db.users.insert({name:"Sue Person"});</code> inserts a document <strong>and</strong> creates the collection if it doesn’t exist</li>
+<li>Alternatively <code>db.createCollection()</code> can be used to create the collection without inserting data</li>
+<li>Use <code>show collections;</code> or <code>db.getCollectionNames();</code> to see a list</li>
+</ul>
+</section><section id="creating-collections-1" class="slide level2">
+<h2>Creating Collections</h2>
+<ul>
+<li><code>db.createCollection()</code> allows for custom collection creation
+<ul>
+<li>Check out the capped collection</li>
+<li><code>size</code> is bytes</li>
+<li><code>max</code> is n</li>
+</ul></li>
+</ul>
+<pre class="javascript"><code>db.createCollection(name, {
+  capped: &lt;boolean&gt;, 
+  autoIndexId: &lt;boolean&gt;, 
+  size: &lt;number&gt;, 
+  max: &lt;number&gt;
+});</code></pre>
+</section><section id="creating-documents" class="slide level2">
+<h2>Creating Documents</h2>
+<ul>
+<li>Simply insert them using <code>db.collection.insert()</code></li>
+</ul>
+<pre class="javascript"><code>//Insert into the users collection
+db.users.insert (
+  {
+    name: &quot;Sue Person&quot;,
+    age: 26,
+    status: &quot;A&quot;,
+    groups: [ &quot;students&quot;, &quot;honors&quot; ]
+  }
+)</code></pre>
+</section><section id="anatomy-of-an-insert" class="slide level2">
+<h2>Anatomy of an Insert</h2>
+<figure>
+<img data-src="crud-insert-stages.png" alt="Inserting" /><figcaption>Inserting</figcaption>
+</figure>
+</section><section id="data-types" class="slide level2">
+<h2>Data Types</h2>
+<ul>
+<li>Document format is BSON (Binary Javascript Object Notation)</li>
+<li>Like JSON (Javascript Object Notation)</li>
+<li>Here are just a few examples of common BSON data types
+<ul>
+<li><code>Double</code>, <code>String</code>, <code>Array</code></li>
+<li><code>Binary</code>, <code>ObjectId</code>, <code>Boolean</code></li>
+<li><code>Date</code>, <code>Integer</code>, and so on</li>
+</ul></li>
+<li>Most of these familiar already <code>ObjectId</code> however is interesting, lets take a look</li>
+</ul>
+</section><section id="objectid" class="slide level2">
+<h2>ObjectId</h2>
+<ul>
+<li><code>ObjectId</code> is set automatically by mongo if you don’t provide <code>_id</code>
+<ul>
+<li><code>ObjectId</code> made up of 12 bytes</li>
+<li>4 bytes - unix epoch</li>
+<li>3 bytes - server</li>
+<li>2 bytes - PID</li>
+<li>3 bytes - randomish number</li>
+</ul></li>
+<li>Free created at functionality!</li>
+<li>Why wouldn’t mongo just use an auto incrementing id like mysql?</li>
+</ul>
+</section></section>
+<section><section id="retrieval" class="title-slide slide level1"><h1>Retrieval</h1></section><section id="basic-retrieval" class="slide level2">
+<h2>Basic Retrieval</h2>
+<ul>
+<li>The most basic type of retrieval uses the <code>db.collection.find()</code></li>
+<li>Go ahead and do a few inserts in your own database for the users collections use <code>db.users.find()</code> to see that they worked!</li>
+</ul>
+<pre class="javascript"><code>db.users.insert({name:&quot;Alice&quot;});
+db.users.insert({name:&quot;Bob&quot;});
+db.users.insert({name:&quot;Trudy&quot;});
+
+db.users.find();</code></pre>
+</section><section id="selecting-all" class="slide level2">
+<h2>Selecting All</h2>
+<ul>
+<li>Several methods for selection
+<ul>
+<li><code>db.collection.find()</code></li>
+<li><code>db.collection.aggregate()</code></li>
+</ul></li>
+</ul>
+<pre class="javascript"><code>db.users.find();
+db.users.aggregate();</code></pre>
+</section><section id="criteria-selection" class="slide level2">
+<h2>Criteria Selection</h2>
+<ul>
+<li><p>It is possible to do criteria based selection</p></li>
+<li>Comparison operators:
+<ul>
+<li><code>$gt</code> - Greater than</li>
+<li><code>$gte</code> - Greater than or equal to</li>
+<li><code>$lt</code> - Less than</li>
+<li><code>$lte</code> - Less than or equal to</li>
+<li><code>$ne</code> - Not equal to</li>
+</ul></li>
+<li><p>These all work conceptually the same way they do in MySQL or programming</p></li>
+</ul>
+</section><section id="example" class="slide level2">
+<h2>Example</h2>
+<ul>
+<li>Lets insert some sample data we can do selection on</li>
+</ul>
+<pre class="javascript"><code>//drop the collection
+//insert some sample
+db.students.remove({});
+
+db.students.insert({
+  name: &quot;Alice&quot;,
+  age: 16,              //Genius
+  grades: [70, 98, 88, 95]  
+});
+
+db.students.insert({
+  name: &quot;Alice&quot;,
+  age:  30,            //Not Genius
+  grades: [27, 49, 52, 65]  
+});
+
+db.students.insert({
+  name: &quot;Bob&quot;,
+  age: 34,
+  grades: [67, 75, 73, 81]  
+});
+
+db.students.insert({
+  name: &quot;Trudy&quot;,
+  age: 21,
+  grades: [90, 98, 94, 100] 
+});
+
+db.students.insert({
+  name: &quot;Joe&quot;,
+  age: 27,
+  grades: [40, 77, 65, 80]  
+});
+
+db.students.insert({
+  name: &quot;Robson&quot;,
+  age: 18,
+  grades: [56, 82, 74, 68]  
+});</code></pre>
+</section><section id="criteria-selection-1" class="slide level2">
+<h2>Criteria Selection</h2>
+<ul>
+<li>Each of the operators is set as a property on an object that will be set as a value on the property you are testing
+<ul>
+<li>In other words they are set as an expression on the property in the form of an object</li>
+<li>Wow!</li>
+</ul></li>
+<li>For example, to find all students above the age of 18</li>
+</ul>
+<pre class="javascript"><code>db.students.find({
+  age : {    //search age
+    $gt: 18  // &gt; 18
+  }
+});</code></pre>
+</section><section id="anatomy-of-find" class="slide level2">
+<h2>Anatomy of find</h2>
+<figure>
+<img data-src="crud-query-stages.png" alt="Querying" /><figcaption>Querying</figcaption>
+</figure>
+</section><section id="criteria-select" class="slide level2">
+<h2>Criteria Select</h2>
+<ul>
+<li>Try to select
+<ul>
+<li>Students under 21</li>
+<li>Students 21 or older</li>
+</ul></li>
+</ul>
+</section><section id="criteria-select-1" class="slide level2">
+<h2>Criteria Select</h2>
+<ul>
+<li>Other criteria based operators
+<ul>
+<li><code>$in</code> - Does any of the values in an array match?</li>
+<li><code>$nin</code> - Does any of the values in the array not match</li>
+</ul></li>
+<li>The following selects which students are either 18 or 21</li>
+</ul>
+<pre class="javascript"><code>db.students.find({
+  age : {
+    $in: [18, 21]
+  }
+});</code></pre>
+</section><section id="logical-selection" class="slide level2">
+<h2>Logical Selection</h2>
+<ul>
+<li>Similar to SQL you can also do logical selection
+<ul>
+<li><code>$or</code> - logical or</li>
+<li><code>$and</code> - logical and</li>
+<li><code>$not</code> - opposite</li>
+<li><code>$nor</code> - no match for both criteria</li>
+</ul></li>
+<li>The trick to using these operators is that they must be provided before specifying the field since they take an array of expressions</li>
+</ul>
+</section><section id="logical-selection-1" class="slide level2">
+<h2>Logical Selection</h2>
+<ul>
+<li>Selects all the documents with students named “Joe” or who are 21 or older</li>
+</ul>
+<pre class="javascript"><code>db.students.find({
+  $or : [ //an array of expressions
+    {
+      name: &quot;Joe&quot;
+    },
+    {
+      age: { $gte : 21 }
+    }
+  ]
+});</code></pre>
+</section><section id="practice" class="slide level2">
+<h2>Practice</h2>
+<ul>
+<li>Select students named “Alice” who are also under the age of 21</li>
+</ul>
+</section><section id="practice-1" class="slide level2">
+<h2>Practice</h2>
+<ul>
+<li>Select students named “Alice” who are also under the age of 21</li>
+</ul>
+<pre class="javascript"><code>db.students.find({
+  $and : [ //an array of expressions
+    {
+      name: &quot;Alice&quot;
+    },
+    {
+      age: { $lt : 21 }
+    }
+  ]
+});</code></pre>
+<p>or</p>
+<pre class="javascript"><code>//So what does this tell you?
+db.students.find({
+    
+      name: &quot;Alice&quot;,
+      age: { $lt : 21 }
+});</code></pre>
+</section><section id="misc-operators" class="slide level2">
+<h2>Misc Operators</h2>
+<ul>
+<li>Other operators
+<ul>
+<li><code>$mod</code> - Modulus</li>
+<li><code>$regex</code> - Regular expression</li>
+<li><code>$text</code> - Text search (requires index)</li>
+<li><code>$where</code> - Custom javascript expression</li>
+<li><code>$geoWithin</code>/<code>$geoIntersects</code> - Geolocation matching, i.e. everything within a radius!</li>
+<li>and more…</li>
+</ul></li>
+</ul>
+</section><section id="array-selection" class="slide level2">
+<h2>Array selection</h2>
+<ul>
+<li>List students who have made an A or B</li>
+</ul>
+<pre class="javascript"><code>// What is interesting about these results?
+db.students.find({
+  grades: { $gte : 80}
+});</code></pre>
+</section><section id="projection" class="slide level2">
+<h2>Projection</h2>
+<ul>
+<li>Our selections have resulted in the entire document being returned</li>
+<li>Much like MySQL projection can limit returned data
+<ul>
+<li>i.e. - <code>SELECT projection FROM table</code></li>
+</ul></li>
+<li>Projection is the second object passed to <code>.find()</code>
+<ul>
+<li>Can either whitelist <code>1</code> <strong>OR</strong> blacklist <code>0</code></li>
+<li>Exception is for <code>_id</code></li>
+</ul></li>
+</ul>
+</section><section id="projection-1" class="slide level2">
+<h2>Projection</h2>
+<pre class="javascript"><code>db.students.find(
+  {},         // Criteria, or all documents
+  { 
+    name : 1  // Projection, whitelist only the name
+  });</code></pre>
+<p>or</p>
+<pre class="javascript"><code>db.students.find(
+  {},        // Criteria, or all documents
+  { 
+    age : 0  // Projection, blacklist age
+  });</code></pre>
+<p> </p>
+<ul>
+<li><strong>Note</strong> that turning <code>_id</code> on or off has no effect on whitelisting vs blacklisting</li>
+</ul>
+</section><section id="practice-time" class="slide level2">
+<h2>Practice time</h2>
+<ul>
+<li>Create three more students with the properties:
+<ul>
+<li>name</li>
+<li>dorm
+<ul>
+<li>name</li>
+<li>roomNumber</li>
+</ul></li>
+<li>classes <strong>an array of objects containing</strong>
+<ul>
+<li>name</li>
+<li>days <strong>an array containing</strong>
+<ul>
+<li>Days the class meets</li>
+</ul></li>
+<li>credits</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="example-1" class="slide level2">
+<h2>Example</h2>
+<pre class="javascript"><code>{
+  name: &quot;Alice&quot;,
+  dorm: {
+    name: &quot;Thurmond&quot;,
+    room: &quot;304&quot;
+  },
+  classes: [
+    { name: &quot;Databases&quot;, days: [&quot;Monday&quot;, &quot;Wednesday&quot;], credits: 3 },
+    { name: &quot;Advanced Databases&quot;, days: [&quot;Tuesday&quot;, &quot;Thursday&quot;] , credits: 3 },
+  ]
+}</code></pre>
+</section><section id="questions-to-ask" class="slide level2">
+<h2>Questions to Ask</h2>
+<ul>
+<li>Find students with classes that meeting on Thursday</li>
+<li>Find students taking classes with 2 credits or more</li>
+<li>and so on…</li>
+</ul>
+</section></section>
+<section><section id="modification" class="title-slide slide level1"><h1>Modification</h1></section><section id="update" class="slide level2">
+<h2>Update</h2>
+<ul>
+<li>To update use <code>db.collection.update()</code></li>
+<li>The <code>.update()</code> usually takes at least two parameters
+<ul>
+<li>The selection criteria indicating which documents to update</li>
+<li>The update object</li>
+</ul></li>
+<li><strong>Note</strong> that the update object will <em>replace</em> the matched document unless you use special operators!
+<ul>
+<li>It will not overwrite <code>_id</code> though</li>
+</ul></li>
+</ul>
+<pre class="javascript"><code>db.students.insert({_id: 12345, name: &quot;Gary&quot;, age: 44});
+
+db.students.update({_id:12345}, {age:45});
+
+db.students.find({_id:12345});
+// { &quot;_id&quot; : 12345, &quot;age&quot; : 45 }</code></pre>
+</section><section id="update-operators" class="slide level2">
+<h2>Update Operators</h2>
+<ul>
+<li>These field operators do not replace the entire document
+<ul>
+<li><code>$inc</code> - Increment (positive or negative) the field by the value</li>
+<li><code>$mul</code> - Multiply the field by the value</li>
+<li><code>$rename</code> - Rename the field</li>
+<li><code>$set</code> - Set the field to the value</li>
+<li><code>$unset</code> - Unset the field entirely (removal)</li>
+<li><code>$min</code> - Set the min of existing or new value</li>
+<li><code>$max</code> - Set the max of existing or new value</li>
+<li><code>$currentDate</code> Set the current date/time</li>
+</ul></li>
+</ul>
+</section><section id="update-example" class="slide level2">
+<h2>Update Example</h2>
+<pre class="javascript"><code>db.students.remove({_id:12345}); //remove old 
+
+db.students.insert({_id: 12345, name: &quot;Gary&quot;, age: 44});
+
+db.students.update(
+  { _id : 12345 }, //what doc to update
+  { $set : 
+    { 
+      age : 45 //set the age to 45
+    }
+  }
+);
+
+db.students.find({_id:12345});
+// { &quot;_id&quot; : 12345, &quot;name&quot; : &quot;Gary&quot;, &quot;age&quot; : 45 }</code></pre>
+</section><section id="update-1" class="slide level2">
+<h2>Update</h2>
+<ul>
+<li>Lets advance the age of all our students by one year
+<ul>
+<li>What went wrong?</li>
+</ul></li>
+</ul>
+</section><section id="update-2" class="slide level2">
+<h2>Update</h2>
+<ul>
+<li>By default the update command updates just a single document
+<ul>
+<li>Need to tell mongo you want to update <code>multi</code>ple documents</li>
+<li>This is the options object (third) passed to update
+<ul>
+<li>Other options are <code>upsert</code> and <code>writeConcern</code></li>
+<li>More on these later</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="javascript"><code> db.students.update(
+  {},                  //Match all documents
+  { $inc: {age:1} },   //Increment the age by one
+  { multi:true }       //Update more than 1 document
+);</code></pre>
+</section><section id="update-array-operator" class="slide level2">
+<h2>Update Array Operator</h2>
+<ul>
+<li>Different operators available for arrays
+<ul>
+<li><code>$</code> - Symbolizes the first element in the array to match query conditions</li>
+<li><code>$addToSet</code> - Add element to array but only if it doesn’t already exist</li>
+<li><code>$pop</code> - Remove first (<code>-1</code>) or last (<code>1</code>) element in the array</li>
+<li><code>$pullAll</code> - Remove all matching provided elements in the array</li>
+<li><code>$pull</code> - Removes all elements from the array matching search criteria</li>
+<li><code>$push</code> - Adds element to the end of the array</li>
+</ul></li>
+</ul>
+</section><section id="update-operations" class="slide level2">
+<h2>Update operations</h2>
+<ul>
+<li>Add the grade of 100 to the student named “Robson”</li>
+</ul>
+<pre class="javascript"><code>db.students.update(
+  {name: &quot;Robson&quot;},        //What to update
+  {
+    $push : {grades: 100}  //Push a 100 to grades array
+  }
+);</code></pre>
+</section><section id="anatomy-of-update" class="slide level2">
+<h2>Anatomy of update</h2>
+<p><img src="http://docs.mongodb.org/manual/_images/crud-annotated-mongodb-update.png" width="800"></p>
+</section><section id="update-3" class="slide level2">
+<h2>Update</h2>
+<ul>
+<li>Other operators are available and can be found in the <a href="http://docs.mongodb.org/">documentation</a></li>
+</ul>
+</section></section>
+<section><section id="removal" class="title-slide slide level1"><h1>Removal</h1></section><section id="removing-documents" class="slide level2">
+<h2>Removing Documents</h2>
+<ul>
+<li>To remove documents use <code>db.collection.remove()</code></li>
+<li>Removing documents does not reclaim space</li>
+<li>Because mongo is document oriented there will not be any violations of referential integrity</li>
+</ul>
+</section><section id="removing-documents-1" class="slide level2">
+<h2>Removing Documents</h2>
+<ul>
+<li><code>.remove()</code> takes a query object that works exactly like all previous examples</li>
+<li>Be careful removing documents
+<ul>
+<li>Unlike <code>.update()</code> doing a <code>.remove()</code> does not work on one document by default</li>
+<li>It can still be limited but default is limitless</li>
+<li>The following removes all student documents</li>
+</ul></li>
+</ul>
+<pre class="javascript"><code>db.students.remove({}); //Dang!</code></pre>
+</section><section id="removing-collections" class="slide level2">
+<h2>Removing Collections</h2>
+<ul>
+<li>You can remove an entire collection by dropping it
+<ul>
+<li>All documents within it will also be removed</li>
+<li>There is no “are you sure” feature</li>
+</ul></li>
+</ul>
+<pre class="javascript"><code>db.students.drop();</code></pre>
+</section><section id="removing-databases" class="slide level2">
+<h2>Removing Databases</h2>
+<ul>
+<li>To remove a database use <code>.dropDatabase()</code></li>
+</ul>
+<pre class="javascript"><code>db.dropDatabase();</code></pre>
+</section></section>
+<section><section id="practice-2" class="title-slide slide level1"><h1>Practice</h1></section><section id="example-products" class="slide level2">
+<h2>Example Products</h2>
+<pre class="javascript"><code>db.product.drop();
+
+db.product.insert({
+  name: &quot;Batman Lego Set&quot;,
+  qty: 1,
+  price: 9.99,
+  company: &quot;LEGO&quot;,
+  category: &quot;Toys&quot;
+});
+
+db.product.insert({
+  name: &quot;32 Piece Ratchet Set&quot;,
+  qty: 2,
+  price: 29.99,
+  company: &quot;Stanley&quot;,
+  category: &quot;Tools&quot;
+});
+
+db.product.insert({
+  name: &quot;Hammer&quot;,
+  qty: 5,
+  price: 5.99,
+  company: &quot;Stanley&quot;,
+  category: &quot;Tools&quot;
+});
+
+db.product.insert({
+  name: &quot;Toothpaste&quot;,
+  qty: 1,
+  price: 2.99,
+  company: &quot;Crest&quot;,
+  category: &quot;Health&quot;
+});
+
+db.product.insert({
+  name: &quot;Floss&quot;,
+  qty: 0,
+  price: .99,
+  company: &quot;Crest&quot;,
+  category: &quot;Health&quot;
+});
+
+db.product.insert({
+  name: &quot;Power Drill&quot;,
+  qty: 5,
+  price: 49.99,
+  category: &quot;Tools&quot;
+});
+
+db.product.insert({
+  name: &quot;120 Piece Lego Set&quot;,
+  qty: 1,
+  price: 12.99,
+  company: &quot;LEGO&quot;
+});
+
+db.product.insert({
+  name: &quot;Hot-wheels Car&quot;,
+  qty: 10,
+  price: .99
+});</code></pre>
+</section><section id="practice-1-of-2" class="slide level2">
+<h2>Practice (1 of 2)</h2>
+<ol type="1">
+<li>Create a view showing the values of the product on hand.
+<ul>
+<li>No option to do this with find. Must aggregate. Still not really a view.</li>
+</ul></li>
+</ol>
+<!---
+db.product.aggregate([{$project:{ prodvalue : {$multiply: ["$qty", "$price"]}}}]);
+--->
+<ol start="2" type="1">
+<li>Select all the products and the category that the product is in.
+<ul>
+<li>How many collections needed to be joined to recover the data?</li>
+<li>How many in MySQL?</li>
+<li>What sort of redundancy is present in either? <!--
+db.products.find();
+--></li>
+</ul></li>
+<li>Select the <em>product name</em> and the <em>category name</em> of all the products.</li>
+</ol>
+<!--
+  db.products.find({}, {name: 1, category: 1});
+-->
+</section><section id="practice-2-of-2" class="slide level2">
+<h2>Practice (2 of 2)</h2>
+<ol start="4" type="1">
+<li>Select all the products, the categories they belong to, and the company the product is made by.
+<ul>
+<li>How much easier is this query compared to MySQL?</li>
+<li>What cost does this easy query come with?</li>
+</ul></li>
+</ol>
+<p>4.1. Update the company “Stanley” to “Stanley Black and Decker” and re-run * How many documents needed to be updated? * How many rows would MySQL have required?</p>
+<ol start="5" type="1">
+<li>Select all the products in the tools category with a price greater than 10.00.
+<ul>
+<li>Now only those made by Stanley Black and Decker.</li>
+</ul></li>
+<li>Delete the matchbox company.
+<ul>
+<li>Any problems?</li>
+</ul></li>
+</ol>
+<!-- NOTE: REVISIT THESE SAME QUESTIONS IN ADVANCED SQL WITH INDEXING AND .EXPLAIN() -->
+</section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Provided you have sufficient permissions to do so<a href="#/fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>If you don’t provide <code>_id</code> mongo will and also make it the first<a href="#/fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Mongo will reorder the <code>_id</code> if you don’t put it first<a href="#/fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>Provided you have sufficient permissions to do so<a href="#/fnref4" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
