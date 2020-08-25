@@ -16,6 +16,10 @@
 ssh -X yourusername@hopper.winthrop.edu
 ```
 
+## Campus Lab Machines
+
+* You may find setting up your own development enviornment to be more rewarding
+
 # Your Ubuntu Linux
 
 ## Node.js using apt
