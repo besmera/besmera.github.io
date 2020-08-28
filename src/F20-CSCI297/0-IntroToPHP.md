@@ -71,7 +71,7 @@ PHP is an interpreted language
 		<title>First App</title>
 	</head>
 	<body>
-		<?php echo "Hi CSCI241!"; ?>
+		<?php echo "Hi CSCI Students!"; ?>
 	</body>
 </html>
 ```
@@ -146,13 +146,3 @@ $uberBlock
 	* Variable names should be `$camelCasedForReadability`
 	* `$this` is a reserved variable (more later)
 	 
-## Variables
-
-* PHP variables are loosely or weakly typed
-	* It is not necessary to specify the type prior to using or initializing the variable
-	* The type is determined by the language based on the context of use
-	* Results can be predictably unexpected
-* Variables are always assigned by value (more later)
-
-
-
