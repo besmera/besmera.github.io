@@ -43,11 +43,12 @@
 <li><a href="#/local-dev-environment">Local Dev Environment</a></li>
 <li><a href="#/deltona-and-connecting-remotely">Deltona and Connecting Remotely</a></li>
 <li><a href="#/built-in-php-server">Built in PHP Server</a></li>
+<li><a href="#/mysql">MySQL</a></li>
 </ul>
 </section>
 
-<section><section id="local-dev-environment" class="titleslide slide level1"><h1>Local Dev Environment</h1></section><section id="overview" class="slide level2">
-<h1>Overview</h1>
+<section><section id="local-dev-environment" class="title-slide slide level1"><h1>Local Dev Environment</h1></section><section id="overview" class="slide level2">
+<h2>Overview</h2>
 <ul>
 <li>Methods for working with websites
 <ul>
@@ -56,15 +57,15 @@
 </ul></li>
 </ul>
 </section></section>
-<section><section id="deltona-and-connecting-remotely" class="titleslide slide level1"><h1>Deltona and Connecting Remotely</h1></section><section id="running-off-deltona" class="slide level2">
-<h1>Running off Deltona</h1>
+<section><section id="deltona-and-connecting-remotely" class="title-slide slide level1"><h1>Deltona and Connecting Remotely</h1></section><section id="running-off-deltona" class="slide level2">
+<h2>Running off Deltona</h2>
 <ul>
 <li>Your site address
 <ul>
 <li>http://deltona.birdnest.org/~acc.youruser/</li>
 <li>Linked to your <code>~/public_html</code> folder
 <ul>
-<li>Putting a file in this folder makes it accessible online<a href="#/fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></li>
+<li>Putting a file in this folder makes it accessible online<a href="#/fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></li>
 </ul></li>
 </ul></li>
 <li>Web server is Apache
@@ -73,26 +74,14 @@
 <li>Mail extensions installed</li>
 </ul></li>
 </ul>
-</section><section id="review" class="slide level2">
-<h1>Review</h1>
-<ul>
-<li>How do you?
-<ul>
-<li>Make directory?</li>
-<li>Change directory?</li>
-<li>Reference your home directory?</li>
-<li>Edit a file?</li>
-<li>Remove a file?</li>
-</ul></li>
-</ul>
 </section><section id="new-commands" class="slide level2">
-<h1>New Commands</h1>
+<h2>New Commands</h2>
 <ul>
 <li>Who are you?</li>
 <li>Changing permissions</li>
 </ul>
 </section><section id="permissions-problem" class="slide level2">
-<h1>Permissions Problem</h1>
+<h2>Permissions Problem</h2>
 <ul>
 <li>What is your username?</li>
 </ul>
@@ -106,8 +95,8 @@ www-data</code></pre>
 <li>What problem might this create?</li>
 </ul>
 </section><section id="interpretting-permissions" class="slide level2">
-<h1>Interpretting Permissions</h1>
-<pre class="bash"><code>ACC.besmera2@abernathy:~/permissionExample$ ls -l
+<h2>Interpretting Permissions</h2>
+<pre class="bash"><code>acc.besmera2@hopper:~/permissionExample$ ls -l
 total 0
 -rwxrw-r-x 1 ACC.besmera2 ACC.domain^users 0 Sep 10 00:00 file1.txt
 -rwxr-xr-- 1 ACC.besmera2 ACC.domain^users 0 Sep 10 00:00 file2.txt
@@ -122,7 +111,7 @@ total 0
 </ul></li>
 </ul>
 </section><section id="choosing-permissions" class="slide level2">
-<h1>Choosing Permissions</h1>
+<h2>Choosing Permissions</h2>
 <ul>
 <li>What access do you need?</li>
 <li>What access does your group need?</li>
@@ -134,13 +123,13 @@ total 0
 <li class="fragment">Without good cause anyway.</li>
 </ul>
 </section><section id="changing-permissions" class="slide level2">
-<h1>Changing Permissions</h1>
+<h2>Changing Permissions</h2>
 <p>Set a file to read, write, execute for owner, and nothing for everyone else</p>
 <pre class="bash"><code>chmod 700 theFileName</code></pre>
 <p>Set a folder and all its files to read, write, execute for owner, and nothing for everyone else</p>
 <pre class="bash"><code>chmod -R 700 theFolderName</code></pre>
 </section><section id="setup-your-public_html" class="slide level2">
-<h1>Setup your public_html</h1>
+<h2>Setup your public_html</h2>
 <ol type="1">
 <li>Create ~/public_html if it does not exist</li>
 <li>Change the permissions for it
@@ -155,7 +144,7 @@ total 0
 <li>Access this file on deltona.birdnest.org</li>
 </ol>
 </section><section id="working-remotely" class="slide level2">
-<h1>Working Remotely</h1>
+<h2>Working Remotely</h2>
 <ol type="1">
 <li>Use SSH and edit files on the terminal
 <ol type="1">
@@ -166,46 +155,21 @@ total 0
 </ul></li>
 <li>Linux and mac use terminal and <code>ssh youruser@hopper.winthrop.edu</code></li>
 </ol></li>
-<li>Use an IDE that supports SFTP for example Aptana</li>
+<li>Use an IDE that supports SFTP or upload files you edit with your IDE manually with <a href="https://filezilla-project.org/download.php?type=client">FileZilla</a></li>
 </ol>
-</section><section id="aptana-setup" class="slide level2">
-<h1>Aptana Setup</h1>
 <ul>
-<li>To be able to edit files we will configure Aptana to work with campus servers</li>
+<li>Note: You need to setup <a href="https://github.com/WinthropUniversity/ComputingHandbook/blob/master/servers/hopper.md#two-factor-authentication-2fa">2FA</a></li>
 </ul>
-<ol type="1">
-<li>Open the Remote View <code>Window</code> &gt; <code>Show View</code> &gt; <code>Remote</code></li>
-<li>Click on the <strong><em>Globe with the + sign</em></strong>.
-<ul>
-<li>If you hover it will say <strong><em>Add New FTP Site…</em></strong></li>
-<li>Don’t worry about connection name it won’t be saved</li>
-</ul></li>
-<li>Change the protocol to <code>SFTP</code></li>
-</ol>
-</section><section id="aptana-setup-1" class="slide level2">
-<h1>Aptana Setup</h1>
-<ol start="4" type="1">
-<li>For server use <code>hopper.winthrop.edu</code></li>
-<li>For username use your username</li>
-<li>For password use your password</li>
-<li>Change remote path by typing <code>/home/acc.yourusername/public_html</code>
-<ul>
-<li>Capitalization is important</li>
-<li>You <strong><em>can not</em></strong> use browse, it will not work</li>
-</ul></li>
-<li>Edit files as neccessary and view them on deltona.birdnest.org</li>
-<li>Remember that all git commands still need to be run through terminal</li>
-</ol>
 </section></section>
-<section><section id="built-in-php-server" class="titleslide slide level1"><h1>Built in PHP Server</h1></section><section id="built-in-php-server-1" class="slide level2">
-<h1>Built in PHP Server</h1>
+<section><section id="built-in-php-server" class="title-slide slide level1"><h1>Built in PHP Server</h1></section><section id="built-in-php-server-1" class="slide level2">
+<h2>Built in PHP Server</h2>
 <ul>
 <li>Newer versions of PHP have a built in web server
 <ul>
 <li>To run this server open the terminal</li>
 <li>Navigate to the root directory that should be served
 <ul>
-<li>e.g. <code>~/public_html/csci241/</code></li>
+<li>e.g. <code>~/public_html/csci241/</code></li>
 </ul></li>
 <li>Run the webserver
 <ul>
@@ -216,8 +180,8 @@ total 0
 <li>NOTE 2: NOTE: is not strictly true but getting it working is non trivial and depends on a number of factors</li>
 </ul></li>
 </ul>
-</section><section id="netbeans-setup" class="slide level2">
-<h1>NetBeans Setup</h1>
+</section><section id="ide-setup" class="slide level2">
+<h2>IDE Setup</h2>
 <ul>
 <li>There are many IDEs we could use
 <ul>
@@ -227,46 +191,34 @@ total 0
 <li>Aptana</li>
 <li>etc…</li>
 </ul></li>
-<li>We will use NetBeans</li>
+<li>I have become partial to <a href="https://code.visualstudio.com/">VS Code</a></li>
 <li>You are encouraged to try your own</li>
 </ul>
-</section><section id="netbeans-setup-1" class="slide level2">
-<h1>NetBeans Setup</h1>
+</section></section>
+<section><section id="mysql" class="title-slide slide level1"><h1>MySQL</h1></section><section id="mysql-1" class="slide level2">
+<h2>MySQL</h2>
 <ul>
-<li>Open the NetBeans Application</li>
-<li>Setup a new PHP Application Project from existing sources
+<li>Relational DBMS</li>
+<li>Server based</li>
+<li>Supports multiple users</li>
+<li>Fast, efficent, robuts</li>
+</ul>
+</section><section id="mysql-setup" class="slide level2">
+<h2>MySQL Setup</h2>
 <ul>
-<li><code>File</code> &gt; <code>New Project...</code></li>
-<li>Select <code>PHP</code> under <em>Categories</em> and <code>PHP Appliction with Existing Sources</code></li>
-<li>Click <code>Next</code></li>
-<li>Browse to select your git repository which should be located under <code>public_html</code></li>
-<li>Click <code>Next</code></li>
+<li>If using deltona you can use the campus <a href="https://deltona.birdnest.org/mysql/">MySQL server</a></li>
+<li>If not you can setup your own
+<ul>
+<li><a href="https://bitnami.com/stack/wamp/installer">Windows WAMP</a></li>
+<li><a href="https://www.mamp.info/">Mac MAMP</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04">Linux LAMP</a></li>
 </ul></li>
-</ul>
-</section><section id="netbeans-setup-2" class="slide level2">
-<h1>NetBeans Setup</h1>
-<ul>
-<li>Under <em>Run Configuration</em> change the <em>Run As</em> to <code>PHP Built-in Web Server</code></li>
-<li>Leave the <em>Hostname</em>, <em>Port</em>, and <em>Router Script</em> as is</li>
-<li>Click <code>Finish</code></li>
-</ul>
-<p> </p>
-<ul>
-<li>Move to your <em>master</em> branch in git</li>
-<li>Edit the <code>.gitignore</code> file and change <code>/nbproject/private/</code> to <code>/nbproject/*</code></li>
-<li>Add and commit that change in git</li>
-</ul>
-</section><section id="netbeans-setup-3" class="slide level2">
-<h1>NetBeans Setup</h1>
-<ul>
-<li>Now you can code in NetBeans and hit the run button to run your project</li>
-<li>Remember that git commands will still be through the terminal</li>
 </ul>
 </section></section>
 <section class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Assumes web server has appropriate permission<a href="#/fnref1">↩</a></p></li>
+<li id="fn1"><p>Assumes web server has appropriate permission<a href="#/fnref1" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
     </div>
