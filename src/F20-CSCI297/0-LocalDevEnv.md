@@ -146,7 +146,7 @@ chmod -R 700 theFolderName
 * Relational DBMS
 * Server based
 * Supports multiple users
-* Fast, efficent, robuts
+* Fast, efficient, robust
 
 ## MySQL Setup
 
