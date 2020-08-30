@@ -41,6 +41,11 @@
 <section id="TOC">
 <ul>
 <li><a href="#/the-basics">The Basics</a></li>
+<li><a href="#/types">Types</a></li>
+<li><a href="#/type-coercion">Type Coercion</a></li>
+<li><a href="#/scoping">Scoping</a></li>
+<li><a href="#/objects-more">Objects &amp; More</a></li>
+<li><a href="#/functions-1">Functions</a></li>
 </ul>
 </section>
 
@@ -167,7 +172,8 @@ while (i &lt; 10);</code></pre>
 </ul>
 <pre><code>var x=5;
 let x=5;</code></pre>
-</section><section id="types" class="slide level2">
+</section></section>
+<section><section id="types" class="title-slide slide level1"><h1>Types</h1></section><section id="types-1" class="slide level2">
 <h2>Types</h2>
 <ul>
 <li>Primatives
@@ -180,7 +186,7 @@ let x=5;</code></pre>
 <li><code>symbol</code> (new)</li>
 </ul></li>
 </ul>
-</section><section id="types-1" class="slide level2">
+</section><section id="types-2" class="slide level2">
 <h2>Types</h2>
 <ul>
 <li><code>typeof</code> - returns string of one of the above which represents what type the value in the variable is, not what type the variable is</li>
@@ -205,7 +211,7 @@ typeof a;               // &quot;undefined&quot;
 
 a = { b: &quot;c&quot; };
 typeof a;               // &quot;object&quot;</code></pre>
-</section><section id="types-2" class="slide level2">
+</section><section id="types-3" class="slide level2">
 <h2>Types</h2>
 <ul>
 <li>Other types like <code>array</code>s or <code>function</code>s are specialized versions of the <code>object</code> type</li>
@@ -246,7 +252,8 @@ console.log(printAmount(99.9999));</code></pre>
 <ul>
 <li>Creating functions inside of functions is possible!</li>
 </ul>
-</section><section id="typing" class="slide level2">
+</section></section>
+<section><section id="type-coercion" class="title-slide slide level1"><h1>Type Coercion</h1></section><section id="typing" class="slide level2">
 <h2>Typing</h2>
 <ul>
 <li>Static typing/type enforcement</li>
@@ -264,7 +271,7 @@ console.log( amount );      // 199.98
 amount = &quot;$&quot; + String( amount );
 
 console.log( amount );      // &quot;$199.98&quot;</code></pre>
-</section><section id="type-coercion" class="slide level2">
+</section><section id="type-coercion-1" class="slide level2">
 <h2>Type Coercion</h2>
 <ul>
 <li>Explicit coercion</li>
@@ -316,7 +323,7 @@ false</code></pre>
 <pre><code>If either value (aka side) in a comparison could be the true or false value, avoid == and use ===.
 If either value in a comparison could be one of these specific values (0, &quot;&quot;, or [] -- empty array), avoid == and use ===.
 In all other cases, you&#39;re safe to use ==. Not only is it safe, but in many cases it simplifies your code in a way that improves readability.</code></pre>
-</section><section id="type-coercion-1" class="slide level2">
+</section><section id="type-coercion-2" class="slide level2">
 <h2>Type Coercion</h2>
 <pre><code>var a = [1,2,3];
 var b = [1,2,3];
@@ -336,8 +343,8 @@ var c = &quot;43&quot;;
 
 a &lt; b;      // true coercion to number
 b &lt; c;      // true lexographic</code></pre>
-</section><section id="predictably-unpredictable" class="slide level2">
-<h2>Predictably Unpredictable?</h2>
+</section><section id="unpredictably-predictable" class="slide level2">
+<h2>Unpredictably predictable?</h2>
 <ul>
 <li>Not any?</li>
 </ul>
@@ -351,7 +358,8 @@ a == b;     // false</code></pre>
 <li><code>NaN</code> is not <code>&lt;</code> <code>&gt;</code> or <code>==</code> any other value so does <code>NaN</code>==<code>NaN</code>?</li>
 <li>Equality could be <code>42 == NaN</code> or <code>"42" == "foo"</code></li>
 </ul>
-</section><section id="lexical-scope" class="slide level2">
+</section></section>
+<section><section id="scoping" class="title-slide slide level1"><h1>Scoping</h1></section><section id="lexical-scope" class="slide level2">
 <h2>Lexical Scope</h2>
 <ul>
 <li>Collection of variables that can be accessed and rules for how those variables are accessed by name</li>
@@ -426,7 +434,8 @@ console.log( a );   // 2</code></pre>
 <li>Functions are generally acceptable but may be coding conventions to apply</li>
 <li>More on this later</li>
 </ul>
-</section><section id="objects" class="slide level2">
+</section></section>
+<section><section id="objects-more" class="title-slide slide level1"><h1>Objects &amp; More</h1></section><section id="objects" class="slide level2">
 <h2>Objects</h2>
 <ul>
 <li>JSON</li>
@@ -502,10 +511,8 @@ function foo() {
 
 // this code is strict mode
 foo();</code></pre>
-<ul>
-<li>More later</li>
-</ul>
-</section><section id="functions-1" class="slide level2">
+</section></section>
+<section><section id="functions-1" class="title-slide slide level1"><h1>Functions</h1></section><section id="functions-2" class="slide level2">
 <h2>Functions</h2>
 <ul>
 <li>Functions are values just like <code>42</code></li>
@@ -517,7 +524,7 @@ foo();</code></pre>
 <pre><code>var foo = function() {
     // ..
 };</code></pre>
-</section><section id="functions-2" class="slide level2">
+</section><section id="functions-3" class="slide level2">
 <h2>Functions</h2>
 <ul>
 <li>Similarly first function expression is <code>anonymous function expression</code> second is <code>named function expression</code></li>

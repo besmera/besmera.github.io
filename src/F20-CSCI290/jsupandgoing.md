@@ -124,6 +124,8 @@ var x=5;
 let x=5;
 ```
 
+# Types
+
 ## Types
 
 * Primatives
@@ -202,6 +204,8 @@ console.log(printAmount(99.9999));
 ```
 
 * Creating functions inside of functions is possible!
+
+# Type Coercion
 
 ## Typing
 
@@ -309,7 +313,7 @@ a < b;		// true coercion to number
 b < c;		// true lexographic
 ```
 
-## Predictably Unpredictable?
+## Unpredictably predictable?
 
 * Not any?
 
@@ -324,6 +328,8 @@ a == b;		// false
 
 * `NaN` is not `<` `>` or `==` any other value so does `NaN`==`NaN`?
 * Equality could be `42 == NaN` or `"42" == "foo"`
+
+# Scoping
 
 ## Lexical Scope
 
@@ -403,6 +409,8 @@ console.log( a );	// 2
 * By convention avoid using hoisting for variables
 * Functions are generally acceptable but may be coding conventions to apply
 * More on this later
+
+# Objects & More
 
 ## Objects
 
@@ -488,7 +496,8 @@ function foo() {
 // this code is strict mode
 foo();
 ```
-* More later
+
+# Functions
 
 ## Functions 
 
