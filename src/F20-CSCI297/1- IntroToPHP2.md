@@ -9,8 +9,40 @@
 * PHP variables are loosely or weakly typed
 	* It is not necessary to specify the type prior to using or initializing the variable
 	* The type is determined by the language based on the context of use
-	* Results can be predictably unexpected
 * Variables are always assigned by value (more later)
+
+```
+<?php
+$x = "Hello World";
+$x = 0;
+$x = true;
+```
+
+## Variables 
+
+* Variables do not need to be declared prior to use
+* This can lead to unexpected errors
+* Results can be predictably unexpected
+
+```php
+<?php
+$aardvark = 55;
+if ($aardvrak < 50)
+{
+	echo "It is less than 50!";
+}
+elseif ($aardvark > 50) //no space!
+{
+	echo "It is more than 50!";
+}
+else
+{
+	echo "It must be 50!";
+}
+//Outputs: "It is less than 50!"
+var_dump($aardvrak);
+var_dump((int)$aardvrak);
+```
 
 ## Variable Primitives
 Primitive Data Type
@@ -35,7 +67,7 @@ Scalar
 
 ## Boolean
 `boolean`
-:   A boolean value is either *`true`* or *`false`* alternatively $B = \{0, 1\}$
+:   A boolean value is either *`true`* or *`false`* alternatively B = {0, 1}
 
 * The following values are considered to be `false`[^XMLExceptionFalse]
 	* `false`
@@ -50,7 +82,7 @@ Scalar
 
 ## Integer
 `integer`
-:   $\mathbb{Z} = \{..., -3, -2, -1, 0, 1, 2, 3, ...\}$
+:   Z = {..., -3, -2, -1, 0, 1, 2, 3, ...}
 
 * Can be specified in binary, octal, decimal, or hex with a `+` or `-` indicating sign
 	* A `0b` indicates binary
@@ -89,7 +121,7 @@ var_dump(011901); //Decimal 9!
 
 ## Integer Overflow
 
-* Unlike other languages `integer` overflow results in using a `float` using $E$ notation
+* Unlike other languages `integer` overflow results in using a `float` using `E` notation
 * Typed languages generally roll over because of 2's complement
 
 ## Float
@@ -97,10 +129,10 @@ var_dump(011901); //Decimal 9!
 ### `float` aka `double`
 
 `float`
-:   $\mathbb{R} = \{x | x\text{ is a real number}\}$
+:   R = {x | x is a real number}
 
-* Can be specified by providing $E$ notation or number with decimal place
-* Floats like integers depend on the platform, a max of ~$1.8e308$ with ~14 digit precision per IEEE 64bit standard
+* Can be specified by providing `E` notation or number with decimal place
+* Floats like integers depend on the platform, a max of ~1.8e308 with ~14 digit precision per IEEE 64bit standard
 
 ## Float
 
@@ -367,7 +399,7 @@ echo (int) ( (0.1+0.7) * 10 ); //Is 7 not 8!
 	* `false` is `""`
 	* `true` is `"1"`
 * From `float` or `integer` to `string`
-	* Textual representation to string form with $E$ notation
+	* Textual representation to string form with `E` notation
 * From `object` to `string`
 	* Becomes `"Object"`
 * From `array` to `string`
@@ -395,34 +427,3 @@ $foo = 4 + "10.2 Little Piggies"; // $foo is float (14.2)
 $foo = "10.0 pigs " + 1;          // $foo is float (11)
 $foo = "10.0 pigs " + 1.0;        // $foo is float (11)
 ```
-
-# Superglobals
-
-## \$\_GET/\$\_POST
-
-* The superglobals `$_GET` and `$_POST` contain the name value pairs sent as part of a GET/POST request from your form[^XSS]
-
-```php
-<?php
-$firstName = $_POST["firstName"];
-$lastName = $_POST["lastName"];
-?>
-<html> 
-	<head>
-		<title>Hello <?php echo $firstName . " " . $lastName . "!"; ?></title>
-	</head>
-	<body> 
-		<form method="POST" action="hello.php"> 
-			First Name: <input type="text" name="firstName"></input><br /> 
-			Last Name: <input type="text" name="lastName"></input>
-			<input type="submit" value="submit" name="submit">
-		</form>
-	</body>
-</html>
-```
-
-[^XSS]: XSS has been left in example for simplicity.
-
-<div class="notes">
-This is some notes
-</div>
