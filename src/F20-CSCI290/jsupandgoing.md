@@ -280,7 +280,7 @@ false
 ## boolean falsy
 
 * Same occurs in `switch`, `while`, `for`, etc... where conditional is used
-* More on this later [Chapter 4 of the Types & Grammar]
+* [Chapter 4 of the Types & Grammar]
 * Author recommends:
 
 ```
@@ -408,7 +408,6 @@ console.log( a );	// 2
 
 * By convention avoid using hoisting for variables
 * Functions are generally acceptable but may be coding conventions to apply
-* More on this later
 
 # Objects & More
 
@@ -616,8 +615,6 @@ var fred = User();
 
 fred.login( "fred", "12Battery34!" );
 ```
-
-* More on this later
 
 ## Polyfill
 

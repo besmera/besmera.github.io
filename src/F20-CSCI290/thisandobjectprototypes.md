@@ -93,4 +93,8 @@ for (i=0; i<10; i++) {
 console.log( foo.count ); // 4
 ```
 
+## Common Misconceptions
+
+* It is 
+
 *Left off: https://github.com/getify/You-Dont-Know-JS/blob/1st-ed/this%20%26%20object%20prototypes/ch1.md#its-scope
