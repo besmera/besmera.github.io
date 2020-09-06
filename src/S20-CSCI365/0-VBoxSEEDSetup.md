@@ -16,7 +16,7 @@
 
 ## Add The Virtual Machine
 3) Go back to VirtualBox and click `File` -> `Import`
-	* Browse to find `/usr/share/VirtualBoxVMs/SEED/SEED-Default.ova` on a linux lab machine or download this file from the <a href="https://deltona.birdnest.org/SEED16.04-Default.ova">Deltona Server</a> if working on your own machine.
+	* Browse to find `/usr/share/VirtualBoxVMs/SEED/SEED16.04-Default.ova` on a linux lab machine or download this file from the <a href="https://deltona.birdnest.org/SEED16.04-Default.ova">Deltona Server</a> if working on your own machine.
 	* Click `Next`
 	* On this screen check the option to "Reinitialize the MAC address of all network cards"
 	* Click `Import`
