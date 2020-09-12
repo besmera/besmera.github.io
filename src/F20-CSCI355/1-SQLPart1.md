@@ -1,6 +1,20 @@
 % SQL (Ch 4)
 % Dr. Andrew Besmer
 
+# Account
+
+## Get an Account
+
+* [Deltona MySQL](https://deltona.birdnest.org/mysql/)
+
+## To Connect
+
+* Need to be on campus or connected to a campus server
+
+```
+mysql -h deltona.birdnest.org -u my.besmera2 -p
+```
+
 # Terms
 
 ## DBMS vs Relational
@@ -85,9 +99,7 @@ CREATE TABLE Product (
 ## Integers
 
 * Can set display width by setting value, i.e. `SMALLINT(4)` 
-	* How much space?
 * `BOOLEAN` is really `TINYINT(1)` 
-	* How much space?
 
 ## Floats
 
@@ -118,10 +130,9 @@ Select floor(sum(val)*10) from DoubleTest;
 	* Specify precision (`M`) and scale (`D`)
 		* `M` - Max digits
 		* `D` - Decimals
-	* `DECIMAL(M,D)` where $M \in \{1,2,3,...,254\}$ & $D \in \{0,1,2,...30\}$
+	* `DECIMAL(M,D)` where `M` in `{1,2,3,...,254}` & `D` in `{0,1,2,...30}`
 	* `D` must never exceed `M`
 	* `DECIMAL` is the same `DECIMAL(10,0)`
-	* What are valid values for `DECIMAL(6,3)`?
 	* Try testing `DOUBLE` against `DECIMAL`
 
 
@@ -170,16 +181,21 @@ Select floor(sum(val)*10) from DBLTest;
 ## Text
 
 * `CHAR(M)`
-	* $M$ is number of characters
-		* $M \in \{0,1,2,...,255\}$
+	* `M` is number of characters
+		* `M` in `{0,1,2,...,255}`
 	* Space padded, see example.
 * `VARCHAR(M)` 
-	* For ASCII (1B) $M \in \{0,1,2,...,65535\}$
-	* For UTF-8 (3B) $M \in \{0,1,2,...,21844\}$ 
-* How many bytes needed to store 256 characters of ASCII?
-* How many bytes needed to store 256 characters of UTF-8?
+	* For ASCII (1B) `M` in `{0,1,2,...,65535}`
+	* For UTF-8 (3B) `M` in `{0,1,2,...,21844}` 
+* Example calculations
 
 <div class="notes">
+CREATE TABLE CharTest (myVchar VARCHAR(255), myChar CHAR(255));
+
+INSERT INTO CharTest VALUES ('word  ', 'word  ');
+
+SELECT CONCAT('"', myVchar, '"'), CONCAT('"', myChar, '"') FROM CharTest;
+
 ceil(
 log2(256+1)
      /8
@@ -191,11 +207,10 @@ log2(256+1)
 ## Binary
 
 * `BINARY(M)` 
-	* $M$ is number of bytes
-	* $M \in \{0,1,2,...,255\}$
+	* `M` is number of bytes
+	* `M` in `{0,1,2,...,255}`
 * `VARBINARY(M)`
-	* $M \in \{0,1,2,...,65535\}$
-	* How many bytes need to store 255 bytes?
+	* `M` in `{0,1,2,...,65535}`
 
 ## Text & Blob
 
@@ -294,7 +309,7 @@ UNIQUE KEY (Dname)  -- as part of table options
 		* `SET NULL`, `CASCADE`, `RESTRICT` and `SET DEFAULT`
 
 ```sql
-FOREIGN KEY (super_ssn) REFERENCES (ssn)  -- as part of table options
+FOREIGN KEY (super_ssn) REFERENCES Employee(ssn)  -- as part of table options
 ```
 
 # Creation
@@ -401,6 +416,29 @@ INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value
 * Row size?
 * Then fill it with some data
 
+## Practice Result
+
+```
+CREATE TABLE Product (
+	name VARCHAR(200) PRIMARY KEY, 
+	quantity SMALLINT UNSIGNED NOT NULL DEFAULT 0, 
+	price DECIMAL(6,2) NOT NULL
+);
+
+INSERT INTO Product VALUES ("M&M's", 1000, .99);
+
+INSERT INTO Product VALUES ("Mike&Ike", 500, 1.10), ("Diet Coke", 50, 2.00);
+
+INSERT INTO Product (name, price) VALUES ("Popcorn", 2.99);
+
+INSERT INTO Product (price, name) VALUES (99.99, "TI 93 Calculator"), (20.00, "T-Shirt");
+
+INSERT INTO Product VALUES ("Frozen Pizza", 20, 7.99), ("Mini Toolkit", 20, 15.00), ("Flashlight" , 75 , 5.99 );
+
+SELECT * FROM Product;
+
+```
+
 # Retrieval
 
 ## Selection
@@ -469,6 +507,14 @@ SELECT salary FROM EMPLOYEE;
 SELECT DISTINCT salary FROM EMPLOYEE; 
 ``` 
 
+## Views
+
+* Virtual tables can be created as a view
+
+```sql
+CREATE VIEW ProductValues AS SELECT qty*price AS value FROM Product;
+```
+
 
 ## Conceptual Steps
 
@@ -481,17 +527,12 @@ SELECT DISTINCT salary FROM EMPLOYEE;
 SELECT name FROM Product WHERE price > 2 ORDER BY price;
 ```
 
-## Views
+## Useful Commands Before Practice
 
-* Last thing before we practice...
-
-\ 
-
-* Virtual relations can be created as a view
-
-```sql
-CREATE VIEW ProductValues AS SELECT qty*price AS value FROM Product;
-```
+* Create a database
+* Show the databases 
+* Show the tables in a database
+* Show a tables schema
 
 ## Practice 
 
@@ -501,6 +542,8 @@ CREATE VIEW ProductValues AS SELECT qty*price AS value FROM Product;
 4) Which products are priced at .99?
 5) Which products are between 5.00 and 10.00?
 6) Which products are less than 5.00 or greater than 10.00?
+7) Which products are out of stock?
+8) In terms of value, which product on our shelves has the most?
 
 # Modification
 

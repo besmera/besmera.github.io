@@ -40,6 +40,7 @@
 </section>
 <section id="TOC">
 <ul>
+<li><a href="#/account">Account</a></li>
 <li><a href="#/terms">Terms</a></li>
 <li><a href="#/data-types">Data Types</a></li>
 <li><a href="#/constraints">Constraints</a></li>
@@ -51,6 +52,18 @@
 </ul>
 </section>
 
+<section><section id="account" class="title-slide slide level1"><h1>Account</h1></section><section id="get-an-account" class="slide level2">
+<h2>Get an Account</h2>
+<ul>
+<li><a href="https://deltona.birdnest.org/mysql/">Deltona MySQL</a></li>
+</ul>
+</section><section id="to-connect" class="slide level2">
+<h2>To Connect</h2>
+<ul>
+<li>Need to be on campus or connected to a campus server</li>
+</ul>
+<pre><code>mysql -h deltona.birdnest.org -u my.besmera2 -p</code></pre>
+</section></section>
 <section><section id="terms" class="title-slide slide level1"><h1>Terms</h1></section><section id="dbms-vs-relational" class="slide level2">
 <h2>DBMS vs Relational</h2>
 <ul>
@@ -220,14 +233,8 @@ CREATE TABLE Product (
 </section><section id="integers-1" class="slide level2">
 <h2>Integers</h2>
 <ul>
-<li>Can set display width by setting value, i.e. <code>SMALLINT(4)</code>
-<ul>
-<li>How much space?</li>
-</ul></li>
-<li><code>BOOLEAN</code> is really <code>TINYINT(1)</code>
-<ul>
-<li>How much space?</li>
-</ul></li>
+<li>Can set display width by setting value, i.e. <code>SMALLINT(4)</code></li>
+<li><code>BOOLEAN</code> is really <code>TINYINT(1)</code></li>
 </ul>
 </section><section id="floats" class="slide level2">
 <h2>Floats</h2>
@@ -254,10 +261,9 @@ SELECT floor(sum(val)*10) FROM DecimalTest;</code></pre>
 <li><code>M</code> - Max digits</li>
 <li><code>D</code> - Decimals</li>
 </ul></li>
-<li><code>DECIMAL(M,D)</code> where <span class="math inline">\(M \in \{1,2,3,...,254\}\)</span> &amp; <span class="math inline">\(D \in \{0,1,2,...30\}\)</span></li>
+<li><code>DECIMAL(M,D)</code> where <code>M</code> in <code>{1,2,3,...,254}</code> &amp; <code>D</code> in <code>{0,1,2,...30}</code></li>
 <li><code>D</code> must never exceed <code>M</code></li>
 <li><code>DECIMAL</code> is the same <code>DECIMAL(10,0)</code></li>
-<li>What are valid values for <code>DECIMAL(6,3)</code>?</li>
 <li>Try testing <code>DOUBLE</code> against <code>DECIMAL</code></li>
 </ul></li>
 </ul>
@@ -328,21 +334,23 @@ SELECT floor(sum(val)*10) FROM DecimalTest;</code></pre>
 <ul>
 <li><code>CHAR(M)</code>
 <ul>
-<li><span class="math inline">\(M\)</span> is number of characters
+<li><code>M</code> is number of characters
 <ul>
-<li><span class="math inline">\(M \in \{0,1,2,...,255\}\)</span></li>
+<li><code>M</code> in <code>{0,1,2,...,255}</code></li>
 </ul></li>
 <li>Space padded, see example.</li>
 </ul></li>
 <li><code>VARCHAR(M)</code>
 <ul>
-<li>For ASCII (1B) <span class="math inline">\(M \in \{0,1,2,...,65535\}\)</span></li>
-<li>For UTF-8 (3B) <span class="math inline">\(M \in \{0,1,2,...,21844\}\)</span></li>
+<li>For ASCII (1B) <code>M</code> in <code>{0,1,2,...,65535}</code></li>
+<li>For UTF-8 (3B) <code>M</code> in <code>{0,1,2,...,21844}</code></li>
 </ul></li>
-<li>How many bytes needed to store 256 characters of ASCII?</li>
-<li>How many bytes needed to store 256 characters of UTF-8?</li>
+<li>Example calculations</li>
 </ul>
 <aside class="notes">
+<p>CREATE TABLE CharTest (myVchar VARCHAR(255), myChar CHAR(255));</p>
+<p>INSERT INTO CharTest VALUES (‘word’, ‘word’);</p>
+<p>SELECT CONCAT(‘“‘, myVchar,’”’), CONCAT(‘“‘, myChar,’”’) FROM CharTest;</p>
 <p>ceil( log2(256+1) /8 )</p>
 <p>0calc.com</p>
 </aside>
@@ -351,13 +359,12 @@ SELECT floor(sum(val)*10) FROM DecimalTest;</code></pre>
 <ul>
 <li><code>BINARY(M)</code>
 <ul>
-<li><span class="math inline">\(M\)</span> is number of bytes</li>
-<li><span class="math inline">\(M \in \{0,1,2,...,255\}\)</span></li>
+<li><code>M</code> is number of bytes</li>
+<li><code>M</code> in <code>{0,1,2,...,255}</code></li>
 </ul></li>
 <li><code>VARBINARY(M)</code>
 <ul>
-<li><span class="math inline">\(M \in \{0,1,2,...,65535\}\)</span></li>
-<li>How many bytes need to store 255 bytes?</li>
+<li><code>M</code> in <code>{0,1,2,...,65535}</code></li>
 </ul></li>
 </ul>
 </section><section id="text-blob" class="slide level2">
@@ -489,7 +496,7 @@ SELECT floor(sum(val)*10) FROM DecimalTest;</code></pre>
 </ul></li>
 </ul></li>
 </ul>
-<pre class="sql"><code>FOREIGN KEY (super_ssn) REFERENCES (ssn)  -- as part of table options</code></pre>
+<pre class="sql"><code>FOREIGN KEY (super_ssn) REFERENCES Employee(ssn)  -- as part of table options</code></pre>
 </section></section>
 <section><section id="creation" class="title-slide slide level1"><h1>Creation</h1></section><section id="create-syntax" class="slide level2">
 <h2>Create Syntax</h2>
@@ -589,6 +596,26 @@ INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value
 <li>Row size?</li>
 <li>Then fill it with some data</li>
 </ul>
+</section><section id="practice-result" class="slide level2">
+<h2>Practice Result</h2>
+<pre><code>CREATE TABLE Product (
+    name VARCHAR(200) PRIMARY KEY, 
+    quantity SMALLINT UNSIGNED NOT NULL DEFAULT 0, 
+    price DECIMAL(6,2) NOT NULL
+);
+
+INSERT INTO Product VALUES (&quot;M&amp;M&#39;s&quot;, 1000, .99);
+
+INSERT INTO Product VALUES (&quot;Mike&amp;Ike&quot;, 500, 1.10), (&quot;Diet Coke&quot;, 50, 2.00);
+
+INSERT INTO Product (name, price) VALUES (&quot;Popcorn&quot;, 2.99);
+
+INSERT INTO Product (price, name) VALUES (99.99, &quot;TI 93 Calculator&quot;), (20.00, &quot;T-Shirt&quot;);
+
+INSERT INTO Product VALUES (&quot;Frozen Pizza&quot;, 20, 7.99), (&quot;Mini Toolkit&quot;, 20, 15.00), (&quot;Flashlight&quot; , 75 , 5.99 );
+
+SELECT * FROM Product;
+</code></pre>
 </section></section>
 <section><section id="retrieval" class="title-slide slide level1"><h1>Retrieval</h1></section><section id="selection" class="slide level2">
 <h2>Selection</h2>
@@ -662,6 +689,12 @@ INSERT INTO table_name (column1,column2,column3,...) VALUES (value1,value2,value
 <pre class="sql"><code>SELECT salary FROM EMPLOYEE;
 
 SELECT DISTINCT salary FROM EMPLOYEE; </code></pre>
+</section><section id="views" class="slide level2">
+<h2>Views</h2>
+<ul>
+<li>Virtual tables can be created as a view</li>
+</ul>
+<pre class="sql"><code>CREATE VIEW ProductValues AS SELECT qty*price AS value FROM Product;</code></pre>
 </section><section id="conceptual-steps" class="slide level2">
 <h2>Conceptual Steps</h2>
 <ul>
@@ -671,16 +704,14 @@ SELECT DISTINCT salary FROM EMPLOYEE; </code></pre>
 <li>Project attributes/columns</li>
 </ul>
 <pre class="sql"><code>SELECT name FROM Product WHERE price &gt; 2 ORDER BY price;</code></pre>
-</section><section id="views" class="slide level2">
-<h2>Views</h2>
+</section><section id="useful-commands-before-practice" class="slide level2">
+<h2>Useful Commands Before Practice</h2>
 <ul>
-<li>Last thing before we practice…</li>
+<li>Create a database</li>
+<li>Show the databases</li>
+<li>Show the tables in a database</li>
+<li>Show a tables schema</li>
 </ul>
-<p> </p>
-<ul>
-<li>Virtual relations can be created as a view</li>
-</ul>
-<pre class="sql"><code>CREATE VIEW ProductValues AS SELECT qty*price AS value FROM Product;</code></pre>
 </section><section id="practice-1" class="slide level2">
 <h2>Practice</h2>
 <ol type="1">
@@ -690,6 +721,8 @@ SELECT DISTINCT salary FROM EMPLOYEE; </code></pre>
 <li>Which products are priced at .99?</li>
 <li>Which products are between 5.00 and 10.00?</li>
 <li>Which products are less than 5.00 or greater than 10.00?</li>
+<li>Which products are out of stock?</li>
+<li>In terms of value, which product on our shelves has the most?</li>
 </ol>
 </section></section>
 <section><section id="modification" class="title-slide slide level1"><h1>Modification</h1></section><section id="update" class="slide level2">
