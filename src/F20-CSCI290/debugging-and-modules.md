@@ -37,7 +37,7 @@ function studentInfo(student)
 {
     let studentAverage = average(student);
     //Using Template Strings
-    return `The ${student.name} has an average score of ${studentAverage}`;
+    return `The student ${student.name} has an average score of ${studentAverage}`;
 }
 
 let andrewInfo = studentInfo(andrew);
