@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>Node.js</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Node.js</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date">Debugging and Modules</h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/debugging">Debugging</a></li>
+<li><a href="#/modules">Modules</a></li>
+<li><a href="#/commonjs">CommonJS</a></li>
+<li><a href="#/es-modules">ES Modules</a></li>
+<li><a href="#/npm">npm</a></li>
+</ul>
+</section>
+
+<section><section id="debugging" class="title-slide slide level1"><h1>Debugging</h1></section><section id="javascript-debugging" class="slide level2">
+<h2>JavaScript Debugging</h2>
+<ul>
+<li>Lets look at debugging in JavaScript
+<ul>
+<li>Break Points
+<ul>
+<li>Step In/Out/Over</li>
+<li>Conditional Break Points</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="javascript-debugging-1" class="slide level2">
+<h2>JavaScript Debugging</h2>
+<ul>
+<li>A broken program</li>
+</ul>
+<pre><code>let andrew = {
+    &#39;name&#39; : &#39;Andrew Besmer&#39;,
+    &#39;grades&#39; : [99, 75, 87, 95, 100, 68]
+ };
+
+function average(student)
+{
+    let sum=0;
+    let count=0;
+    for(let ct=0; ct &lt;= student.grades.length; ct++)
+    {
+        sum = sum + student.grades[ct];
+        count++;
+    }
+    return sum/count;
+}
+
+function studentInfo(student)
+{
+    let studentAverage = average(student);
+    //Using Template Strings
+    return `The ${student.name} has an average score of ${studentAverage}`;
+}
+
+let andrewInfo = studentInfo(andrew);
+
+console.log(andrewInfo)</code></pre>
+</section></section>
+<section><section id="modules" class="title-slide slide level1"><h1>Modules</h1></section><section id="overview" class="slide level2">
+<h2>Overview</h2>
+<ul>
+<li>Do you rewrite 100% of your code each time you have a new app?</li>
+<li>Modules allow for code reuse and third party consumption
+<ul>
+<li>Modules can be grouped into packages</li>
+</ul></li>
+<li>Two “standards” <code>CommonJS</code> and (<code>ECMAScript Modules</code> or <code>ES Modules</code>)
+<ul>
+<li>There are even more e.g. <code>AMD</code> or Asynchronous Module Definition</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="commonjs" class="title-slide slide level1"><h1>CommonJS</h1></section><section id="requiring-modules" class="slide level2">
+<h2>Requiring Modules</h2>
+<ul>
+<li>Use <code>require()</code></li>
+<li>Require looks for:
+<ul>
+<li>Exact file match</li>
+<li>File ending in <code>.js</code> - treated as a JavaScript file</li>
+<li>File ending in <code>.json</code> - parsed as json</li>
+<li>File ending in <code>.node</code> - Treated as a compiled addon</li>
+</ul></li>
+</ul>
+</section><section id="requiring-modules-1" class="slide level2">
+<h2>Requiring Modules</h2>
+<ul>
+<li><code>require()</code> has similar rules to other includes
+<ul>
+<li><code>/</code> considered absolute</li>
+<li><code>./</code> considered relative to files in same directory</li>
+<li><code>../</code> relative to parent directory, and so on</li>
+</ul></li>
+<li>If not <code>/</code>, <code>./</code>, etc… it is considered a “core module”
+<ul>
+<li>If it is native core module like <code>http</code> it is loaded</li>
+<li>Otherwise loaded from one of many <code>node_modules</code> folders by starting at <code>./node_modules</code> and working up to root file system</li>
+</ul></li>
+</ul>
+</section><section id="requiring-modules-2" class="slide level2">
+<h2>Requiring Modules</h2>
+<ul>
+<li>When requiring a directory
+<ul>
+<li>First node looks for <code>package.json</code></li>
+<li>Then <code>index.js</code></li>
+<li>Then <code>index.node</code></li>
+</ul></li>
+</ul>
+</section><section id="making-a-module" class="slide level2">
+<h2>Making a Module</h2>
+<ul>
+<li>Create a javascript file that <code>exports</code>
+<ul>
+<li>Note that <code>exports</code> is <code>module.exports</code></li>
+</ul></li>
+</ul>
+<pre class="javascript"><code>//greeting.js
+exports.sayHello = function(name)
+{
+    console.log(&quot;Hello &quot; + name);
+};</code></pre>
+<pre class="javascript"><code>//app.js
+var greeting = require(&quot;greeting&quot;);
+
+greeting.sayHello(&quot;World&quot;);</code></pre>
+</section><section id="making-a-module-1" class="slide level2">
+<h2>Making a Module</h2>
+<ul>
+<li>Create a javascript file that <code>exports</code></li>
+</ul>
+<pre class="javascript"><code>//greeting.js
+exports.sayHello = function(name)
+{
+    console.log(&quot;Hello &quot; + name);
+};
+
+exports.sayGoodbye = function(name)
+{
+    console.log(&quot;Goodbye &quot; + name);
+};
+</code></pre>
+<pre class="javascript"><code>//app.js
+var greeting = require(&quot;./greeting&quot;);
+
+greeting.sayHello(&quot;World&quot;);
+greeting.sayGoodbye(&quot;World&quot;);</code></pre>
+</section><section id="making-a-module-2" class="slide level2">
+<h2>Making a Module</h2>
+<ul>
+<li>Anything that isn’t exported is not accessible outside module</li>
+</ul>
+<pre class="javascript"><code>//greeting.js
+exports.sayHello = function(name)
+{
+    console.log(&quot;Hello &quot; + name);
+};
+
+var sayGoodbye = function(name)
+{
+    console.log(&quot;Goodbye &quot; + name);
+};
+</code></pre>
+<pre class="javascript"><code>//app.js
+var greeting = require(&quot;./greeting&quot;);
+
+greeting.sayHello(&quot;World&quot;);
+greeting.sayGoodbye(&quot;World&quot;); //Error!</code></pre>
+</section><section id="modules-1" class="slide level2">
+<h2>Modules</h2>
+<ul>
+<li>Modules can also require other modules</li>
+<li>Exports may not be done in callbacks</li>
+</ul>
+</section></section>
+<section><section id="es-modules" class="title-slide slide level1"><h1>ES Modules</h1></section><section id="es-modules-1" class="slide level2">
+<h2>ES Modules</h2>
+<ul>
+<li>Supports multiple <em>named exports</em>
+<ul>
+<li><code>export</code></li>
+</ul></li>
+<li>Supports a single <em>default</em> export
+<ul>
+<li><code>export default</code></li>
+</ul></li>
+<li>Uses <code>import</code> either named or default to access that exported modules pieces</li>
+</ul>
+</section><section id="named-exports" class="slide level2">
+<h2>Named Exports</h2>
+<ul>
+<li>Example named export</li>
+</ul>
+<pre><code>export function foo() {
+    // ..
+}
+
+export var awesome = 42;
+
+var bar = [1,2,3];
+export { bar };</code></pre>
+</section><section id="default-exports" class="slide level2">
+<h2>Default Exports</h2>
+<ul>
+<li>Only one default per module</li>
+</ul>
+<pre><code>export default function foo(..) {
+    // ..
+}</code></pre>
+</section><section id="es-modules-2" class="slide level2">
+<h2>ES Modules</h2>
+<ul>
+<li>Imports must be at the top level unlike CommonJS
+<ul>
+<li>E.g. no conditional inclusion</li>
+</ul></li>
+<li>Similar to <code>export</code> you can <code>import</code> using either named or default exports</li>
+</ul>
+</section><section id="named-imports" class="slide level2">
+<h2>Named Imports</h2>
+<ul>
+<li>Named imports use <code>{</code> and <code>}</code> braces
+<ul>
+<li>These are not the same as JSON objects</li>
+</ul></li>
+</ul>
+<pre><code>import { foo, bar, baz } from &quot;foo&quot;;
+
+foo();</code></pre>
+</section><section id="named-imports-1" class="slide level2">
+<h2>Named Imports</h2>
+<ul>
+<li>Imports can be renamed</li>
+</ul>
+<pre><code>import { foo as theFooFunc } from &quot;foo&quot;;
+
+theFooFunc();</code></pre>
+</section><section id="named-imports-2" class="slide level2">
+<h2>Named Imports</h2>
+<ul>
+<li>Can use a wildcard <code>*</code> to import many named items at once
+<ul>
+<li>General advice is not to import everything since this can waste resources</li>
+<li>Will need to balance against ease of programming</li>
+</ul></li>
+</ul>
+<pre><code>export function bar() { .. }
+export var x = 42;
+export function baz() { .. }</code></pre>
+<pre><code>import * as foo from &quot;foo&quot;;
+
+foo.bar();
+foo.x;          // 42
+foo.baz();</code></pre>
+</section><section id="default-imports" class="slide level2">
+<h2>Default Imports</h2>
+<ul>
+<li>Imports whatever was exported as <code>default</code></li>
+</ul>
+<pre><code>import foo from &quot;foo&quot;;</code></pre>
+</section><section id="named-and-default" class="slide level2">
+<h2>Named and Default</h2>
+<ul>
+<li>Named and default import/exports are not mutually exclusive but are somewhat discouraged</li>
+</ul>
+<pre><code>export default function foo() { .. }
+
+export function bar() { .. }
+export function baz() { .. }</code></pre>
+<pre><code>import FOOFN, { bar, baz as BAZ } from &quot;foo&quot;;
+
+FOOFN();
+bar();
+BAZ();</code></pre>
+</section></section>
+<section><section id="npm" class="title-slide slide level1"><h1>npm</h1></section><section id="npm-1" class="slide level2">
+<h2>npm</h2>
+<ul>
+<li><code>npm</code> or <a href="https://www.npmjs.com/">node package manager</a> is used to help management project dependencies
+<ul>
+<li>Packages depend on other packages</li>
+<li>Those packages depend on even more packages</li>
+<li>Require a certain package version</li>
+</ul></li>
+</ul>
+</section><section id="npm-2" class="slide level2">
+<h2>npm</h2>
+<ul>
+<li>Find packages at <a href="http://npmjs.com">http://npmjs.com</a>
+<ul>
+<li>Install locally <code>npm install packageName</code></li>
+<li>Then just
+<ul>
+<li><code>require('packageName')</code></li>
+<li>or</li>
+<li><code>import packageName from "packageName"</code></li>
+</ul></li>
+</ul></li>
+<li>Can install globally <code>npm install -g packageName</code> but then can’t require
+<ul>
+<li><code>http-server</code> is example</li>
+</ul></li>
+</ul>
+</section><section id="npm-usage" class="slide level2">
+<h2>npm usage</h2>
+<ul>
+<li>Lets style some text with <code>chalk</code></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
