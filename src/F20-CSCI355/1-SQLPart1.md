@@ -561,11 +561,13 @@ UPDATE table SET col1=val1, col2=val2 WHERE col3=val3;
 ## DELETE
 
 * `DELETE` Syntax 
-```sql
+
+```sql 
 DELETE FROM table WHERE col1=val1;
 ```
+
 * WARNING: Failure to include a WHERE clause will cause it to operate on all rows!!!!
-SQL
+
 
 # Multiple Tables
 
@@ -598,8 +600,12 @@ SQL
 	* `EMPLOYEE.Dnumber`
 
 ```sql
-SELECT Fname, EMPLOYEE.Name, Address FROM EMPLOYEE, DEPARTMENT
-WHERE DEPARTMENT.Name = 'Research' AND DEPARTMENT.Dnumber = EMPLOYEE.Dnumber;
+SELECT Fname, EMPLOYEE.Name, Address FROM EMPLOYEE JOIN DEPARTMENT ON  DEPARTMENT.Dnumber = EMPLOYEE.Dnumber WHERE DEPARTMENT.Name = 'Research' ;
+
+-- or
+
+-- NOT ADVISED TO DO:
+SELECT Fname, EMPLOYEE.Name, Address FROM EMPLOYEE, DEPARTMENT WHERE DEPARTMENT.Name = 'Research' AND DEPARTMENT.Dnumber = EMPLOYEE.Dnumber;
 ```
 
 ## Aliasing

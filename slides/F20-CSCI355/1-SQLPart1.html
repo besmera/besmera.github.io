@@ -741,7 +741,7 @@ SELECT DISTINCT salary FROM EMPLOYEE; </code></pre>
 </ul>
 <pre class="sql"><code>DELETE FROM table WHERE col1=val1;</code></pre>
 <ul>
-<li>WARNING: Failure to include a WHERE clause will cause it to operate on all rows!!!! SQL</li>
+<li>WARNING: Failure to include a WHERE clause will cause it to operate on all rows!!!!</li>
 </ul>
 </section></section>
 <section><section id="multiple-tables" class="title-slide slide level1"><h1>Multiple Tables</h1></section><section id="selection-1" class="slide level2">
@@ -784,8 +784,12 @@ SELECT DISTINCT salary FROM EMPLOYEE; </code></pre>
 <li><code>EMPLOYEE.Dnumber</code></li>
 </ul></li>
 </ul>
-<pre class="sql"><code>SELECT Fname, EMPLOYEE.Name, Address FROM EMPLOYEE, DEPARTMENT
-WHERE DEPARTMENT.Name = &#39;Research&#39; AND DEPARTMENT.Dnumber = EMPLOYEE.Dnumber;</code></pre>
+<pre class="sql"><code>SELECT Fname, EMPLOYEE.Name, Address FROM EMPLOYEE JOIN DEPARTMENT ON  DEPARTMENT.Dnumber = EMPLOYEE.Dnumber WHERE DEPARTMENT.Name = &#39;Research&#39; ;
+
+-- or
+
+-- NOT ADVISED TO DO:
+SELECT Fname, EMPLOYEE.Name, Address FROM EMPLOYEE, DEPARTMENT WHERE DEPARTMENT.Name = &#39;Research&#39; AND DEPARTMENT.Dnumber = EMPLOYEE.Dnumber;</code></pre>
 </section><section id="aliasing" class="slide level2">
 <h2>Aliasing</h2>
 <ul>

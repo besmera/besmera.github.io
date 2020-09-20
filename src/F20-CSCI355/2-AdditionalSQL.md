@@ -87,8 +87,8 @@ SELECT COUNT(Company) FROM Product;
 ## IN Operator
 
 * Comparison operator `IN`
-	* Compares value $v$ with a set (or multiset) of values $V$
-	* Evaluates to `TRUE` if $v \in V$
+	* Compares value `v` with a set (or multiset) of values `V`
+	* Evaluates to `TRUE` if `v in V`
 * Useful with nested queries!
 
 ```sql
@@ -124,11 +124,7 @@ Company.id = Product.Company WHERE
 
 ## Subquery
 
-* Can you put them in a `FROM` clause?
-
-. . . 
-
-
+* Can put them in a `FROM` clause
 * Must alias the subquery table
 	* Avoids ambiguities with other tables
 * Can perform same operations as if table existed
