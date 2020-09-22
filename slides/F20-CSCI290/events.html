@@ -42,6 +42,7 @@
 <ul>
 <li><a href="#/events">Events</a></li>
 <li><a href="#/streams">Streams</a></li>
+<li><a href="#/line-counter">Line Counter</a></li>
 </ul>
 </section>
 
@@ -198,6 +199,25 @@ http.createServer(function(request, response) {
         response.end(&quot;Complete\n&quot;);
     });
 }).listen(8000);</code></pre>
+</section></section>
+<section><section id="line-counter" class="title-slide slide level1"><h1>Line Counter</h1></section><section id="line-counter-1" class="slide level2">
+<h2>Line Counter</h2>
+<ul>
+<li>Allows counting of large files quickly</li>
+</ul>
+<pre class="javascript"><code>let numLines = 0;
+
+let lineReader = require(&quot;readline&quot;).createInterface({
+    input: require(&#39;fs&#39;).createReadStream(&quot;amazon_reviews_us_Mobile_Apps_v1_00.tsv&quot;)
+});
+
+lineReader.on(&#39;line&#39;, function(line){
+    numLines++;
+});
+
+lineReader.on(&#39;close&#39;, function(){
+    console.log(&quot;We read the file and there are &quot;, numLines, &quot; in the file.&quot;);
+});</code></pre>
 </section></section>
     </div>
   </div>

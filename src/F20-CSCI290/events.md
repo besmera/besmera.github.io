@@ -167,3 +167,25 @@ http.createServer(function(request, response) {
 	});
 }).listen(8000);
 ```
+
+# Line Counter
+
+## Line Counter
+
+* Allows counting of large files quickly
+
+```javascript
+let numLines = 0;
+
+let lineReader = require("readline").createInterface({
+    input: require('fs').createReadStream("amazon_reviews_us_Mobile_Apps_v1_00.tsv")
+});
+
+lineReader.on('line', function(line){
+    numLines++;
+});
+
+lineReader.on('close', function(){
+    console.log("We read the file and there are ", numLines, " in the file.");
+});
+```
