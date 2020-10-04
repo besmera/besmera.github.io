@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>HTTP State</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">HTTP State</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/cookies">Cookies</a></li>
+</ul>
+</section>
+
+<section><section id="cookies" class="title-slide slide level1"><h1>Cookies</h1></section><section id="http" class="slide level2">
+<h2>HTTP</h2>
+<ul>
+<li>HTTP is stateless</li>
+</ul>
+</section><section id="cookies-1" class="slide level2">
+<h2>Cookies</h2>
+<ul>
+<li>What are cookies?</li>
+<li>Why do we use them?</li>
+</ul>
+</section><section id="cookies-2" class="slide level2">
+<h2>Cookies</h2>
+<ul>
+<li>Use the <a href="Chrome%20Web%20Store">https://chrome.google.com/webstore</a> to install “Edit this cookie”
+<ul>
+<li>Can be used to inspect, delete, and modify cookies</li>
+</ul></li>
+<li>In general, should never store anything important in the cookie
+<ul>
+<li>For example, a cookie that stores the username of the signed in user for the purposes of access control</li>
+</ul></li>
+</ul>
+</section><section id="cookies-3" class="slide level2">
+<h2>Cookies</h2>
+<ul>
+<li>Setting cookies is very easy
+<ul>
+<li>In the HTTP Response send a header <code>Set-Cookie: name=value</code></li>
+</ul></li>
+<li>Use <code>header()</code> to set HTTP headers
+<ul>
+<li>Be sure to do this <strong><em>before</em></strong> you send even your first byte of html for the page</li>
+</ul></li>
+<li>Lets do it</li>
+</ul>
+</section><section id="cookies-4" class="slide level2">
+<h2>Cookies</h2>
+<ul>
+<li>To access the cookie we can use another super global <code>$_COOKIE</code>
+<ul>
+<li>Lets look at it and see what is in it</li>
+</ul></li>
+</ul>
+</section><section id="cookies-5" class="slide level2">
+<h2>Cookies</h2>
+<ul>
+<li>According to the Netscape standard the <strong>value</strong> part of <code>Set-Cookie</code> <em>“is a sequence of characters excluding semi-colon, comma and white space.”</em></li>
+</ul>
+</section><section id="cookies-6" class="slide level2">
+<h2>Cookies</h2>
+<ul>
+<li>What if I want to store a comma separated list of of the companies we visited in the cookie</li>
+</ul>
+</section><section id="cookies-7" class="slide level2">
+<h2>Cookies</h2>
+<ul>
+<li>According to the Netscape standard the <strong>value</strong> part of <code>Set-Cookie</code> <em>“is a sequence of characters excluding semi-colon, comma and white space. If there is a need to place such data in the name or value, some encoding method such as URL style %XX encoding is recommended, though no encoding is defined or required.”</em></li>
+<li>So we need to choose some encoding method. The method of encoding is irrelevant as long as it does not contain a semi-colon, comma, or whitespace.</li>
+</ul>
+</section><section id="cookies-8" class="slide level2">
+<h2>Cookies</h2>
+<ul>
+<li>Common encodings to chose for cookies include
+<ul>
+<li><code>urlencode()</code></li>
+<li><code>urldecode()</code></li>
+<li><code>base64_encode()</code></li>
+<li><code>base64_decode()</code></li>
+</ul></li>
+</ul>
+</section><section id="cookies-9" class="slide level2">
+<h2>Cookies</h2>
+<ul>
+<li>The cookies we have tried have been setup as “session cookies”
+<ul>
+<li>They <del>will</del> should cease to exist when the client closes the browser</li>
+<li><code>Set-Cookie</code> can be specified with a
+<ul>
+<li><code>Max-Age</code> in seconds or</li>
+<li><code>Expires</code> specified as <code>Wdy, DD Mon YYYY HH:MM:SS GMT</code></li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="http"><code>Set-Cookie: &lt;cookie-name&gt;=&lt;cookie-value&gt;; Max-Age=&lt;non-zero-digit&gt;</code></pre>
+</section><section id="cookies-10" class="slide level2">
+<h2>Cookies</h2>
+<ul>
+<li>Several versions of Internet Explorer do not support the <code>Max-Age</code> directive so <code>Expires</code> or both are typically used in cases of needing maximum coverage</li>
+<li>To delete a cookie
+<ul>
+<li>Set the <code>Max-Age</code> to <code>0</code> or a negative number</li>
+<li>Set the <code>Expires</code> to a previously occuring time <code>Thu, 01 Jan 1970 00:00:01 GMT</code></li>
+</ul></li>
+</ul>
+</section><section id="cookies-11" class="slide level2">
+<h2>Cookies</h2>
+<ul>
+<li>You may find <code>setrawcookie($name, $value = "", int $expire = 0)</code> easier to use
+<ul>
+<li>This is only a PHP method, not an HTTP method.</li>
+<li>Same rules regarding setting cookie before body apply</li>
+</ul></li>
+<li>You may find <code>setcookie()</code> even easier
+<ul>
+<li>Again PHP specific, will automatically urlencode data for you</li>
+</ul></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

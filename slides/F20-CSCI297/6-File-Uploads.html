@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>File Uploads</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">File Uploads</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/file-uploads">File Uploads</a></li>
+</ul>
+</section>
+
+<section><section id="file-uploads" class="title-slide slide level1"><h1>File Uploads</h1></section><section id="file-uploads-1" class="slide level2">
+<h2>File Uploads</h2>
+<ul>
+<li>Commonly need to upload files</li>
+<li>Files can be uploaded by using <code>input</code> tag with a <code>type</code> attribute set to <code>file</code></li>
+</ul>
+<pre class="php"><code>&lt;input type=&quot;file&quot; name=&quot;yourUpload&quot;&gt;</code></pre>
+</section><section id="form" class="slide level2">
+<h2>Form</h2>
+<ul>
+<li>Additionally, form <code>enctype</code> needs to be set</li>
+<li>Recall
+<ul>
+<li><code>application/x-www-form-urlencoded</code></li>
+<li><code>multipart/form-data</code></li>
+</ul></li>
+<li>Which do we want? Why?</li>
+<li>Method?</li>
+</ul>
+</section><section id="receving-the-file" class="slide level2">
+<h2>Receving the file</h2>
+<ul>
+<li>Files are put into the super global <code>$_FILES</code></li>
+</ul>
+<pre class="php"><code>array(1) { 
+[&quot;yourUpload&quot;]=&gt; array(5) {
+    [name] =&gt; 400.png
+    [type] =&gt; image/png
+    [tmp_name] =&gt; /tmp/php5Wx0aJ
+    [error] =&gt; 0
+    [size] =&gt; 15726
+    }
+}</code></pre>
+</section><section id="receving-the-file-1" class="slide level2">
+<h2>Receving the file</h2>
+<ul>
+<li>Check to make sure the file is set</li>
+<li>May not be set for a number of reasons
+<ul>
+<li>Exceeded Limits</li>
+<li>Using Mobile Device</li>
+<li>Etc…</li>
+</ul></li>
+</ul>
+</section><section id="check-for-errors" class="slide level2">
+<h2>Check for Errors</h2>
+<ul>
+<li><code>UPLOAD_ERR_OK</code> or <code>0</code> - No errors present</li>
+<li><code>UPLOAD_ERR_INI_SIZE</code> or <code>1</code> - File size is greater than <code>upload_max_filesize</code> in php.ini</li>
+<li><code>UPLOAD_ERR_FORM_SIZE</code> or <code>2</code> - File size is greater than <code>MAX_FILE_SIZE</code> in the HTML form; don’t trust this!</li>
+<li><code>UPLOAD_ERR_PARTIAL</code> or <code>3</code> - File was only partially uploaded</li>
+</ul>
+</section><section id="check-for-errors-1" class="slide level2">
+<h2>Check for Errors</h2>
+<ul>
+<li><code>UPLOAD_ERR_NO_FILE</code> or <code>4</code> - No file was uploaded</li>
+<li><code>UPLOAD_ERR_NO_TMP_DIR</code> or <code>6</code> - Missing a temp directory to hold files while processing</li>
+<li><code>UPLOAD_ERR_CANT_WRITE</code> or <code>7</code> - Permission error writing to temp</li>
+<li><code>UPLOAD_ERR_EXTENSION</code> or <code>8</code> - A PHP extension stopped the file upload</li>
+</ul>
+</section><section id="dealing-with-file-type" class="slide level2">
+<h2>Dealing with File Type</h2>
+<ul>
+<li>File type is important for
+<ul>
+<li>Acceptance
+<ul>
+<li>Which <a href="http://www.iana.org/assignments/media-types/media-types.xhtml">media/MIME type</a> will you accept?</li>
+</ul></li>
+<li>Nameing
+<ul>
+<li><code>.png</code>, <code>.jpg</code>, <code>.pdf</code></li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="dealing-with-file-type-1" class="slide level2">
+<h2>Dealing with File Type</h2>
+<ul>
+<li>Don’t trust <code>$_FILES["yourUpload"]["type"]</code>
+<ul>
+<li>Can be faked, problem?</li>
+</ul></li>
+</ul>
+<pre class="php"><code>array(1) { 
+[&quot;yourUpload&quot;]=&gt; array(5) {
+    [name] =&gt; bad.php
+    [type] =&gt; image/png
+    [tmp_name] =&gt; /tmp/php5Wx0aJ
+    [error] =&gt; 0
+    [size] =&gt; 15726
+    }
+}</code></pre>
+</section><section id="dealing-with-file-type-2" class="slide level2">
+<h2>Dealing with File Type</h2>
+<ul>
+<li>Use <code>finfo</code></li>
+</ul>
+<pre class="php"><code>$finfo = new finfo(FILEINFO_MIME_TYPE);
+$fileType = $finfo-&gt;file($_FILES[&#39;yourUpload&#39;][&#39;tmp_name&#39;]);</code></pre>
+<ul>
+<li>Now map the type to it’s extension
+<ul>
+<li>Don’t trust the user</li>
+</ul></li>
+</ul>
+</section><section id="picking-a-file-name" class="slide level2">
+<h2>Picking a file name</h2>
+<ul>
+<li>You may wish to disallow users to name their files for a number of reasons
+<ul>
+<li>Everyone tries to upload <code>submission.pdf</code></li>
+<li>Filename shouldn’t be predictable</li>
+<li>Potentially detect duplicates</li>
+<li>…</li>
+</ul></li>
+<li>There are many ways to choose a new filename
+<ul>
+<li>Counter (<code>1.png</code>, <code>2.png</code>, <code>3.png</code>)</li>
+<li>Random (<code>b3088d04a5c6aba7.png</code>)</li>
+<li>Hashing (<code>c553822654e4a60440e36f1a51a20edc.png</code>)</li>
+</ul></li>
+</ul>
+</section><section id="picking-a-file-name-1" class="slide level2">
+<h2>Picking a file name</h2>
+<ul>
+<li>Can easily hash file using <code>md5_file($filename)</code></li>
+<li>Can come up with random file names</li>
+</ul>
+<pre><code>bin2hex(openssl_random_pseudo_bytes(8));  //16 chars</code></pre>
+</section><section id="storage" class="slide level2">
+<h2>Storage</h2>
+<ul>
+<li>Where to store
+<ul>
+<li>Outside web root (preferred if possible)</li>
+<li>Inside web root</li>
+</ul></li>
+<li>Can easily check if the filename exists <code>file_exists($filename)</code></li>
+<li>Actually store file
+<ul>
+<li><code>move_uploaded_file($temp, $path)</code></li>
+</ul></li>
+<li>Temp file auto deleted at end of HTTP request if not moved</li>
+</ul>
+</section><section id="progress" class="slide level2">
+<h2>Progress</h2>
+<ul>
+<li>Problems surrounding showing progress</li>
+</ul>
+</section><section id="other-considerations" class="slide level2">
+<h2>Other Considerations</h2>
+<ul>
+<li>PHP Max Execution Time</li>
+<li>PHP Max Post Size</li>
+</ul>
+<p> </p>
+<ul>
+<li>You may get no errors just an empty <code>$_FILES</code></li>
+</ul>
+<p> </p>
+<ul>
+<li>Files can be deleted using <code>unlink($filename)</code></li>
+</ul>
+</section><section id="multiple-files" class="slide level2">
+<h2>Multiple Files</h2>
+<ul>
+<li>How could you allow multiple files?
+<ul>
+<li>How does PHP handle each?</li>
+</ul></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
