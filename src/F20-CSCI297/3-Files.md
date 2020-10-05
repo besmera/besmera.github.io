@@ -20,9 +20,9 @@
 ## Modes
 
 * Modes
-	* `R` - Read
-	* `W` - Write (erase file if exists, create if not)
-	* `A` - Append (create if does not exists, appends to end)
+	* `r` - Read
+	* `w` - Write (erase file if exists, create if not)
+	* `a` - Append (create if does not exists, appends to end)
 * Other modes exist but are not frequently used
 
 ## Example File
