@@ -29,7 +29,6 @@
 ## Reusable Code
 
 * So far all code has been in same file
-	* Distribution Lab
 * Code is unreusable from 
 	* Page to page
 	* App to app
@@ -74,8 +73,6 @@ require("footer.php");
 * Ensures file was included at most 1 time
 	* Useful for helper files containing functions
 	* Recall functions can be declared only once
-* Lets decide if we want to use `_once` or not
-
 
 # Form Inputs
 
@@ -115,20 +112,10 @@ require("footer.php");
 * Lets implement delete functionality using a form
 	* A hidden input for todo item number 
 	* Button for delete command
-
-\ 
-
-* But first... Why use a form? Why not a link?
-
-\ 
-
-> * `GET` vs `POST` intention
-> * Should really use `DELETE` but `GET`/`POST` are the only universally supported **form** methods 
-> AJAX can support `DELETE`/`PUT` in many browsers
-
-\ 
-
-> * OK now lets implement
+* Why use a form instead of a button?
+	* `GET` vs `POST` intention
+	* Should really use `DELETE` but `GET`/`POST` are the only universally supported **form** methods 
+	* AJAX can support `DELETE`/`PUT` in many browsers
 
 # PRG
 

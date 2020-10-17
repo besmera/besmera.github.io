@@ -73,10 +73,7 @@
 </section><section id="reusable-code-1" class="slide level2">
 <h2>Reusable Code</h2>
 <ul>
-<li>So far all code has been in same file
-<ul>
-<li>Distribution Lab</li>
-</ul></li>
+<li>So far all code has been in same file</li>
 <li>Code is unreusable from
 <ul>
 <li>Page to page</li>
@@ -136,7 +133,6 @@ require(&quot;footer.php&quot;);</code></pre>
 <li>Useful for helper files containing functions</li>
 <li>Recall functions can be declared only once</li>
 </ul></li>
-<li>Lets decide if we want to use <code>_once</code> or not</li>
 </ul>
 </section></section>
 <section><section id="form-inputs" class="title-slide slide level1"><h1>Form Inputs</h1></section><section id="select" class="slide level2">
@@ -181,19 +177,12 @@ require(&quot;footer.php&quot;);</code></pre>
 <li>A hidden input for todo item number</li>
 <li>Button for delete command</li>
 </ul></li>
-</ul>
-<p> </p>
+<li>Why use a form instead of a button?
 <ul>
-<li>But first… Why use a form? Why not a link?</li>
-</ul>
-<p> </p>
-<ul>
-<li class="fragment"><code>GET</code> vs <code>POST</code> intention</li>
-<li class="fragment">Should really use <code>DELETE</code> but <code>GET</code>/<code>POST</code> are the only universally supported <strong>form</strong> methods AJAX can support <code>DELETE</code>/<code>PUT</code> in many browsers</li>
-</ul>
-<p> </p>
-<ul>
-<li class="fragment">OK now lets implement</li>
+<li><code>GET</code> vs <code>POST</code> intention</li>
+<li>Should really use <code>DELETE</code> but <code>GET</code>/<code>POST</code> are the only universally supported <strong>form</strong> methods</li>
+<li>AJAX can support <code>DELETE</code>/<code>PUT</code> in many browsers</li>
+</ul></li>
 </ul>
 </section></section>
 <section><section id="prg" class="title-slide slide level1"><h1>PRG</h1></section><section id="prg-pattern" class="slide level2">
