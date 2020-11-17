@@ -12,6 +12,11 @@
 	* Create all your collections in this same db
 	* User: `csci355` Pass: `csci355`
 	* `db.auth('csci355', 'csci355')`;
+* Groups do have accounts
+``` 
+$ mongo deltona.birdnest.org/group1
+> db.auth('group1', 'group1');
+```
 
 # Terms
 
@@ -315,17 +320,8 @@ db.students.find({
 
 ## Anatomy of find
 
-
 ![Querying](crud-query-stages.png)
 
-
-
-
-## Criteria Select
-
-* Try to select
-	* Students under 21
-	* Students 21 or older
 
 ## Criteria Select
 
@@ -344,7 +340,7 @@ db.students.find({
 
 ## Logical Selection
 
-* Similar to SQL you can also do logical selection
+* Similar to SQL you can also do logical selection 
 	* `$or` - logical or
 	* `$and` - logical and
 	* `$not` - opposite
@@ -428,7 +424,7 @@ db.students.find({
 * Much like MySQL projection can limit returned data
 	* i.e. - `SELECT projection FROM table`
 * Projection is the second object passed to `.find()`
-	* Can either whitelist `1` **OR** blacklist `0`
+	* Can either provide inclusion list `1` **OR** exclusion list `0`
 	* Exception is for `_id`
 
 ## Projection
@@ -437,7 +433,7 @@ db.students.find({
 db.students.find(
   {},         // Criteria, or all documents
   { 
-    name : 1  // Projection, whitelist only the name
+    name : 1  // Projection, inclusion list only the name
   });
 ```
 or
@@ -445,15 +441,20 @@ or
 db.students.find(
   {},        // Criteria, or all documents
   { 
-    age : 0  // Projection, blacklist age
+    age : 0  // Projection, exclusion list age
   });
 ```
 
 \ 
 
-* **Note** that turning `_id` on or off has no effect on whitelisting vs blacklisting
+* **Note** that turning `_id` on or off has no effect on inclusion list vs exclusion list
 
 ## Practice time
+
+``` 
+$ mongo deltona.birdnest.org/group1
+> db.auth('group1', 'group1');
+```
 
 * Create three more students with the properties:
 	* name
@@ -589,11 +590,6 @@ db.students.update(
 );
 ```
 
-## Anatomy of update
-
-<img src="http://docs.mongodb.org/manual/_images/crud-annotated-mongodb-update.png" width="800">
-
-
 ## Update
 
 * Other operators are available and can be found in the [documentation](http://docs.mongodb.org/)
@@ -648,6 +644,13 @@ db.dropDatabase();
 
 
 ## Example Products
+
+
+* Use your group account. For example, group 1:
+``` 
+$ mongo deltona.birdnest.org/group1
+> db.auth('group1', 'group1');
+```
 
 ```javascript
 db.product.drop();
@@ -714,6 +717,7 @@ db.product.insert({
 ```
 
 ## Practice (1 of 2)
+
 
 1. Create a view showing the values of the product on hand.
 	* No option to do this with find.  Must aggregate. Still not really a view.

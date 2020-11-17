@@ -61,7 +61,10 @@
 <li>User: <code>csci355</code> Pass: <code>csci355</code></li>
 <li><code>db.auth('csci355', 'csci355')</code>;</li>
 </ul></li>
+<li>Groups do have accounts</li>
 </ul>
+<pre><code>$ mongo deltona.birdnest.org/group1
+&gt; db.auth(&#39;group1&#39;, &#39;group1&#39;);</code></pre>
 </section></section>
 <section><section id="terms" class="title-slide slide level1"><h1>Terms</h1></section><section id="rdbms-vs-document-oriented" class="slide level2">
 <h2>RDBMS vs Document Oriented</h2>
@@ -385,15 +388,6 @@ db.students.insert({
 </section><section id="criteria-select" class="slide level2">
 <h2>Criteria Select</h2>
 <ul>
-<li>Try to select
-<ul>
-<li>Students under 21</li>
-<li>Students 21 or older</li>
-</ul></li>
-</ul>
-</section><section id="criteria-select-1" class="slide level2">
-<h2>Criteria Select</h2>
-<ul>
 <li>Other criteria based operators
 <ul>
 <li><code>$in</code> - Does any of the values in an array match?</li>
@@ -492,7 +486,7 @@ db.students.find({
 </ul></li>
 <li>Projection is the second object passed to <code>.find()</code>
 <ul>
-<li>Can either whitelist <code>1</code> <strong>OR</strong> blacklist <code>0</code></li>
+<li>Can either provide inclusion list <code>1</code> <strong>OR</strong> exclusion list <code>0</code></li>
 <li>Exception is for <code>_id</code></li>
 </ul></li>
 </ul>
@@ -501,20 +495,22 @@ db.students.find({
 <pre class="javascript"><code>db.students.find(
   {},         // Criteria, or all documents
   { 
-    name : 1  // Projection, whitelist only the name
+    name : 1  // Projection, inclusion list only the name
   });</code></pre>
 <p>or</p>
 <pre class="javascript"><code>db.students.find(
   {},        // Criteria, or all documents
   { 
-    age : 0  // Projection, blacklist age
+    age : 0  // Projection, exclusion list age
   });</code></pre>
 <p> </p>
 <ul>
-<li><strong>Note</strong> that turning <code>_id</code> on or off has no effect on whitelisting vs blacklisting</li>
+<li><strong>Note</strong> that turning <code>_id</code> on or off has no effect on inclusion list vs exclusion list</li>
 </ul>
 </section><section id="practice-time" class="slide level2">
 <h2>Practice time</h2>
+<pre><code>$ mongo deltona.birdnest.org/group1
+&gt; db.auth(&#39;group1&#39;, &#39;group1&#39;);</code></pre>
 <ul>
 <li>Create three more students with the properties:
 <ul>
@@ -658,9 +654,6 @@ db.students.find({_id:12345});
     $push : {grades: 100}  //Push a 100 to grades array
   }
 );</code></pre>
-</section><section id="anatomy-of-update" class="slide level2">
-<h2>Anatomy of update</h2>
-<p><img src="http://docs.mongodb.org/manual/_images/crud-annotated-mongodb-update.png" width="800"></p>
 </section><section id="update-3" class="slide level2">
 <h2>Update</h2>
 <ul>
@@ -705,6 +698,11 @@ db.students.find({_id:12345});
 </section></section>
 <section><section id="practice-2" class="title-slide slide level1"><h1>Practice</h1></section><section id="example-products" class="slide level2">
 <h2>Example Products</h2>
+<ul>
+<li>Use your group account. For example, group 1:</li>
+</ul>
+<pre><code>$ mongo deltona.birdnest.org/group1
+&gt; db.auth(&#39;group1&#39;, &#39;group1&#39;);</code></pre>
 <pre class="javascript"><code>db.product.drop();
 
 db.product.insert({
