@@ -15,7 +15,7 @@
 	* Click OK
 
 ## Add The Virtual Machine
-3) Go back to VirtualBox and click `File` -> `Import`
+2) Go back to VirtualBox and click `File` -> `Import`
 	* Browse to find `/usr/share/VirtualBoxVMs/SEED/SEED16.04-Default.ova` on a linux lab machine or download this file from the <a href="https://deltona.birdnest.org/SEED16.04-Default.ova">Deltona Server</a> if working on your own machine.
 	* Click `Next`
 	* On this screen check the option to "Reinitialize the MAC address of all network cards"
@@ -24,13 +24,13 @@
 
 
 ## Configure the Virtual Machine
-4) Click on the newly created VM and click `settings`
+3) Click on the newly created VM and click `settings`
 	* Under `Network` and the `Adapter 2` tab
 		* Click `Enable Network Adapter`
 		* Change attached to from `NAT` to `NAT Network`
 	* Click OK
 
-5) Verify the machine starts and then power it down.  You can use the username `seed` and password `dees`.
+4) Verify the machine starts and then power it down.  You can use the username `seed` and password `dees`.
 
 ## Cloning
 
