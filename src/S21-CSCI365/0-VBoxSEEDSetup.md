@@ -18,7 +18,7 @@
 2) Go back to VirtualBox and click `File` -> `Import`
 	* Browse to find `/usr/share/VirtualBoxVMs/SEED/SEED16.04-Default.ova` on a linux lab machine or download this file from the <a href="https://deltona.birdnest.org/SEED16.04-Default.ova">Deltona Server</a> if working on your own machine.
 	* Click `Next`
-	* On this screen check the option to "Reinitialize the MAC address of all network cards"
+	* On this screen check the option to "Reinitialize the MAC address of all network cards" or it may say "Generate new" instead of "Reinitialize"
 	* Click `Import`
 	* Once the process is complete you should have a VM `SEED Default` setup automatically.
 
