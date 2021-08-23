@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer" />
+  <title>Includes, PRG, Mail</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="../../assets/custom.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../../reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Includes, PRG, Mail</h1>
+    <h2 class="author">Dr. Andrew Besmer</h2>
+    <h3 class="date"></h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/scenario">Scenario</a></li>
+<li><a href="#/includes">Includes</a></li>
+<li><a href="#/form-inputs">Form Inputs</a></li>
+<li><a href="#/prg">PRG</a></li>
+<li><a href="#/mail">Mail</a></li>
+</ul>
+</section>
+
+<section><section id="scenario" class="title-slide slide level1"><h1>Scenario</h1></section><section id="scenario-1" class="slide level2">
+<h2>Scenario</h2>
+<ul>
+<li>Todo App</li>
+</ul>
+<blockquote>
+<p>We will create a todo web app that will link todo items with peoples email addresses. The todo app will be able to support adding/deleting todo items as well as sending a reminder email, reminding a person of the todo item. We will do all this using as much reusable code as possible.</p>
+</blockquote>
+</section></section>
+<section><section id="includes" class="title-slide slide level1"><h1>Includes</h1></section><section id="reusable-code" class="slide level2">
+<h2>Reusable Code</h2>
+<ul>
+<li>How many times have you typed the basic html structure?</li>
+</ul>
+<pre class="html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</section><section id="reusable-code-1" class="slide level2">
+<h2>Reusable Code</h2>
+<ul>
+<li>So far all code has been in same file</li>
+<li>Code is unreusable from
+<ul>
+<li>Page to page</li>
+<li>App to app</li>
+</ul></li>
+</ul>
+</section><section id="includesrequires" class="slide level2">
+<h2>Includes/Requires</h2>
+<ul>
+<li>Includes &amp; requires to the rescue
+<ul>
+<li>The <code>include()</code> <strong><em>asks</em></strong> that file be inserted/parsed
+<ul>
+<li>Absence of the file allows script to continue execute</li>
+</ul></li>
+<li>The <code>require()</code> <strong><em>demands</em></strong> that a file be inserted/parsed
+<ul>
+<li>Absence of a file causes script to have fatal error and terminate</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="includesrequires-1" class="slide level2">
+<h2>Includes/Requires</h2>
+<ul>
+<li>Lets make a header/footer for our todo app
+<ul>
+<li>Decide between require/include</li>
+</ul></li>
+</ul>
+<pre class="php"><code>&lt;?php
+require(&quot;header.php&quot;);
+
+//Your page stuff here
+
+require(&quot;footer.php&quot;);</code></pre>
+</section><section id="includesrequires-2" class="slide level2">
+<h2>Includes/Requires</h2>
+<ul>
+<li>Includes and requires are useful for reusing code</li>
+<li>Lets make reusable code for reading, writing, and deleting from a file<a href="#/fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
+<ul>
+<li><code>readLines($filename)</code> - Read all the lines from the file</li>
+<li><code>appendLine($filename, $line)</code> - Append a specific line from the file</li>
+<li><code>deleteLine($filename, $lineNumber)</code> - Delete a specific line from the file</li>
+</ul></li>
+</ul>
+</section><section id="once" class="slide level2">
+<h2>_once</h2>
+<ul>
+<li>Both <code>include()</code> and <code>require()</code> have similar functions postfixed with <code>_once</code>
+<ul>
+<li><code>include_once()</code></li>
+<li><code>require_once()</code></li>
+</ul></li>
+<li>Ensures file was included at most 1 time
+<ul>
+<li>Useful for helper files containing functions</li>
+<li>Recall functions can be declared only once</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="form-inputs" class="title-slide slide level1"><h1>Form Inputs</h1></section><section id="select" class="slide level2">
+<h2>Select</h2>
+<ul>
+<li>HTML <code>select</code> tag is used to provide a list of items from which you can select just one item
+<ul>
+<li>Visually a drop down list</li>
+<li><code>name</code> attribute on <code>option</code> element used as the key</li>
+<li><code>value</code> attribute on <code>option</code> used to indicate choice</li>
+<li>Longer text inside <code>option</code> tags is only shown to user</li>
+</ul></li>
+</ul>
+<pre class="html"><code>&lt;select name=&quot;state&quot;&gt;
+    &lt;option value=&quot;NC&quot;&gt;North Carolina&lt;/option&gt;
+    &lt;option value=&quot;SC&quot;&gt;South Carolina&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+</section><section id="select-1" class="slide level2">
+<h2>Select</h2>
+<ul>
+<li>Lets implement the todo app with our generic reader and writer
+<ul>
+<li>Insert todo item and email (<code>select</code>) it belongs to</li>
+<li>Summary of items</li>
+</ul></li>
+</ul>
+</section><section id="hidden" class="slide level2">
+<h2>Hidden</h2>
+<ul>
+<li><code>hidden</code> inputs can be used to provide form information that the user does not get to see
+<ul>
+<li>Useful for security (another class)</li>
+<li>Also useful for forms with no visible input</li>
+</ul></li>
+</ul>
+<pre class="html"><code>&lt;input type=&quot;hidden&quot; name=&quot;sku&quot; value=&quot;456789&quot;&gt;&lt;/input&gt;</code></pre>
+</section><section id="hidden-1" class="slide level2">
+<h2>Hidden</h2>
+<ul>
+<li>Lets implement delete functionality using a form
+<ul>
+<li>A hidden input for todo item number</li>
+<li>Button for delete command</li>
+</ul></li>
+<li>Why use a form instead of a button?
+<ul>
+<li><code>GET</code> vs <code>POST</code> intention</li>
+<li>Should really use <code>DELETE</code> but <code>GET</code>/<code>POST</code> are the only universally supported <strong>form</strong> methods</li>
+<li>AJAX can support <code>DELETE</code>/<code>PUT</code> in many browsers</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="prg" class="title-slide slide level1"><h1>PRG</h1></section><section id="prg-pattern" class="slide level2">
+<h2>PRG Pattern</h2>
+<dl>
+<dt>PRG</dt>
+<dd>Post/Redirect/Get Pattern - solves a common problem with browsers and HTTP POST requests.
+</dd>
+</dl>
+<p><img data-src="PostRedirectGetDoubleSubmitProblem.png" alt="PRG Problem" /> <a href="#/fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+</section><section id="prg-pattern-1" class="slide level2">
+<h2>PRG Pattern</h2>
+<ul>
+<li>By redirecting can avoid double submission</li>
+</ul>
+<p><img data-src="PostRedirectGetDoubleSubmitSolution.png" alt="PRG Solution" /> <a href="#/fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+</section><section id="prg-1" class="slide level2">
+<h2>PRG</h2>
+<ul>
+<li>Does our todo app have a double POST problem?</li>
+<li>Lets try inserting and deleteing to find out</li>
+</ul>
+</section><section id="prg-2" class="slide level2">
+<h2>PRG</h2>
+<ul>
+<li>How can we fix with PHP</li>
+</ul>
+<p> </p>
+<ul>
+<li class="fragment"><code>header()</code> function</li>
+<li class="fragment">Lets fix it it</li>
+</ul>
+</section></section>
+<section><section id="mail" class="title-slide slide level1"><h1>Mail</h1></section><section id="mail-1" class="slide level2">
+<h2>Mail</h2>
+<ul>
+<li>Sending mail to users is a common task performed by nearly every web app</li>
+<li>Examples
+<ul>
+<li>User registration</li>
+<li>Forgot password</li>
+<li>New bill generated</li>
+<li>Todo reminder!</li>
+</ul></li>
+</ul>
+</section><section id="mail-2" class="slide level2">
+<h2>Mail</h2>
+<ul>
+<li>The mail protocol is similar to the http protocol</li>
+<li>Can use the <code>mail()</code> function in PHP to send mail mail function</li>
+</ul>
+<pre class="php"><code>mail($to, $subject, $message, $headers);</code></pre>
+</section><section id="mail-3" class="slide level2">
+<h2>Mail</h2>
+<ul>
+<li><code>$to</code> must follow standard
+<ul>
+<li>besmera@winthrop.edu</li>
+<li>besmera@winthrop.edu, dannellys@winthrop.edu</li>
+<li>Andrew Besmer &lt;besmera@winthrop.edu&gt;</li>
+</ul></li>
+<li><code>$subject</code> must contain no <code>\r\n</code></li>
+</ul>
+</section><section id="mail-4" class="slide level2">
+<h2>Mail</h2>
+<ul>
+<li><code>$message</code> can contain multiple lines and is used for the message body</li>
+<li><code>$headers</code> while not required can contain additional headers
+<ul>
+<li><code>From:</code> is one header you almost certainly want to set</li>
+</ul></li>
+</ul>
+<pre class="php"><code>mail(&quot;besmera@winthrop.edu&quot;, 
+&quot;New Account&quot;, 
+&quot;Welcome to the site!\r\n\r\nVisit us soon...&quot;, 
+&quot;From: no-reply@winthrop.edu&quot;);</code></pre>
+</section><section id="mail-5" class="slide level2">
+<h2>Mail</h2>
+<ul>
+<li>Lets implement a remind feature</li>
+<li>Address refresh problem</li>
+</ul>
+</section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>OOP or passing the file name would be more suitable than our example but we are not ready for that.<a href="#/fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Source: http://upload.wikimedia.org/wikipedia/commons/f/f3/PostRedirectGet_DoubleSubmitProblem.png<a href="#/fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Source: http://upload.wikimedia.org/wikipedia/commons/3/3c/PostRedirectGet_DoubleSubmitSolution.png<a href="#/fnref3" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+
+  <script src="../../reveal.js/lib/js/head.min.js"></script>
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
