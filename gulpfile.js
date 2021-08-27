@@ -1,3 +1,5 @@
+const { opendirSync } = require('fs');
+
 var
 // node
 path = require('path'),
@@ -31,17 +33,20 @@ gulp.task('default', function() {
     // global pandoc opts
     opts.args.push('--toc');
     opts.args.push('--mathjax');
-    //opts.args.push('-S');
     opts.args.push('-s');
     opts.args.push('-t');
     opts.args.push('revealjs');
     opts.args.push('--template=' + path.join(__dirname, './assets/revealjs.html'));
     opts.args.push('-V');
-    opts.args.push('theme=sky');
-    opts.args.push('-V');
-    opts.args.push('highlight-theme=zenburn');
+    opts.args.push('theme=simple');
     opts.args.push('-V');
     opts.args.push('revealjs-url=../../reveal.js');
+    opts.args.push('-V');
+    opts.args.push('mathjaxurl=https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js');
+    opts.args.push('-V');
+    opts.args.push('css=../../reveal.js/lib/css/monokai.css');
+    opts.args.push('-V');
+    opts.args.push('transition=convex');
     opts.args.push('--no-highlight'); //For pandoc highlights not reveal
     opts.args.push('--toc-depth=1');
 
