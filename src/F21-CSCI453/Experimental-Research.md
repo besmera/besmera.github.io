@@ -44,7 +44,7 @@
 
 ## Hypothesis 
 
-* Null vs Alternative Hypothesis
+* Null ($H_0$) vs Alternative ($H_1$) Hypothesis
 	* Null hypothesis states that there is no difference between experimental treatments
 	* Alternative hypothesis is mutually exclusive the null
 * Some experiments have several
