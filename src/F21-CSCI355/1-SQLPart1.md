@@ -877,6 +877,9 @@ INSERT INTO Tweet (text, user) SELECT "who ariane", id FROM User where name = "A
 
 2. Write the SQL statement that would be necessary to display the twitter feed for Elon Musk. Recall that order is not guaranteed.
 
+
+## M:N JOIN Twitter
+
 3. Add a `Tweet` for someone who you had Elon Musk follow and someone who he did not follow.
 
 4. Rerun your SQL statement to show the twitter feed.  You should see only 1 new tweet, not 2.
