@@ -795,7 +795,7 @@ CREATE TABLE Follow (
 	FOREIGN KEY (followee) REFERENCES User(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-INSERT INTO User (name) VALUES ("KATY PERRY"),("Justin Bieber"),("Barack Obama"),("Taylor Swift"),("YouTube"),("Rihanna"),("Lady Gaga"),("Justin Timberlake"),("Donald Trump");
+INSERT INTO User (name) VALUES ("KATY PERRY"),("Justin Bieber"),("Elon Musk"),("Taylor Swift"),("YouTube"),("Rihanna"),("Lady Gaga"),("Justin Timberlake"),("Ariana Grande");
 
 SELECT SLEEP(1);
 
@@ -823,7 +823,11 @@ INSERT INTO Tweet (text, user) SELECT "They can't scare me, if I scare them firs
 
 SELECT SLEEP(1);
 
-INSERT INTO Tweet (text, user) SELECT "If I had to name my greatest strength, I guess it would be my humility. Greatest weakness, it’s possible that I’m a little too awesome.", id FROM User where name = "Barack Obama";
+INSERT INTO Tweet (text, user) SELECT "Tesla stock price is too high imo", id FROM User where name = "Elon Musk";
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "I am selling almost all physical possessions. Will own no house.", id FROM User where name = "Elon Musk";
 
 SELECT SLEEP(1);
 
@@ -836,10 +840,6 @@ INSERT INTO Tweet (text, user) SELECT "No matter what happens in life, be good t
 SELECT SLEEP(1);
 
 INSERT INTO Tweet (text, user) SELECT "Want your video posted, send us a message!", id FROM User where name = "YouTube";
-
-SELECT SLEEP(1);
-
-INSERT INTO Tweet (text, user) SELECT "I want to especially thank all the members who took a break from their exhausting schedule of not passing any laws to be here tonight.", id FROM User where name = "Barack Obama";
 
 SELECT SLEEP(1);
 
@@ -863,18 +863,21 @@ INSERT INTO Tweet (text, user) SELECT "I have 20,000 girlfriends, all around the
 
 SELECT SLEEP(1);
 
-INSERT INTO Tweet (text, user) SELECT "Sorry losers and haters, but my I.Q. is one of the highest -and you all know it! Please don't feel so stupid or insecure,it's not your fault", id FROM User where name = "Donald Trump";
+INSERT INTO Tweet (text, user) SELECT "had the weirdest, scariest, most bizarre dreams ever last night. wow. One of them was me trapped in a room with Kevin Jonas and an alien.", id FROM User where name = "Ariana Grande";
 
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT "who ariane", id FROM User where name = "Ariana Grande";
 
 ```
 
 ## M:N JOIN Twitter
 
-1. Insert data into `Follow` for who Donald Trump should be following.  Remember he is incredibly busy so don't add everyone. Also recall that the twitter relationship is not reciprocal. 
+1. Insert data into `Follow` for who Elon should be following.  Remember he is incredibly busy so don't add everyone. Also recall that the twitter relationship is not reciprocal. 
 
-2. Write the SQL statement that would be neccessary to display the twitter feed for Donald Trump. Recall that order is not guaranteed.
+2. Write the SQL statement that would be necessary to display the twitter feed for Elon Musk. Recall that order is not guaranteed.
 
-3. Add a `Tweet` for someone who you had Donald Trump follow and someone who he did not follow.
+3. Add a `Tweet` for someone who you had Elon Musk follow and someone who he did not follow.
 
-4. Rerun your SQL statement to show the twitter feed.
+4. Rerun your SQL statement to show the twitter feed.  You should see only 1 new tweet, not 2.
 

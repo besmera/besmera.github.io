@@ -3,40 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <meta name="author" content="Dr. Andrew Besmer" />
+  <meta name="author" content="Dr. Andrew Besmer">
   <title>SQL (Ch 4)</title>
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="../../reveal.js/css/reveal.css"/>
-    <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
-    <link rel="stylesheet" href="../../assets/custom.css"/>
-    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
-    <script>
-      if( window.location.search.match( /print-pdf/gi ) ) {
-        var link = document.createElement( 'link' );
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = '../../reveal.js/css/print/pdf.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
-      }
-    </script>
-
-    <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
-
-    <!--[if lt IE 9]>
-    <script src="../../reveal.js/lib/js/html5shiv.js"></script>
-    <![endif]-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="../../assets/custom.css"/>
+  <link rel="stylesheet" href="../../reveal.js/lib/css/monokai.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal.js/css/print/pdf.css' : '../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
-<section>
-    <h1 class="title">SQL (Ch 4)</h1>
-    <h2 class="author">Dr. Andrew Besmer</h2>
-    <h3 class="date"></h3>
+<section id="title-slide">
+  <h1 class="title">SQL (Ch 4)</h1>
+  <p class="author">Dr. Andrew Besmer</p>
 </section>
 <section id="TOC">
 <ul>
@@ -982,7 +982,7 @@ CREATE TABLE Follow (
     FOREIGN KEY (followee) REFERENCES User(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-INSERT INTO User (name) VALUES (&quot;KATY PERRY&quot;),(&quot;Justin Bieber&quot;),(&quot;Barack Obama&quot;),(&quot;Taylor Swift&quot;),(&quot;YouTube&quot;),(&quot;Rihanna&quot;),(&quot;Lady Gaga&quot;),(&quot;Justin Timberlake&quot;),(&quot;Donald Trump&quot;);
+INSERT INTO User (name) VALUES (&quot;KATY PERRY&quot;),(&quot;Justin Bieber&quot;),(&quot;Elon Musk&quot;),(&quot;Taylor Swift&quot;),(&quot;YouTube&quot;),(&quot;Rihanna&quot;),(&quot;Lady Gaga&quot;),(&quot;Justin Timberlake&quot;),(&quot;Ariana Grande&quot;);
 
 SELECT SLEEP(1);
 
@@ -1010,7 +1010,11 @@ INSERT INTO Tweet (text, user) SELECT &quot;They can&#39;t scare me, if I scare 
 
 SELECT SLEEP(1);
 
-INSERT INTO Tweet (text, user) SELECT &quot;If I had to name my greatest strength, I guess it would be my humility. Greatest weakness, it’s possible that I’m a little too awesome.&quot;, id FROM User where name = &quot;Barack Obama&quot;;
+INSERT INTO Tweet (text, user) SELECT &quot;Tesla stock price is too high imo&quot;, id FROM User where name = &quot;Elon Musk&quot;;
+
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT &quot;I am selling almost all physical possessions. Will own no house.&quot;, id FROM User where name = &quot;Elon Musk&quot;;
 
 SELECT SLEEP(1);
 
@@ -1023,10 +1027,6 @@ INSERT INTO Tweet (text, user) SELECT &quot;No matter what happens in life, be g
 SELECT SLEEP(1);
 
 INSERT INTO Tweet (text, user) SELECT &quot;Want your video posted, send us a message!&quot;, id FROM User where name = &quot;YouTube&quot;;
-
-SELECT SLEEP(1);
-
-INSERT INTO Tweet (text, user) SELECT &quot;I want to especially thank all the members who took a break from their exhausting schedule of not passing any laws to be here tonight.&quot;, id FROM User where name = &quot;Barack Obama&quot;;
 
 SELECT SLEEP(1);
 
@@ -1050,16 +1050,19 @@ INSERT INTO Tweet (text, user) SELECT &quot;I have 20,000 girlfriends, all aroun
 
 SELECT SLEEP(1);
 
-INSERT INTO Tweet (text, user) SELECT &quot;Sorry losers and haters, but my I.Q. is one of the highest -and you all know it! Please don&#39;t feel so stupid or insecure,it&#39;s not your fault&quot;, id FROM User where name = &quot;Donald Trump&quot;;
+INSERT INTO Tweet (text, user) SELECT &quot;had the weirdest, scariest, most bizarre dreams ever last night. wow. One of them was me trapped in a room with Kevin Jonas and an alien.&quot;, id FROM User where name = &quot;Ariana Grande&quot;;
 
+SELECT SLEEP(1);
+
+INSERT INTO Tweet (text, user) SELECT &quot;who ariane&quot;, id FROM User where name = &quot;Ariana Grande&quot;;
 </code></pre>
 </section><section id="mn-join-twitter-3" class="slide level2">
 <h2>M:N JOIN Twitter</h2>
 <ol type="1">
-<li><p>Insert data into <code>Follow</code> for who Donald Trump should be following. Remember he is incredibly busy so don’t add everyone. Also recall that the twitter relationship is not reciprocal.</p></li>
-<li><p>Write the SQL statement that would be neccessary to display the twitter feed for Donald Trump. Recall that order is not guaranteed.</p></li>
-<li><p>Add a <code>Tweet</code> for someone who you had Donald Trump follow and someone who he did not follow.</p></li>
-<li><p>Rerun your SQL statement to show the twitter feed.</p></li>
+<li><p>Insert data into <code>Follow</code> for who Elon should be following. Remember he is incredibly busy so don’t add everyone. Also recall that the twitter relationship is not reciprocal.</p></li>
+<li><p>Write the SQL statement that would be necessary to display the twitter feed for Elon Musk. Recall that order is not guaranteed.</p></li>
+<li><p>Add a <code>Tweet</code> for someone who you had Elon Musk follow and someone who he did not follow.</p></li>
+<li><p>Rerun your SQL statement to show the twitter feed. You should see only 1 new tweet, not 2.</p></li>
 </ol>
 </section></section>
 <section class="footnotes">
@@ -1071,31 +1074,43 @@ INSERT INTO Tweet (text, user) SELECT &quot;Sorry losers and haters, but my I.Q.
     </div>
   </div>
 
-
-  <script src="../../reveal.js/lib/js/head.min.js"></script>
   <script src="../../reveal.js/js/reveal.js"></script>
 
   <script>
 
-      // Full list of configuration options available here:
+      // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
-        controls: true,
-        progress: true,
+        // Push each slide change to the browser history
         history: true,
-        center: true,
-        theme: 'sky', // available themes are in /css/theme
-        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+        // Transition style
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
 
-        // Optional libraries used to extend on reveal.js
+        // Optional reveal.js plugins
         dependencies: [
           { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-          { src: '../../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-		  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-//          { src: '../../reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
-//          { src: '../../reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-]});
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../reveal.js/plugin/highlight/highlight.js', async: true },
+          { src: '../../reveal.js/plugin/math/math.js', async: true },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
     </script>
     </body>
 </html>
