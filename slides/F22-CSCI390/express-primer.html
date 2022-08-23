@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer">
+  <title>Node.js</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="../../assets/custom.css"/>
+  <link rel="stylesheet" href="../../reveal.js/lib/css/monokai.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal.js/css/print/pdf.css' : '../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Node.js</h1>
+  <p class="author">Dr. Andrew Besmer</p>
+  <p class="date">Express</p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/express">Express</a></li>
+</ul>
+</section>
+
+<section><section id="express" class="title-slide slide level1"><h1>Express</h1></section><section id="express-1" class="slide level2">
+<h2>Express</h2>
+<ul>
+<li>Node.js is very low level</li>
+<li>Express is a framework
+<ul>
+<li>Request routing</li>
+<li>Middleware for
+<ul>
+<li>Url decoding</li>
+<li>Query string parsing</li>
+<li>File uploads</li>
+<li>etc …</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="getting-express" class="slide level2">
+<h2>Getting Express</h2>
+<ul>
+<li>Get express <code>npm install express</code></li>
+<li>Require it!</li>
+</ul>
+<pre class="javascript"><code>var express = require(&#39;express&#39;);
+app = express();
+
+app.get(&#39;/&#39;, function(request, response){
+        response.write(&quot;Hello&quot;);
+        response.end();
+});
+
+app.listen(8000);</code></pre>
+</section><section id="slugs" class="slide level2">
+<h2>Slugs</h2>
+<ul>
+<li>Can use slugs in express routing</li>
+</ul>
+<pre class="javascript"><code>var express = require(&#39;express&#39;);
+app = express();
+
+app.get(&#39;/hello/:name&#39;, function(request, response){
+        response.write(&quot;Hello &quot; + request.params.name);
+        response.end();
+});
+
+app.listen(8000);</code></pre>
+</section></section>
+    </div>
+  </div>
+
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../reveal.js/plugin/highlight/highlight.js', async: true },
+          { src: '../../reveal.js/plugin/math/math.js', async: true },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>

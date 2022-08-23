@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer">
+  <title>Setup Environment</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="../../assets/custom.css"/>
+  <link rel="stylesheet" href="../../reveal.js/lib/css/monokai.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal.js/css/print/pdf.css' : '../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Setup Environment</h1>
+  <p class="author">Dr. Andrew Besmer</p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/campus-labs">Campus Labs</a></li>
+<li><a href="#/your-ubuntu-linux">Your Ubuntu Linux</a></li>
+<li><a href="#/your-windows">Your Windows</a></li>
+<li><a href="#/your-macos">Your macOS</a></li>
+</ul>
+</section>
+
+<section><section id="campus-labs" class="title-slide slide level1"><h1>Campus Labs</h1></section><section id="campus-lab-machines" class="slide level2">
+<h2>Campus Lab Machines</h2>
+<ul>
+<li>Campus lab machines already have the software you need
+<ul>
+<li>Terminal, VS Code, Node.js LTS, etc…</li>
+</ul></li>
+<li>You can access these remotely using SSH and X11 forwarding
+<ul>
+<li>Consider using compression <code>-C</code> in addition to the forwarding <code>-X</code></li>
+<li>Windows will require installation of a seperate X11 server for example <code>Xming</code></li>
+<li>You will need to have configured 2FA</li>
+</ul></li>
+</ul>
+<pre><code>ssh -X yourusername@hopper.winthrop.edu</code></pre>
+</section><section id="campus-lab-machines-1" class="slide level2">
+<h2>Campus Lab Machines</h2>
+<ul>
+<li>You may find setting up your own development enviornment to be more rewarding</li>
+</ul>
+</section></section>
+<section><section id="your-ubuntu-linux" class="title-slide slide level1"><h1>Your Ubuntu Linux</h1></section><section id="node.js-using-apt" class="slide level2">
+<h2>Node.js using apt</h2>
+<ul>
+<li>Apt is a package manager for installing applications and their dependencies</li>
+<li>Use the terminal as a root user to execute the following</li>
+<li>Be sure to use the LTS currently <code>v12</code></li>
+</ul>
+<pre><code>curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt-get install -y nodejs</code></pre>
+</section><section id="download-vs-code" class="slide level2">
+<h2>Download VS Code</h2>
+<ul>
+<li><a href="https://code.visualstudio.com/">Visual Studio Code</a></li>
+</ul>
+</section><section id="download-git" class="slide level2">
+<h2>Download git</h2>
+<ul>
+<li>Git can be found in the package repositories</li>
+</ul>
+<pre><code>sudo apt-get install git</code></pre>
+<ul>
+<li>You may find a <a href="https://git-scm.com/downloads/guis">GUI</a> helpful though I don’t use one</li>
+</ul>
+</section></section>
+<section><section id="your-windows" class="title-slide slide level1"><h1>Your Windows</h1></section><section id="download-node.js" class="slide level2">
+<h2>Download Node.js</h2>
+<ul>
+<li>You can find the installation files at <a href="https://nodejs.org/en/download/">nodejs.org</a></li>
+<li>Be sure to use the LTS currently <code>v12</code></li>
+</ul>
+</section><section id="download-git-1" class="slide level2">
+<h2>Download git</h2>
+<ul>
+<li>Git can be found on the <a href="https://git-scm.com/download/win">git website</a></li>
+<li>You may find a <a href="https://git-scm.com/downloads/guis">GUI</a> helpful though I don’t use one</li>
+</ul>
+</section><section id="download-vs-code-1" class="slide level2">
+<h2>Download VS Code</h2>
+<ul>
+<li><a href="https://code.visualstudio.com/">Visual Studio Code</a></li>
+</ul>
+</section></section>
+<section><section id="your-macos" class="title-slide slide level1"><h1>Your macOS</h1></section><section id="download-node.js-1" class="slide level2">
+<h2>Download Node.js</h2>
+<ul>
+<li>You can find the installation files at <a href="https://nodejs.org/en/download/">nodejs.org</a></li>
+<li>Be sure to use the LTS currently <code>v12</code></li>
+</ul>
+</section><section id="download-vs-code-2" class="slide level2">
+<h2>Download VS Code</h2>
+<ul>
+<li><a href="https://code.visualstudio.com/">Visual Studio Code</a></li>
+</ul>
+</section><section id="download-git-2" class="slide level2">
+<h2>Download git</h2>
+<ul>
+<li>Git can be installed with brew</li>
+</ul>
+<pre><code>brew install git</code></pre>
+<ul>
+<li>Alternatively you could use a <a href="https://sourceforge.net/projects/git-osx-installer/">stand alone installer</a></li>
+<li>You may find a <a href="https://git-scm.com/downloads/guis">GUI</a> helpful though I don’t use one</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../reveal.js/plugin/highlight/highlight.js', async: true },
+          { src: '../../reveal.js/plugin/math/math.js', async: true },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>

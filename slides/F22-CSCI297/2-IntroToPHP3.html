@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer">
+  <title>Intro to PHP 2</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="../../assets/custom.css"/>
+  <link rel="stylesheet" href="../../reveal.js/lib/css/monokai.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal.js/css/print/pdf.css' : '../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Intro to PHP 2</h1>
+  <p class="author">Dr. Andrew Besmer</p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/arrays">Arrays</a></li>
+<li><a href="#/forms-and-superglobals">Forms and Superglobals</a></li>
+</ul>
+</section>
+
+<section><section id="arrays" class="title-slide slide level1"><h1>Arrays</h1></section><section id="arrays-1" class="slide level2">
+<h2>Arrays</h2>
+<ul>
+<li>PHP Arrays are <code>0</code></li>
+<li>They can be accessed with typical array operators <code>[]</code></li>
+<li>PHP will index values unless you provide one</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$animal[] = &quot;aardvark&quot;;
+$animal[] = &quot;bat&quot;;
+$animal[] = &quot;cat&quot;;
+$animal[1] = &quot;bug&quot;;
+$animal[4] = &quot;elephant&quot;;
+
+var_dump($animal);
+
+/*
+array(4) {
+  [0]=&gt;
+  string(8) &quot;aardvark&quot;
+  [1]=&gt;
+  string(3) &quot;bug&quot;
+  [2]=&gt;
+  string(3) &quot;cat&quot;
+  [4]=&gt;
+  string(8) &quot;elephant&quot;
+}
+*/</code></pre>
+</section><section id="associative-arrays" class="slide level2">
+<h2>Associative Arrays</h2>
+<ul>
+<li>Arrays can also have indexes of a string</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$name[&#39;first&#39;] = &#39;Andrew&#39;;
+$name[&#39;last&#39;] = &#39;Besmer&#39;;
+
+echo &quot;Hey there &quot; . $name[&#39;first&#39;];
+
+//Hey there Andrew</code></pre>
+</section><section id="looping-through-an-array" class="slide level2">
+<h2>Looping Through an Array</h2>
+<ul>
+<li>Never loop through a php array with a counter</li>
+<li>Always use a foreach or direct access to elements you are looking for</li>
+</ul>
+<pre class="php"><code>&lt;?php
+$name[&#39;first&#39;] = &#39;Andrew&#39;;
+$name[&#39;last&#39;] = &#39;Besmer&#39;;
+
+foreach($name as $key =&gt; $value)
+{
+    //echo &quot;Your &quot; . $key . &quot; name is &quot; . $value . &quot;.&quot;;
+    echo &quot;Your $key name is $value.&quot;;
+}
+
+
+//Your first name is Andrew.Your last name is Besmer.</code></pre>
+</section><section id="useful-array-functions" class="slide level2">
+<h2>Useful Array Functions</h2>
+<ul>
+<li><code>is_array($animals)</code> - Is <code>$animals</code> an array <code>true</code> or <code>false</code></li>
+<li><code>count($animals)</code> - Return the number of elements in the array</li>
+<li><code>sort($animals)</code> - Sorts the array elements</li>
+<li><code>explode(',', 'Blue,Green')</code> - Returns the array <code>['Blue','Green']</code></li>
+<li><code>unset($animals[0])</code> - Removes the element at index <code>0</code></li>
+<li><code>in_array(5, $values)</code> - Is <code>5</code> in the array of <code>$values</code></li>
+<li><code>isset($myArray['pos'])</code> - Does an element at position <code>pos</code> exist in <code>$myArray</code>?</li>
+</ul>
+</section><section id="string-functions" class="slide level2">
+<h2>String Functions</h2>
+<ul>
+<li>There are many string functions
+<ul>
+<li><code>strtoupper('Andrew')</code> - Returns <code>ANDREW</code></li>
+<li><code>strtolower('Andrew')</code> - Returns <code>andrew</code></li>
+<li><code>substr($myString, 1, 5)</code> - Return characters at posistions 1-5</li>
+<li><code>substr($myString, -4)</code> - Return the last 4 characters of the string</li>
+<li><code>strpos('Andrew Besmer', 'Besmer')</code> - Returns location <code>Besmer</code> is at in the string <code>7</code> or <code>false</code> if not found</li>
+</ul></li>
+<li><a href="https://www.php.net/manual/en/ref.strings.php">Complete List</a> found in documentation</li>
+</ul>
+</section></section>
+<section><section id="forms-and-superglobals" class="title-slide slide level1"><h1>Forms and Superglobals</h1></section><section id="typical-data-access" class="slide level2">
+<h2>Typical Data Access</h2>
+<ul>
+<li>Data is typically passed from the web server process by inserting that data into so called “superglobals”</li>
+<li>Data may also be inside files or databases</li>
+</ul>
+</section><section id="forms" class="slide level2">
+<h2>Forms</h2>
+<ul>
+<li><p><a href="https://www.winthrop.edu/web/site-feedback.aspx">We use forms all the time</a></p>
+<ul>
+<li>User sends data to server</li>
+<li>Server processes data
+<ul>
+<li>Mail</li>
+<li>DB</li>
+</ul></li>
+<li>Server sends data to user</li>
+</ul></li>
+</ul>
+</section><section id="forms-1" class="slide level2">
+<h2>Forms</h2>
+<form action="http://deltona.birdnest.org/~acc.besmera2/simulators/FormData/echo.php" method="GET">
+<label>First: <input type="text" name="first"></label><br> <label>Last: <input type="text" name="last"></label><br> <button type="submit">Submit</button>
+</form>
+</section><section id="sending-data" class="slide level2">
+<h2>Sending Data</h2>
+<ul>
+<li>Lets fill out this form using the following pieces of data
+<ul>
+<li>Andrew</li>
+<li>4825</li>
+<li>besmera</li>
+<li>Thurmond 304</li>
+</ul></li>
+</ul>
+<p> </p>
+<p><label><input type="text" name="first"></label><br> <label><input type="text" name="username"></label><br> <label><input type="text" name="room"></label><br> <label><input type="text" name="extension"></label><br></p>
+</section><section id="sending-data-1" class="slide level2">
+<h2>Sending Data</h2>
+<ul>
+<li>Lets fill out this form using the following pieces of data
+<ul>
+<li>Andrew</li>
+<li>4825</li>
+<li>besmera</li>
+<li>Thurmond 304</li>
+</ul></li>
+<li>Labeling/naming is neccessary for both the human AND the server</li>
+</ul>
+<p> </p>
+<p><label>Name: <input type="text" name="first"></label><br> <label>Username: <input type="text" name="username"></label><br> <label>Room: <input type="text" name="room"></label><br> <label>Ext: <input type="text" name="extension"></label><br></p>
+</section><section id="name-value-pairs" class="slide level2">
+<h2>Name Value Pairs</h2>
+<ul>
+<li>camelCaseIsUsedForMultipleWords</li>
+<li>itshardertoreadtextlikethis</li>
+</ul>
+</section><section id="query-string" class="slide level2">
+<h2>Query String</h2>
+<ul>
+<li>Starts with <code>?</code></li>
+<li>Uses name value pairs seperated by <code>=</code></li>
+<li>More than one seperated by <code>&amp;</code></li>
+<li><a href="https://upload.wikimedia.org/wikipedia/commons/d/dd/ASCII-Table.svg">URL Encoding</a></li>
+</ul>
+<pre class="html"><code>?first=Andrew&amp;last=Besmer</code></pre>
+</section><section id="try-it" class="slide level2">
+<h2>Try it</h2>
+<ul>
+<li><a href="http://deltona.birdnest.org/~acc.besmera2/simulators/FormData/echo.php">Echo Tool</a></li>
+</ul>
+</section><section id="form-structure" class="slide level2">
+<h2>Form Structure</h2>
+<ul>
+<li>Forms use the <code>form</code> tag and require two attributes
+<ul>
+<li><code>action</code> - Where the data will be sent</li>
+<li><code>method</code> - How the data will be sent</li>
+</ul></li>
+</ul>
+<pre class="html"><code>&lt;form action=&quot;http://deltona.birdnest.org/~acc.besmera2/simulators/FormData/echo.php&quot; method=&quot;GET&quot;&gt;
+
+&lt;/form&gt;</code></pre>
+</section><section id="form-methods" class="slide level2">
+<h2>Form Methods</h2>
+<ul>
+<li>GET
+<ul>
+<li>Visible in url</li>
+<li>Saved in browser history</li>
+<li>Has size limits</li>
+</ul></li>
+<li>POST
+<ul>
+<li>Sent as part of message body</li>
+<li>Not stored in browser history</li>
+<li>No practical size limits</li>
+</ul></li>
+</ul>
+</section><section id="get-form" class="slide level2">
+<h2>GET Form</h2>
+<form action="http://deltona.birdnest.org/~acc.besmera2/simulators/FormData/echo.php" method="GET">
+<label>First: <input type="text" name="first"></label><br> <label>Last: <input type="text" name="last"></label><br> <button type="submit">Submit</button>
+</form>
+<pre class="html"><code>&lt;form action=&quot;http://deltona.birdnest.org/~acc.besmera2/simulators/FormData/echo.php&quot; method=&quot;GET&quot;&gt;
+  &lt;label&gt;First: &lt;input type=&quot;text&quot; name=&quot;first&quot;&gt;&lt;/label&gt;&lt;br&gt;
+  &lt;label&gt;Last: &lt;input type=&quot;text&quot; name=&quot;last&quot;&gt;&lt;/label&gt;&lt;br&gt;
+  &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+</section><section id="post-form" class="slide level2">
+<h2>POST Form</h2>
+<form action="http://deltona.birdnest.org/~acc.besmera2/simulators/FormData/echo.php" method="POST">
+<label>First: <input type="text" name="first"></label><br> <label>Last: <input type="text" name="last"></label><br> <button type="submit">Submit</button>
+</form>
+<pre class="html"><code>&lt;form action=&quot;http://deltona.birdnest.org/~acc.besmera2/simulators/FormData/echo.php&quot; method=&quot;POST&quot;&gt;
+  &lt;label&gt;First: &lt;input type=&quot;text&quot; name=&quot;first&quot;&gt;&lt;/label&gt;&lt;br&gt;
+  &lt;label&gt;Last: &lt;input type=&quot;text&quot; name=&quot;last&quot;&gt;&lt;/label&gt;&lt;br&gt;
+  &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+</section><section id="get_post" class="slide level2">
+<h2>$_GET/$_POST</h2>
+<ul>
+<li>The superglobals <code>$_GET</code> and <code>$_POST</code> contain the name value pairs sent as part of a GET/POST request from your form<a href="#/fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></li>
+<li><code>$_SERVER</code> contains information relevant to the execution environment <code>['REQUEST_METHOD']</code> is of particular interest.</li>
+</ul>
+</section><section id="get_post-1" class="slide level2">
+<h2>$_GET/$_POST</h2>
+<pre class="php"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Hello There&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt; 
+&lt;?php
+        if($_SERVER[&#39;REQUEST_METHOD&#39;] == &#39;GET&#39;)
+        {
+            ?&gt;
+                &lt;form method=&quot;POST&quot; action=&quot;index.php&quot;&gt; 
+                    &lt;label&gt;First Name: &lt;input type=&quot;text&quot; name=&quot;firstName&quot;&gt;&lt;/input&gt;&lt;/label&gt;&lt;br /&gt; 
+                    &lt;label&gt;Last Name: &lt;input type=&quot;text&quot; name=&quot;lastName&quot;&gt;&lt;/input&gt;&lt;/label&gt;
+                    &lt;input type=&quot;submit&quot; value=&quot;Submit&quot; name=&quot;submit&quot;&gt;
+                &lt;/form&gt;
+            &lt;?php
+        } 
+        else {
+            if(isset($_POST[&#39;firstName&#39;]) &amp;&amp; isset($_POST[&#39;lastName&#39;]))
+            {
+                $firstName = &quot;Somebody&quot;;
+                $lastName = &quot;Cool&quot;;
+    
+                if($_POST[&#39;firstName&#39;] != &#39;&#39;)
+                {
+                    $firstName = $_POST[&#39;firstName&#39;];
+                }
+    
+                if($_POST[&#39;lastName&#39;] != &#39;&#39;)
+                {
+                    $lastName = $_POST[&#39;lastName&#39;];
+                }
+    
+                echo &quot;Hello there $firstName $lastName.&quot;;
+            }
+            else
+            {
+                echo &quot;Sorry you must access this page by filling out the form.&quot;;
+            }
+        }
+        ?&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<aside class="notes">
+<p>This is some notes</p>
+</aside>
+</section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>XSS has been left in example for simplicity.<a href="#/fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../reveal.js/plugin/highlight/highlight.js', async: true },
+          { src: '../../reveal.js/plugin/math/math.js', async: true },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
