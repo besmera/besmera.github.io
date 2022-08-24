@@ -7,13 +7,11 @@
 
 * Campus lab machines already have the software you need
 	* Terminal, VS Code, Node.js LTS, etc...
-* You can access these remotely using SSH and X11 forwarding
-	* Consider using compression `-C` in addition to the forwarding `-X`
-	* Windows will require installation of a seperate X11 server for example `Xming`
+* You can access these remotely using SSH and NoMachine
 	* You will need to have configured 2FA
 
 ```
-ssh -X yourusername@hopper.winthrop.edu
+ssh yourusername@hopper.winthrop.edu
 ```
 
 ## Campus Lab Machines
@@ -26,10 +24,10 @@ ssh -X yourusername@hopper.winthrop.edu
  
 * Apt is a package manager for installing applications and their dependencies
 * Use the terminal as a root user to execute the following
-* Be sure to use the LTS currently `v12`
+* Be sure to use the LTS currently `v16`
 
 ```
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
@@ -52,7 +50,7 @@ sudo apt-get install git
 ## Download Node.js
 
 * You can find the installation files at [nodejs.org](https://nodejs.org/en/download/)
-* Be sure to use the LTS currently `v12`
+* Be sure to use the LTS currently `v16`
 
 ## Download git
 
@@ -68,7 +66,7 @@ sudo apt-get install git
 ## Download Node.js
 
 * You can find the installation files at [nodejs.org](https://nodejs.org/en/download/)
-* Be sure to use the LTS currently `v12`
+* Be sure to use the LTS currently `v16`
 
 ## Download VS Code
 
@@ -84,3 +82,4 @@ brew install git
 
 * Alternatively you could use a [stand alone installer](https://sourceforge.net/projects/git-osx-installer/)
 * You may find a [GUI](https://git-scm.com/downloads/guis) helpful though I don't use one
+
