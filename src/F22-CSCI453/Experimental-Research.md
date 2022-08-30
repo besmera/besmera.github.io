@@ -35,7 +35,7 @@
 
 ## Getting Started
 
-* Start with a a research hypothesis 
+* Start with a research hypothesis 
 	* Study built around this
 	* Basis for statistical tests
 * Theory vs Hypothesis
