@@ -40,7 +40,7 @@
 ## One IV
 
 * What are the IVs? How many conditions?
-    * **H1:** *There is no difference in typing speed when using a QWERTY keyboard, a DVORAK keyboard, 1 or an alphabetically ordered keyboard.*
+    * **H1:** *There is no difference in typing speed when using a QWERTY keyboard, a DVORAK keyboard, or an alphabetically ordered keyboard.*
     * **H2:** *There is no difference in the time required to locate an item in an online store between novice users and experienced users.*
 
 ## One IV
