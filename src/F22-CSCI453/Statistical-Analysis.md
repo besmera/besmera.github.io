@@ -40,7 +40,7 @@
 
 * Organizing data
     * Accommodate to the requirements of statistical software 
-        * May need to combined participant data dispersed in many systems
+        * May need to combine participant data dispersed in many systems
             * Logs
             * Surveys
             * etc... 
