@@ -186,8 +186,7 @@ composition tasks (F(1, 42) = 1.41, n.s.). There is significant difference among
 
 ## Split-Plot ANOVA
 
-> There is no significant difference between participants who complete com-
-position or transcription tasks (F(1, 14) = 0.995, n.s.). There is a significant difference among the three text entry methods (F(2, 28) = 5.702,p < 0.01). The interaction effect between task types and text entry methods is not significant (F(2, 28) = 0.037, n.s.).
+> There is no significant difference between participants who complete composition or transcription tasks (F(1, 14) = 0.995, n.s.). There is a significant difference among the three text entry methods (F(2, 28) = 5.702,p < 0.01). The interaction effect between task types and text entry methods is not significant (F(2, 28) = 0.037, n.s.).
 
 ## Assumptions 
 
