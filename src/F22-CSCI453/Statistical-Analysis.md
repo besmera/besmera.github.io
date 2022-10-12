@@ -298,7 +298,7 @@ of 73.6% of the variance in task completion time.
 ## Hierarchical Regression
 
 * To find the relationship between DV and each IV
-* Each IV entered at a time
+* Each IV entered one at a time
 * Order of IVs depends on the predefined theoretical model
     * Important IVs
     * Covariates
