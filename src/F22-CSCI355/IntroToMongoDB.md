@@ -712,15 +712,16 @@ db.product.insert({
 db.product.insert({
   name: "Hot-wheels Car",
   qty: 10,
-  price: .99
+  price: .99,
+  company: "Matchbox"
 });
 ```
 
-## Practice (1 of 2)
+## Practice (1 of 3)
 
 
 1. Create a view showing the values of the product on hand.
-	* No option to do this with find.  Must aggregate. Still not really a view.
+	* No option to do this with find.  Must aggregate (don't know how yet). Still not really a view.
 
 <!---
 db.product.aggregate([{$project:{ prodvalue : {$multiply: ["$qty", "$price"]}}}]);
@@ -734,21 +735,19 @@ db.product.aggregate([{$project:{ prodvalue : {$multiply: ["$qty", "$price"]}}}]
    db.products.find();
 -->
 
+## Practice (2 of 3)
+
 3. Select the *product name* and the *category name* of all the products.
-
-
-
 
 <!--
   db.products.find({}, {name: 1, category: 1});
 -->
 
-## Practice (2 of 2)
-
 4. Select all the products, the categories they belong to, and the company the product is made by. 
 	* How much easier is this query compared to MySQL?
 	* What cost does this easy query come with?
 
+## Practice (3 of 3)
 
 4.1. Update the company "Stanley" to "Stanley Black and Decker" and re-run
 	* How many documents needed to be updated? 
@@ -758,7 +757,8 @@ db.product.aggregate([{$project:{ prodvalue : {$multiply: ["$qty", "$price"]}}}]
 	* Now only those made by Stanley Black and Decker.
 
 6. Delete the matchbox company.
-	* Any problems?
+	* Any problems? 
+  * What's missing?
 
 
 <!-- NOTE: REVISIT THESE SAME QUESTIONS IN ADVANCED SQL WITH INDEXING AND .EXPLAIN() -->
