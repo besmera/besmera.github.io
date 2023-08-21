@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Chapter 4">
+  <title>Statistical Analysis</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="../../assets/custom.css"/>
+  <link rel="stylesheet" href="../../reveal.js/lib/css/monokai.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal.js/css/print/pdf.css' : '../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Statistical Analysis</h1>
+  <p class="author">Chapter 4</p>
+  <p class="date">Dr. Andrew Besmer</p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/statistical-analysis">Statistical Analysis</a></li>
+<li><a href="#/questions">Questions</a></li>
+</ul>
+</section>
+
+<section><section id="statistical-analysis" class="title-slide slide level1"><h1>Statistical Analysis</h1></section><section id="prepping-data" class="slide level2">
+<h2>Prepping Data</h2>
+<ul>
+<li>Clean up data
+<ul>
+<li>Detect Errors/Invalid Data
+<ul>
+<li>Consider reasonableness: 223 year old?</li>
+<li>Did you have attention checks?</li>
+<li>Participant spent 3 seconds per questions?</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="prepping-data-1" class="slide level2">
+<h2>Prepping Data</h2>
+<ul>
+<li>Clean up data
+<ul>
+<li>Detect Errors/Invalid Data
+<ul>
+<li>Fix if possible, e.g. contact participant ask age</li>
+<li>If not possible (no link to identity, failed attention check, etc…), consider removal</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="prepping-data-2" class="slide level2">
+<h2>Prepping Data</h2>
+<ul>
+<li>Clean up data
+<ul>
+<li>Format
+<ul>
+<li>Transform <code>"I am twenty one in Jan."</code> -&gt; <code>20</code></li>
+<li>Better if you can constrain and guide them to valid inputs</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="prepping-data-3" class="slide level2">
+<h2>Prepping Data</h2>
+<ul>
+<li>Coding
+<ul>
+<li>Stats tools typically need numerical data</li>
+<li><code>No</code> -&gt; <code>0</code> <code>Yes</code> -&gt; <code>1</code></li>
+<li><code>Strongly Disagree</code> -&gt; <code>1</code> <code>Strongly Agree</code> -&gt; <code>7</code></li>
+<li>Be consistent</li>
+</ul></li>
+<li>May be <code>scale</code>, <code>ordinal</code> or <code>nominal</code>
+<ul>
+<li>Examples</li>
+</ul></li>
+</ul>
+</section><section id="prepping-data-4" class="slide level2">
+<h2>Prepping Data</h2>
+<ul>
+<li>Organizing data
+<ul>
+<li>Accommodate to the requirements of statistical software
+<ul>
+<li>May need to combine participant data dispersed in many systems
+<ul>
+<li>Logs</li>
+<li>Surveys</li>
+<li>etc…</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="descriptive-statistics" class="slide level2">
+<h2>Descriptive Statistics</h2>
+<ul>
+<li>Measures of central tendency
+<ul>
+<li>Mean</li>
+<li>Median</li>
+<li>Mode</li>
+</ul></li>
+<li>Measures of spread
+<ul>
+<li>Range</li>
+<li>Variance</li>
+<li>Standard deviations</li>
+</ul></li>
+</ul>
+</section><section id="comparing-means" class="slide level2">
+<h2>Comparing Means</h2>
+<figure>
+<img data-src="table-4.3.png" alt="Summary of Methods" /><figcaption>Summary of Methods</figcaption>
+</figure>
+</section><section id="comparing-2-means" class="slide level2">
+<h2>Comparing 2 Means</h2>
+<ul>
+<li>Students T-Test</li>
+<li>The most widely adopted method for comparing 2 means
+<ul>
+<li>Independent-samples t test: between-group design</li>
+<li>Paired-samples t test: within-group design</li>
+</ul></li>
+</ul>
+</section><section id="layout-of-independent-samples-t-test" class="slide level2">
+<h2>Layout of Independent Samples T Test</h2>
+<p><img data-src="table-4.4.png" /></p>
+</section><section id="layout-of-paired-samples-t-test" class="slide level2">
+<h2>Layout of Paired Samples T Test</h2>
+<p><img data-src="table-4.5.png" /></p>
+</section><section id="comparing-2-means-1" class="slide level2">
+<h2>Comparing 2 Means</h2>
+<ul>
+<li>Interpretation of t test results:
+<ul>
+<li>Larger t value: higher probability of the null hypothesis being false</li>
+<li>t value needs to be reported together with the degree of freedom and the level of significance</li>
+</ul></li>
+<li>Two-tailed t test vs. one-tailed t test
+<ul>
+<li>Whether the hypothesis indicates the direction of the difference</li>
+</ul></li>
+</ul>
+</section><section id="comparing-2-means-2" class="slide level2">
+<h2>Comparing 2 Means</h2>
+<blockquote>
+<p>An independent-samples t test suggests that there is significant difference in the task completion time between the group who used the standard word-processing software and the group who used word-processing software with word prediction functions (t(15) = 2.169, p &lt; 0.05).</p>
+</blockquote>
+</section><section id="comparing-2-or-more-means" class="slide level2">
+<h2>Comparing 2 or More Means</h2>
+<ul>
+<li>Analysis of variance (ANOVA)
+<ul>
+<li>Also called F tests</li>
+<li>One-way ANOVA used for between-group design</li>
+</ul></li>
+</ul>
+</section><section id="comparing-2-or-more-means-1" class="slide level2">
+<h2>Comparing 2 or More Means</h2>
+<p><img data-src="table-4.6.png" /></p>
+</section><section id="comparing-2-or-more-means-2" class="slide level2">
+<h2>Comparing 2 or More Means</h2>
+<p><img data-src="table-4.7.png" /></p>
+</section><section id="comparing-2-or-more-means-3" class="slide level2">
+<h2>Comparing 2 or More Means</h2>
+<blockquote>
+<p>A one-way ANOVA test using task completion time as the dependent variable and group as the independent variable suggests that there is no significant difference among the three conditions (F(2, 21) = 2.174, n.s.).</p>
+</blockquote>
+</section><section id="factorial-anova" class="slide level2">
+<h2>Factorial ANOVA</h2>
+<ul>
+<li>For between-group design</li>
+<li>2 or more independent variables involved</li>
+</ul>
+<p><img data-src="table-4.8.png" /></p>
+</section><section id="factorial-anova-1" class="slide level2">
+<h2>Factorial ANOVA</h2>
+<p><img data-src="table-4.9.png" /></p>
+</section><section id="factorial-anova-2" class="slide level2">
+<h2>Factorial ANOVA</h2>
+<p><img data-src="table-4.10.png" /></p>
+</section><section id="factorial-anova-3" class="slide level2">
+<h2>Factorial ANOVA</h2>
+<blockquote>
+<p>The analysis result suggests that there is no significant difference between participants who completed the transcription tasks and those who completed the composition tasks (F(1, 42) = 1.41, n.s.). There is significant difference among participants who used different text entry methods (F(2, 42) = 4.51, p &lt; 0.05).</p>
+</blockquote>
+</section><section id="repeated-measures-anova" class="slide level2">
+<h2>Repeated Measures ANOVA</h2>
+<ul>
+<li>For within-group design</li>
+<li>Can investigate one or more variables
+<ul>
+<li>One Way -&gt; One IV w/mult levels</li>
+<li>Two Way -&gt; Two or More IV w/mult levels</li>
+</ul></li>
+</ul>
+</section><section id="one-way-repeated-measures-anova" class="slide level2">
+<h2>One Way Repeated Measures ANOVA</h2>
+<p><img data-src="table-4.11.png" /></p>
+</section><section id="one-way-repeated-measures-anova-1" class="slide level2">
+<h2>One Way Repeated Measures ANOVA</h2>
+<p><img data-src="table-4.12.png" /></p>
+</section><section id="two-way-repeated-measures-anova" class="slide level2">
+<h2>Two Way Repeated Measures ANOVA</h2>
+<p><img data-src="table-4.13.png" /></p>
+</section><section id="two-way-repeated-measures-anova-1" class="slide level2">
+<h2>Two Way Repeated Measures ANOVA</h2>
+<p><img data-src="table-4.14.png" /></p>
+</section><section id="two-way-repeated-measures-anova-2" class="slide level2">
+<h2>Two Way Repeated Measures ANOVA</h2>
+<p><img data-src="table-4.15.png" /></p>
+</section><section id="two-way-repeated-measures-anova-3" class="slide level2">
+<h2>Two Way Repeated Measures ANOVA</h2>
+<blockquote>
+<p>The task type has a significant impact on the time spent to complete the task (F(1, 7) = 14.217, p &lt; 0.01). There is no significant difference among the three text entry methods (F(2, 14) = 2.923, n.s.). The interaction effect between the two independent variables is not significant either (F(2, 14) = 0.759, n.s.).</p>
+</blockquote>
+</section><section id="split-plot-anova" class="slide level2">
+<h2>Split-Plot ANOVA</h2>
+<ul>
+<li>Involves both between-group and within-group factors</li>
+<li>Between group task type, within group is entry method
+<ul>
+<li>Reduces study time/participants needed</li>
+<li>Controls learning effect somewhat</li>
+</ul></li>
+</ul>
+<p><img data-src="table-4.16.png" /></p>
+</section><section id="split-plot-anova-1" class="slide level2">
+<h2>Split-Plot ANOVA</h2>
+<p><img data-src="table-4.17.png" /></p>
+</section><section id="split-plot-anova-2" class="slide level2">
+<h2>Split-Plot ANOVA</h2>
+<ul>
+<li>Between Group Variable (Task Type)</li>
+</ul>
+<p><img data-src="table-4.18.png" /></p>
+</section><section id="split-plot-anova-3" class="slide level2">
+<h2>Split-Plot ANOVA</h2>
+<ul>
+<li>Within Group Variable (Entry Method)</li>
+</ul>
+<p><img data-src="table-4.19.png" /></p>
+</section><section id="split-plot-anova-4" class="slide level2">
+<h2>Split-Plot ANOVA</h2>
+<blockquote>
+<p>There is no significant difference between participants who complete composition or transcription tasks (F(1, 14) = 0.995, n.s.). There is a significant difference among the three text entry methods (F(2, 28) = 5.702,p &lt; 0.01). The interaction effect between task types and text entry methods is not significant (F(2, 28) = 0.037, n.s.).</p>
+</blockquote>
+</section><section id="assumptions" class="slide level2">
+<h2>Assumptions</h2>
+<ul>
+<li>Assumptions of t tests and F tests
+<ul>
+<li>Errors should be independent of each other
+<ul>
+<li>E.g. two investigators, one provides more instruction</li>
+</ul></li>
+<li>Errors should be identically distributed
+<ul>
+<li>“Homogeneity of variance”</li>
+</ul></li>
+<li>Errors should be normally distributed
+<ul>
+<li>Skewed data (positive or negative)</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="non-parametric-tests" class="slide level2">
+<h2>Non-parametric Tests</h2>
+<ul>
+<li>Non-parametric tests are used when:
+<ul>
+<li>The error is not normally distributed</li>
+<li>The distances between any two data units are not equal</li>
+<li>The variance of error is not equal</li>
+</ul></li>
+</ul>
+</section><section id="chi-squared-test" class="slide level2">
+<h2>CHI Squared Test</h2>
+<ul>
+<li>Used to analyze categorical data</li>
+<li>Table of frequency counts (contingency table)</li>
+<li>Degree of freedom = ( Number of rows - 1 ) x ( Number of columns - 1 )</li>
+<li>Assumptions of the test
+<ul>
+<li>Data points need to be independent</li>
+<li>The sample size should not be too small</li>
+</ul></li>
+</ul>
+<p><img data-src="table-4.25.png" /></p>
+</section><section id="chi-squared-test-1" class="slide level2">
+<h2>CHI Squared Test</h2>
+<blockquote>
+<p>A CHI Squared Test (χ2 (1) = 10.1, p &lt; 0.05) suggests that the probability of the difference between the rows and columns occurring by chance is less than 0.05 we therefore reject the null hypothesis and conclude that there is a relationship between age and preferred pointing device.</p>
+</blockquote>
+</section><section id="non-parametric-tests-to-compare-means" class="slide level2">
+<h2>Non-parametric Tests to Compare Means</h2>
+<ul>
+<li>Comparing two groups of data
+<ul>
+<li>For between-group design: Mann–Whitney U test or the Wald–Wolfowitz runs test
+<ul>
+<li>Nonparametric alternative to the independent-samples t test</li>
+</ul></li>
+<li>For within-group design: Wilcoxon signed ranks test
+<ul>
+<li>Nonparametric alternative to the paired-samples t test</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="non-parametric-tests-to-compare-means-1" class="slide level2">
+<h2>Non-parametric Tests to Compare Means</h2>
+<ul>
+<li>Comparing three or more groups of data
+<ul>
+<li>For between-group design: Kruskal–Wallis one-way analysis of variance by ranks
+<ul>
+<li>Nonparametric alternative to the one-way ANOVA</li>
+</ul></li>
+<li>For within-group design: Friedman’s two-way analysis of variance test
+<ul>
+<li>Nonparametric alternative to the Repeated Measures ANOVA</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="identify-relationships" class="slide level2">
+<h2>Identify Relationships</h2>
+<ul>
+<li>Correlation
+<ul>
+<li>Two factors are correlated if there is a relationship between them</li>
+</ul></li>
+<li>Most commonly used test is Pearson’s product moment correlation coefficient</li>
+<li>Pearson’s r: ranges between -1 to 1</li>
+<li>Pearson’s r square represents the proportion of the variance shared by the two variables</li>
+</ul>
+</section><section id="identify-relationships-1" class="slide level2">
+<h2>Identify Relationships</h2>
+<ul>
+<li>Correlation does not imply causal relationship</li>
+</ul>
+<p><img data-src="figure-4.2.png" /></p>
+</section><section id="identify-relationships-2" class="slide level2">
+<h2>Identify Relationships</h2>
+<ul>
+<li>Regression
+<ul>
+<li>Can investigate the relationship between one DV and multiple IVs</li>
+</ul></li>
+<li>Regression is used for:
+<ul>
+<li>Model construction</li>
+<li>Prediction</li>
+</ul></li>
+<li>Different regression procedures
+<ul>
+<li>Simultaneous</li>
+<li>Hierarchical</li>
+</ul></li>
+</ul>
+</section><section id="simultaneous-regression" class="slide level2">
+<h2>Simultaneous Regression</h2>
+<ul>
+<li>To find the relationship between DV and IVs as a group</li>
+<li>What percentage of variance does the set of IV’s explain in terms of the DV?</li>
+<li>All IVs entered simultaneously</li>
+</ul>
+</section><section id="simultaneous-regression-1" class="slide level2">
+<h2>Simultaneous Regression</h2>
+<p><img data-src="table-4.23.png" /></p>
+</section><section id="simultaneous-regression-2" class="slide level2">
+<h2>Simultaneous Regression</h2>
+<blockquote>
+<p>There is a significant relationship between task completion time and the independent variables as a group (F(4, 59) = 41.147, p &lt; 0.001). Age, computer experience, target size, and navigation distance explain a total of 73.6% of the variance in task completion time.</p>
+</blockquote>
+</section><section id="hierarchical-regression" class="slide level2">
+<h2>Hierarchical Regression</h2>
+<ul>
+<li>To find the relationship between DV and each IV</li>
+<li>Each IV entered one at a time</li>
+<li>Order of IVs depends on the predefined theoretical model
+<ul>
+<li>Important IVs</li>
+<li>Covariates</li>
+</ul></li>
+</ul>
+</section><section id="hierarchical-regression-1" class="slide level2">
+<h2>Hierarchical Regression</h2>
+<p><img data-src="table-4.24.png" /></p>
+</section><section id="hierarchical-regression-2" class="slide level2">
+<h2>Hierarchical Regression</h2>
+<blockquote>
+<p>Target size explains a significant percentage of the variance (31.9%) in task completion time (F(1, 62) = 29.054, p &lt; 0.001). Navigation distance also has a significant impact on task completion time (F(1, 61) = 8.615, p &lt; 0.01). … …</p>
+</blockquote>
+</section></section>
+<section><section id="questions" class="title-slide slide level1"><h1>Questions</h1></section><section id="questions-1" class="slide level2">
+<h2>Questions</h2>
+<p>Questions?</p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../reveal.js/plugin/highlight/highlight.js', async: true },
+          { src: '../../reveal.js/plugin/math/math.js', async: true },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
