@@ -728,9 +728,9 @@ Insert INTO Product (name, category, company, qty, price) Select "Hot-wheels Car
 
 ## JOIN Practice
 
-1) Create a view showing the *id*, *name of the product*, and *values of the product on hand* (*qty* x *price*). 
+1) Create a view showing the *id*, *name of the product*, and *values of the product on hand* (*qty* x *price*).
 2) Select the *product name* and the *category name* of all the products that actually have categories. 
-3) Select the *product name* and the *category name* of all the products. (Even if they don't have categories.) 
+3) Select the *product name* and the *category name* of all the products. (Even if they do not have categories.) 
 
 ## JOIN Practice
 
