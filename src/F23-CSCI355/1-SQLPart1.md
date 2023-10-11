@@ -88,13 +88,24 @@ CREATE TABLE Product (
 | `TINYINT Signed`      | 1     | -128                 | 127                  |
 | `TINYINT Unsigned`    |       | 0                    | 255                  |
 | `SMALLINT Signed`     | 2     | -32768               | 32767                | 
+
+
+## Integers
+
+| Type                  | Bytes | Min                  | Max                  | 
+| :---:                 | :---: | ---:                 |  ---:                |
 | `SMALLINT Unsigned`   |       | 0                    | 65535                |
 | `MEDIUMINT Signed`    | 3     |  -8388608            | 8388607              |
 | `MEDIUMINT Unsigned`  |       | 0                    | 16777215             |
 | `INT Signed`          | 4     | -2147483648          | 2147483647           |
+
+## Integers
+
+| Type                  | Bytes | Min                  | Max                  | 
+| :---:                 | :---: | ---:                 |  ---:                |
 | `INT Unsigned`        |       | 0                    | 4294967295           |
-| `BIGINT Signed`       | 8     | -9223372036854775808 | 9223372036854775807  |
-| `BIGINT Unsigned`     |       | 0                    | 18446744073709551615 |
+| `BIGINT Signed`       | 8     | -9223372036 854775808 | 9223372036 854775807  |
+| `BIGINT Unsigned`     |       | 0                    | 1844674407 3709551615 |
 
 ## Integers
 
