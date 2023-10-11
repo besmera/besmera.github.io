@@ -927,9 +927,9 @@ Insert INTO Product (name, category, company, qty, price) Select &quot;Hot-wheel
 </section><section id="join-practice" class="slide level2">
 <h2>JOIN Practice</h2>
 <ol type="1">
-<li>Create a view showing the values of the product on hand.</li>
-<li>Select all the products and the category that the product is in.</li>
-<li>Select the <em>product name</em> and the <em>category name</em> of all the products.</li>
+<li>Create a view showing the <em>id</em>, <em>name of the product</em>, and <em>values of the product on hand</em> (<em>qty</em> x <em>price</em>).</li>
+<li>Select the <em>product name</em> and the <em>category name</em> of all the products that actually have categories.</li>
+<li>Select the <em>product name</em> and the <em>category name</em> of all the products. (Even if they don’t have categories.)</li>
 </ol>
 </section><section id="join-practice-1" class="slide level2">
 <h2>JOIN Practice</h2>
@@ -942,9 +942,13 @@ Insert INTO Product (name, category, company, qty, price) Select &quot;Hot-wheel
 <ul>
 <li>Now only those made by Stanley Black and Decker.</li>
 </ul></li>
+</ol>
+</section><section id="join-practice-2" class="slide level2">
+<h2>JOIN Practice</h2>
+<ol start="6" type="1">
 <li>Delete the LEGO company.
 <ul>
-<li>Why did this happen?</li>
+<li>What happened? Why?</li>
 <li>What can you do? Do it! Try again.</li>
 </ul></li>
 </ol>
@@ -1094,7 +1098,7 @@ INSERT INTO Tweet (text, user) SELECT &quot;who ariane&quot;, id FROM User where
 <h2>M:N JOIN Twitter</h2>
 <ol start="3" type="1">
 <li><p>Add a <code>Tweet</code> for someone who you had Elon Musk follow and someone who he did not follow.</p></li>
-<li><p>Rerun your SQL statement to show the twitter feed. You should see only 1 new tweet, not 2.</p></li>
+<li><p>Rerun your SQL statement to show the twitter feed. How many <em>new</em> Tweets did you see?</p></li>
 </ol>
 </section></section>
 <section class="footnotes">

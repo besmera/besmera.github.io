@@ -728,9 +728,9 @@ Insert INTO Product (name, category, company, qty, price) Select "Hot-wheels Car
 
 ## JOIN Practice
 
-1) Create a view showing the values of the product on hand.
-2) Select all the products and the category that the product is in.
-3) Select the *product name* and the *category name* of all the products.
+1) Create a view showing the *id*, *name of the product*, and *values of the product on hand* (*qty* x *price*). 
+2) Select the *product name* and the *category name* of all the products that actually have categories. 
+3) Select the *product name* and the *category name* of all the products. (Even if they don't have categories.) 
 
 ## JOIN Practice
 
@@ -738,8 +738,11 @@ Insert INTO Product (name, category, company, qty, price) Select "Hot-wheels Car
 	* Update the company Stanley to Stanley Black and Decker and rerun
 5) Select all the products in the tools category with a price greater than 10.00.
 	* Now only those made by Stanley Black and Decker.
+
+## JOIN Practice
+
 6) Delete the LEGO company.
-	* Why did this happen?
+	* What happened? Why? 
 	* What can you do? Do it! Try again.
 
 
@@ -893,5 +896,4 @@ INSERT INTO Tweet (text, user) SELECT "who ariane", id FROM User where name = "A
 
 3. Add a `Tweet` for someone who you had Elon Musk follow and someone who he did not follow.
 
-4. Rerun your SQL statement to show the twitter feed.  You should see only 1 new tweet, not 2.
-
+4. Rerun your SQL statement to show the twitter feed.  How many *new* Tweets did you see?
