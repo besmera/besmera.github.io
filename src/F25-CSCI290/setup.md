@@ -24,10 +24,10 @@ ssh yourusername@hopper.winthrop.edu
  
 * Apt is a package manager for installing applications and their dependencies
 * Use the terminal as a root user to execute the following
-* Be sure to use the LTS currently `v16`
+* Be sure to use the LTS currently `v22`
 
 ```
-curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_22.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
