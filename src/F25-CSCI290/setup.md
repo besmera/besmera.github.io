@@ -50,7 +50,7 @@ sudo apt-get install git
 ## Download Node.js
 
 * You can find the installation files at [nodejs.org](https://nodejs.org/en/download/)
-* Be sure to use the LTS currently `v16`
+* Be sure to use the LTS currently `v22`
 
 ## Download git
 
@@ -66,7 +66,7 @@ sudo apt-get install git
 ## Download Node.js
 
 * You can find the installation files at [nodejs.org](https://nodejs.org/en/download/)
-* Be sure to use the LTS currently `v16`
+* Be sure to use the LTS currently `v22`
 
 ## Download VS Code
 
