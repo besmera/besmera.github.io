@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer">
+  <title>Node.js</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="../../assets/custom.css"/>
+  <link rel="stylesheet" href="../../reveal.js/lib/css/monokai.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal.js/css/print/pdf.css' : '../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Node.js</h1>
+  <p class="author">Dr. Andrew Besmer</p>
+  <p class="date">Events</p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/events">Events</a></li>
+<li><a href="#/streams">Streams</a></li>
+<li><a href="#/line-counter">Line Counter</a></li>
+</ul>
+</section>
+
+<section><section id="events" class="title-slide slide level1"><h1>Events</h1></section><section id="events-1" class="slide level2">
+<h2>Events</h2>
+<ul>
+<li>You may have experience with events using jQuery</li>
+</ul>
+<pre class="javascript"><code>$(&quot;#albums&quot;).on(&quot;click&quot;, &quot;.album&quot;,function(){
+    //Do something with this album
+});</code></pre>
+</section><section id="node-events" class="slide level2">
+<h2>Node Events</h2>
+<ul>
+<li>Node events are similar in that you can listen for them using <code>.on()</code></li>
+<li>Events you can listen for are <code>emit()</code>ed from objects</li>
+<li>If an object emits events it must be a child of <code>EventEmitter</code></li>
+</ul>
+<pre class="javascript"><code>var EventEmitter = require(&#39;events&#39;).EventEmitter;
+
+var attendant = new EventEmitter();
+
+attendant.on(&#39;door bell&#39;, function(){
+        console.log(&quot;Answer the door&quot;);
+});
+
+//at some random point
+
+attendant.emit(&#39;door bell&#39;);</code></pre>
+</section><section id="node-events-1" class="slide level2">
+<h2>Node Events</h2>
+<ul>
+<li>You can also pass relevant data with events</li>
+</ul>
+<pre class="javascript"><code>var EventEmitter = require(&#39;events&#39;).EventEmitter;
+
+var attendant = new EventEmitter();
+
+attendant.on(&#39;door bell&#39;, function(eventTime, eventRandNum){
+        console.log(&quot;Answered the door for &quot;, eventTime, &quot; and random number&quot;, eventRandNum);
+});
+
+//at some random point
+
+attendant.emit(&#39;door bell&#39;, Date.now(), Math.random());</code></pre>
+</section><section id="node-events-2" class="slide level2">
+<h2>Node Events</h2>
+<ul>
+<li>Many of the node objects will emit events for your to listen to
+<ul>
+<li><code>http</code> emits <code>request</code> events</li>
+<li>The http <code>request</code> object will emit <code>data</code> as the request comes in</li>
+</ul></li>
+</ul>
+</section><section id="http-server" class="slide level2">
+<h2>HTTP Server</h2>
+<ul>
+<li>Setup a basic http server by listening for the <code>request</code> event</li>
+</ul>
+<pre class="javascript"><code>var http = require(&#39;http&#39;);
+var server = http.createServer();
+server.on(&#39;request&#39;, function(request, response){
+        console.log(&quot;http request event fired!&quot;);
+        response.end(&quot;http request event fired!&quot;);
+});
+server.listen(8000);</code></pre>
+</section><section id="http-server-1" class="slide level2">
+<h2>HTTP Server</h2>
+<ul>
+<li>Alternatively
+<ul>
+<li>See <a href="http://nodejs.org/api/">the docs</a></li>
+</ul></li>
+</ul>
+<pre class="javascript"><code>var http = require(&#39;http&#39;);
+http.createServer(function(request, response){
+        console.log(&quot;http request event fired!&quot;);
+        response.end(&quot;http request event fired!&quot;);
+}).listen(8000);</code></pre>
+</section></section>
+<section><section id="streams" class="title-slide slide level1"><h1>Streams</h1></section><section id="streams-1" class="slide level2">
+<h2>Streams</h2>
+<ul>
+<li>According to Node.js</li>
+</ul>
+<blockquote>
+<p>A stream is an abstract interface implemented by various objects in Node. For example a request to an HTTP server is a stream, as is stdout. Streams are readable, writable, or both. All streams are instances of EventEmitter.</p>
+</blockquote>
+</section><section id="streams-2" class="slide level2">
+<h2>Streams</h2>
+<ul>
+<li>A stream <code>.write()</code> will return whether or not there is more space in the buffer
+<ul>
+<li>If there is no space in the buffer you will begin exhausting RAM</li>
+</ul></li>
+</ul>
+</section><section id="streams-3" class="slide level2">
+<h2>Streams</h2>
+<ul>
+<li>One option is to <code>.pause()</code> the stream you are reading from and waiting for the write stream to <code>drain()</code></li>
+</ul>
+<pre class="javascript"><code>var http = require(&#39;http&#39;);
+
+http.createServer(function(request, response){
+        request.on(&#39;data&#39;, function(data){
+                if(response.write(data) == false)
+                    request.pause();
+        });
+
+        response.on(&#39;drain&#39;, function(){
+            request.resume();
+        })
+
+        request.on(&#39;end&#39;, function(){
+                response.writeHead(200);
+                response.end();
+        });
+}).listen(8000);</code></pre>
+</section><section id="piping" class="slide level2">
+<h2>Piping</h2>
+<ul>
+<li>Another option is using a pipe</li>
+<li>Piping does handles the pause, resuming for you</li>
+</ul>
+<pre class="javascript"><code>var http = require(&#39;http&#39;);
+
+http.createServer(function(request, response){
+        request.pipe(response);
+        request.on(&#39;end&#39;,function(){
+            response.end();
+        });
+}).listen(8000);</code></pre>
+</section><section id="file-uploads" class="slide level2">
+<h2>File Uploads</h2>
+<ul>
+<li>Pipe is useful for file uploads, why?</li>
+</ul>
+<pre class="javascript"><code>var fs = require(&#39;fs&#39;);
+var http = require(&#39;http&#39;);
+
+http.createServer(function(request, response) {
+    var outFile = fs.createWriteStream(&quot;outFile&quot;);
+    var uploadSize = request.headers[&#39;content-length&#39;];
+    var uploadedBytes = 0;
+
+    request.pipe(outFile);
+
+    request.on(&#39;data&#39;, function(data) {
+        uploadedBytes += data.length;
+        response.write(((uploadedBytes / uploadSize) * 100) + &quot;%\n&quot;);
+    });
+
+    request.on(&#39;end&#39;, function() {
+        response.end(&quot;Complete\n&quot;);
+    });
+}).listen(8000);</code></pre>
+</section></section>
+<section><section id="line-counter" class="title-slide slide level1"><h1>Line Counter</h1></section><section id="line-counter-1" class="slide level2">
+<h2>Line Counter</h2>
+<ul>
+<li>Allows counting of large files quickly</li>
+</ul>
+<pre class="javascript"><code>let numLines = 0;
+
+let lineReader = require(&quot;readline&quot;).createInterface({
+    input: require(&#39;fs&#39;).createReadStream(&quot;amazon_reviews_us_Mobile_Apps_v1_00.tsv&quot;)
+});
+
+lineReader.on(&#39;line&#39;, function(line){
+    numLines++;
+});
+
+lineReader.on(&#39;close&#39;, function(){
+    console.log(&quot;We read the file and there are &quot;, numLines, &quot; in the file.&quot;);
+});</code></pre>
+</section></section>
+    </div>
+  </div>
+
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../reveal.js/plugin/highlight/highlight.js', async: true },
+          { src: '../../reveal.js/plugin/math/math.js', async: true },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>

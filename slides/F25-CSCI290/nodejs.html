@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Andrew Besmer">
+  <title>Node.js</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="../../reveal.js/css/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="../../assets/custom.css"/>
+  <link rel="stylesheet" href="../../reveal.js/lib/css/monokai.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal.js/css/print/pdf.css' : '../../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Node.js</h1>
+  <p class="author">Dr. Andrew Besmer</p>
+  <p class="date">The Basics</p>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/overview">Overview</a></li>
+<li><a href="#/node">Node</a></li>
+</ul>
+</section>
+
+<section><section id="overview" class="title-slide slide level1"><h1>Overview</h1></section><section id="what-is-node.js" class="slide level2">
+<h2>What is Node.js</h2>
+<ul>
+<li>Environment to run JavaScript
+<ul>
+<li>Uses the Google v8 engine</li>
+<li>Event Driven</li>
+<li>Non-Blocking</li>
+<li>Comes with API</li>
+</ul></li>
+<li>Good for I/O tasks
+<ul>
+<li>Web server for data</li>
+<li>Chat/real-time social media server</li>
+</ul></li>
+<li>Not good for CPU tasks
+<ul>
+<li>Resizing photographs</li>
+</ul></li>
+</ul>
+</section><section id="comparison-example" class="slide level2">
+<h2>Comparison Example</h2>
+<ul>
+<li>Node vs PHP</li>
+</ul>
+<pre class="javascript"><code>//start_finish.js
+var http = require(&#39;http&#39;);
+
+http.createServer(function(request, response) {
+  response.writeHead(200);
+  response.write(&quot;Started.\n&quot;);
+  setTimeout(function () {
+    response.write(&quot;Finished.\n&quot;);
+    response.end();
+  }, 5000); 
+}).listen(8000);
+
+console.log(&#39;listening on port 8000...&#39;);</code></pre>
+<pre class="php"><code>//start_finish.php
+&lt;?php
+
+echo &quot;Started&quot;;
+
+sleep(5);
+
+echo &quot;Finished&quot;;</code></pre>
+<pre class="bash"><code>ab -r -n 1000 -c 1000 http://node
+ab -r -n 1000 -c 1000 http://php</code></pre>
+</section><section id="what-happened" class="slide level2">
+<h2>What Happened?</h2>
+<ul>
+<li>Breakdown of the Apache vs Node Requests</li>
+<li>Node.js uses a single process
+<ul>
+<li>Event Loop</li>
+<li>Blocking vs Non-Blocking
+<ul>
+<li><code>start_finish.js</code> timeline comparrison blocking vs non-blocking</li>
+</ul>
+<pre><code>var startTime = new Date().getTime();
+while (new Date().getTime() &lt; startTime + 5000);</code></pre></li>
+</ul></li>
+</ul>
+</section><section id="io-latency" class="slide level2">
+<h2>I/O Latency</h2>
+<ul>
+<li>L1 CPU Cache: 3 CPU cycles</li>
+<li>L2 CPU Cache: 14 CPU cycles</li>
+<li>RAM: 250 CPU cycles</li>
+<li>DISK: 41,000,000 cycles</li>
+<li>NETWORK: 240,000,000 cycles</li>
+</ul>
+</section></section>
+<section><section id="node" class="title-slide slide level1"><h1>Node</h1></section><section id="create-an-app" class="slide level2">
+<h2>Create an App</h2>
+<ul>
+<li>Creating a node app is easy… make a JavaScript file
+<ul>
+<li>Regular JavaScript syntax</li>
+</ul></li>
+</ul>
+<pre><code>//hello.js
+var name = &quot;World&quot;
+console.log(&quot;Hello &quot; + name);</code></pre>
+</section><section id="node-globals" class="slide level2">
+<h2>Node Globals</h2>
+<ul>
+<li>Commonly used globals <a href="#/fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
+<ul>
+<li><code>__filename</code> - Absolute path to file executing the code</li>
+<li><code>__dirname</code> - Absolute path to directory the code is in</li>
+<li><code>module</code> - Reference to the current module</li>
+<li><code>exports</code> - Reference to <code>module.exports</code> used to provide</li>
+<li><code>process</code> - Work with the current running node process
+<ul>
+<li><code>process.argv</code> - Get the argument vector</li>
+</ul></li>
+</ul></li>
+<li>And some familar
+<ul>
+<li><code>setTimeout()</code>, <code>setInterval()</code>, <code>clearInterval()</code>, <code>console()</code></li>
+</ul></li>
+</ul>
+</section><section id="assignment-1---hello-world" class="slide level2">
+<h2>Assignment 1 - Hello World!</h2>
+<ul>
+<li>Remake the hello world app using <code>process.argv</code></li>
+</ul>
+</section></section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Note that some of these are per module thus not actually global<a href="#/fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+    </div>
+  </div>
+
+  <script src="../../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: '../../reveal.js/plugin/highlight/highlight.js', async: true },
+          { src: '../../reveal.js/plugin/math/math.js', async: true },
+          { src: '../../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
